@@ -61,7 +61,6 @@ public class CheckInPerson implements Serializable{
 		this.check_in_person_ID_card = check_in_person_ID_card;
 	}
 
-	@Override
 	public String toString() {
 		return "CheckInPerson [check_in_person_id=" + check_in_person_id
 				+ ", grogshop_order_id=" + grogshop_order_id
