@@ -10,11 +10,20 @@ import java.io.Serializable;
 public class Facilities implements Serializable{
 	private static final long serialVersionUID = 1L;
 	/*
-	 * 
+	 * 设施ID
 	 */
 	private Integer facilities_id;
+	/*
+	 * 房子ID
+	 */
 	private Integer house_id;
+	/*
+	 * 设施名
+	 */
 	private String facilities_name;
+	/*
+	 * 设施图片
+	 */
 	private String facilities_img;
 	
 	public Facilities() {
