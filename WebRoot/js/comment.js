@@ -1,0 +1,1 @@
+var basePath = "http://localhost:80/BlogDemo/";

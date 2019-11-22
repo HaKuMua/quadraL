@@ -67,4 +67,5 @@ public class CheckInPerson implements Serializable{
 				+ ", check_in_person_name=" + check_in_person_name
 				+ ", check_in_person_ID_card=" + check_in_person_ID_card + "]";
 	}
+	
 }
