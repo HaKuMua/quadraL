@@ -40,6 +40,10 @@ public class Landlord implements Serializable{
 	 * 提前多少天通知顾客入住
 	 */
 	private Integer inform_date;
+	/*
+	 * 真实姓名
+	 */
+	private String real_name;
 	
 	public Landlord() {
 	}
@@ -107,6 +111,14 @@ public class Landlord implements Serializable{
 	public void setInform_date(Integer inform_date) {
 		this.inform_date = inform_date;
 	}
+	
+	public String getReal_name() {
+		return real_name;
+	}
+
+	public void setReal_name(String real_name) {
+		this.real_name = real_name;
+	}
 
 	public String toString() {
 		return "Landlord [landlord_id=" + landlord_id
@@ -114,7 +126,7 @@ public class Landlord implements Serializable{
 				+ ", landlord_name=" + landlord_name + ", landlord_describe="
 				+ landlord_describe + ", landlord_IDcard=" + landlord_IDcard
 				+ ", landlord_email=" + landlord_email + ", landlord_phone="
-				+ landlord_phone + ", inform_date=" + inform_date + "]";
+				+ landlord_phone + ", inform_date=" + inform_date
+				+ ", real_name=" + real_name + "]";
 	}
-	
 }
