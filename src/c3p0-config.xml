@@ -2,7 +2,7 @@
 <c3p0-config>
 	<default-config>
 		<!-- 数据库驱动包 -->
-		<property name="driverClass">oracle.jdbc.OracleDriver</property>
+		<property name="driverClass">com.mysql.jdbc.Driver</property>
 		<!-- 数据库连接URL -->
 		<property name="jdbcUrl">jdbc:mysql://121.40.58.248:3306/quadraL?characterEncoding=utf-8</property>
 		<!-- 用户名 -->
