@@ -1,3 +1,4 @@
+
 package com.zj.entity;
 
 import java.io.Serializable;
@@ -69,3 +70,4 @@ public class Facilities implements Serializable{
 	
 	
 }
+
