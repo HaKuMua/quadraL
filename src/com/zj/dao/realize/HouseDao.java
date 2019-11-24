@@ -18,12 +18,21 @@ import com.zj.entity.House;
  *房子数据库操作实现类
  */
 public class HouseDao implements HouseDaoImpl{
+	/*
+	 * 获取jdbc连接
+	 */
 	private QueryRunner qr = new QueryRunner();
 	private Connection conn = GetConn.getConn();
+	/*
+	 * 获取所有房子信息方法
+	 */
 	public List<House> getAllHouseInfo() throws SQLException {
 		String sql = "select * from house";
 		return qr.query(conn, sql, new BeanListHandler<House>(House.class));
 	}
+	/*
+	 * 通过房子ID获取单个房子信息方法接口
+	 */
 	public House getHouseInfoByID(Integer HouseID) throws SQLException {
 		String sql = "select * from house where house_id=?";
 		return qr.query(conn, sql, new BeanHandler<House>(House.class),HouseID);

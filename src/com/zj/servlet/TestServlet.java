@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONObject;
 
 import com.zj.service.HouseService;
+import com.zj.service.LandlordService;
 import com.zj.service.UserService;
 
 import cn.com.uitl.BaseServlet;
@@ -23,7 +24,10 @@ public class TestServlet extends BaseServlet {
 	private static final long serialVersionUID = 1L;
 	private UserService userService = new UserService();
 	private HouseService houseService = new HouseService();
+	private LandlordService landlordService = new LandlordService();
 	public String callback;
+	public String house_id;
+	public String landlord_phone;
 	
 	public void getAllHouseInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		List<Map<String, Object>> list = houseService.getAllHouseInfo();
@@ -34,7 +38,7 @@ public class TestServlet extends BaseServlet {
 		response.getWriter().print(callback+"("+obj+")");
 	}
 	
-	public void getAllGrogshopOrderInfo(HttpServletRequest request, HttpServletResponse response) {
+	public void getAllGrogshopOrderInfo(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		List<Map<String, Object>> list = houseService.getAllHouseInfo();
 		System.out.println(list);
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -42,4 +46,12 @@ public class TestServlet extends BaseServlet {
 		JSONObject obj = new JSONObject(map);
 		response.getWriter().print(callback+"("+obj+")");
 	}
+	public void getHouseInfoByID(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		Map<String, Object> map = houseService.getHouseInfoByID(Integer.valueOf(house_id));
+		System.out.println(map);
+		JSONObject obj = new JSONObject(map);
+		response.getWriter().print(callback+"("+obj+")");
+	}
+	
+	
 }

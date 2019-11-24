@@ -37,7 +37,7 @@ public class User implements Serializable{
 	/*
 	 * 房东ID
 	 */
-	private Integer lanlord_id;
+	private Integer landlord_id;
 	
 	public User() {
 	}
@@ -90,18 +90,20 @@ public class User implements Serializable{
 		this.user_IDcard = user_IDcard;
 	}
 
-	public Integer getLanlord_id() {
-		return lanlord_id;
+	public Integer getLandlord_id() {
+		return landlord_id;
 	}
 
-	public void setLanlord_id(Integer lanlord_id) {
-		this.lanlord_id = lanlord_id;
+	public void setLandlord_id(Integer landlord_id) {
+		this.landlord_id = landlord_id;
 	}
 
 	public String toString() {
 		return "User [user_id=" + user_id + ", user_name=" + user_name
 				+ ", user_headimg_url=" + user_headimg_url + ", user_email="
 				+ user_email + ", user_phone=" + user_phone + ", user_IDcard="
-				+ user_IDcard + ", lanlord_id=" + lanlord_id + "]";
+				+ user_IDcard + ", landlord_id=" + landlord_id + "]";
 	}
+
+	
 }
