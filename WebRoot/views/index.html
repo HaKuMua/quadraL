@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>度假屋、民宿、体验和攻略 - Airbnb爱彼迎</title>
+		<script src="../js/comment.js"></script>
+		<script src="../js/jquery.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="../layui/css/layui.css">
+		<script src="../js/jquery.min.js"></script>
+		<script src="../layui/layui.all.js"></script>
+		<style type="text/css">
+			#navId li a {
+				font-size: 15px;
+				color: white;
+				font-weight: bold;
+			}
+
+			#carouselImg div div img {
+				position: absolute;
+			}
+
+			#carouselImg div div span {
+				font-size: 35px;
+				font-weight: bold;
+				color: white;
+				position: absolute;
+				margin-top: 230px;
+				margin-left: 400px;
+			}
+
+			#searchForm button {
+				position: absolute;
+				width: 100px;
+				height: 70px;
+				font-size: 22px;
+				margin-top: -100px;
+				margin-left: 1359.4px;
+			}
+			.checkDate{
+				position: absolute;
+				cursor: pointer;
+				font-size: 22px;
+				margin-top: -100px;
+				margin-left: 1000px;
+				width: 359px; 
+				height: 70px;
+			}
+
+			#search {
+				width: 550px;
+				height: 70px;
+				font-weight: bold;
+				position: absolute;
+				margin-top: -100px;
+				margin-left: 482px;
+				font-size: 20px;
+			}
+
+			.addressBtn button {
+				width: 120px;
+				height: 60px;
+			}
+
+			#main img {
+				border-radius: 15px;
+			}
+
+			.title {
+				margin-top: 10px;
+				margin-left: 400px;
+			}
+
+			.guestInfo {
+				width: 1090px;
+			}
+
+			.guestInfo img {
+				width: 350px;
+			}
+
+			.storyImg img {
+				width: 250px;
+				height: 300px;
+			}
+
+			.foot {
+				width: 1090px;
+				margin-left: 550px;
+			}
+
+			#rightNav {
+				float: right;
+			}
+		</style>
+		</style>
+
+	</head>
+	<body>
+		<div id="top">
+			<ul class="layui-nav layui-bg-green" id="navId">
+				<li class="layui-nav-item">
+					<img src="../img/logo.jpg" class="layui-nav-img">
+				</li>
+				<li class="layui-nav-item ">
+					<form class="layui-form" action="">
+						<input id="topSearch" style=" width: 400px;height:48px; font-weight: bold; font-size: 20px; " name="search" 
+						placeholder="搜一搜"
+						 autocomplete="off" class="layui-input">
+					</form>
+				</li>
+				<div id="rightNav">
+					<li class="layui-nav-item"><a href="">简体中文</a></li>
+					<li class="layui-nav-item"><a href="">故事</a></li>
+					<li class="layui-nav-item"><a href="">帮助</a> </li>
+					<li class="layui-nav-item"><a class="layui-btn" data-method="login">注册</a></li>
+					<li class="layui-nav-item"><a class="layui-btn" data-method="login">登录</a></li>
+				</div>
+			</ul>
+
+			<div class="layui-carousel" id="carouselImg" style="top:" 10px";>
+				<div carousel-item="">
+					<div>
+						<img src="../img/index/index1.jpg" width="100%" height="670px">
+						<span>奇遇民宿节<br>千元礼券，万元好礼<span>
+					</div>
+					<div>
+						<img src="../img/index/index2.jpg" width="100%" height="670px">
+						<span>奇遇民宿节<br>千元礼券，万元好礼<span>
+					</div>
+					<div>
+						<img src="../img/index/index3.jpg" width="100%" height="670px">
+						<span>奇遇民宿节<br>千元礼券，万元好礼<span>
+					</div>
+					<div>
+						<img src="../img/index/index4.jpg" width="100%" height="670px">
+						<span>奇遇民宿节<br>千元礼券，万元好礼<span>
+					</div>
+					<div>
+						<img src="../img/index/index5.jpg" width="100%" height="670px">
+						<span>奇遇民宿节<br>千元礼券，万元好礼<span>
+					</div>
+					<div>
+						<img src="../img/index/index6.jpg" width="100%" height="670px">
+						<span>奇遇民宿节<br>千元礼券，万元好礼<span>
+					</div>
+				</div>
+				<label>
+					<div style=" width: 80px;height: 69px; margin-top:-100px;margin-left:400px;line-height:70px;text-align:center;
+					font-size:21px;background-color: white;color: #8D8D8D; position: absolute; font-weight:bolder;">房源</div>
+				</label>
+				<form class="layui-form " action="" id="searchForm">
+					<input id="search" class="layui-input " name="searchAll" placeholder="输入目的地、城市或景点" autocomplete="off" >
+					 <!-- <div id="check" style=" line-height: 38px; cursor: pointer; border-bottom: 1px solid #e2e2e2;"class="checkDate" ></div> -->
+					<input  type="text" class="layui-input checkDate" id="check" placeholder="入住日期-退房日期">
+					<button  type="submit" class="layui-btn" lay-submit lay-filter="searchAllBtn">搜索</button>
+				</form>
+			</div>
+		</div>
+
+		<div id="main">
+			<div id="title1" class="title">
+				<h1 style="">冬季特惠房源</h1><br>
+				<h3>特惠房源低至 7 折</h3><br>
+				<div id="addressBtn1" class="addressBtn">
+					<button class="layui-btn layui-btn-lg layui-bg-green">上海</button>
+					<button class="layui-btn layui-btn-lg layui-bg-gray">北京</button>
+					<button class="layui-btn layui-btn-lg layui-bg-gray">贵州</button>
+					<button class="layui-btn layui-btn-lg layui-bg-gray">成都</button>
+					<button class="layui-btn layui-btn-lg layui-bg-gray">重庆</button>
+					<button class="layui-btn layui-btn-lg layui-bg-gray">西安</button>
+					<button class="layui-btn layui-btn-lg layui-bg-gray">武汉</button>
+					<button class="layui-btn layui-btn-lg layui-bg-gray">广州</button>
+				</div><br>
+				<div id="info1">
+				</div>
+				<br>
+				<a href="" style="color:green">
+					<h3>查看上海更多房源></h3>
+				</a>
+			</div>
+
+
+			<br><br>
+			<div id="title2" class="title">
+				<h1>热门目的地</h1><br>
+				<div id="addressBtn2" class="addressBtn">
+					<button class="layui-btn layui-btn-lg layui-bg-green">长沙</button>
+					<button class="layui-btn layui-btn-lg layui-bg-gray">深圳</button>
+					<button class="layui-btn layui-btn-lg layui-bg-gray">香港</button>
+					<button class="layui-btn layui-btn-lg layui-bg-gray">澳门</button>
+					<button class="layui-btn layui-btn-lg layui-bg-gray">杭州</button>
+					<button class="layui-btn layui-btn-lg layui-bg-gray">新化</button>
+					<button class="layui-btn layui-btn-lg layui-bg-gray">张家界</button>
+					<button class="layui-btn layui-btn-lg layui-bg-gray">凤凰</button>
+				</div><br>
+				<div id="info2">
+				</div>
+				<br>
+				<a href=basePath+"guest?method=search&addr=长沙" style="color:green">
+					<h3>查看长沙更多房源></h3>
+				</a>
+			</div>
+			<br><br>
+			<div id="title3" class="title">
+				<h1>爱彼迎旅行保障</h1><br>
+				<div class="layui-row " style="width:1090px;">
+					<div class="layui-col-xs4">
+						<a href=" ">
+							<img src="../img/tag/1.svg">
+							<h3><b>安心房源保障</b> 人工审核所有中国房源页面信息，入住更放心</h3>
+						</a>
+					</div>
+					<div class="layui-col-xs4">
+						<a href=" " style="width=100px;">
+							<img src="../img/tag/2.svg">
+							<h3><b>专业中文客服</b> (86)400-841-8888、(86)010-8783-3463，24小时服务</h3>
+						</a>
+					</div>
+					<div class="layui-col-xs4">
+						<a href=" " style="width=100px;">
+							<img src="../img/tag/3.svg">
+							<h3><b>旅行安全保障</b> 多重风险控制设计，全方位保障您的行程安全</h3>
+						</a>
+					</div>
+				</div>
+			</div>
+			<!-- <div id="title4" class="title">
+				<h1>爱彼迎Plus精选住宿</h1>
+				<h3>因设计体贴周到而获得高评分的住所</h3><br>
+				
+			</div> -->
+			<br><br>
+			<div id="title5" class="title">
+				<h1>经典旅行城市</h1><br>
+				<div class="layui-row " style="width:1090px;">
+					<div class="layui-col-xs2">
+						<a href="">
+							<img src="../img/address/1.jpg" /><br>
+							<h3><b>香港</b> 亚洲美食之都</h3>
+							<h4>人均￥440/晚</h4>
+						</a>
+					</div>
+					<div class="layui-col-xs2">
+						<a href="">
+							<img src="../img/address/2.jpg" /><br>
+							<h3><b>上海</b> 亚洲美食之都</h3>
+							<h4>人均￥666/晚</h4>
+						</a>
+					</div>
+					<div class="layui-col-xs2">
+						<a href="">
+							<img src="../img/address/3.jpg" /><br>
+							<h3><b>湖南</b> 亚洲美食之都</h3>
+							<h4>人均￥240/晚</h4>
+						</a>
+					</div>
+					<div class="layui-col-xs2">
+						<a href="">
+							<img src="../img/address/4.jpg" /><br>
+							<h3><b>北京</b> 亚洲美食之都</h3>
+							<h4>人均￥640/晚</h4>
+						</a>
+					</div>
+					<div class="layui-col-xs2">
+						<a href="">
+							<img src="../img/address/5.jpg" /><br>
+							<h3><b>成都</b> 亚洲美食之都</h3>
+							<h4>人均￥540/晚</h4>
+						</a>
+					</div>
+					<div class="layui-col-xs2">
+						<a href="">
+							<img src="../img/address/6.jpg" /><br>
+							<h3><b>大理</b> 亚洲美食之都</h3>
+							<h4>人均￥330/晚</h4>
+						</a>
+					</div>
+				</div>
+			</div>
+			<br><br>
+			<div id="title4 " class="title storyImg ">
+				<h1>精彩旅行故事</h1><br>
+				<div class="layui-row " style="width:1090px;">
+					<div class="layui-col-xs3">
+						<a href="">
+							<img src="../img/story/1.jpg" /><br>
+							<h3><b>广州</b> 房东说，欢迎体验你的 “珠江之夜”。</h3>
+						</a>
+					</div>
+					<div class="layui-col-xs3">
+						<a href="">
+							<img src="../img/story/2.jpg" /><br>
+							<h3><b>台州市</b> 去这家深藏最美渔村的海边石墅 赏一场不容错过的东海日出！</h3>
+						</a>
+					</div>
+					<div class="layui-col-xs3">
+						<a href="">
+							<img src="../img/story/3.jpg" /><br>
+							<h3><b>广州</b> 房东说，欢迎体验你的 “珠江之夜”。</h3>
+						</a>
+					</div>
+					<div class="layui-col-xs3">
+						<a href="">
+							<img src="../img/story/4.jpg" /><br>
+							<h3><b>广州</b> 房东说，欢迎体验你的 “珠江之夜”。</h3>
+						</a>
+					</div>
+				</div>
+				<br>
+				<div class="layui-row " style="width:1090px;">
+					<div class="layui-col-xs3">
+						<a href="">
+							<img src="../img/story/1.jpg" /><br>
+							<h3><b>广州</b> 房东说，欢迎体验你的 “珠江之夜”。</h3>
+						</a>
+					</div>
+					<div class="layui-col-xs3">
+						<a href="">
+							<img src="../img/story/2.jpg" /><br>
+							<h3><b>台州市</b> 去这家深藏最美渔村的海边石墅 赏一场不容错过的东海日出！</h3>
+						</a>
+					</div>
+					<div class="layui-col-xs3">
+						<a href="">
+							<img src="../img/story/3.jpg" /><br>
+							<h3><b>上海</b> 一秒穿越到18世纪的欧洲。</h3>
+						</a>
+					</div>
+					<div class="layui-col-xs3">
+						<a href="">
+							<img src="../img/story/4.jpg" /><br>
+							<h3><b>广州</b> 房东说，欢迎体验你的 “珠江之夜”。</h3>
+						</a>
+					</div>
+				</div>
+				<br>
+				<a href="" style="color:green">
+					<h3>显示全部></h3>
+				</a>
+			</div>
+
+		</div>
+		<br><br><br><br><br><br>
+		<hr>
+		<div class="foot">
+			<br><br>
+			<div class="_rqfxvmb">
+				<div class="_yylh3tj">京ICP备16017121号-3 京ICP证 160773号 <img src="https://z1.muscache.cn/airbnb/static/packages/public_security_bureau_logo.d0289dc0.png"
+					 alt="中国公安局标志"> <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010502032345" target="_blank"
+					 rel="noopener noreferrer" class="_l501whs" aria-busy="false">京公网安备 11010502032345号</a>
+					技术支持：卓应教育（湖南）有限公司 <a href="https://a0.muscache.com/pictures/03ec62da-f467-4e2b-bfee-6eefd052d7f5.jpg" target="_blank"
+					 rel="noopener noreferrer" class="_l501whs" aria-busy="false">营业执照</a></div>
+				<div dir="ltr" class="_yylh3tj">© 2019 Airbnb, Inc. All rights reserved.</div>
+			</div>
+			<br><br><br><br><br><br>
+		</div>
+	</body>
+	<script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.15&key=58436f5656c3bd85a8001b6cce31c890&plugin=AMap.Autocomplete"></script>
+	<script type="text/javascript" src="https://cache.amap.com/lbs/static/addToolbar.js"></script>
+	<script type="text/javascript">
+	    var map = new AMap.Map("container", {
+	        resizeEnable: true
+	    });
+	    //输入提示
+	    var auto = new AMap.Autocomplete({
+	        input: "search"
+	    });
+		var auto = new AMap.Autocomplete({
+		   input:'topSearch'
+		});
+	</script>
+	<script>
+		var userInfo = {
+			user_id: '10001',
+			user_name:'liu',
+			user_img: '../img/timg.jpg',
+			lanlord_id:'1001'
+		};
+		
+		var listHuose1 = [{
+				huose_name: '下榻日式风格的房源去畅玩太古里',
+				huose_id: '1001',
+				huose_img: '../img/room/640de340-cd72-4c32-ac24-e0f2515154a7.jpg',
+				huose_price: '289',
+				huose_type: '独立房间',
+				bed_number: '1'
+			},
+			{
+				huose_name: '近九眼桥/川师大/锦华万达/【复古黑熵单人房】花园洋房合拼房源中其中一间房',
+				huose_id: '1002',
+				huose_img: '../img/room/9b0ae17d-7cfe-41bb-9a89-f38287f92c3a.jpg',
+				huose_price: '289',
+				huose_type: '独立房间',
+				bed_number: '1'
+			},
+			{
+				huose_name: 'Jungle• 13 巴黎旅人式的假期/住进一间art deco风格的公寓/近太古里/地铁300米',
+				huose_id: '1003',
+				huose_img: '../img/room/abbc72a5-cf82-41be-a999-9c951444b14b.jpg',
+				huose_price: '289',
+				huose_type: '独立房间',
+				bed_number: '1'
+			},
+			{
+				huose_name: 'Jungle• 13 巴黎旅人式的假期/住进一间art deco风格的公寓/近太古里/地铁300米',
+				huose_id: '1013',
+				huose_img: '../img/room/abbc72a5-cf82-41be-a999-9c951444b14b.jpg',
+				huose_price: '289',
+				huose_type: '独立房间',
+				bed_number: '1'
+			},
+			{
+				huose_name: '西里的家|梦境 免费寄存行李|下楼就是春熙路太古里市中心/天府广场/宽窄巷子/北欧清新风格',
+				huose_id: '1012',
+				huose_img: '../img/room/640de340-cd72-4c32-ac24-e0f2515154a7.jpg',
+				huose_price: '289',
+				huose_type: '独立房间',
+				bed_number: '1'
+			},
+			{
+				huose_name: '近九眼桥/川师大/锦华万达/【复古黑熵单人房】花园洋房合拼房源中其中一间房',
+				huose_id: '1014',
+				huose_img: '../img/room/abbc72a5-cf82-41be-a999-9c951444b14b.jpg',
+				huose_price: '289',
+				huose_type: '独立房间',
+				bed_number: '1'
+			},
+			{
+				huose_name: 'Jungle• 13 巴黎旅人式的假期/住进一间art deco风格的公寓/近太古里/地铁300米',
+				huose_id: '1015',
+				huose_img: '../img/room/abbc72a5-cf82-41be-a999-9c951444b14b.jpg',
+				huose_price: '289',
+				huose_type: '独立房间',
+				bed_number: '1'
+			},
+		]
+		var listHuose2 = [{
+				huose_name: '西里的家|梦境 免费寄存行李|下楼就是春熙路太古里市中心/天府广场/宽窄巷子/北欧清新风格',
+				huose_id: '1010',
+				huose_img: '../img/room/640de340-cd72-4c32-ac24-e0f2515154a7.jpg',
+				huose_price: '289',
+				huose_type: '独立房间',
+				bed_number: '1'
+			},
+			{
+				huose_name: '近九眼桥/川师大/锦华万达/【复古黑熵单人房】花园洋房合拼房源中其中一间房',
+				huose_id: '1011',
+				huose_img: '../img/room/e964c2be-a0fb-41d2-9bc7-3b308769f4ef.jpg',
+				huose_price: '289',
+				huose_type: '独立房间',
+				bed_number: '1'
+			},
+			{
+				huose_name: 'Jungle• 13 巴黎旅人式的假期/住进一间art deco风格的公寓/近太古里/地铁300米',
+				huose_id: '1013',
+				huose_img: '../img/room/abbc72a5-cf82-41be-a999-9c951444b14b.jpg',
+				huose_price: '289',
+				huose_type: '独立房间',
+				bed_number: '1'
+			},
+
+			{
+				huose_name: 'Jungle• 13 巴黎旅人式的假期/住进一间art deco风格的公寓/近太古里/地铁300米',
+				huose_id: '1015',
+				huose_img: '../img/room/abbc72a5-cf82-41be-a999-9c951444b14b.jpg',
+				huose_price: '289',
+				huose_type: '独立房间',
+				bed_number: '1'
+			},
+			{
+				huose_name: '西里的家|梦境 免费寄存行李|下楼就是春熙路太古里市中心/天府广场/宽窄巷子/北欧清新风格',
+				huose_id: '1012',
+				huose_img: '../img/room/640de340-cd72-4c32-ac24-e0f2515154a7.jpg',
+				huose_price: '289',
+				huose_type: '独立房间',
+				bed_number: '1'
+			},
+			{
+				huose_name: '近九眼桥/川师大/锦华万达/【复古黑熵单人房】花园洋房合拼房源中其中一间房',
+				huose_id: '1014',
+				huose_img: '../img/room/abbc72a5-cf82-41be-a999-9c951444b14b.jpg',
+				huose_price: '289',
+				huose_type: '独立房间',
+				bed_number: '1'
+			}
+
+		]
+		window.onload = function() {
+			console.log(userInfo.user_id == '')
+			if (userInfo.user_id != '') {
+				var html = '<li class="layui-nav-item" id="china"><a href="">简体中文</a></li>' +
+					'<li class="layui-nav-item "> <a href="" >房源订单中心</a></li>' +
+					'<li class="layui-nav-item"><a href="">故事</a></li>' +
+					'<li class="layui-nav-item"><a href="">消息</a> </li>' +
+					'<li class="layui-nav-item"><a href="">帮助</a> </li>' +
+					'<li class="layui-nav-item"><img src="'+userInfo.user_img+'" class="layui-nav-img"></li>';
+				$("#rightNav").empty();
+				$("#rightNav").append(html);
+				if(userInfo.isLanlord != '') {
+					$("#china").after('<li class="layui-nav-item "> <a href="">查看我的房源</a></li>'+
+									'<li class="layui-nav-item "><a href="host/landlord.html">添加房源</a></li>');
+				} else  {
+					$("#china").after('<li class="layui-nav-item "> <a href="">成为房东</a></li>');
+				}
+				
+			}
+
+			//第一个
+			var arr1 = document.getElementById("addressBtn1").getElementsByTagName('button');
+			getGuest(arr1, "#info1", listHuose2);
+			//第二个
+			var arr2 = document.getElementById("addressBtn2").getElementsByTagName('button');
+			getGuest(arr2, "#info2", listHuose2);
+		}
+
+		function getGuest(btn, infoId, listHuose) {
+			$(infoId).empty();
+			$(infoId).append('<div class="layui-row guestInfo" id="guestInfo1"></div>');
+			$(infoId).append('<div class="layui-row guestInfo" id="guestInfo2"></div>');
+			for (var k = 0; k < listHuose.length; k++) {
+				var html = '<div class="layui-col-xs4"><a href="' + basePath + '' + listHuose[k].huose_id + '">' +
+					'<img src="' + listHuose[k].huose_img + '" ><br><span>' + listHuose[k].huose_type + '·' +
+					listHuose[k].bed_number + '张床</span><br><h3><b>' + listHuose[k].huose_name + '</b></h3><br><h3>￥' +
+					listHuose[k].huose_price + '</h3></a></div>'
+				if (k < 3) {
+					$(infoId + '> div:first').append(html);
+				} else {
+					$(infoId + '> div:last').append(html);
+				}
+			}
+			for (var i = 0; i < btn.length; i++) {
+				btn[i].onclick = function() {
+					$(infoId).empty();
+					$(infoId + "~a:last").empty();
+					$(infoId).append('<div class="layui-row guestInfo" id="guestInfo1"></div>');
+					$(infoId).append('<div class="layui-row guestInfo" id="guestInfo2"></div>');
+					for (var j = 0; j < btn.length; j++) {
+						$(btn[j]).attr("class", "layui-btn layui-bg-gray")
+					}
+					$(this).attr("class", "layui-btn layui-bg-green")
+					var addr = $(this).text();
+					alert(addr) //后台去请求房子信息
+					for (var k = 0; k < listHuose.length; k++) {
+						var html = '<div class="layui-col-xs4"><a href="' + basePath + '' + listHuose[k].huose_id + '">' +
+							'<img src="' + listHuose[k].huose_img + '" ><br><span>' + listHuose[k].huose_type + '·' +
+							listHuose[k].bed_number + '张床</span><br><h3><b>' + listHuose[k].huose_name + '</b></h3><br><h3>￥' +
+							listHuose[k].huose_price + '</h3></a></div>'
+						if (k < 3) {
+							$(infoId + '> div:first').append(html);
+						} else {
+							$(infoId + '> div:last').append(html);
+						}
+					}
+
+					$(infoId + "~a:last").append('<h3>查看' + addr + '更多房源></h3>');
+
+				}
+			}
+		}
+		
+		//日期格式化
+		Date.prototype.Format = function (fmt) { // author: meizz
+		    var o = {
+		        "M+": this.getMonth() + 1, // 月份
+		        "d+": this.getDate(), // 日
+		        "h+": this.getHours(), // 小时
+		        "m+": this.getMinutes(), // 分
+		        "s+": this.getSeconds(), // 秒
+		        "q+": Math.floor((this.getMonth() + 3) / 3), // 季度
+		        "S": this.getMilliseconds() // 毫秒
+		    };
+		    if (/(y+)/.test(fmt))
+		        fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+		    for (var k in o)
+		        if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+		            return fmt;
+		}
+		//计算两个日期的天数
+		function getDateNumber(dateStart,dateEnd) {
+			var start =dateStart.replace('年','-'); 
+				start =start.replace('月','-');
+				start=start.replace('日','');
+			var end =dateEnd.replace('年','-'); 
+				end	=end.replace('月','-');
+				end=end.replace('日','');
+				alert(end)
+			var date1Str = start.split("-");//将日期字符串分隔为数组,数组元素分别为年.月.日
+			//根据年 . 月 . 日的值创建Date对象
+			var date1Obj = new Date(date1Str[0],(date1Str[1]-1),date1Str[2]);
+			var date2Str = end.split("-");
+			var date2Obj = new Date(date2Str[0],(date2Str[1]-1),date2Str[2]);
+			var t1 = date1Obj.getTime();
+			var t2 = date2Obj.getTime();
+			var dateTime = 1000*60*60*24; //每一天的毫秒数
+			var minusDays = Math.floor(((t2-t1)/dateTime));//计算出两个日期的天数差
+			var days = Math.abs(minusDays);//取绝对值
+			return days;
+		}
+		var date = new Date().Format("yyyy-MM-dd");
+		</script>
+	
+		<script>
+		layui.use(['carousel','form','element','layer','laydate'], function() {
+			var carousel = layui.carousel,
+				form = layui.form,laydate = layui.laydate;
+				$ = layui.jquery,
+				layer = layui.layer,
+				element = layui.element; //导航的hover效果、二级菜单等功能，需要依赖element模块
+				laydate.render({
+				    elem: '#check' ,//指定元素
+					format: 'yyyy年MM月dd日',
+					min:date,
+					 range: true
+				  });
+			//监听导航点击
+			element.on('nav(demo)', function(elem) {
+				//console.log(elem)
+				layer.msg(elem.text());
+			});
+			var html = '';
+			var active = {
+				login: function() {
+					//示范一个公告层
+					var index = layer.open({
+						type: 2,
+						title: false //不显示标题栏
+							,
+						closeBtn: true,
+						area: ['570px', '515px'],
+						offset: 'auto',
+						shade: 0.6,
+						id: 'LAY_layuipro' //设定一个id，防止重复弹出
+							,
+						content: ['loginBytel.html', 'no']
+					});
+				},
+
+			};
+
+			$('.layui-btn').on('click', function() {
+				var othis = $(this),
+					method = othis.data('method');
+				active[method] ? active[method].call(this, othis) : '';
+			});
+			//提交搜索
+			form.on('submit(searchAllBtn)', function(data) {
+				console.log(data.form) //被执行提交的form对象，一般在存在form标签时才会返回
+				console.log(data.field) //当前容器的全部表单字段，名值对形式：{name: value}
+				var startDate = $("#check").val().split('-')[0];
+				var endDate = $("#check").val().split('-')[1];
+				var day =getDateNumber(startDate,endDate);
+				alert(day)
+				return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+			});
+			//图片轮播
+			carousel.render({
+				elem: '#carouselImg',
+				width: '100%',
+				height: '600px',
+				indicator: 'none',
+				interval: 5000
+			});
+		});
+	</script>
+</html>

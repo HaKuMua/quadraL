@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>为您的爱彼迎房源编辑房源</title>
+		<script src="../../../js/comment.js"></script>
+		<script src="../../../js/jquery.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="../../../layui/css/layui.css">
+		<script src="../../../js/jquery.min.js"></script>
+		<script src="../../../layui/layui.all.js"></script>
+		<style type="text/css">
+			#child{
+				width: 100%;
+				height: 600px;
+				background-color: lightgray;
+			}
+			#btn button{
+				width: 322px;
+			}
+		</style>
+	</head>
+	<body>
+		<br>
+		<div  style="width: 100%;height: 65px; ">
+			&nbsp;&nbsp;&nbsp;&nbsp;<img src="../../../img/logo.jpg" class="layui-nav-img">
+			<h2 style="position: absolute; margin-top: -30px; margin-left: 60px;">步骤1：先填写基本信息</h2>
+			<br><br>
+			<div class="layui-progress layui-progress-big" lay-showpercent="true" lay-filter="pro" >
+			  <div class="layui-progress-bar layui-bg-green" lay-percent="100%"></div>
+			</div>
+				<div class="layui-row layui-bg-blue" id="btn">
+					<div class="layui-col-xs2">
+					   <button class="layui-btn layui-bg-gray" id="btn1">房源类型</button>
+					</div>
+				    <div class="layui-col-xs2">
+				    <button class="layui-btn layui-bg-gray" >卧室</button>
+				    </div>
+				    <div class="layui-col-xs2">
+				       <button class="layui-btn layui-bg-gray" >卫生间</button>
+				    </div>
+					<div class="layui-col-xs2">
+					  <button class="layui-btn layui-bg-gray" >位置信息</button>
+					</div>
+					<div class="layui-col-xs2">
+					  <button class="layui-btn layui-bg-gray">便利设施</button>
+					</div>
+					<div class="layui-col-xs2">
+					    <button class="layui-btn layui-bg-gray">区域设施</button>
+					</div>
+				</div>
+		</div>
+		<br><br><br>
+		<div id="child">
+			<iframe src="room.html" frameborder="0" id="contentIframe"></iframe>
+		</div>
+		<div id="" style="text-align: center;">
+			 <button class="layui-btn site-demo-active" >< 返回</button>
+			  <button class="layui-btn site-demo-active" data-type="setPercent" id="btnGo">下一步</button>
+		</div>
+	</body>
+	<script type="text/javascript">
+		progress=0;
+		function setProgress(num) {
+			progress =num;
+		}
+		
+	</script>
+	
+	<script>
+	layui.use('element', function(){
+	  var $ = layui.jquery
+	  ,element = layui.element; //Tab的切换功能，切换事件监听等，需要依赖element模块
+	  //触发事件
+	  var active = {
+	    setPercent: function(){
+	      //设置50%进度
+	      element.progress('pro', progress+'%')
+	    }
+	  };
+	 
+	  $('.site-demo-active').on('click', function(){
+		 type = $(this).data('type');
+		 if(type == "setPercent") {
+			 setProgress(progress+16.666666666)
+			 active[type].call(this, $(this));
+		 } else {
+			 setProgress(progress-16.666666666 == 0? 0:progress-16.666666666)
+			 active["setPercent"].call(this, $(this));
+		 }
+	   
+	  });
+	});
+	</script> 
+</html>
