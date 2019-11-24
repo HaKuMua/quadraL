@@ -3,7 +3,6 @@ package com.zj.servlet;
 
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,7 +27,7 @@ public class TestServlet extends BaseServlet {
 	public String callback;
 	public String house_id;
 	public String landlord_phone;
-	
+	public String user_phone;
 	public void getAllHouseInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		List<Map<String, Object>> list = houseService.getAllHouseInfo();
 		System.out.println(list);
@@ -44,5 +43,29 @@ public class TestServlet extends BaseServlet {
 		response.getWriter().print(callback+"("+obj+")");
 	}
 	
+	public void getAllLandlordInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		List<Map<String, Object>> list = landlordService.getAllLandlordInfo();
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		JSONObject obj = new JSONObject(map);
+		response.getWriter().print(callback+"("+obj+")");
+	}
+	public void getLandlordInfoByPhone(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		Map<String, Object> map = landlordService.getLandlordInfoByPhone(landlord_phone);
+		JSONObject obj = new JSONObject(map);
+		response.getWriter().print(callback+"("+obj+")");
+	}
 	
+	public void getAllUserInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		List<Map<String, Object>> list = userService.getAllUserInfo();
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		JSONObject obj = new JSONObject(map);
+		response.getWriter().print(callback+"("+obj+")");
+	}
+	public void getUserInfoByPhone(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		Map<String, Object> map = userService.getUserInfoByPhone(user_phone);
+		JSONObject obj = new JSONObject(map);
+		response.getWriter().print(callback+"("+obj+")");
+	}
 }
