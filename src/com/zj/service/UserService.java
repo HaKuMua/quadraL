@@ -8,4 +8,5 @@ import com.zj.control.UserControl;
  */
 public class UserService {
 	private UserControl userControl = new UserControl();
+	
 }

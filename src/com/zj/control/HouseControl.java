@@ -3,6 +3,8 @@ package com.zj.control;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.apache.commons.dbutils.handlers.BeanListHandler;
+
 
 import com.zj.dao.impl.HouseDaoImpl;
 import com.zj.dao.impl.HouseImgDaoImpl;
@@ -36,6 +38,9 @@ public class HouseControl {
 	}
 	public HouseImg getHouseImgInfoByID(Integer HouseImgID) throws SQLException {
 		return houseImgDaoImpl.getHouseImgInfoByID(HouseImgID);
+	}
+	public List<HouseImg> getHouseImgByHouseID(Integer HouseID) throws SQLException{
+		return houseImgDaoImpl.getHouseImgByHouseID(HouseID);
 	}
 	
 	public List<HouseParticulars> getAllHouseParticularsInfo()

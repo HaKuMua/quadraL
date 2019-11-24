@@ -13,4 +13,5 @@ import com.zj.entity.HouseImg;
 public interface HouseImgDaoImpl {
 	public List<HouseImg> getAllHouseImgInfo() throws SQLException;
 	public HouseImg getHouseImgInfoByID(Integer HouseImgID) throws SQLException;
+	public List<HouseImg> getHouseImgByHouseID(Integer HouseID) throws SQLException;
 }

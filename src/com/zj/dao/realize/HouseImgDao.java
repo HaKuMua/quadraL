@@ -28,5 +28,9 @@ public class HouseImgDao implements HouseImgDaoImpl{
 		String sql = "select * from house_img where house_img_id=?";
 		return qr.query(conn, sql, new BeanHandler<HouseImg>(HouseImg.class),HouseImgID);
 	}
+	public List<HouseImg> getHouseImgByHouseID(Integer HouseID) throws SQLException{
+		String sql = "select * from house_img where house_id=?";
+		return qr.query(conn, sql, new BeanListHandler<HouseImg>(HouseImg.class),HouseID);
+	}
 	
 }
