@@ -18,13 +18,17 @@ import com.zj.entity.HouseParticulars;
  */
 public class HouseService {
 	private HouseControl houseControl = new HouseControl();
+	/*
+	 * 将所有房子信息包装成一个list<map>返回
+	 */
 	public List<Map<String, Object>> getAllHouseInfo(){
-		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+		List<Map<String, Object>> list = null;
 		try {
 			List<House> allHouse = houseControl.getAllHouseInfo();
 			List<HouseImg> allHouseImg = houseControl.getAllHouseImgInfo();
 			List<HouseParticulars> allHouseParticulars = houseControl.getAllHouseParticularsInfo();
 			if(allHouse != null){
+				list = new ArrayList<Map<String,Object>>();
 				for(int i = 0;i<allHouse.size();i++){
 					Map<String, Object> map = new HashMap<String, Object>();
 					map.put("house_id", allHouse.get(i).getHouse_id());
@@ -47,19 +51,21 @@ public class HouseService {
 				}
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return list;
 	}
-	
+	/*
+	 * 将单个房子信息包装成map返回
+	 */
 	public Map<String, Object> getHouseInfoByID(Integer house_id){
-		Map<String, Object> map = new HashMap<String, Object>();
+		Map<String, Object> map = null;
 		try {
 			House house = houseControl.getHouseInfoByID(house_id);
 			List<HouseImg> houseImgList = houseControl.getHouseImgByHouseID(house_id);
 			HouseParticulars houseParticulars = houseControl.getHouseParticularsInfoByID(house.getHouse_particulars_id());
 			if(house != null){
+				map = new HashMap<String, Object>();
 				map.put("house_id", house.getHouse_id());
 				map.put("house_name", house.getHouse_name());
 				map.put("house_intake", house.getHouse_intake());
@@ -78,10 +84,8 @@ public class HouseService {
 				map.put("allHouseImg", houseImgList);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 		return map;
 	}
 }
