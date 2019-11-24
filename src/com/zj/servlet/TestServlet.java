@@ -4,6 +4,7 @@ package com.zj.servlet;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -27,7 +28,18 @@ public class TestServlet extends BaseServlet {
 	public void getAllHouseInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		List<Map<String, Object>> list = houseService.getAllHouseInfo();
 		System.out.println(list);
-		JSONObject obj = new JSONObject(list);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		JSONObject obj = new JSONObject(map);
+		response.getWriter().print(callback+"("+obj+")");
+	}
+	
+	public void getAllGrogshopOrderInfo(HttpServletRequest request, HttpServletResponse response) {
+		List<Map<String, Object>> list = houseService.getAllHouseInfo();
+		System.out.println(list);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		JSONObject obj = new JSONObject(map);
 		response.getWriter().print(callback+"("+obj+")");
 	}
 }
