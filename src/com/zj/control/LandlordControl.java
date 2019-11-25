@@ -3,8 +3,6 @@ package com.zj.control;
 import java.sql.SQLException;
 import java.util.List;
 
-import org.apache.commons.dbutils.handlers.BeanHandler;
-import org.apache.commons.dbutils.handlers.BeanListHandler;
 
 import com.zj.dao.impl.LandlordDaoImpl;
 import com.zj.dao.realize.LandlordDao;
@@ -23,5 +21,8 @@ public class LandlordControl {
 	}
 	public Landlord getLandlordInfoByPhone(String phone) throws SQLException {
 		return landlordDaoImpl.getLandlordInfoByPhone(phone);
+	}
+	public Boolean addLandlordInfo(Landlord landlord) throws SQLException {
+		return landlordDaoImpl.addLandlordInfo(landlord);
 	}
 }
