@@ -50,7 +50,7 @@
 			<h2 style="position: absolute; margin-top: -30px; margin-left: 60px;">步骤1：先填写基本信息</h2>
 			<br><br>
 			<div class="layui-progress layui-progress-big" lay-showpercent="true" lay-filter="pro">
-				<div class="layui-progress-bar layui-bg-green" lay-percent="13%"></div>
+				<div class="layui-progress-bar layui-bg-green" lay-percent="16%"></div>
 			</div>
 		</div>
 		<br><br><br>
@@ -78,10 +78,13 @@
 					</div>
 				</div>
 			</div>
-		</div><br>
+		</div>
+		<div style="position: fixed; top: 10%; left: 60%;">
+			<img src="../../../img/ReleaseRoom/2.png" height="50%">
+		</div>
 		<div id="footBtn"  >
-			<button  class="layui-btn site-demo-active" data-type="setPercent" ><返回</button>
-			<button style="margin-left: 290px; " class="layui-btn site-demo-active" data-type="setPercent" id="btnGo">下一步</button>
+			<button  class="layui-btn site-demo-active" onclick='location.href="../../../views/index.html"' ><返回</button>
+			<button style="margin-left: 290px; " class="layui-btn "  id="btnGo">下一步</button>
 		</div>
 	</body>
 	<script>
@@ -119,7 +122,17 @@
 			}
 			$('#rentTypeBtn> div:last').append(html);
 		}
-		
+		$('#btnGo').on('click', function() {
+			alert(house)
+			alert(rent)
+			if(house == 'null' || rent == 'null' ||house ==null || rent == null) {
+				layer.msg("请填写完整"); 
+			}else {
+				$.cookie('house', house);
+				$.cookie('rent', rent);
+				location.href="bedrooms.html";
+			}
+		});
 		//加载
 		window.onload = function() {
 			var btn = document.getElementById("houseTypeBtn").getElementsByTagName('button');
@@ -155,18 +168,6 @@
 					element.progress('pro', progress + '%');
 				}
 			};
-			$('.site-demo-active').on('click', function() {
-				type = $(this).data('type');
-				alert(house)
-				alert(rent)
-				if(house == 'null' || rent == 'null' ||house ==null || rent == null) {
-					layer.msg("请填写完整"); 
-				}else {
-					$.cookie('house', house);
-					$.cookie('rent', rent);
-					location.href="bedrooms.html";
-				}
-			});
 		});
 	</script>
 </html>

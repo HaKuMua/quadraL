@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>便利设施</title>
+		<title>添加照片</title>
 		<script src="../../../js/jquery.min.js"></script>
 		<link rel="stylesheet" type="text/css" href="../../../layui/css/layui.css">
 		<script src="../../../js/jquery.min.js"></script>
@@ -31,7 +31,7 @@
 			#footBtn{
 				position:fixed;
 				top:92%;
-				margin-left:450px; /* width的一半的相反数 */
+				margin-left:450px;
 				z-index:999;
 			}
 		</style>
@@ -49,39 +49,50 @@
 		<br><br><br><br><br>
 		<div id="warpper">
 			<br>
-			<h1 style="font-weight: bolder;">房客可以使用哪些区域或设施？</h1>
-			<br>
-			<h3>将公共区域涵盖其中，但不要添加您房源范围之外的空间。</h3>
-			<br><br><br>
-			<form class="layui-form" action="" style="width: 350px;font-weight: bolder;">
-			    <div id="checkBox" class="layui-input-block">
-				</div>
-			  </form>
+			<h1 style="font-weight: bolder;">为房源添加照片</h1>
+			<br><br>
+			<h3>照片帮助房客想像入住您的房源是什么样的体验。 您可以先从一个房源开始，然后在发布后添加更多。</h3>
+			<br><br><br><br>
+			<div class="layui-upload-drag" id="test10">
+			  <i class="layui-icon"></i>
+			  <p>点击上传，或将文件拖拽到此处</p>
+			</div>
+			<blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
+			    预览图：
+			    <div class="layui-upload-list" id="look"></div>
+			 </blockquote>
 		</div>
 		<div style="position: fixed; top: 10%; left: 60%;">
-			<img src="../../../img/ReleaseRoom/2.png" height="50%">
+			<img src="../../../img/ReleaseRoom/3.png" height="50%">
 		</div>
 		<div id="footBtn" style=" margin-left: 450px;position: fixed;">
-			<button class="layui-btn site-demo-active" onclick="location.href='amenities.html'">
+			<button class="layui-btn site-demo-active" onclick="location.href='spaces.html'">
 				<返回</button> 
 				<button style="margin-left: 290px; " class="layui-btn " id="btnGo">下一步
 			</button>
 		</div>
 	</body>
 	<script>
-		layui.use(['form', 'layedit','laydate'], function(){
-			var form = layui.form
-			,layer = layui.layer
-			form.on('checkbox()', function(data){
-				if(data.elem.checked) {
-					mySpace.push(data.value);
-				} else {
-					mySpace.pop(data.value);
-				}
-				console.log(data.elem.checked); //是否被选中，true或者false
-				console.log(data.value); //复选框value值，也可以通过data.elem.value得到
-			});
-		});
+	layui.use('upload', function(){
+	  var $ = layui.jquery
+	  ,upload = layui.upload;
+	  
+	  //拖拽上传
+	  upload.render({
+	    elem: '#test10'
+	    ,url: '/upload/'
+		,multiple: true
+		,before: function(obj){
+		      obj.preview(function(index, file, result){
+		        $('#look').append('<img src="'+ result +'" alt="'+ file.name +'" class="layui-upload-img">')
+		      });
+		    }
+	    ,done: function(res){
+	      console.log(res)
+	    }
+	  });
+	  
+	});
 	</script>
 	<script>
 		var space=["厨房","洗衣机","干衣机","停车位","健身房","游泳池",
@@ -96,7 +107,7 @@
 				alert(space[i])
 			}
 			$.cookie('space', space);
-			location.href = "houseImage.html";
+			location.href = "space.html";
 		});
 		
 		window.onload = function() {

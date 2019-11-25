@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>便利设施</title>
+		<title>房源描述</title>
 		<script src="../../../js/jquery.min.js"></script>
 		<link rel="stylesheet" type="text/css" href="../../../layui/css/layui.css">
 		<script src="../../../js/jquery.min.js"></script>
@@ -49,60 +49,43 @@
 		<br><br><br><br><br>
 		<div id="warpper">
 			<br>
-			<h1 style="font-weight: bolder;">房客可以使用哪些区域或设施？</h1>
+			<h1 style="font-weight: bolder;">向房客描述一下您的房源</h1>
 			<br>
-			<h3>将公共区域涵盖其中，但不要添加您房源范围之外的空间。</h3>
-			<br><br><br>
-			<form class="layui-form" action="" style="width: 350px;font-weight: bolder;">
-			    <div id="checkBox" class="layui-input-block">
-				</div>
-			  </form>
+			<h3>请撰写房源简介。 不妨突出房源和街区的特别之处，以及您的待客之道有何特色。</h3>
+			<br>
+			 <textarea id="textarea1" placeholder="请输入内容" class="layui-textarea"></textarea><br><br>
+			<h1  style="font-weight: bolder;">想添加更多信息吗？ （选填）</h1><br><br>
+			<h3>请添加如下几类内容，分享更多详情。</h3>
+			<h2>您的空间</h2>
+			<h3>不妨添加其他详情，帮助房客设定住宿期待。</h3><br>
+			<textarea id="textarea2" placeholder="请输入内容" class="layui-textarea"></textarea><br><br>
+			<h2>房源所在街区</h2>
+			<h3>不妨向房客介绍附近街区有何特别之处，比如受欢迎的咖啡馆、公园或独特的地标。</h3><br>
+			<textarea id="textarea3" placeholder="请输入内容" class="layui-textarea"></textarea><br><br>
+			<h2>出行</h2>
+			<h3>请提供您所在城市或街区的出行信息，例如周边公共交通、自驾建议或适合步行的路线。</h3><br>
+			<textarea id="textarea4" placeholder="请输入内容" class="layui-textarea"></textarea><br><br><br><br><br><br><br><br>
 		</div>
 		<div style="position: fixed; top: 10%; left: 60%;">
 			<img src="../../../img/ReleaseRoom/2.png" height="50%">
 		</div>
 		<div id="footBtn" style=" margin-left: 450px;position: fixed;">
-			<button class="layui-btn site-demo-active" onclick="location.href='amenities.html'">
+			<button class="layui-btn site-demo-active" onclick="location.href='houseImage.html'">
 				<返回</button> 
-				<button style="margin-left: 290px; " class="layui-btn " id="btnGo">下一步
+				<button style="margin-left: 290px; " class="layui-btn" id="btnGo">下一步
 			</button>
 		</div>
 	</body>
 	<script>
-		layui.use(['form', 'layedit','laydate'], function(){
-			var form = layui.form
-			,layer = layui.layer
-			form.on('checkbox()', function(data){
-				if(data.elem.checked) {
-					mySpace.push(data.value);
-				} else {
-					mySpace.pop(data.value);
-				}
-				console.log(data.elem.checked); //是否被选中，true或者false
-				console.log(data.value); //复选框value值，也可以通过data.elem.value得到
-			});
-		});
-	</script>
-	<script>
-		var space=["厨房","洗衣机","干衣机","停车位","健身房","游泳池",
-					"按摩浴缸","电梯"];
-		var mySpace=[];
-		for(var i=0;i<space.length;i++) {
-			html='<input  type="checkbox" lay-filter="filter" name="space" lay-skin="primary" title="'+space[i]+'" value="'+space[i]+'"><br><br><br>'
-			$("#checkBox").append(html);
-		}
+		locationDescribe=$("#textarea1").text();
 		$('#btnGo').on('click', function() {
-			for(var i=0; i<space.length;i++) {
-				alert(space[i])
-			}
-			$.cookie('space', space);
-			location.href = "houseImage.html";
+			$.cookie('locationDescribe', locationDescribe);
+			location.href = "name.html";
 		});
 		
 		window.onload = function() {
-			if($.cookie('space') != null) {
-				var arr = $.cookie('space').split(",");
-				mySpace=arr;
+			if($.cookie('locationDescribe') != null) {
+				locationDescribe=$.cookie('locationDescribe');
 			}
 			
 		}

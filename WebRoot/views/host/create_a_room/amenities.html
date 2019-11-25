@@ -14,8 +14,12 @@
 				margin-left: 450px;
 				width: 500px;
 			}
-			
-			
+			#checkBox div,#checkBox h2{
+				margin-left: -80px;
+			}
+			#checkBox span{
+				font-size: 20px;
+			}
 			#footBtn button {
 				border-radius: 15px;
 				border-radius: 15px;
@@ -38,8 +42,8 @@
 			&nbsp;&nbsp;&nbsp;&nbsp;<img src="../../../img/logo.jpg" class="layui-nav-img">
 			<h2 style="position: absolute; margin-top: -30px; margin-left: 60px;">步骤1：先填写基本信息</h2>
 			<br><br>
-			<div class="layui-progress layui-progress-big" lay-showpercent="true" lay-filter="pro">
-				<div class="layui-progress-bar layui-bg-green" lay-percent="40%"></div>
+			<div class="layui-progress layui-progress-big c" lay-showpercent="true" lay-filter="pro">
+				<div class="layui-progress-bar layui-bg-green" lay-percent="81%"></div>
 			</div>
 		</div>
 		<br><br><br><br><br>
@@ -51,49 +55,63 @@
 			<br><br><br>
 			<form class="layui-form" action="" style="width: 350px;font-weight: bolder;">
 			    <div id="checkBox" class="layui-input-block">
-			      <input type="checkbox" name="like1[write]" lay-skin="primary" title="写作" checked=""><br><br>
-			      <input type="checkbox" name="like1[read]" lay-skin="primary" title="阅读">
 				</div>
 			  </form>
+		<div style="position: fixed; top: 10%; left: 60%;">
+			<img src="../../../img/ReleaseRoom/2.png" height="50%">
 		</div>
-			<br><br><br>
 		<div id="footBtn" style=" margin-left: 450px;position: fixed;">
-			<button class="layui-btn site-demo-active" onclick="location.href='bedrooms.html'">
-				<返回</button> <button style="margin-left: 290px; " class="layui-btn site-demo-active"  id="btnGo">下一步
+			<button class="layui-btn site-demo-active" onclick="location.href='location.html'">
+				<返回</button> 
+				<button style="margin-left: 290px; " class="layui-btn "  id="btnGo">下一步
 			</button>
 		</div>
 	</body>
 	<script>
-	layui.use(['form', 'layedit', 'laydate'], function(){
-	  var form = layui.form
-	  ,layer = layui.layer
-	});
+		layui.use(['form', 'layedit','laydate'], function(){
+			var form = layui.form
+			,layer = layui.layer
+			form.on('checkbox()', function(data){
+				if(data.elem.checked) {
+					myFacilities.push(data.value);
+				} else {
+					myFacilities.pop(data.value);
+				}
+				console.log(data.elem.checked); //是否被选中，true或者false
+				console.log(data.value); //复选框value值，也可以通过data.elem.value得到
+			});
+		});
 	</script>
 	<script>
-		
-		bathRoomNum =$.cookie('bathRoomNum');
-		if(bathRoomNum == null) {
-			bathRoomNum=1;
-		}
-		$("#addBtn").on("click", function() {
-			bathRoomNum > 16 ? 16 : bathRoomNum++;
-			$("#bathRoomNum").text(bathRoomNum);
-		});
-		$("#subBtn").on("click", function() {
-			bathRoomNum <= 1 ? 1 : bathRoomNum--;
-			$("#bathRoomNum").text(bathRoomNum);
-		});
-		$('#btnGo').on('click', function() {
-			alert(bathRoomNum)
-			if (bathRoomNum == 'null' ) {
-				layui.msg("请填写完整");
-			} else {
-				$.cookie('bathRoomNum', bathRoomNum);
-				location.href = "location.html";
+		var facilities=["生活必需品","空调","壁橱/抽屉","熨斗","电视","壁炉",
+						"独立入口","洗发水","无线网络","书桌/工作区",
+						"早餐、咖啡、茶","灭火器","一氧化碳报警器","烟雾报警器","急救包"];
+		var myFacilities=[];
+		flag=true;
+		for(var i=0;i<facilities.length;i++) {
+			html='<input  type="checkbox" lay-filter="filter" name="facilities" lay-skin="primary" title="'+facilities[i]+'" value="'+facilities[i]+'"><br><br>'
+			if(i > 10 && flag == true) {
+				$("#checkBox").append('<br><h2>安全设施</h2><br><br>');
+				flag=false
 			}
+			$("#checkBox").append(html);
+		}
+		$('#btnGo').on('click', function() {
+			alert(myFacilities.toString)
+			for(var i=0; i<myFacilities.length;i++) {
+				alert(myFacilities[i])
+			}
+			$.cookie('myFacilities', myFacilities);
+			location.href = "spaces.html";
 		});
+		
 		window.onload = function() {
-			$("#bathRoomNum").text(bathRoomNum);
+			
+			if($.cookie('myFacilities') != null) {
+				var arr = $.cookie('myFacilities').split(",");
+				myFacilities=arr;
+			}
+			
 		}
 	</script>
 </html>

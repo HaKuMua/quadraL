@@ -496,9 +496,10 @@
 					'<li class="layui-nav-item"><img src="'+userInfo.user_img+'" class="layui-nav-img"></li>';
 				$("#rightNav").empty();
 				$("#rightNav").append(html);
-				if(userInfo.isLanlord != '') {
+				
+				if(userInfo.isLanlord != '' || userInfo.isLanlord !=null) {
 					$("#china").after('<li class="layui-nav-item "> <a href="">查看我的房源</a></li>'+
-									'<li class="layui-nav-item "><a href="host/landlord.html">添加房源</a></li>');
+									'<li class="layui-nav-item "><a href="host/create_a_room/room.html">添加房源</a></li>');
 				} else  {
 					$("#china").after('<li class="layui-nav-item "> <a href="">成为房东</a></li>');
 				}
