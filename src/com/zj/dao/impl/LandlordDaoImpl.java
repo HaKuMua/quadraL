@@ -19,4 +19,9 @@ public interface LandlordDaoImpl {
 	 * 通过房东手机获取单个房东信息方法接口
 	 */
 	public Landlord getLandlordInfoByPhone(String phone) throws SQLException;
+	/*
+	 * 添加一个新房东信息方法接口
+	 */
+	public Boolean addLandlordInfo(Landlord landlord) throws SQLException;
+	
 }

@@ -1,10 +1,15 @@
 package com.zj.service;
 
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import cn.com.uitl.CheckoutEmail;
+import cn.com.uitl.CheckoutIDCard;
+import cn.com.uitl.CheckoutPhoneNumber;
 
 import com.zj.control.LandlordControl;
 import com.zj.entity.Landlord;
@@ -40,7 +45,6 @@ public class LandlordService {
 				}
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return list;
@@ -65,11 +69,42 @@ public class LandlordService {
 				map.put("real_name", landlord.getReal_name());
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 		return map;
 	}
-
+	
+	public String addLandlordInfo(Map<String, Object> map){
+		Landlord landlord = new Landlord();
+		if(!CheckoutEmail.checkEmail((String) map.get("landlord_email"))){
+			return "邮箱有误";
+		}
+		try {
+			if(!CheckoutIDCard.IDCardValidate((String) map.get("landlord_IDcard"))){
+				return "身份证有误";
+			}
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		if(!CheckoutPhoneNumber.isPhoneNumberValid((String) map.get("landlord_phone"))){
+			return "手机号有误";
+		}
+		landlord.setInform_date((Integer) map.get("inform_date"));
+		landlord.setLandlord_describe((String) map.get("landlord_describe"));
+		landlord.setLandlord_email((String) map.get("landlord_email"));
+		landlord.setLandlord_headimg_url((String) map.get("landlord_headimg_url"));
+		landlord.setLandlord_id((Integer) map.get("landlord_id"));
+		landlord.setLandlord_IDcard((String) map.get("landlord_IDcard"));
+		landlord.setLandlord_name((String) map.get("landlord_name"));
+		landlord.setLandlord_phone((String) map.get("landlord_phone"));
+		landlord.setReal_name((String) map.get("real_name"));
+		try {
+			if(landLordControl.addLandlordInfo(landlord)){
+				return "插入成功";
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return "插入失败";
+	}
 }

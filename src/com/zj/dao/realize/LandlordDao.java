@@ -7,6 +7,7 @@ import java.util.List;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
+import org.apache.commons.dbutils.handlers.ScalarHandler;
 
 import cn.com.uitl.GetConn;
 
@@ -36,6 +37,22 @@ public class LandlordDao implements LandlordDaoImpl{
 	public Landlord getLandlordInfoByPhone(String phone) throws SQLException {
 		String sql = "select * from landlord where landlord_phone=?";
 		return qr.query(conn, sql, new BeanHandler<Landlord>(Landlord.class),phone);
+	}
+	
+	/*
+	 * 添加一个房东信息方法
+	 */
+	public Boolean addLandlordInfo(Landlord landlord) throws SQLException {
+		String sql = "insert into landlord(landlord_headimg_url,landlord_name,landlord_describe," +
+				"landlord_IDcard,landlord_email,landlord_phone,inform_date,real_name) value(?,?,?,?,?,?,?,?)";
+		int m = qr.update(conn, sql,landlord.getLandlord_headimg_url(),landlord.getLandlord_name(),landlord.getLandlord_describe(),
+				landlord.getLandlord_IDcard(),landlord.getLandlord_email(),landlord.getLandlord_phone(),landlord.getInform_date(),
+				landlord.getReal_name());
+		if(m>0){
+			return true;
+		}else{
+			return false;
+		}
 	}
 	
 	
