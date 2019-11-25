@@ -38,7 +38,7 @@
 			#footBtn{
 			position:fixed;
 			top:92%;
-			margin-left:450px; /* width的一半的相反数 */
+			left:440px; /* width的一半的相反数 */
 			z-index:999;
 			}
 		</style>
@@ -123,8 +123,6 @@
 			$('#rentTypeBtn> div:last').append(html);
 		}
 		$('#btnGo').on('click', function() {
-			alert(house)
-			alert(rent)
 			if(house == 'null' || rent == 'null' ||house ==null || rent == null) {
 				layer.msg("请填写完整"); 
 			}else {

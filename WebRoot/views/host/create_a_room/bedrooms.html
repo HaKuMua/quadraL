@@ -26,7 +26,7 @@
 			#footBtn{
 			position:fixed;
 			top:92%;
-			margin-left:450px; /* width的一半的相反数 */
+			left:440px; /* width的一半的相反数 */
 			z-index:999;
 			}
 		</style>
@@ -144,8 +144,6 @@
 			$("#bedNum").text(bedNum);
 		});
 		$('#btnGo').on('click', function() {
-			alert(bedNum)
-			alert(personNum)
 			if (personNum == 'null' || bedNum == 'null') {
 				layui.msg("请填写完整");
 			} else {

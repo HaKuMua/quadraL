@@ -27,7 +27,7 @@
 			#footBtn{
 				position:fixed;
 				top:92%;
-				margin-left:450px; /* width的一半的相反数 */
+				left:440px; /* width的一半的相反数 */
 				z-index:999;
 			}
 		</style>
@@ -59,7 +59,7 @@
 		<div style="position: fixed; top: 10%; left: 60%;">
 			<img src="../../../img/ReleaseRoom/2.png" height="50%">
 		</div>
-		<div id="footBtn" style=" margin-left: 450px;position: fixed;">
+		<div id="footBtn" >
 			<button class="layui-btn site-demo-active" onclick="location.href='bedrooms.html'">
 				<返回</button> <button style="margin-left: 290px; " class="layui-btn site-demo-active"  id="btnGo">下一步
 			</button>
@@ -79,7 +79,6 @@
 			$("#bathRoomNum").text(bathRoomNum);
 		});
 		$('#btnGo').on('click', function() {
-			alert(bathRoomNum)
 			if (bathRoomNum == 'null' ) {
 				layui.msg("请填写完整");
 			} else {

@@ -27,7 +27,7 @@
     		#footBtn{
     			position:fixed;
     			top:92%;
-    			margin-left:450px; /* width的一半的相反数 */
+    			left:440px; /* width的一半的相反数 */
     			z-index:999;
     		}
 			#container {
@@ -62,7 +62,7 @@
 		<div style="position: fixed; top: 10%; left: 60%;">
 			<img src="../../../img/ReleaseRoom/2.png" height="50%">
 		</div>
-    	<div id="footBtn" style=" margin-left: 450px;position: fixed;">
+    	<div id="footBtn" >
     		<button class="layui-btn " onclick="location.href='bathrooms.html'">
     			<返回</button> <button style="margin-left: 290px; " class="layui-btn "  id="btnGo">下一步
     		</button>
@@ -145,8 +145,6 @@
 	})
 	
 	$('#btnGo').on('click', function() {
-		alert($("#tipinput").val())
-		alert($("#locationId").val())
 		if ($("#tipinput").val() == '' || $("#tipinput").val() == null || $("#locationId").val() == '' || $("#locationId").val() == null) {
 			 log.error('请输入地址');
 		} else {

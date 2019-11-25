@@ -2,8 +2,162 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>成为房东</title>
+		<title>度假屋、民宿、体验和攻略 - Airbnb爱彼迎</title>
+		<script src="../../js/comment.js"></script>
+		<script src="../../js/jquery.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="../../layui/css/layui.css">
+		<script src="../../js/jquery.min.js"></script>
+		<script src="../../layui/layui.all.js"></script>
+		<style type="text/css">
+			#navId li a {
+				font-size: 15px;
+				color: white;
+				font-weight: bold;
+			}
+			#rightNav {
+				float: right;
+			}
+			
+			#searchForm button {
+				position: absolute;
+				width: 100px;
+				height: 70px;
+				font-size: 22px;
+				margin-top: -100px;
+				margin-left: 1359.4px;
+			}
+			.checkDate{
+				position: absolute;
+				cursor: pointer;
+				font-size: 22px;
+				margin-top: -100px;
+				margin-left: 1000px;
+				width: 359px; 
+				height: 70px;
+			}
+
+			#search {
+				width: 550px;
+				height: 70px;
+				font-weight: bold;
+				position: absolute;
+				margin-top: -100px;
+				margin-left: 482px;
+				font-size: 20px;
+			}
+			.foot {
+				width: 1090px;
+				margin-left: 550px;
+			}
+		</style>
 	</head>
 	<body>
+		<div id="top">
+			<ul class="layui-nav layui-bg-green" id="navId">
+				<li class="layui-nav-item">
+					<img src="../../img/logo.jpg" class="layui-nav-img">
+				</li>
+				<li class="layui-nav-item ">
+					<form class="layui-form" action="">
+						<input id="topSearch" style=" width: 400px;height:48px; font-weight: bold; font-size: 20px; " name="search" 
+						placeholder="搜一搜"
+						 autocomplete="off" class="layui-input">
+					</form>
+				</li>
+				<div id="rightNav">
+					<li class="layui-nav-item"><a href="">简体中文</a></li>
+					<li class="layui-nav-item"><a href="">故事</a></li>
+					<li class="layui-nav-item"><a href="">帮助</a> </li>
+					<li class="layui-nav-item"><a class="layui-btn" data-method="login">注册</a></li>
+					<li class="layui-nav-item"><a class="layui-btn" data-method="login">登录</a></li>
+				</div>
+			</ul>
+		</div>
+
+
+		</div>
+		<br><br><br><br><br><br>
+		<hr>
+		<div class="foot">
+			<br><br>
+			<div class="_rqfxvmb">
+				<div class="_yylh3tj">京ICP备16017121号-3 京ICP证 160773号 <img src="https://z1.muscache.cn/airbnb/static/packages/public_security_bureau_logo.d0289dc0.png"
+					 alt="中国公安局标志"> <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010502032345" target="_blank"
+					 rel="noopener noreferrer" class="_l501whs" aria-busy="false">京公网安备 11010502032345号</a>
+					技术支持：卓应教育（湖南）有限公司 <a href="https://a0.muscache.com/pictures/03ec62da-f467-4e2b-bfee-6eefd052d7f5.jpg" target="_blank"
+					 rel="noopener noreferrer" class="_l501whs" aria-busy="false">营业执照</a></div>
+				<div dir="ltr" class="_yylh3tj">© 2019 Airbnb, Inc. All rights reserved.</div>
+			</div>
+			<br><br><br><br><br><br>
+		</div>
 	</body>
+	<script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.15&key=58436f5656c3bd85a8001b6cce31c890&plugin=AMap.Autocomplete"></script>
+	<script type="text/javascript" src="https://cache.amap.com/lbs/static/addToolbar.js"></script>
+	<script type="text/javascript">
+	    var map = new AMap.Map("container", {
+	        resizeEnable: true
+	    });
+	    //输入提示
+	    var auto = new AMap.Autocomplete({
+	        input: "search"
+	    });
+		var auto = new AMap.Autocomplete({
+		   input:'topSearch'
+		});
+	</script>
+	<script>
+		layui.use(['carousel','form','element','layer','laydate'], function() {
+			var carousel = layui.carousel,
+				form = layui.form,laydate = layui.laydate;
+				$ = layui.jquery,
+				layer = layui.layer,
+				element = layui.element; //导航的hover效果、二级菜单等功能，需要依赖element模块
+				laydate.render({
+				    elem: '#check' ,//指定元素
+					format: 'yyyy年MM月dd日',
+					min:date,
+					 range: true
+				  });
+			//监听导航点击
+			element.on('nav(demo)', function(elem) {
+				//console.log(elem)
+				layer.msg(elem.text());
+			});
+			var html = '';
+			var active = {
+				login: function() {
+					//示范一个公告层
+					var index = layer.open({
+						type: 2,
+						title: false //不显示标题栏
+							,
+						closeBtn: true,
+						area: ['570px', '515px'],
+						offset: 'auto',
+						shade: 0.6,
+						id: 'LAY_layuipro' //设定一个id，防止重复弹出
+							,
+						content: ['loginBytel.html', 'no']
+					});
+				},
+			};
+
+			$('.layui-btn').on('click', function() {
+				var othis = $(this),
+					method = othis.data('method');
+				active[method] ? active[method].call(this, othis) : '';
+			});
+			//提交搜索
+			form.on('submit(searchAllBtn)', function(data) {
+				console.log(data.form) //被执行提交的form对象，一般在存在form标签时才会返回
+				console.log(data.field) //当前容器的全部表单字段，名值对形式：{name: value}
+				var startDate = $("#check").val().split('-')[0];
+				var endDate = $("#check").val().split('-')[1];
+				var day =getDateNumber(startDate,endDate);
+				alert(day)
+				return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+			});
+			
+		});
+	</script>
 </html>
