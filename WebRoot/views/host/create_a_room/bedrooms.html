@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>为您的爱彼迎房源编房源</title>
+		<script src="../../../js/jquery.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="../../../layui/css/layui.css">
+		<script src="../../../js/jquery.min.js"></script>
+		<script type="text/javascript" src="../../../js/jquery.cookie.js"></script>
+		<script src="../../../layui/layui.all.js"></script>
+		<script src="../../../layui/layui.js"></script>]
+		<style type="text/css">
+			#warpper {
+				margin-left: 450px;
+				width: 500px;
+			}
+
+			#footBtn button {
+				border-radius: 15px;
+				border-radius: 15px;
+				font-size: 15px;
+				font-weight: bolder;
+				width: 105px;
+				height: 55px;
+			}
+			#footBtn{
+			position:fixed;
+			top:92%;
+			margin-left:450px; /* width的一半的相反数 */
+			z-index:999;
+			}
+		</style>
+	</head>
+	<body>
+		<div style="margin-top: -20px;z-index: 100; width: 100%;height: 65px; position: fixed;background-color: mistyrose;">
+			<br>
+			&nbsp;&nbsp;&nbsp;&nbsp;<img src="../../../img/logo.jpg" class="layui-nav-img">
+			<h2 style="position: absolute; margin-top: -30px; margin-left: 60px;">步骤1：先填写基本信息</h2>
+			<br><br>
+			<div class="layui-progress layui-progress-big" lay-showpercent="true" lay-filter="pro">
+				<div class="layui-progress-bar layui-bg-green" lay-percent="33%"></div>
+			</div>
+		</div>
+		<br><br><br><br><br>
+		<div id="warpper">
+			<br>
+			<h1 style="font-weight: bolder;">您的房源可以住几位房客？</h1>
+			<br>
+			<h3>请确保您准备了足够的床位，让所有房客都能舒适入住。</h3>
+			<br><br>
+			<h2 style="font-weight: bolder;">最多容纳房客人数</h2>
+			<div style="position: absolute;margin-top: -25px;margin-left: 330px;">
+				<button id="subBtn" class="layui-btn layui-btn-sm"><i class="layui-icon"></i></button>
+				&nbsp;&nbsp;&nbsp;<span id="personNum" style="font-size: 15px; font-weight: bolder;">1</span>&nbsp;&nbsp;&nbsp;
+				<button id="addBtn" class="layui-btn layui-btn-sm"><i class="layui-icon"></i></button>
+			</div>
+			<br><br><br>
+			<h2>有几个卧室？</h2><br>
+			<form class="layui-form" action="" style="width: 350px;font-weight: bolder;">
+				<select  name="modules" lay-verify="required" lay-filter="bedRoom"  lay-search="">
+					<option value="">0间卧室</option>
+					<option value="1">1间卧室</option>
+					<option value="2">2间卧室</option>
+					<option value="3">3间卧室</option>
+					<option value="4">4间卧室</option>
+					<option value="5">5间卧室</option>
+					<option value="6">6间卧室</option>
+					<option value="7">7间卧室</option>
+					<option value="8">8间卧室</option>
+					<option value="9">9间卧室</option>
+					<option value="10">10间卧室</option>
+				</select>
+			</form>
+			<br><br><br>
+			<h2>有几张床？</h2><br>
+			<h3 style="font-weight: bolder;">床铺数量</h3>
+			<div style="position: absolute;margin-top: -25px;margin-left: 330px;">
+				<button id="subBtn1" class="layui-btn layui-btn-sm"><i class="layui-icon"></i></button>
+				&nbsp;&nbsp;&nbsp;<span id="bedNum" style="font-size: 15px; font-weight: bolder;">1</span>&nbsp;&nbsp;&nbsp;
+				<button id="addBtn1" class="layui-btn layui-btn-sm"><i class="layui-icon"></i></button>
+			</div>
+			<br><br><br>
+			<h2>床型信息</h2><br>
+			<h3>告知房客每个房间的床铺类型，有助于他们了解床型信息。</h3><br><hr><br>
+			<div id="bedInfo">
+			</div>
+		</div><br>
+		<div style="position: fixed; top: 10%; left: 60%;">
+			<img src="../../../img/ReleaseRoom/2.png" height="50%">
+		</div>
+		<div id="footBtn" >
+			<button class="layui-btn site-demo-active" data-type="setPercent" onclick="location.href='room.html'">
+				<返回</button> <button style="margin-left: 290px; " class="layui-btn site-demo-active"  id="btnGo">下一步
+			</button>
+		</div>
+	</body>
+	<script>
+		layui.use(['form', 'element','layer'], function() {
+			var $ = layui.jquery,element = layui.element,
+			form = layui.form,layer = layui.layer; //Tab的切换功能，切换事件监听等，需要依赖element模块
+			form.on('select(bedRoom)', function(data){
+				bedRoomNum = data.value;
+				$("#bedInfo").empty();
+				for(var i = 0;i<bedRoomNum;i++) {
+					html='<div ><h2>卧室'+(i+1)+'</h2><h3>床数量4</h3><br><h3 style="font-weight: bolder;">大号双人床</h3>'+
+						'<input value="0" style="width: 120px; height:35px; position: absolute; margin-top: -28px; margin-left: 220px;" type="number" name="bigDouble"  autocomplete="off" class="layui-input">'+
+						'<br><br><h3 style="font-weight: bolder;">标准单人床</h3>'+
+						'<input value="0" style="width: 120px; height:35px; position: absolute; margin-top: -28px; margin-left: 220px;" type="number" name="bigDouble"  autocomplete="off" class="layui-input">'+
+						'<br><br><h3 style="font-weight: bolder;">大号单人床</h3>'+
+						'<input value="0" style="width: 120px; height:35px; position: absolute; margin-top: -28px; margin-left: 220px;" type="number" name="bigDouble"  autocomplete="off" class="layui-input">'+
+						'<br><br><h3 style="font-weight: bolder;">水床</h3>'+
+						'<input value="0" style="width: 120px; height:35px; position: absolute; margin-top: -28px; margin-left: 220px;" type="number" name="bigDouble" autocomplete="off" class="layui-input">'+
+						'</div><br><hr >';
+					$("#bedInfo").append(html);
+				}
+			});
+		});
+	</script>
+	<script>
+		personNum =$.cookie('personNum');
+		bedNum=$.cookie('bedNum');
+		if(personNum == null) {
+			personNum=1;
+		}
+		if(bedNum == null) {
+			bedNum=1;
+		}
+		bedType={"bigDouble":0,"onebed":0,"double":0,"waterBed":0};
+		$("#addBtn").on("click", function() {
+			personNum > 16 ? 16 : personNum++;
+			$("#personNum").text(personNum);
+		});
+		$("#subBtn").on("click", function() {
+			personNum <= 1 ? 1 : personNum--;
+			$("#personNum").text(personNum);
+		});
+		
+		$("#addBtn1").on("click", function() {
+			bedNum > 16 ? 16 : bedNum++;
+			$("#bedNum").text(bedNum);
+		});
+		$("#subBtn1").on("click", function() {
+			bedNum <= 1 ? 1 : bedNum--;
+			$("#bedNum").text(bedNum);
+		});
+		$('#btnGo').on('click', function() {
+			alert(bedNum)
+			alert(personNum)
+			if (personNum == 'null' || bedNum == 'null') {
+				layui.msg("请填写完整");
+			} else {
+				$.cookie('personNum', personNum);
+				$.cookie('bedNum', bedNum);
+				location.href = "bathrooms.html";
+			}
+		});
+		
+		window.onload = function() {
+			$("#personNum").text(personNum);
+			$("#bedNum").text(bedNum);
+		}
+	</script>
+</html>

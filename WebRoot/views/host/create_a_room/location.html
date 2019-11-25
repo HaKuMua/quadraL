@@ -1,0 +1,160 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+    <title>房子地址</title>
+    <link rel="stylesheet" href="https://a.amap.com/jsapi_demos/static/demo-center/css/demo-center.css" />
+    <script src="../../../js/jquery.min.js"></script>
+    	<link rel="stylesheet" type="text/css" href="../../../layui/css/layui.css">
+    	<script src="../../../js/jquery.min.js"></script>
+    	<script type="text/javascript" src="../../../js/jquery.cookie.js"></script>
+    	<script src="../../../layui/layui.all.js"></script>
+    	<script src="../../../layui/layui.js"></script>]
+    	<style type="text/css">
+    		#warpper {
+    			margin-left: 450px;
+    			width: 500px;
+    		}
+    		#footBtn button {
+    			border-radius: 15px;
+    			font-size: 15px;
+    			font-weight: bolder;
+    			width: 105px;
+    			height: 55px;
+    		}
+    		#footBtn{
+    			position:fixed;
+    			top:92%;
+    			margin-left:450px; /* width的一半的相反数 */
+    			z-index:999;
+    		}
+			#container {
+			  width:490px;
+			  height: 330px;
+			}
+    	</style>
+    </head>
+    <body>
+    	<div style="margin-top: -20px;z-index: 100; width: 100%;height: 65px; position: fixed;background-color: mistyrose;">
+    		<br>
+    		&nbsp;&nbsp;&nbsp;&nbsp;<img src="../../../img/logo.jpg" class="layui-nav-img">
+    		<h2 style="position: absolute; margin-top: -30px; margin-left: 60px;">步骤1：先填写基本信息</h2>
+    		<br><br>
+    		<div class="layui-progress layui-progress-big" lay-showpercent="true" lay-filter="pro">
+    			<div class="layui-progress-bar layui-bg-green" lay-percent="65%"></div>
+    		</div>
+    	</div>
+    	<br><br><br><br><br><br><br><br>
+    	<div id="warpper">
+    		<h1 style="font-weight: bolder;">标记位置您的房子所在位置</h1>
+    		<br>
+    		<h3>若有需要，您可以调整地图，使图钉落在正确位置上。 只有已确认的房客才会看到，这样他们就知道怎么前往您的房源了。</h3>
+    		<br><br><br>
+    		<div id="container"></div><br><br><br>
+    		   <input  id="tipinput" style="width: 390px; height: 40px;"   type="text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			   <button id="search" style=" height: 40px;width: 70px;border-radius: 15px;" class="layui-btn">搜索</button><br><br><br>
+			   <h2>请输入具体门牌号：</h2> <br>
+			    <input  id="locationId" style="width: 480px; height: 40px;"  placeholder="如xx小区xx号" type="text">
+			</div>
+		</div>
+		<div style="position: fixed; top: 10%; left: 60%;">
+			<img src="../../../img/ReleaseRoom/2.png" height="50%">
+		</div>
+    	<div id="footBtn" style=" margin-left: 450px;position: fixed;">
+    		<button class="layui-btn " onclick="location.href='bathrooms.html'">
+    			<返回</button> <button style="margin-left: 290px; " class="layui-btn "  id="btnGo">下一步
+    		</button>
+    	</div>
+    </body>
+
+<script type="text/javascript"
+ src="https://webapi.amap.com/maps?v=1.4.15&key=58436f5656c3bd85a8001b6cce31c890&plugin=AMap.Autocomplete,AMap.PlaceSearch,AMap.Geocoder""></script>
+<script type="text/javascript" src="https://cache.amap.com/lbs/static/addToolbar.js"></script>
+<script src="https://a.amap.com/jsapi_demos/static/demo-center/js/demoutils.js"></script>
+<script type="text/javascript">
+	$("#tipinput").val($.cookie('location'));
+	$("#locationId").val($.cookie('locationId'));
+    var map = new AMap.Map("container", {
+        resizeEnable: true,
+		zoom: 15, //初始地图级别
+    });
+    //输入提示
+    var autoOptions = new AMap.Autocomplete({
+        input: "tipinput"
+    });
+	
+	var auto = new AMap.Autocomplete(autoOptions);
+	var placeSearch = new AMap.PlaceSearch({
+		map: map
+	});  //构造地点查询类
+	var geocoder = new AMap.Geocoder({
+	         radius: 1000 //范围，默认：500
+	    });
+	var marker = new AMap.Marker();;
+	map.on('click',function(e){
+		lnglat = e.lnglat;
+		alert(lnglat)
+		regeoCode();
+	})
+	AMap.event.addListener(auto, "select", select);//注册监听，当选中某条记录时会触发
+	function select(e) {
+		placeSearch.setCity(e.poi.adcode);
+		placeSearch.search(e.poi.name);  //关键字查询查询
+	}
+	//坐标转地址
+	function regeoCode() {
+	    map.add(marker);
+	    marker.setPosition(lnglat);
+	    geocoder.getAddress(lnglat, function(status, result) {
+	        if (status === 'complete'&&result.regeocode) {
+	            var address = result.regeocode.formattedAddress;
+				console.log(address)
+				$("#tipinput").val(address)
+	        }else{
+	            log.error('根据经纬度查询地址失败')
+	        }
+	    });
+	}
+	// //地址转坐标
+	//   function geoCode() {
+	//         var address  = $("#tipinput").val();
+	// 		alert(address)
+	//         geocoder.getLocation(address, function(status, result) {
+	//             if (status === 'complete'&&result.geocodes.length) {
+	//                 lnglat = result.geocodes[0].location;
+	// 				regeoCode();
+	//                 // marker.setPosition(lnglat);
+	//                 // map.add(marker);
+	//                 // map.setFitView(marker);
+	//             }else{
+	//                 log.error('地址查询位置失败,请输入具体地址');
+	//             }
+	//         });
+	//     }
+	$("#search").on("click",function() {
+		
+		var lo =$("#tipinput").val();
+		alert(lo)
+		geoCode()
+		// function select(e) {
+		// 	placeSearch.setCity(e.poi.adcode);
+		// 	placeSearch.search(e.poi.name);  //关键字查询查询
+		// }
+	})
+	
+	$('#btnGo').on('click', function() {
+		alert($("#tipinput").val())
+		alert($("#locationId").val())
+		if ($("#tipinput").val() == '' || $("#tipinput").val() == null || $("#locationId").val() == '' || $("#locationId").val() == null) {
+			 log.error('请输入地址');
+		} else {
+			$.cookie('location', $("#tipinput").val());
+			$.cookie('locationId', $("#locationId").val());
+			location.href = "amenities.html";
+		}
+	});
+</script>
+</body>
+</html>
