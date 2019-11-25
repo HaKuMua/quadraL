@@ -14,6 +14,19 @@
 		<title>后台管理</title>
 		<!-- Custom CSS -->
 		<link href="css/style.min.css" rel="stylesheet">
+		<!-- All Jquery -->
+		<script src="libs/jquery/dist/jquery.min.js"></script>
+		<!-- Bootstrap tether Core JavaScript -->
+		<script src="libs/popper.js/dist/umd/popper.min.js"></script>
+		<script src="libs/bootstrap/dist/js/bootstrap.min.js"></script>
+		<!-- slimscrollbar scrollbar JavaScript -->
+		<script src="extra-libs/sparkline/sparkline.js"></script>
+		<!--Wave Effects -->
+		<script src="js/waves.js"></script>
+		<!--Menu sidebar -->
+		<script src="js/sidebarmenu.js"></script>
+		<!--Custom JavaScript -->
+		<script src="js/custom.min.js"></script>
 	</head>
 
 	<body>
@@ -242,49 +255,26 @@
 			<!-- End Page wrapper  -->
 		</div>
 		<!-- End Wrapper -->
-		<!-- All Jquery -->
-		<script language="javascript">
-			var data = [{
-					"check_in_person_id": 1,
-					"grogshop_order_id": 1,
-					"check_in_person_name": "张三",
-					"check_in_person_ID_card": "1"
-				},
-				{
-					"check_in_person_id": 1,
-					"grogshop_order_id": 1,
-					"check_in_person_name": "张三",
-					"check_in_person_ID_card": "1"
-				},
-				{
-					"check_in_person_id": 1,
-					"grogshop_order_id": 1,
-					"check_in_person_name": "张三",
-					"check_in_person_ID_card": "1"
-				},
-				{
-					"check_in_person_id": 1,
-					"grogshop_order_id": 1,
-					"check_in_person_name": "张三",
-					"check_in_person_ID_card": "1"
+		
+		<script >
+			$.getJSON("http://localhost:80/QuadraL/a?method=getAllCheckInPersonInfo&callback=?",
+				function(check_in_person_result) {
+					window.onload = function() {
+						var tdArr = document.getElementById('tablebox').firstElementChild;
+						for (var i = 0; i < check_in_person_result.list.length; i++) {
+							var tr = document.createElement("tr");
+							tr.innerHTML = '<td class="t1">' + check_in_person_result.list[i].check_in_person_id + '</td><td class="t2">' + check_in_person_result.list[i].grogshop_order_id +
+								'</td><td class="t3">' + check_in_person_result.list[i].check_in_person_name + '</td><td class="t4">' + check_in_person_result.list[i].check_in_person_ID_card;
+							tdArr.appendChild(tr)
+						}
+					};
 				}
-			];
-			window.onload = function() {
-				var tdArr = document.getElementById('tablebox').firstElementChild;
-				for (var i = 0; i < data.length; i++) {
-					var tr = document.createElement("tr");
-					tr.innerHTML = '<td class="t1">' + data[i].check_in_person_id + '</td><td class="t2">' + data[i].grogshop_order_id +
-						'</td><td class="t3">' + data[i].check_in_person_name + '</td><td class="t4">' + data[i].check_in_person_ID_card;
-					tdArr.appendChild(tr)
-				}
-			};
-
-			function clickPerson(id) {
-				console.log(id)
-			}
+			);
 		</script>
 		<script src="layui/layui.js" charset="utf-8"></script>
 		<script>
+			var nums = 10;
+			var count = $('#count').val();
 			layui.use(['laypage', 'layer'], function() {
 				var laypage = layui.laypage,
 					layer = layui.layer;
@@ -300,18 +290,7 @@
 				});
 			});
 		</script>
-		<script src="libs/jquery/dist/jquery.min.js"></script>
-		<!-- Bootstrap tether Core JavaScript -->
-		<script src="libs/popper.js/dist/umd/popper.min.js"></script>
-		<script src="libs/bootstrap/dist/js/bootstrap.min.js"></script>
-		<!-- slimscrollbar scrollbar JavaScript -->
-		<script src="extra-libs/sparkline/sparkline.js"></script>
-		<!--Wave Effects -->
-		<script src="js/waves.js"></script>
-		<!--Menu sidebar -->
-		<script src="js/sidebarmenu.js"></script>
-		<!--Custom JavaScript -->
-		<script src="js/custom.min.js"></script>
+		
 	</body>
 
 </html>

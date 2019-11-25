@@ -14,6 +14,18 @@
 		<title>后台管理</title>
 		<!-- Custom CSS -->
 		<link href="css/style.min.css" rel="stylesheet">
+		<script src="libs/jquery/dist/jquery.min.js"></script>
+		<!-- Bootstrap tether Core JavaScript -->
+		<script src="libs/popper.js/dist/umd/popper.min.js"></script>
+		<script src="libs/bootstrap/dist/js/bootstrap.min.js"></script>
+		<!-- slimscrollbar scrollbar JavaScript -->
+		<script src="extra-libs/sparkline/sparkline.js"></script>
+		<!--Wave Effects -->
+		<script src="js/waves.js"></script>
+		<!--Menu sidebar -->
+		<script src="js/sidebarmenu.js"></script>
+		<!--Custom JavaScript -->
+		<script src="js/custom.min.js"></script>
 	</head>
 
 	<body>
@@ -244,69 +256,17 @@
 			<!-- End Page wrapper  -->
 		</div>
 		<!-- End Wrapper -->
-		<script language="javascript">
-			var data = [{
-						"grogshop_order_id": 1,
-						"landlord_id": 111,
-						"price": 101,
-						"place_an_order_date": "2019-11-23 11:00:00",
-						"grogshop_order_state": "通过",
-						"grogshop_order_describe": "湖景大床房",
-						"reserve_id": 200
-					},
-					{
-						"grogshop_order_id": 1,
-						"landlord_id": 111,
-						"price": 101,
-						"place_an_order_date": "2019-11-23 11:00:00",
-						"grogshop_order_state": "通过",
-						"grogshop_order_describe": "湖景大床房",
-						"reserve_id": 200
-					},
-					{
-						"grogshop_order_id": 1,
-						"landlord_id": 111,
-						"price": 101,
-						"place_an_order_date": "2019-11-23 11:00:00",
-						"grogshop_order_state": "通过",
-						"grogshop_order_describe": "湖景大床房",
-						"reserve_id": 200
-					},
-					{
-						"grogshop_order_id": 1,
-						"landlord_id": 111,
-						"price": 101,
-						"place_an_order_date": "2019-11-23 11:00:00",
-						"grogshop_order_state": "通过",
-						"grogshop_order_describe": "湖景大床房",
-						"reserve_id": 200
-					}
-					];
-					window.onload = function() {
-						var tdArr = document.getElementById('tablebox').firstElementChild;
-						for (var i = 0; i < data.length; i++) {
-							var tr = document.createElement("tr");
-							tr.innerHTML = '<td class="t1">' + data[i].grogshop_order_id + '</td><td class="t2">' + data[i].landlord_id +
-								'</td><td class="t3">' + data[i].price + '</td><td class="t4">' + data[i].place_an_order_date +
-								'</td><td class="t5">' + data[i].grogshop_order_state + '</td><td class="t6">' + data[i].grogshop_order_describe +
-								'</td><td class="t7">' + data[i].reserve_id;
-							tdArr.appendChild(tr)
-						}
-					};
-					
-		</script>
 		<script >
-			$.getJSON("http://localhost:80/QuadraL/a?method=getAllHouseInfo&callback=?",
-				function(landlord_result) {
+			$.getJSON("http://localhost:80/QuadraL/a?method=getAllGrogshopOrderInfo&callback=?",
+				function(order_result) {
 					window.onload = function() {
 						var tdArr = document.getElementById('tablebox').firstElementChild;
-						for (var i = 0; i < landlord_result.list.length; i++) {
+						for (var i = 0; i < order_result.list.length; i++) {
 							var tr = document.createElement("tr");
-							tr.innerHTML = '<td class="t1">' + landlord_result.list[i].house_id + '</td><td class="t2">' + landlord_result.list[i].house_name +
-								'</td><td class="t3">' + landlord_result.list[i].house_intake + '</td><td class="t4">' + landlord_result.list[i].lease_type +
-								'<td class="t5">' + landlord_result.list[i].house_type + '</td><td class="t6">' + landlord_result.list[i].house_address +
-								'<td class="t7">' + landlord_result.list[i].house_price + '</td><td class="t8">' +
-								'<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">审核</button>';
+							tr.innerHTML = '<td class="t1">' + order_result.list[i].grogshop_order_id + '</td><td class="t2">' + order_result.list[i].landlord_id +
+								'</td><td class="t3">' + order_result.list[i].price + '</td><td class="t4">' + order_result.list[i].place_an_order_date +
+								'<td class="t5">' + order_result.list[i].grogshop_order_state + '</td><td class="t6">' + order_result.list[i].grogshop_order_describe +
+								'<td class="t7">' + order_result.list[i].reserve_id ;
 		
 							tdArr.appendChild(tr)
 						}
@@ -331,18 +291,7 @@
 				});
 			});
 		</script>
-		<script src="libs/jquery/dist/jquery.min.js"></script>
-		<!-- Bootstrap tether Core JavaScript -->
-		<script src="libs/popper.js/dist/umd/popper.min.js"></script>
-		<script src="libs/bootstrap/dist/js/bootstrap.min.js"></script>
-		<!-- slimscrollbar scrollbar JavaScript -->
-		<script src="extra-libs/sparkline/sparkline.js"></script>
-		<!--Wave Effects -->
-		<script src="js/waves.js"></script>
-		<!--Menu sidebar -->
-		<script src="js/sidebarmenu.js"></script>
-		<!--Custom JavaScript -->
-		<script src="js/custom.min.js"></script>
+		
 	</body>
 
 </html>
