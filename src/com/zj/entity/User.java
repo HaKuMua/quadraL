@@ -38,6 +38,10 @@ public class User implements Serializable{
 	 * 房东ID
 	 */
 	private Integer landlord_id;
+	/*
+	 * 用户密码
+	 */
+	private String user_pwd;
 	
 	public User() {
 	}
@@ -97,13 +101,22 @@ public class User implements Serializable{
 	public void setLandlord_id(Integer landlord_id) {
 		this.landlord_id = landlord_id;
 	}
+	
+	
+	public String getUser_pwd() {
+		return user_pwd;
+	}
+
+	public void setUser_pwd(String user_pwd) {
+		this.user_pwd = user_pwd;
+	}
 
 	public String toString() {
 		return "User [user_id=" + user_id + ", user_name=" + user_name
 				+ ", user_headimg_url=" + user_headimg_url + ", user_email="
 				+ user_email + ", user_phone=" + user_phone + ", user_IDcard="
-				+ user_IDcard + ", landlord_id=" + landlord_id + "]";
+				+ user_IDcard + ", landlord_id=" + landlord_id + ", user_pwd="
+				+ user_pwd + "]";
 	}
-
 	
 }

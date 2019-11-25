@@ -41,6 +41,7 @@ public class LandlordService {
 					map.put("landlord_phone", landlord.getLandlord_phone());
 					map.put("inform_date", landlord.getInform_date());
 					map.put("real_name", landlord.getReal_name());
+					map.put("landlord_pwd", landlord.getLandlord_pwd());
 					list.add(map);
 				}
 			}
@@ -67,6 +68,7 @@ public class LandlordService {
 				map.put("landlord_phone", landlord.getLandlord_phone());
 				map.put("inform_date", landlord.getInform_date());
 				map.put("real_name", landlord.getReal_name());
+				map.put("landlord_pwd", landlord.getLandlord_pwd());
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -86,18 +88,24 @@ public class LandlordService {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		if(!CheckoutPhoneNumber.isPhoneNumberValid((String) map.get("landlord_phone"))){
+		if(!CheckoutPhoneNumber.isPhoneNumberValid(map.get("landlord_phone").toString())){
 			return "手机号有误";
 		}
-		landlord.setInform_date((Integer) map.get("inform_date"));
-		landlord.setLandlord_describe((String) map.get("landlord_describe"));
-		landlord.setLandlord_email((String) map.get("landlord_email"));
-		landlord.setLandlord_headimg_url((String) map.get("landlord_headimg_url"));
-		landlord.setLandlord_id((Integer) map.get("landlord_id"));
-		landlord.setLandlord_IDcard((String) map.get("landlord_IDcard"));
-		landlord.setLandlord_name((String) map.get("landlord_name"));
-		landlord.setLandlord_phone((String) map.get("landlord_phone"));
-		landlord.setReal_name((String) map.get("real_name"));
+		try{
+		landlord.setInform_date(Integer.valueOf((String) map.get("inform_date")) );
+		landlord.setLandlord_describe(map.get("landlord_describe").toString());
+		landlord.setLandlord_email(map.get("landlord_email").toString());
+		landlord.setLandlord_headimg_url(map.get("landlord_headimg_url").toString());
+		landlord.setLandlord_id(Integer.valueOf((String) map.get("landlord_id")) );
+		landlord.setLandlord_IDcard(map.get("landlord_IDcard").toString());
+		landlord.setLandlord_name(map.get("landlord_name").toString());
+		landlord.setLandlord_phone( map.get("landlord_phone").toString());
+		landlord.setReal_name( map.get("real_name").toString());
+		landlord.setLandlord_pwd( map.get("landlord_pwd").toString());
+		}catch (Exception e) {
+			e.printStackTrace();
+			return "输入有误";
+		}
 		try {
 			if(landLordControl.addLandlordInfo(landlord)){
 				return "插入成功";

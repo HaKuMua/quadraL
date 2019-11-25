@@ -45,6 +45,11 @@ public class Landlord implements Serializable{
 	 */
 	private String real_name;
 	
+	/*
+	 * 房东密码
+	 */
+	private String landlord_pwd;
+	
 	public Landlord() {
 	}
 
@@ -120,6 +125,15 @@ public class Landlord implements Serializable{
 		this.real_name = real_name;
 	}
 
+	
+	public String getLandlord_pwd() {
+		return landlord_pwd;
+	}
+
+	public void setLandlord_pwd(String landlord_pwd) {
+		this.landlord_pwd = landlord_pwd;
+	}
+
 	public String toString() {
 		return "Landlord [landlord_id=" + landlord_id
 				+ ", landlord_headimg_url=" + landlord_headimg_url
@@ -127,6 +141,9 @@ public class Landlord implements Serializable{
 				+ landlord_describe + ", landlord_IDcard=" + landlord_IDcard
 				+ ", landlord_email=" + landlord_email + ", landlord_phone="
 				+ landlord_phone + ", inform_date=" + inform_date
-				+ ", real_name=" + real_name + "]";
+				+ ", real_name=" + real_name + ", landlord_pwd=" + landlord_pwd
+				+ "]";
 	}
+
+	
 }
