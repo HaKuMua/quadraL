@@ -10,33 +10,36 @@
 		<script src="../../../layui/layui.all.js"></script>
 		<style type="text/css">
 			#warpper {
+				margin-left: 450px;
 				width: 500px;
 				height: 750px;
-				border: 1px solid #000000;
 			}
 
-			#houseTypeBtn {
-				
+			#houseTypeBtn button{
+				border-radius: 15px;
+				height: 45px;
+				width: 110px;
 			}
-			#RentTypeBtn>button {
+			#rentTypeBtn button {
+				border-radius: 15px;
 				width: 150px;
 				height: 140px;
 			}
-
-			#child {
-				margin: 0 auto;
-				text-align: center;
-				width: 100%;
-				height: 750px;
-				background-color: lightgray;
-			}
-
-			#child iframe {
-				margin-left: 30%;
-			}
-
 			#btn button {
 				width: 322px;
+			}
+			#footBtn button{
+				border-radius: 15px;
+				font-size: 15px;
+				font-weight: bolder;
+				width: 105px;
+				height: 55px;
+			}
+			#footBtn{
+			position:fixed;
+			top:92%;
+			margin-left:450px; /* width的一半的相反数 */
+			z-index:999;
 			}
 		</style>
 	</head>
@@ -47,9 +50,8 @@
 			<h2 style="position: absolute; margin-top: -30px; margin-left: 60px;">步骤1：先填写基本信息</h2>
 			<br><br>
 			<div class="layui-progress layui-progress-big" lay-showpercent="true" lay-filter="pro">
-				<div class="layui-progress-bar layui-bg-green" lay-percent="100%"></div>
+				<div class="layui-progress-bar layui-bg-green" lay-percent="13%"></div>
 			</div>
-
 		</div>
 		<br><br><br>
 		<div id="warpper">
@@ -77,12 +79,13 @@
 				</div>
 			</div>
 		</div><br>
-		<div id="" style="text-align: center;">
-			<button class="layui-btn site-demo-active" data-type="setPercent" id="btnGo">下一步</button>
+		<div id="footBtn"  >
+			<button  class="layui-btn site-demo-active" data-type="setPercent" ><返回</button>
+			<button style="margin-left: 290px; " class="layui-btn site-demo-active" data-type="setPercent" id="btnGo">下一步</button>
 		</div>
 	</body>
 	<script>
-		var houseType=["公寓型住宅","独栋房","别墅","Loft","农家乐","车房","茅屋","木屋"];
+		var houseType=["公寓型住宅","独栋房","别墅","Loft","农家乐","车房","茅屋","木屋","平房","帐篷","蒙古包","窑洞"];
 		var rentType=["整个房源","独立房间","合住房间"];
 		house =$.cookie('house');
 		rent=$.cookie('rent');
@@ -90,14 +93,17 @@
 		$("#houseTypeBtn").empty();
 		$("#houseTypeBtn").append('<div class="layui-row " id=""></div>');
 		$("#houseTypeBtn").append('<br><div class="layui-row " id=""></div>');
+		$("#houseTypeBtn").append('<br><div class="layui-row " id=""></div>');
 		for (var k = 0; k < houseType.length; k++) {
 			if(house == houseType[k]) {
 				html = '<div class="layui-col-xs3"><button class="layui-btn layui-bg-green">'+houseType[k]+'</button></div>'
 			} else {
 				html = '<div class="layui-col-xs3"><button class="layui-btn layui-bg-gray">'+houseType[k]+'</button></div>'
 			}
-			if (k < 4) {
+			if (k <= 3) {
 				$('#houseTypeBtn> div:first').append(html);
+			} else if (k > 3 && k <= 7){
+				$('#houseTypeBtn> div:eq(1)').append(html);
 			} else {
 				$('#houseTypeBtn> div:last').append(html);
 			}
@@ -106,7 +112,7 @@
 		$("#rentTypeBtn").empty();
 		$("#rentTypeBtn").append('<div class="layui-row " id=""></div>');
 		for (var k = 0; k < rentType.length; k++) {
-			if(house == rentType[k]) {
+			if(rent == rentType[k]) {
 				html = '<div class="layui-col-xs4"><button class="layui-btn layui-bg-green">'+rentType[k]+'</button></div>'
 			} else {
 				html = '<div class="layui-col-xs4"><button class="layui-btn layui-bg-gray">'+rentType[k]+'</button></div>'
@@ -123,7 +129,6 @@
 						$(btn[j]).attr("class", "layui-btn layui-bg-gray")
 					}
 					house = $(this).text();
-					alert(house)
 					$(this).attr("class", "layui-btn layui-bg-green")
 					var addr = $(this).text();
 				}
@@ -135,18 +140,13 @@
 						$(btn1[j]).attr("class", "layui-btn layui-bg-gray")
 					}
 					rent = $(this).text();
-					alert(rent)
 					$(this).attr("class", "layui-btn layui-bg-green")
 					var addr = $(this).text();
 				}
 			}
 		}
-		progress = 0;
-		function setProgress(num) {
-			progress = num;
-		}
-		layui.use('element', function() {
-			var $ = layui.jquery,
+		layui.use(['element','layer'], function() {
+			var $ = layui.jquery,layer=layui.layer,
 				element = layui.element; //Tab的切换功能，切换事件监听等，需要依赖element模块
 			//触发事件
 			var active = {
@@ -159,13 +159,11 @@
 				type = $(this).data('type');
 				alert(house)
 				alert(rent)
-				if(house == 'null' || rent == 'null') {
-					layui.msg("请填写完整");
+				if(house == 'null' || rent == 'null' ||house ==null || rent == null) {
+					layer.msg("请填写完整"); 
 				}else {
 					$.cookie('house', house);
 					$.cookie('rent', rent);
-					setProgress(progress + 16.666666666)
-					active[type].call(this, $(this));
 					location.href="bedrooms.html";
 				}
 			});
