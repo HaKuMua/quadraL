@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.zj.control.UserControl;
+import com.zj.entity.CheckInPerson;
 import com.zj.entity.User;
 /**
  * 
@@ -42,10 +43,27 @@ public class UserService {
 		}
 		return list;
 	}
-	
+	/*
+	 * 将单个用户信息包装成map返回
+	 * 用user_phone查询
+	 */
 	public Map<String, Object> getUserInfoByPhone(String user_phone){
 		Map<String, Object> map = null;
-		
-		return null;
+		try {
+			User user = userControl.getUserInfoByPhone(user_phone);
+			if(user != null){
+				map = new HashMap<String, Object>();
+				map.put("user_id", user.getUser_id());
+				map.put("user_name", user.getUser_name());
+				map.put("user_headimg_url", user.getUser_headimg_url());
+				map.put("user_email", user.getUser_email());
+				map.put("user_phone", user.getUser_phone());
+				map.put("user_IDcard", user.getUser_IDcard());
+				map.put("lanlord_id", user.getLandlord_id());
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return map;
 	}
 }

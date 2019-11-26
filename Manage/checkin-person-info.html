@@ -30,23 +30,16 @@
 	</head>
 
 	<body>
-		<!-- ============================================================== -->
-		<!-- Preloader - style you can find in spinners.css -->
-		<!-- ============================================================== -->
 		<div class="preloader">
 			<div class="lds-ripple">
 				<div class="lds-pos"></div>
 				<div class="lds-pos"></div>
 			</div>
 		</div>
-		<!-- ============================================================== -->
 		<!-- Main wrapper - style you can find in pages.scss -->
-		<!-- ============================================================== -->
 		<div id="main-wrapper" data-navbarbg="skin6" data-theme="light" data-layout="vertical" data-sidebartype="full"
 		 data-boxed-layout="full">
-			<!-- ============================================================== -->
-			<!-- Topbar header - style you can find in pages.scss -->
-			<!-- ============================================================== -->
+			<!-- 顶部搜索框 使用者头像 退出登录 -->
 			<header class="topbar" data-navbarbg="skin6">
 				<nav class="navbar top-navbar navbar-expand-md navbar-light">
 					<div class="navbar-header" data-logobg="skin5">
@@ -54,9 +47,8 @@
 						<a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)">
 							<i class="ti-menu ti-close"></i>
 						</a>
-						<!-- ============================================================== -->
 						<!-- Logo -->
-						<!-- ============================================================== -->
+						<!-- 顶部公司logo -->
 						<div class="navbar-brand">
 							<a href="index.html" class="logo">
 								<!-- Logo icon -->
@@ -78,7 +70,6 @@
 							</a>
 						</div>
 						<!-- End Logo -->
-						<!-- Toggle which is visible on mobile only -->
 						<a class="topbartoggler d-block d-md-none waves-effect waves-light" href="javascript:void(0)" data-toggle="collapse"
 						 data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 							<i class="ti-more"></i>
@@ -125,6 +116,7 @@
 			</header>
 			<!-- End Topbar header -->
 			<!-- Left Sidebar - style you can find in sidebar.scss  -->
+			<!-- 左侧导航栏 -->
 			<aside class="left-sidebar" data-sidebarbg="skin5">
 				<!-- Sidebar scroll-->
 				<div class="scroll-sidebar">
@@ -186,7 +178,7 @@
 				<!-- End Sidebar scroll-->
 			</aside>
 			<!-- End Left Sidebar - style you can find in sidebar.scss  -->
-			<!-- Page wrapper  -->
+			<!-- Page wrapper 右上侧页面归属路径导航 -->
 			<div class="page-wrapper">
 				<!-- Bread crumb and right sidebar toggle -->
 				<div class="page-breadcrumb">
@@ -209,7 +201,7 @@
 					</div>
 				</div>
 				<!-- End Bread crumb and right sidebar toggle -->
-				<!-- Container fluid  -->
+				<!-- Container fluid  表格主体-->
 				<div class="container-fluid">
 					<!-- Start Page Content -->
 					<div class="row">
@@ -255,7 +247,7 @@
 			<!-- End Page wrapper  -->
 		</div>
 		<!-- End Wrapper -->
-		
+		<!-- 后端数据交互到前端表格 -->
 		<script >
 			$.getJSON("http://localhost:80/QuadraL/a?method=getAllCheckInPersonInfo&callback=?",
 				function(check_in_person_result) {

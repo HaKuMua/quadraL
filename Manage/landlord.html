@@ -14,6 +14,19 @@
 		<title>后台管理</title>
 		<!-- Custom CSS -->
 		<link href="css/style.min.css" rel="stylesheet">
+		<script src="libs/jquery/dist/jquery.min.js"></script>
+		<!-- Bootstrap tether Core JavaScript -->
+		<script src="libs/popper.js/dist/umd/popper.min.js"></script>
+		<script src="libs/bootstrap/dist/js/bootstrap.min.js"></script>
+		<!-- slimscrollbar scrollbar JavaScript -->
+		<script src="extra-libs/sparkline/sparkline.js"></script>
+		<!--Wave Effects -->
+		<script src="js/waves.js"></script>
+		<!--Menu sidebar -->
+		<script src="js/sidebarmenu.js"></script>
+		<!--Custom JavaScript -->
+		<script src="js/custom.min.js"></script>
+		<script src="js/comment.js"></script>
 	</head>
 
 	<body>
@@ -221,6 +234,7 @@
 												<th scope="col" class="t6">电子邮件</th>
 												<th scope="col" class="t7">房东电话</th>
 												<th scope="col" class="t8">认证日期</th>
+												<th scope="col" class="t9">认证实名</th>
 											</tr>
 										</thead>
 									</table>
@@ -246,60 +260,23 @@
 			<!-- End Page wrapper  -->
 		</div>
 		<!-- End Wrapper -->
-
-		<script type="text/javascript">
-			var data1 = [{
-					"landlord_id": 101,
-					"landlord_headimg_url": "img",
-					"landlord_name": "张三",
-					"landlord_describe": "男",
-					"landlord_IDcard": "430201219926134",
-					"landlord_email": "lance@qq.com",
-					"landlord_phone": "110",
-					"inform_date": "2019-11-23 11：31：00"
-				},
-				{
-					"landlord_id": 101,
-					"landlord_headimg_url": "img",
-					"landlord_name": "张三",
-					"landlord_describe": "男",
-					"landlord_IDcard": "430201219926134",
-					"landlord_email": "lance@qq.com",
-					"landlord_phone": "110",
-					"inform_date": "2019-11-23 11：31：00"
-				},
-				{
-					"landlord_id": 101,
-					"landlord_headimg_url": "img",
-					"landlord_name": "张三",
-					"landlord_describe": "男",
-					"landlord_IDcard": "430201219926134",
-					"landlord_email": "lance@qq.com",
-					"landlord_phone": "110",
-					"inform_date": "2019-11-23 11：31：00"
-				},
-				{
-					"landlord_id": 101,
-					"landlord_headimg_url": "img",
-					"landlord_name": "张三",
-					"landlord_describe": "男",
-					"landlord_IDcard": "430201219926134",
-					"landlord_email": "lance@qq.com",
-					"landlord_phone": "110",
-					"inform_date": "2019-11-23 11：31：00"
+		<script>
+			$.getJSON("http://localhost:80/QuadraL/a?method=getAllLandlordInfo&callback=?",
+				function(landlord_result) {
+					window.onload = function() {
+						var tdArr = document.getElementById('tablebox').firstElementChild;
+						for (var i = 0; i < landlord_result.list.length; i++) {
+							var tr = document.createElement("tr");
+							tr.innerHTML = '<td class="t1">' + landlord_result.list[i].landlord_id + '</td><td class="t2">' + landlord_result.list[i].landlord_headimg_url +
+								'</td><td class="t3">' + landlord_result.list[i].landlord_name + '</td><td class="t4">' + landlord_result.list[i].landlord_describe + 
+								'</td><td class="t5">' + landlord_result.list[i].landlord_IDcard + '</td><td class="t6">' + landlord_result.list[i].landlord_email +
+								'</td><td class="t7">' + landlord_result.list[i].landlord_phone + '</td><td class="t8">' + landlord_result.list[i].inform_date +
+								'</td><td class="t9">' + landlord_result.list[i].real_name;
+							tdArr.appendChild(tr)
+						}
+					};
 				}
-			];
-			window.onload = function() {
-				var tdArr = document.getElementById('tablebox').firstElementChild;
-				for (var i = 0; i < data1.length; i++) {
-					var tr = document.createElement("tr");
-					tr.innerHTML = '<td class="t1">' + data1[i].landlord_id + '</td><td class="t2">' + data1[i].landlord_headimg_url +
-						'</td><td class="t3">' + data1[i].landlord_name + '</td><td class="t4">' + data1[i].landlord_describe +
-						'</td><td class="t5">' + data1[i].landlord_IDcard + '</td><td class="t6">' + data1[i].landlord_email +
-						'</td><td class="t7">' + data1[i].landlord_phone + '</td><td class="t8">' + data1[i].inform_date;
-					tdArr.appendChild(tr)
-				}
-			};
+			);
 		</script>
 		<script src="layui/layui.js" charset="utf-8"></script>
 		<script>
@@ -317,22 +294,5 @@
 				});
 			});
 		</script>
-
-		
-		</script>
-		<script src="libs/jquery/dist/jquery.min.js"></script>
-		<!-- Bootstrap tether Core JavaScript -->
-		<script src="libs/popper.js/dist/umd/popper.min.js"></script>
-		<script src="libs/bootstrap/dist/js/bootstrap.min.js"></script>
-		<!-- slimscrollbar scrollbar JavaScript -->
-		<script src="extra-libs/sparkline/sparkline.js"></script>
-		<!--Wave Effects -->
-		<script src="js/waves.js"></script>
-		<!--Menu sidebar -->
-		<script src="js/sidebarmenu.js"></script>
-		<!--Custom JavaScript -->
-		<script src="js/custom.min.js"></script>
-		<script src="js/comment.js"></script>
 	</body>
-
 </html>

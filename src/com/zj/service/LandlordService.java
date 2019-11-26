@@ -47,6 +47,7 @@ public class LandlordService {
 	}
 	/*
 	 * 将单个房东信息包装成map返回
+	 * 按照房东电话号码返回信息
 	 */
 	public Map<String, Object> getLandlordInfoByPhone(String landlord_phone){
 		Map<String, Object> map = null;

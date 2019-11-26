@@ -14,6 +14,18 @@
 		<title>后台管理</title>
 		<!-- Custom CSS -->
 		<link href="css/style.min.css" rel="stylesheet">
+		<script src="libs/jquery/dist/jquery.min.js"></script>
+		<!-- Bootstrap tether Core JavaScript -->
+		<script src="libs/popper.js/dist/umd/popper.min.js"></script>
+		<script src="libs/bootstrap/dist/js/bootstrap.min.js"></script>
+		<!-- slimscrollbar scrollbar JavaScript -->
+		<script src="extra-libs/sparkline/sparkline.js"></script>
+		<!--Wave Effects -->
+		<script src="js/waves.js"></script>
+		<!--Menu sidebar -->
+		<script src="js/sidebarmenu.js"></script>
+		<!--Custom JavaScript -->
+		<script src="js/custom.min.js"></script>
 	</head>
 
 	<body>
@@ -26,36 +38,23 @@
 				<div class="lds-pos"></div>
 			</div>
 		</div>
-		<!-- ============================================================== -->
-		<!-- Main wrapper - style you can find in pages.scss -->
-		<!-- ============================================================== -->
 		<div id="main-wrapper" data-navbarbg="skin6" data-theme="light" data-layout="vertical" data-sidebartype="full"
 		 data-boxed-layout="full">
-			<!-- ============================================================== -->
-			<!-- Topbar header - style you can find in pages.scss -->
-			<!-- ============================================================== -->
+			<!-- 顶部搜索框 使用者头像 退出登录 -->
 			<header class="topbar" data-navbarbg="skin6">
 				<nav class="navbar top-navbar navbar-expand-md navbar-light">
 					<div class="navbar-header" data-logobg="skin5">
-						<!-- This is for the sidebar toggle which is visible on mobile only -->
 						<a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)">
 							<i class="ti-menu ti-close"></i>
 						</a>
-						<!-- ============================================================== -->
-						<!-- Logo -->
-						<!-- ============================================================== -->
+						<!-- 顶部公司logo -->
 						<div class="navbar-brand">
 							<a href="index.html" class="logo">
-								<!-- Logo icon -->
 								<b class="logo-icon">
-									<!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
-									<!-- Dark Logo icon -->
 									<img src="img/logo-icon.png" alt="homepage" class="dark-logo" />
-									<!-- Light Logo icon -->
 									<img src="img/logo-light-icon.png" alt="homepage" class="light-logo" />
 								</b>
-								<!--End Logo icon -->
-								<!-- Logo text -->
+								<!-- 顶部公司logo -->
 								<span class="logo-text">
 									<!-- dark Logo text -->
 									<img src="img/logo-text.png" alt="homepage" class="dark-logo" />
@@ -95,13 +94,11 @@
 						</ul>
 						<!-- Right side toggle and nav items -->
 						<ul class="navbar-nav float-right">
-							<!-- User profile and search -->
+							<!-- 登录用户头像 查询 -->
 							<li class="nav-item dropdown">
 								<a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href="" data-toggle="dropdown"
 								 aria-haspopup="true" aria-expanded="false"><img src="img/users/1.jpg" alt="user" class="rounded-circle" width="31"></a>
 								<div class="dropdown-menu dropdown-menu-right user-dd animated">
-									<a class="dropdown-item" href="javascript:void(0)"><i class="ti-user m-r-5 m-l-5"></i> 个人中心</a>
-									<a class="dropdown-item" href="javascript:void(0)"><i class="ti-wallet m-r-5 m-l-5"></i> 收支情况</a>
 									<a class="dropdown-item" href="javascript:void(0)"><i class="ti-email m-r-5 m-l-5"></i> 退出登录</a>
 								</div>
 							</li>
@@ -111,7 +108,7 @@
 				</nav>
 			</header>
 			<!-- End Topbar header -->
-			<!-- Left Sidebar - style you can find in sidebar.scss  -->
+			<!-- 左侧导航栏 -->
 			<aside class="left-sidebar" data-sidebarbg="skin5">
 				<!-- Sidebar scroll-->
 				<div class="scroll-sidebar">
@@ -173,7 +170,7 @@
 				<!-- End Sidebar scroll-->
 			</aside>
 			<!-- End Left Sidebar - style you can find in sidebar.scss  -->
-			<!-- Page wrapper  -->
+			<!-- Page wrapper 右上侧页面归属路径导航 -->
 			<div class="page-wrapper">
 				<!-- Bread crumb and right sidebar toggle -->
 				<div class="page-breadcrumb">
@@ -196,7 +193,7 @@
 					</div>
 				</div>
 				<!-- End Bread crumb and right sidebar toggle -->
-				<!-- Container fluid  -->
+				<!-- Container fluid  表格主体-->
 				<div class="container-fluid">
 					<!-- Start Page Content -->
 					<div class="row">
@@ -210,6 +207,7 @@
 											</div>
 										</div>
 									</div>
+									<!-- 表格 -->
 									<table class="table table-hover" id="tablebox">
 										<thead>
 											<tr>
@@ -218,7 +216,9 @@
 												<th scope="col" class="t3">文章题目</th>
 												<th scope="col" class="t4">文章内容</th>
 												<th scope="col" class="t5">文章发布日期</th>
-												<th scope="col" class="t6"></th>
+												<th scope="col" class="t6">文章赞数</th>
+												<th scope="col" class="t7">文章收藏数</th>
+												<th scope="col" class="t8"></th>
 											</tr>
 										</thead>
 									</table>
@@ -234,7 +234,7 @@
 					</div>
 				</div>
 				<!-- End Container fluid  -->
-				<!-- footer -->
+				<!-- footer 页脚-->
 				<footer class="footer text-center">
 					All Rights Reserved by Airbnb. Designed and Developed by QuadraL.
 				</footer>
@@ -244,52 +244,27 @@
 		</div>
 		<!-- End Wrapper -->
 		<!-- All Jquery -->
-		<script language="javascript">
-			var data = [{
-					"article_id": 1,
-					"user_id": 2,
-					"article_name": "创建文明城市",
-					"article_content": "创建文明城市",
-					"article_date": "2019-11-23 16：11：00"
-				},
-				{
-					"article_id": 1,
-					"user_id": 2,
-					"article_name": "创建文明城市",
-					"article_content": "创建文明城市",
-					"article_date": "2019-11-23 16：11：00"
-				},
-				{
-					"article_id": 1,
-					"user_id": 2,
-					"article_name": "创建文明城市",
-					"article_content": "创建文明城市",
-					"article_date": "2019-11-23 16：11：00"
-				},
-				{
-					"article_id": 1,
-					"user_id": 2,
-					"article_name": "创建文明城市",
-					"article_content": "创建文明城市",
-					"article_date": "2019-11-23 16：11：00"
+		<!-- 后端数据交互到前端表格 -->
+		<script>
+			$.getJSON("http://localhost:80/QuadraL/a?method=getAllArticle&callback=?",
+				function(article_result) {
+					window.onload = function() {
+						var tdArr = document.getElementById('tablebox').firstElementChild;
+						for (var i = 0; i < article_result.list.length; i++) {
+							var tr = document.createElement("tr");
+							tr.innerHTML = '<td class="t1">' + article_result.list[i].article_id + '</td><td class="t2">' + article_result.list[i].user_id +
+								'</td><td class="t3">' + article_result.list[i].article_name + '</td><td class="t4">' + article_result.list[i].article_content + 
+								'</td><td class="t5">' + article_result.list[i].article_date + '</td><td class="t6">' + article_result.list[i].article_praise +
+								'</td><td class="t7">' + article_result.list[i].article_collect +
+								'</td><td class="t8">'+
+								'<button class="btn btn-primary btn-sm" id="delete" data-toggle="modal" data-target="#myModal">删除</button>';
+							tdArr.appendChild(tr)
+						}
+					};
 				}
-			];
-			window.onload = function() {
-				var tdArr = document.getElementById('tablebox').firstElementChild;
-				for (var i = 0; i < data.length; i++) {
-					var tr = document.createElement("tr");
-					tr.innerHTML = '<td class="t1">' + data[i].article_id + '</td><td class="t2">' + data[i].user_id +
-						'</td><td class="t3">' + data[i].article_name + '</td><td class="t4">' + data[i].article_content +
-						'</td><td class="t5">' + data[i].article_date +
-						'</td><td class="t6">'+
-						'<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">删除</button>';
-					tdArr.appendChild(tr)
-				}
-			};
-			function clickPerson(id) {
-				console.log(id)
-			}
+			);
 		</script>
+		<!-- layui 实现表格内容分页-->
 		<script src="layui/layui.js" charset="utf-8"></script>
 		<script>
 			layui.use(['laypage', 'layer'], function() {
@@ -307,18 +282,7 @@
 				});
 			});
 		</script>
-		<script src="libs/jquery/dist/jquery.min.js"></script>
-		<!-- Bootstrap tether Core JavaScript -->
-		<script src="libs/popper.js/dist/umd/popper.min.js"></script>
-		<script src="libs/bootstrap/dist/js/bootstrap.min.js"></script>
-		<!-- slimscrollbar scrollbar JavaScript -->
-		<script src="extra-libs/sparkline/sparkline.js"></script>
-		<!--Wave Effects -->
-		<script src="js/waves.js"></script>
-		<!--Menu sidebar -->
-		<script src="js/sidebarmenu.js"></script>
-		<!--Custom JavaScript -->
-		<script src="js/custom.min.js"></script>
+		
 	</body>
 
 </html>
