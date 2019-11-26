@@ -11,6 +11,20 @@
 		<link rel="stylesheet" href="layui/css/layui.css" media="all">
 		<link href="css/style.min.css" rel="stylesheet">
 		<title>后台管理</title>
+		<!-- All Jquery -->
+		<!-- ============================================================== -->
+		<script src="libs/jquery/dist/jquery.min.js"></script>
+		<!-- Bootstrap tether Core JavaScript -->
+		<script src="libs/popper.js/dist/umd/popper.min.js"></script>
+		<script src="libs/bootstrap/dist/js/bootstrap.min.js"></script>
+		<!-- slimscrollbar scrollbar JavaScript -->
+		<script src="extra-libs/sparkline/sparkline.js"></script>
+		<!--Wave Effects -->
+		<script src="js/waves.js"></script>
+		<!--Menu sidebar -->
+		<script src="js/sidebarmenu.js"></script>
+		<!--Custom JavaScript -->
+		<script src="js/custom.min.js"></script>
 	</head>
 
 	<body>
@@ -239,56 +253,24 @@
 					</footer>
 				</div>
 			</div>
-			<script language="javascript">
-				var data = [{
-						"user_id": 101,
-						"user_name": "张三",
-						"user_headimg_url": "img",
-						"user_email": "10344@qq.com",
-						"user_phone": "17312345678",
-						"user_IDcard": "4302199920302613"
-					},
-					{
-						"user_id": 101,
-						"user_name": "张三",
-						"user_headimg_url": "img",
-						"user_email": "10344@qq.com",
-						"user_phone": "17312345678",
-						"user_IDcard": "4302199920302613"
-					},
-					{
-						"user_id": 101,
-						"user_name": "张三",
-						"user_headimg_url": "img",
-						"user_email": "10344@qq.com",
-						"user_phone": "17312345678",
-						"user_IDcard": "4302199920302613"
-					},
-					{
-						"user_id": 101,
-						"user_name": "张三",
-						"user_headimg_url": "img",
-						"user_email": "10344@qq.com",
-						"user_phone": "17312345678",
-						"user_IDcard": "4302199920302613"
+			
+			<script>
+				$.getJSON("http://localhost:80/QuadraL/a?method=getAllUserInfo&callback=?",
+					function(user_result) {
+						window.onload = function() {
+							var tdArr = document.getElementById('tablebox').firstElementChild;
+							for (var i = 0; i < user_result.list.length; i++) {
+								var tr = document.createElement("tr");
+								tr.innerHTML = '<td class="t1">' + user_result.list[i].user_id + '</td><td class="t2">' + user_result.list[i].user_name +
+									'</td><td class="t3">' + user_result.list[i].user_headimg_url + '</td><td class="t4">' + user_result.list[i].user_email + 
+									'</td><td class="t5">' + user_result.list[i].user_phone + '</td><td class="t6">' + user_result.list[i].user_IDcard +
+									'</td><td class="t7">' +
+									'<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">通过</button>';
+								tdArr.appendChild(tr)
+							}
+						};
 					}
-				];
-				window.onload = function() {
-					var tdArr = document.getElementById('tablebox').firstElementChild;
-					for (var i = 0; i < data.length; i++) {
-						var tr = document.createElement("tr");
-						tr.innerHTML = '<td class="t1">' + data[i].user_id + '</td><td class="t2">' + data[i].user_name +
-							'</td><td class="t3">' + data[i].user_headimg_url + '</td><td class="t4">' + data[i].user_email +
-							'</td><td class="t5">' + data[i].user_phone + '</td><td class="t6">' + data[i].user_IDcard +
-							'</td><td class="t7">' +
-							'<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">通过</button>';
-						tdArr.appendChild(tr)
-					}
-				};
-
-				function clickPerson(id) {
-					console.log(id)
-				}
+				);
 			</script>
 			<script src="layui/layui.js" charset="utf-8"></script>
 			<script>
@@ -311,20 +293,7 @@
 			<!-- End Wrapper -->
 			<!-- ============================================================== -->
 			<!-- ============================================================== -->
-			<!-- All Jquery -->
-			<!-- ============================================================== -->
-			<script src="libs/jquery/dist/jquery.min.js"></script>
-			<!-- Bootstrap tether Core JavaScript -->
-			<script src="libs/popper.js/dist/umd/popper.min.js"></script>
-			<script src="libs/bootstrap/dist/js/bootstrap.min.js"></script>
-			<!-- slimscrollbar scrollbar JavaScript -->
-			<script src="extra-libs/sparkline/sparkline.js"></script>
-			<!--Wave Effects -->
-			<script src="js/waves.js"></script>
-			<!--Menu sidebar -->
-			<script src="js/sidebarmenu.js"></script>
-			<!--Custom JavaScript -->
-			<script src="js/custom.min.js"></script>
+			
 	</body>
 
 </html>
