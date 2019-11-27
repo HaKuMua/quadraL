@@ -29,8 +29,33 @@ public class Comment implements Serializable{
 	 * 回复ID
 	 */
 	private String replier_id;
+	/*
+	 * 评论时间
+	 */
+	private Integer comment_date;
+	/*
+	 * 赞数量
+	 */
+	private Integer comment_praise;
+	
 	
 	public Comment() {
+	}
+
+	public Integer getComment_date() {
+		return comment_date;
+	}
+
+	public void setComment_date(Integer comment_date) {
+		this.comment_date = comment_date;
+	}
+
+	public Integer getComment_praise() {
+		return comment_praise;
+	}
+
+	public void setComment_praise(Integer comment_praise) {
+		this.comment_praise = comment_praise;
 	}
 
 	public Integer getComment_id() {
@@ -73,9 +98,14 @@ public class Comment implements Serializable{
 		this.replier_id = replier_id;
 	}
 
+	@Override
 	public String toString() {
 		return "Comment [comment_id=" + comment_id + ", article_id="
 				+ article_id + ", user_id=" + user_id + ", comment_content="
-				+ comment_content + ", replier_id=" + replier_id + "]";
+				+ comment_content + ", replier_id=" + replier_id
+				+ ", comment_date=" + comment_date + ", comment_praise="
+				+ comment_praise + "]";
 	}
+
+	
 }

@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.zj.control.UserControl;
+import com.zj.entity.CheckInPerson;
 import com.zj.entity.User;
 /**
  * 
@@ -42,7 +43,8 @@ public class UserService {
 		return list;
 	}
 	/*
-	 * 通过用户手机号返回一个包含此用户信息的map
+	 * 将单个用户信息包装成map返回
+	 * 用user_phone查询
 	 */
 	public Map<String, Object> getUserInfoByPhone(String user_phone){
 		Map<String, Object> map = null;
@@ -59,7 +61,6 @@ public class UserService {
 				map.put("lanlord_id", user.getLandlord_id());
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return map;
