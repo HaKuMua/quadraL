@@ -6,12 +6,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.zj.dao.HouseDao;
+import com.zj.dao.HouseImgDao;
+import com.zj.dao.HouseParticularsDao;
 import com.zj.dao.impl.HouseDaoImpl;
 import com.zj.dao.impl.HouseImgDaoImpl;
 import com.zj.dao.impl.HouseParticularsDaoImpl;
-import com.zj.dao.realize.HouseDao;
-import com.zj.dao.realize.HouseImgDao;
-import com.zj.dao.realize.HouseParticularsDao;
 import com.zj.entity.House;
 import com.zj.entity.HouseImg;
 import com.zj.entity.HouseParticulars;

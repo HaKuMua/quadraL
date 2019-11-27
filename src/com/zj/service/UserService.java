@@ -6,8 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.zj.dao.UserDao;
 import com.zj.dao.impl.UserDaoImpl;
-import com.zj.dao.realize.UserDao;
 import com.zj.entity.User;
 import com.zj.service.imp.UserServiceImpl;
 /**

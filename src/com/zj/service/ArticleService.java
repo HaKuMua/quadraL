@@ -9,12 +9,12 @@ import java.util.Map;
 
 import cn.com.uitl.PageUtil;
 
+import com.zj.dao.ArticleDao;
+import com.zj.dao.ArticleImgDao;
+import com.zj.dao.CommentDao;
 import com.zj.dao.impl.ArticleDaoImpl;
 import com.zj.dao.impl.ArticleImgDaoImpl;
 import com.zj.dao.impl.CommentDaoImpl;
-import com.zj.dao.realize.ArticleDao;
-import com.zj.dao.realize.ArticleImgDao;
-import com.zj.dao.realize.CommentDao;
 import com.zj.entity.Article;
 import com.zj.entity.ArticleImg;
 import com.zj.entity.Comment;

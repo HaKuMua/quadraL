@@ -1,4 +1,4 @@
-package com.zj.dao.realize;
+package com.zj.dao;
 
 import java.sql.Connection;
 import java.sql.SQLException;

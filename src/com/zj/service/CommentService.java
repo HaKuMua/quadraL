@@ -6,8 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.zj.dao.CommentDao;
 import com.zj.dao.impl.CommentDaoImpl;
-import com.zj.dao.realize.CommentDao;
 import com.zj.entity.Comment;
 import com.zj.service.imp.CommentServiceImpl;
 /**

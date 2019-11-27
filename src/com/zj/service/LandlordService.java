@@ -11,8 +11,8 @@ import cn.com.uitl.CheckoutEmail;
 import cn.com.uitl.CheckoutIDCard;
 import cn.com.uitl.CheckoutPhoneNumber;
 
+import com.zj.dao.LandlordDao;
 import com.zj.dao.impl.LandlordDaoImpl;
-import com.zj.dao.realize.LandlordDao;
 import com.zj.entity.Landlord;
 import com.zj.service.imp.LandlordServiceImpl;
 
