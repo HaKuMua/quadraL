@@ -12,6 +12,8 @@ import cn.com.uitl.CheckoutIDCard;
 import cn.com.uitl.CheckoutPhoneNumber;
 
 import com.zj.control.LandlordControl;
+import com.zj.dao.impl.LandlordDaoImpl;
+import com.zj.dao.realize.LandlordDao;
 import com.zj.entity.Landlord;
 
 /**
@@ -20,14 +22,14 @@ import com.zj.entity.Landlord;
  *房东服务层类
  */
 public class LandlordService {
-	private LandlordControl landLordControl = new LandlordControl();
+	private LandlordDaoImpl landlordDaoImpl = new LandlordDao();
 	/*
 	 * 将所有房东信息包装成list<map>返回
 	 */
 	public List<Map<String, Object>> getAllLandlordInfo(){
 		List<Map<String, Object>> list = null;
 		try {
-			List<Landlord> allLandlord = landLordControl.getAllLandlordInfo();
+			List<Landlord> allLandlord = landlordDaoImpl.getAllLandlordInfo();
 			if(allLandlord != null){
 				list = new ArrayList<Map<String,Object>>();
 				for(Landlord landlord : allLandlord){
@@ -56,7 +58,7 @@ public class LandlordService {
 	public Map<String, Object> getLandlordInfoByPhone(String landlord_phone){
 		Map<String, Object> map = null;
 		try {
-			Landlord landlord = landLordControl.getLandlordInfoByPhone(landlord_phone);
+			Landlord landlord = landlordDaoImpl.getLandlordInfoByPhone(landlord_phone);
 			if(landlord !=null){
 				map = new HashMap<String, Object>();
 				map.put("landlord_id", landlord.getLandlord_id());
@@ -107,7 +109,7 @@ public class LandlordService {
 			return "输入有误";
 		}
 		try {
-			if(landLordControl.addLandlordInfo(landlord)){
+			if(landlordDaoImpl.addLandlordInfo(landlord)){
 				return "插入成功";
 			}
 		} catch (SQLException e) {

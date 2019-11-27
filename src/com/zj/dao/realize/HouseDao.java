@@ -37,4 +37,13 @@ public class HouseDao implements HouseDaoImpl{
 		String sql = "select * from house where house_id=?";
 		return qr.query(conn, sql, new BeanHandler<House>(House.class),HouseID);
 	}
+	/*
+	 * 添加一个房子方法
+	 * @see com.zj.dao.impl.HouseDaoImpl#addHouseInfoByID()
+	 */
+	public Boolean addHouseInfoByID() throws SQLException {
+		String sql = "insert into house(landlord_id,house_name,house_intake,lease_type,may_check_in_date" +
+				",)";
+		return null;
+	}
 }

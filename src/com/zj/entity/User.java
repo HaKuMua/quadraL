@@ -42,7 +42,9 @@ public class User implements Serializable{
 	 * 用户密码
 	 */
 	private String user_pwd;
-	
+	/*
+	 * 用户余额
+	 */
 	private Double money;
 	
 	public User() {

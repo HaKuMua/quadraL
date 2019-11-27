@@ -50,5 +50,7 @@ public class HouseControl {
 			Integer HouseParticularsID) throws SQLException {
 		return houseParticularsDaoImpl.getHouseParticularsInfoByID(HouseParticularsID);
 	}
+	
+	
 
 }
