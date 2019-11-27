@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>编辑您的房源</title>
+		<script src="../../../js/jquery.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="../../../layui/css/layui.css">
+		<script src="../../../js/jquery.min.js"></script>
+		<script type="text/javascript" src="../../../js/jquery.cookie.js"></script>
+		<script src="../../../layui/layui.all.js"></script>
+		<script src="../../../layui/layui.js"></script>]
+		<style type="text/css">
+			#warpper {
+				margin-left: 450px;
+				width: 500px;
+			}
+			#checkBox div,#checkBox h2{
+				margin-top: 100px;
+			}
+			#checkBox span{
+				font-size: 20px;
+			}
+			#footBtn button {
+				border-radius: 15px;
+				border-radius: 15px;
+				font-size: 15px;
+				font-weight: bolder;
+				width: 105px;
+				height: 55px;
+			}
+			#footBtn{
+				position:fixed;
+				top:92%;
+				left:440px; /* width的一半的相反数 */
+				z-index:999;
+			}
+		</style>
+	</head>
+	<body>
+		<div style="margin-top: -20px;z-index: 100; width: 100%;height: 65px; position: fixed;background-color: mistyrose;">
+			<br>
+			&nbsp;&nbsp;&nbsp;&nbsp;<img src="../../../img/logo.jpg" class="layui-nav-img">
+			<h2 style="position: absolute; margin-top: -30px; margin-left: 60px;">步骤3：做好准备接待房客</h2>
+			<br><br>
+			<div class="layui-progress layui-progress-big c" lay-showpercent="true" lay-filter="pro">
+				<div class="layui-progress-bar layui-bg-green" lay-percent="100%"></div>
+			</div>
+		</div>
+		<br><br><br><br><br>
+		<div id="warpper">
+			<br><br>
+			<h1 style="font-weight: bolder;">成功出租之路，由准确的日历开始</h1>
+			<br><br>
+			<h2>房客将可以即时预订住宿。请及时更新日历和房源可租状态设置，这样您便只会在房源可以出租的日期获得预订。</h2>
+			<br><br>
+			<h2>取消预订会影响房客的计划。如果由于日历不准确而取消预订，您将会被处以罚款，而且其他人也将无法预订对应的日期。</h2>
+			<br><br><br>
+			<form class="layui-form" action="" style="width: 350px;font-weight: bolder;">
+			   <div id="checkBox" class="layui-input-block">
+			   	<input  type="checkbox" lay-filter="filter" name="tips" lay-skin="primary"
+			   	title="知道了！我会及时更新日历。" value="	知道了！我会及时更新日历。"><br><br><br><br>
+			   </div>
+			</form>
+		</div>
+		<div style="position: fixed; top: 10%; left: 60%;">
+			<img src="../../../img/ReleaseRoom/2.png" height="50%">
+		</div>
+		<div id="footBtn" >
+			<button class="layui-btn site-demo-active" onclick="location.href='rules.html'">
+				< 返回</button> 
+				<button style="margin-left: 290px; " class="layui-btn " id="btnGo">下一步
+			</button>
+		</div>
+	</body>
+	<script>
+		layui.use('form', function(){
+			var form = layui.form
+			,layer = layui.layer
+			form.on('checkbox()', function(data){
+				if(data.elem.checked) {
+					myRules.push(data.value);
+				} else {
+					myRules.pop(data.value);
+				}
+				console.log(data.elem.checked); //是否被选中，true或者false
+				console.log(data.value); //复选框value值，也可以通过data.elem.value得到
+			});
+		});
+	</script>
+	<script>
+		$('#btnGo').on('click', function() {
+			location.href = "date_setting.html";
+		});
+		
+	</script>
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>为您的爱彼迎房源编辑房源类型</title>
+		<script src="../../../js/jquery.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="../../../layui/css/layui.css">
+		<script src="../../../js/jquery.min.js"></script>
+		<script type="text/javascript" src="../../../js/jquery.cookie.js"></script>
+		<script src="../../../layui/layui.all.js"></script>
+		<style type="text/css">
+			#warpper {
+				margin-left: 450px;
+				width: 500px;
+				height: 750px;
+			}
+
+			#houseTypeBtn button{
+				border-radius: 15px;
+				height: 45px;
+				width: 110px;
+			}
+			#rentTypeBtn button {
+				border-radius: 15px;
+				width: 150px;
+				height: 140px;
+			}
+			#btn button {
+				width: 322px;
+			}
+			#footBtn button{
+				border-radius: 15px;
+				font-size: 15px;
+				font-weight: bolder;
+				width: 105px;
+				height: 55px;
+			}
+			#footBtn{
+			position:fixed;
+			top:92%;
+			left:440px; /* width的一半的相反数 */
+			z-index:999;
+			}
+		</style>
+	</head>
+	<body>
+		<br>
+		<div style="width: 100%;height: 65px; ">
+			&nbsp;&nbsp;&nbsp;&nbsp;<img src="../../../img/logo.jpg" class="layui-nav-img">
+			<h2 style="position: absolute; margin-top: -30px; margin-left: 60px;">步骤1：先填写基本信息</h2>
+			<br><br>
+			<div class="layui-progress layui-progress-big" lay-showpercent="true" lay-filter="pro">
+				<div class="layui-progress-bar layui-bg-green" lay-percent="16%"></div>
+			</div>
+		</div>
+		<br><br><br>
+		<div id="warpper">
+			<br>
+			<h1>您打算出租的是什么样的房子？</h1>
+			<br><br><br>
+			<h2>房源类型</h2><br><br>
+			<div id="houseTypeBtn">
+			</div>
+			<br><br><br>
+			<h2>出租类型</h2><br>
+			<div id="rentTypeBtn">
+				<div class="layui-row " >
+					<div class="layui-col-xs4">
+						<button class="layui-btn">
+							<h3>整个房源</h2>
+						</button>
+					</div>
+					<div class="layui-col-xs4">
+						<button class="layui-btn">独立房间</button>
+					</div>
+					<div class="layui-col-xs4">
+						<button class="layui-btn">合住房间</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div style="position: fixed; top: 10%; left: 60%;">
+			<img src="../../../img/ReleaseRoom/2.png" height="50%">
+		</div>
+		<div id="footBtn"  >
+			<button  class="layui-btn site-demo-active" onclick='location.href="../../../views/index.html"' >< 返回</button>
+			<button style="margin-left: 290px; " class="layui-btn "  id="btnGo">下一步</button>
+		</div>
+	</body>
+	<script>
+		var houseType=["公寓型住宅","独栋房","别墅","Loft","农家乐","车房","茅屋","木屋","平房","帐篷","蒙古包","窑洞"];
+		var rentType=["整个房源","独立房间","合住房间"];
+		house =$.cookie('house');
+		rent=$.cookie('rent');
+		//初始化房源类型
+		$("#houseTypeBtn").empty();
+		$("#houseTypeBtn").append('<div class="layui-row " id=""></div>');
+		$("#houseTypeBtn").append('<br><div class="layui-row " id=""></div>');
+		$("#houseTypeBtn").append('<br><div class="layui-row " id=""></div>');
+		for (var k = 0; k < houseType.length; k++) {
+			if(house == houseType[k]) {
+				html = '<div class="layui-col-xs3"><button class="layui-btn layui-bg-green">'+houseType[k]+'</button></div>'
+			} else {
+				html = '<div class="layui-col-xs3"><button class="layui-btn layui-bg-gray">'+houseType[k]+'</button></div>'
+			}
+			if (k <= 3) {
+				$('#houseTypeBtn> div:first').append(html);
+			} else if (k > 3 && k <= 7){
+				$('#houseTypeBtn> div:eq(1)').append(html);
+			} else {
+				$('#houseTypeBtn> div:last').append(html);
+			}
+		}
+		//初始化出租类型
+		$("#rentTypeBtn").empty();
+		$("#rentTypeBtn").append('<div class="layui-row " id=""></div>');
+		for (var k = 0; k < rentType.length; k++) {
+			if(rent == rentType[k]) {
+				html = '<div class="layui-col-xs4"><button class="layui-btn layui-bg-green">'+rentType[k]+'</button></div>'
+			} else {
+				html = '<div class="layui-col-xs4"><button class="layui-btn layui-bg-gray">'+rentType[k]+'</button></div>'
+			}
+			$('#rentTypeBtn> div:last').append(html);
+		}
+		$('#btnGo').on('click', function() {
+			if(house == 'null' || rent == 'null' ||house ==null || rent == null) {
+				layer.msg("请填写完整"); 
+			}else {
+				$.cookie('house', house);
+				$.cookie('rent', rent);
+				location.href="bedrooms.html";
+			}
+		});
+		//加载
+		window.onload = function() {
+			var btn = document.getElementById("houseTypeBtn").getElementsByTagName('button');
+			for (var i = 0; i < btn.length; i++) {
+				btn[i].onclick = function() {
+					for (var j = 0; j < btn.length; j++) {
+						$(btn[j]).attr("class", "layui-btn layui-bg-gray")
+					}
+					house = $(this).text();
+					$(this).attr("class", "layui-btn layui-bg-green")
+					var addr = $(this).text();
+				}
+			}
+			var btn1 = document.getElementById("rentTypeBtn").getElementsByTagName('button');
+			for (var i = 0; i < btn1.length; i++) {
+				btn1[i].onclick = function() {
+					for (var j = 0; j < btn1.length; j++) {
+						$(btn1[j]).attr("class", "layui-btn layui-bg-gray")
+					}
+					rent = $(this).text();
+					$(this).attr("class", "layui-btn layui-bg-green")
+					var addr = $(this).text();
+				}
+			}
+		}
+		layui.use(['element','layer'], function() {
+			var $ = layui.jquery,layer=layui.layer,
+				element = layui.element; //Tab的切换功能，切换事件监听等，需要依赖element模块
+			//触发事件
+			var active = {
+				setPercent: function() {
+					//设置50%进度
+					element.progress('pro', progress + '%');
+				}
+			};
+		});
+	</script>
+</html>

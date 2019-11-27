@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>确认并支付</title>
+		<script src="../../js/jquery.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="../../layui/css/layui.css">
+		<script src="../../js/jquery.min.js"></script>
+		<script type="text/javascript" src="../../js/jquery.cookie.js"></script>
+		<script src="../../layui/layui.js"></script>
+		<style type="text/css">
+			#warpper{
+				margin-top: 70px;
+				margin-left: 450px;
+				width: 600px;
+			}
+			#tip{
+				width: 600px;
+				height: 70px;
+				margin-top: 30px;
+				border:1px solid #000000;
+			}
+			#checkIn{
+				margin-top: 30px;
+			}
+			.formSe div{
+				width: 400px;
+			}
+			
+			.formSe input,#typeId input{
+				height: 60px;
+				font-size: 16px;
+			}
+			#typeId div{
+				width: 140px;
+			}
+			
+			
+			#rightNav{
+				position: relative;
+				margin-left: 1150px;
+				margin-top: -540px;
+				
+			}
+			#house{
+				position: absolute;
+				width: 350px;
+				height: 450px;
+				border:1px solid #000000;
+			}
+			#notice{
+				position: absolute;
+				margin-top: 490px;
+				width: 350px;
+				height: 200px;
+				border:1px solid #000000;
+			}
+			#sec{
+				position: absolute;
+				margin-top: 720px;
+				width: 350px;
+				height: 130px;
+				border:1px solid #000000;
+			}
+			#sec1{
+				position: absolute;
+				margin-top: 880px;
+				width: 350px;
+				height: 120px;
+				border:1px solid #000000;
+			}
+			#sec2{
+				position: absolute;
+				margin-top: 1030px;
+				width: 350px;
+				height: 120px;
+				border:1px solid #000000;
+			}
+			#house div,#notice div,#sec div,#sec1 div,#sec2 div{
+				margin-left: 20px;
+			}
+			.foot {
+				margin-top:1300px;
+				width: 1090px;
+				margin-left: 550px;
+			}
+		</style>
+	</head>
+	<body>
+		<div style=" line-height:40px;z-index: 100; width: 100%;height: 60px; background-color: #EBEBEB;">
+				<a href="../index.html" >
+					<img src="../../img/logo.jpg" class="layui-nav-img"  style="margin-top:10px;">
+				</a>
+				<a href="payments.html"></a>
+				<h3 style="position: absolute; margin-top: -30px; margin-left: 60px;">1 预订您的行程 &nbsp;<b>2 确认并支付</b></h3>
+		</div>	
+		<div id="warpper">
+			<span style="font-weight: bolder; font-size: 35px; color: gray;">
+				确认并支付
+			</span><br><br>
+			<div id="tip">
+				<div class="layui-col-xs2">
+					<img src="../../img/tag/7.gif"  height="70px">
+				</div>
+				<div style="margin-top: 20px;" class="layui-col-xs10">
+					<h2>这是一个抢手房源。藝的房源通常很抢手。</h2>
+				</div>	
+			</div><br><br><br>	
+			<div >
+				<h2>选择付款方式</h2><br><br>
+				<div class="layui-col-xs4">
+					<button type="button" class="layui-btn layui-bg-green "
+					style= "  width: 120px;height: 70px; font-size: 20px;">余额</button>
+				</div>
+				<div  class="layui-col-xs4">
+					<button type="button" class="layui-btn layui-bg-green "
+					style= " width: 120px;height: 70px; font-size: 20px;">支付宝</button>
+				</div>	
+				<div  class="layui-col-xs4">
+					<button type="button" class="layui-btn layui-bg-green "
+					style= " width: 120px;height: 70px; font-size: 20px;">微信</button>
+				</div>
+				<h3 style= " margin-top:100px;" >我同意房屋守则, 取消政策,和房客退款政策，
+				我也同意支付以下所示的总金额（含服务费）。</h3>
+			</div>
+			
+			<button type="button" class="layui-btn layui-bg-red layui-btn-radius" 
+			style= " margin-top:100px; width: 160px;height: 50px; font-size: 20px;">确认并支付</button>
+		</div>
+		<div id="rightNav">
+			<div id="house">
+				
+					<br>
+					<div class="layui-col-xs7">
+						<h2><b>藝净- 复古花,太古里旁高层花园电影套房</b></h2><br>
+						<h3>成都的整套公寓</h3>
+					</div>
+					<div class="layui-col-xs3">
+						<img src="../../img/room/997b02ab-9522-4500-a0de-6e67a94bbe9b.jpg" width="100px" >
+					</div>
+					<hr ><br><br>
+					<div >
+					<h2>人数：1人</h2><br>
+					<h2>时间：2019年12月7日 - 2019年12月8日</h2>
+					<hr ><br><br>
+					</div>
+					<div class="layui-col-xs6">
+						<h2>￥558.00 x1晚</h2>
+					</div>
+					<div class="layui-col-xs3">
+						<h2>￥558.00</h2>
+					</div>
+					<hr ><br>
+					<div class="layui-col-xs6">
+						<h2><b>总价	</b></h2>
+					</div>
+					<div class="layui-col-xs3">
+						<h2>￥1110.00</h2>
+					</div>
+				
+			</div>
+			<div id="notice">
+				<div >
+					<br>
+					<h2><b>入住须知</b></h2><br>
+					<h2>不允许携带宠物<br>	
+						不允许举办派对和活动<br>
+						14:00后可以随时入住<br>
+						12:00前退房
+					</h2>
+				</div>
+			</div>
+			<div id="sec">
+				<br>
+				<div class="layui-col-xs5">
+					<h2><b>爱彼迎旅行保障</b></h2>
+					<h4>房源保障 · 中文客服 · 安全保障</h4>
+				</div>
+				<div class="<layui-col-xs5></layui-col-xs5>">
+					<img src="../../img/tag/3.svg" width="100px" >
+				</div>
+			</div>
+			<div id="sec1">
+				<br><br>
+				<div class="layui-col-xs12">
+					<h2><b>安全须知</b></h2>
+					<h3>该房源未安装一氧化碳报警器</h3>
+				</div>
+			</div>
+			<div id="sec2">
+				<br>
+				<div class="layui-col-xs12">
+					<h2><b>发票</b></h2>
+					<h4>若需要开具房费发票，请您与房东协商</h4>
+				</div>
+			</div>
+		</div>
+		<div class="foot" >
+			<div >
+				<div>京ICP备16017121号-3 京ICP证 160773号 
+				<img src="https://z1.muscache.cn/airbnb/static/packages/public_security_bureau_logo.d0289dc0.png"
+					 alt="中国公安局标志"> <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010502032345" target="_blank"
+					 rel="noopener noreferrer"  aria-busy="false">京公网安备 11010502032345号</a>
+					技术支持：卓应教育（湖南）有限公司 <a href="https://a0.muscache.com/pictures/03ec62da-f467-4e2b-bfee-6eefd052d7f5.jpg" target="_blank"
+					 rel="noopener noreferrer"  aria-busy="false">营业执照</a></div>
+				<div dir="ltr" >© 2019 Airbnb, Inc. All rights reserved.</div>
+			</div>
+			<br><br><br><br><br><br>
+		</div>
+	</body>
+	<script>
+		layui.use(['form', 'layedit','laydate'], function(){
+			var form = layui.form
+			,layer = layui.layer
+			form.on('checkbox()', function(data){
+				if(data.elem.checked) {
+					mySpace.push(data.value);
+				} else {
+					mySpace.pop(data.value);
+				}
+				console.log(data.elem.checked); //是否被选中，true或者false
+				console.log(data.value); //复选框value值，也可以通过data.elem.value得到
+			});
+		});
+	</script>
+	<script>
+		var space=["厨房","洗衣机","干衣机","停车位","健身房","游泳池",
+					"按摩浴缸","电梯"];
+		var mySpace=[];
+		for(var i=0;i<space.length;i++) {
+			html='<input  type="checkbox" lay-filter="filter" name="space" lay-skin="primary" title="'+space[i]+'" value="'+space[i]+'"><br><br><br>'
+			$("#checkBox").append(html);
+		}
+		$('#btnGo').on('click', function() {
+			$.cookie('mySpace', mySpace);
+			location.href = "houseImage.html";
+		});
+		
+		window.onload = function() {
+			if($.cookie('mySpace') != null) {
+				var arr = $.cookie('mySpace').split(",");
+				mySpace=arr;
+			}
+			
+		}
+	</script>
+</html>

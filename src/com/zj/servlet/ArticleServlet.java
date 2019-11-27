@@ -26,6 +26,7 @@ public class ArticleServlet extends BaseServlet {
 	public void getPageArticleInfo(HttpServletRequest request,HttpServletResponse response) {
 		//获取用户设置的当前页
 		String articleCurrentPage  = request.getParameter("articleCurrentPage");
+		System.out.println(articleCurrentPage);
 		Integer articlePresentPage = 1;
 		try{
 			articlePresentPage = new Integer(articleCurrentPage);
@@ -37,6 +38,7 @@ public class ArticleServlet extends BaseServlet {
 			List<Map<String, Object>> list = articleService.getPageArticleInfo(articlePresentPage);
 			JSONObject obj = new JSONObject(list);
 			response.getWriter().print(callback+"("+obj+")");
+			System.out.println(list);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch(IOException e) {
@@ -66,6 +68,7 @@ public class ArticleServlet extends BaseServlet {
 	 */
 	public void getPageCommInfo(HttpServletRequest request,HttpServletResponse response) {
 		Integer article_id = 1;
+		
 		String commCurrentPage  = request.getParameter("commCurrentPage");
 		Integer commPresentPage = 1;
 		try{

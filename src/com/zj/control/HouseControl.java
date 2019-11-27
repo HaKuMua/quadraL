@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 
+
 import com.zj.dao.impl.HouseDaoImpl;
 import com.zj.dao.impl.HouseImgDaoImpl;
 import com.zj.dao.impl.HouseParticularsDaoImpl;
@@ -36,6 +37,9 @@ public class HouseControl {
 	}
 	public HouseImg getHouseImgInfoByID(Integer HouseImgID) throws SQLException {
 		return houseImgDaoImpl.getHouseImgInfoByID(HouseImgID);
+	}
+	public List<HouseImg> getHouseImgByHouseID(Integer HouseID) throws SQLException{
+		return houseImgDaoImpl.getHouseImgByHouseID(HouseID);
 	}
 	
 	public List<HouseParticulars> getAllHouseParticularsInfo()

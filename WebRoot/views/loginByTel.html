@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="../js/jquery.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="../layui/css/layui.css">
+		<script src="../js/jquery.min.js"></script>
+		<script src="../layui/layui.all.js"></script>
+		<script src="../layui/layui.js"></script>
+		<style type="text/css">
+			.login {
+				width: 568px;
+				height: 514px;
+			}
+			.btn,
+			.login input {
+				margin-left: 30px;
+				width: 502px;
+				height: 55px;
+				font-size: 20px;
+				border-radius: 15px;
+			}
+			#sendCode {
+				border-radius: 15px;
+				position: absolute;
+				font-weight: bold;
+				color: #777777;
+				margin-top: -226px;
+				margin-left: -120px;
+				height: 55px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="login"><br><br><br>
+			<span style="margin-left: 30px;  
+			font-weight: bold;font-size: 25px; color: #777777;">登录QuadraL</span><br>
+			<h4 style="margin-left: 30px; ">未注册的手机号验证后将自动创建新账号</h4><br>
+			<form class="layui-form " action="" lay-filter="example">
+				<input id="telId" type="tel" name="phone" lay-verify="phone" 
+				autocomplete="off" placeholder="手机号"
+				 class="layui-input"><br><br><br>
+				<input type="text" name="code" lay-verify="code|required" placeholder="验证码" autocomplete="off" 
+				class="layui-input"><br><br><br>
+				<button class="layui-btn btn" lay-submit lay-filter="loginBtn" id="myBtn">立即登录</button>
+			</form><br>
+			<hr><br><br>
+			<button class="layui-btn layui-bg-gray btn"  id="loginByPwd" onclick=loginByPwd() >账号密码登录</button>
+		</div>
+		<script>
+			layui.use(['layer', 'form'], function() {
+				var form = layui.form,
+					$ = layui.jquery,
+					layer = layui.layer; //独立版的layer无需执行这一句
+				form.verify({
+					code: function(value) {
+						if (value != code) {
+							return '验证码错误';
+						}
+					}
+				});
+				form.on('submit(loginBtn)', function(data) {
+					console.log(data.form) //被执行提交的form对象，一般在存在form标签时才会返回
+					console.log(data.field) //当前容器的全部表单字段，名值对形式：{name: value}
+				});
+			});
+			var code = 1129;
+			function loginByPwd() {
+				window.location.href="loginByPwd.html";
+			}
+ 			$("#telId").mouseleave(function() {
+				$("button").remove("#sendCode");
+				var tel = $("#telId").val();
+				console.log(tel);
+				if (/^((\d{3}-\d{8}|\d{4}-\d{7,8})|(1[3|5|7|8][0-9]{9}))$/.test(tel)) {
+					$(".login").append('<button class="layui-btn layui-btn-warm" id="sendCode" onclick=getCode()>发送验证码>></button>')
+				} else {
+					$("button").remove("#sendCode");
+				}
+			});
+			//获得验证码
+			function getCode() {
+				alert(code)
+			}
+		</script>
+</html>
