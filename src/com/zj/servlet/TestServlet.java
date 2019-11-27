@@ -55,7 +55,6 @@ public class TestServlet extends BaseServlet {
 		JSONObject obj = new JSONObject(map);
 		response.getWriter().print(callback+"("+obj+")");
 	}
-	
 	public void getAllUserInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		List<Map<String, Object>> list = userService.getAllUserInfo();
 		Map<String, Object> map = new HashMap<String, Object>();

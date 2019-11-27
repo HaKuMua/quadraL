@@ -31,6 +31,16 @@ public class Article implements Serializable{
 	 */
 	private Date article_date;
 	
+	/**
+	 * 文章点赞数
+	 */
+	private Integer article_praise;
+	
+	/**
+	 * 文章收藏数
+	 */
+	private Integer article_collect;
+	
 	public Article() {
 	}
 
@@ -73,10 +83,27 @@ public class Article implements Serializable{
 	public void setArticle_date(Date article_date) {
 		this.article_date = article_date;
 	}
+	
+	
+	public Integer getArticle_prais() {
+		return article_prais;
+	}
+	
+	public void setArticle_prais(Integer article_prais) {
+		this.article_prais = article_prais;
+	}
+	public Integer getArticle_collect() {
+		return article_collect;
+	}
+
+	public void setArticle_collect(Integer article_collect) {
+		this.article_collect = article_collect;
+	}
 
 	public String toString() {
 		return "Article [article_id=" + article_id + ", user_id=" + user_id
 				+ ", article_name=" + article_name + ", article_content="
-				+ article_content + ", article_date=" + article_date + "]";
+				+ article_content + ", article_date=" + article_date +", article_prais="
+				+ article_prais + ", article_collect=" + article_collect "]";
 	}
 }

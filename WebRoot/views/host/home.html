@@ -4,10 +4,10 @@
 		<meta charset="utf-8">
 		<title>度假屋、民宿、体验和攻略 - Airbnb爱彼迎</title>
 		<script src="../../js/comment.js"></script>
-		<script src="../../js/jquery.min.js"></script>
 		<link rel="stylesheet" type="text/css" href="../../layui/css/layui.css">
 		<script src="../../js/jquery.min.js"></script>
 		<script src="../../layui/layui.all.js"></script>
+		<script src="../../layui/layui.js"></script>
 		<style type="text/css">
 			#navId li a {
 				font-size: 15px;
@@ -17,35 +17,160 @@
 			#rightNav {
 				float: right;
 			}
+			#houseImgDiv{
+				height: 600px;
+				border: 1px solid black;
+			}
+			.houseImg:hover {opacity: 0.7;}
 			
-			#searchForm button {
-				position: absolute;
-				width: 100px;
-				height: 70px;
-				font-size: 22px;
-				margin-top: -100px;
-				margin-left: 1359.4px;
+			/* The Modal (background) */
+			.modal {
+			    display: none; /* Hidden by default */
+			    position: fixed; /* Stay in place */
+			    z-index: 10; /* Sit on top */
+			    padding-top: 100px; /* Location of the box */
+			    left: 0;
+			    top: 0;
+			    width: 100%; /* Full width */
+			    height: 100%; /* Full height */
+			    overflow: auto; /* Enable scroll if needed */
+			    background-color: rgb(0,0,0); /* Fallback color */
+			    background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
 			}
-			.checkDate{
-				position: absolute;
-				cursor: pointer;
-				font-size: 22px;
-				margin-top: -100px;
-				margin-left: 1000px;
-				width: 359px; 
-				height: 70px;
+			/* Modal Content (image) */
+			.modal-content {
+			    margin: auto;
+			    display: block;
+			    width: 40%;
+				
 			}
-
-			#search {
-				width: 550px;
-				height: 70px;
-				font-weight: bold;
-				position: absolute;
-				margin-top: -100px;
-				margin-left: 482px;
+			/* Caption of Modal Image */
+			#caption {
+			    margin: auto;
+			    display: block;
+			    width: 80%;
+			    max-width: 700px;
+			    text-align: center;
+			    color: #ccc;
+			    padding: 10px 0;
+			    height: 150px;
+				
+			}
+			
+			/* Add Animation */
+			.modal-content, #caption {    
+			    -webkit-animation-name: zoom;
+			    -webkit-animation-duration: 0.6s;
+			    animation-name: zoom;
+			    animation-duration: 0.6s;
+				
+			}
+			
+			@-webkit-keyframes zoom {
+			    from {-webkit-transform: scale(0)} 
+			    to {-webkit-transform: scale(1)}
+				
+			}
+			
+			@keyframes zoom {
+			    from {transform: scale(0.1)} 
+			    to {transform: scale(1)}
+			}
+			
+			/* The Close Button */
+			.close {
+			    position: absolute;
+			    top: 15px;
+			    right: 35px;
+			    color: #f1f1f1;
+			    font-size: 40px;
+			    font-weight: bold;
+			    transition: 0.3s;
+			}
+			
+			.close:hover,
+			.close:focus {
+			    color: #bbb;
+			    text-decoration: none;
+			    cursor: pointer;
+			}
+			
+			/* 100% Image Width on Smaller Screens */
+			@media only screen and (max-width: 700px){
+			    .modal-content {
+			        width: 100%;
+			    }
+			}
+			
+			#title{
+				margin-left: 450px;
+				width: 600px;
+				position: -webkit-sticky;
+				position: sticky;
+				top: 0px;
+				background-color: white;
+				z-index: 8;
+				}
+			
+			#title a{
+				color: mediumseagreen;
+				font-size: 17px;
+			}
+			#reId{
+				margin-left: 1150px;
+				width: 400px;
+				height: 500px;
+				position: -webkit-sticky;
+				position: sticky;
+				top: 40px;
+				padding: 10px;
+				border: 1px solid black;
+			}
+			
+			#reDate{
+				width: 340px;
+				height: 60px;
+				font-size: 20px;
+				margin-left: 25px;
+			}
+			#formSe div {
+				width: 340px;
+				height: 60px;
+				font-size: 20px;
+				margin-left: 14px;
+			}
+			#reId h3,#reId h1{
+				margin-left: 30px;
+			}
+			#reId a{
+				width: 360px;
+				height: 60px;
+				font-size: 20px;
+				margin-top: 40px;
+				margin-left: 20px;
+				line-height: 60px;
+			}
+			#reId input{
+				height: 60px;
 				font-size: 20px;
 			}
+			
+			#main{
+				position: absolute;
+				width: 600px;
+				margin-left: 450px;
+				margin-top: -510px;
+			}
+			#tips{
+				height: 180px;
+				background-color:#ECECF6;
+			}
+			#container{
+				width:600px;
+				height: 400px;
+				}
 			.foot {
+				margin-top:240%;
 				width: 1090px;
 				margin-left: 550px;
 			}
@@ -55,7 +180,9 @@
 		<div id="top">
 			<ul class="layui-nav layui-bg-green" id="navId">
 				<li class="layui-nav-item">
-					<img src="../../img/logo.jpg" class="layui-nav-img">
+					<a href="../index.html">
+						<img src="../../img/logo.jpg" class="layui-nav-img">
+					</a>
 				</li>
 				<li class="layui-nav-item ">
 					<form class="layui-form" action="">
@@ -65,82 +192,495 @@
 					</form>
 				</li>
 				<div id="rightNav">
-					<li class="layui-nav-item"><a href="">简体中文</a></li>
+					<li class="layui-nav-item" id="china"><a href="">退出</a></li>
+					<li class="layui-nav-item "> <a href="" >房源订单中心</a></li>
 					<li class="layui-nav-item"><a href="">故事</a></li>
+					<li class="layui-nav-item"><a href="../index.html">首页</a> </li>
 					<li class="layui-nav-item"><a href="">帮助</a> </li>
-					<li class="layui-nav-item"><a class="layui-btn" data-method="login">注册</a></li>
-					<li class="layui-nav-item"><a class="layui-btn" data-method="login">登录</a></li>
+					<li class="layui-nav-item" lay-unselect=""><a href="javascript:;">
+					<img src="'+userInfo.user_img+'" class="layui-nav-img"></a> 
 				</div>
 			</ul>
 		</div>
-
-
+		<div id="houseImgDiv">
+			<div  class="layui-col-xs6">
+				<img  class="houseImg"  src="../../img/room/640de340-cd72-4c32-ac24-e0f2515154a7.jpg"
+				 width="960" height="600">
+			</div>
+			<div class="layui-col-xs6">
+				<div class="layui-col-xs6">
+					<img  class="houseImg" src="../../img/room/997b02ab-9522-4500-a0de-6e67a94bbe9b.jpg"
+					 width="475" height="300">
+					<img  class="houseImg" src="../../img/room/9b0ae17d-7cfe-41bb-9a89-f38287f92c3a.jpg"
+					  width="475" height="300">
+				</div>
+				<div class="layui-col-xs6">
+					<img  class="houseImg" src="../../img/room/abbc72a5-cf82-41be-a999-9c951444b14b.jpg"
+					 width="475" height="300">
+					 <img  class="houseImg" src="../../img/room/e964c2be-a0fb-41d2-9bc7-3b308769f4ef.jpg"
+					  width="475" height="300">
+				</div>
+			</div>
 		</div>
-		<br><br><br><br><br><br>
-		<hr>
-		<div class="foot">
+		<div id="myModal" class="modal">
+		  <span class="close">×</span>
+		  <img class="modal-content" id="bigImg">
+		</div>
+		<div id="title">
+			<div >
+				<a  href="#details">详情</a>&nbsp;·
+				<a  href="#comment">评价</a>&nbsp;·
+				<a  href="#date">可订日期</a>&nbsp;·
+				<a  href="#location">位置</a>&nbsp;·
+				<a  href="#notice">须知</a>·
+				<a  href="#landlord">房东</a>
+			</div>
+			<hr>
+		</div>
+		<div id="reId">
+			<h1><b>价格￥498</b></h1>
 			<br><br>
-			<div class="_rqfxvmb">
-				<div class="_yylh3tj">京ICP备16017121号-3 京ICP证 160773号 <img src="https://z1.muscache.cn/airbnb/static/packages/public_security_bureau_logo.d0289dc0.png"
+			<hr>
+			<h3>日期</h3>
+			<input   type="text" class="layui-input checkDate" id="reDate" placeholder="入住日期-退房日期"><br>
+			<h3>人数</h3>
+			<form class="layui-form" id="formSe" action="">
+				<select  name="modules" lay-verify="required" lay-filter="person"  lay-search="">
+					<option value="1">1人</option>
+					<option value="2">2人</option>
+					<option value="3">3人</option>
+					<option value="4">4人</option>
+					<option value="5">5人</option>
+				</select>
+			</form>
+			<a href=""  class="layui-btn layui-bg-red">马上预定</a><br><br>
+			<h4 style="text-align: center;">您现在预定不会收费</h43><br><br>
+			<div>
+				<div class="layui-col-xs9">
+					<h3>口碑认证！超多入住过的房客都留下了五星好评<br>现在预订，锁定热门高分房源</h3>
+				</div>
+				<div class="layui-col-xs3">
+					<img src="../../img/tag/4.gif" >
+				</div>
+			</div>
+		</div>
+		
+		<div id="main">
+			<a name="details"></a>
+			<h4>成都市 · 整套公寓</h4>
+			<h1><b>藝净- 复古花,太古里旁高层花园电影套房</b></h1><br>
+			<h3>1间卧室·1张床·1间卫生间·最多住2人</h3><br><hr >
+			<a href="#landlord">
+				<img style="border-radius: 50%;" width="70px" height="70px" src="../../img/timg.jpg"  >
+				<h2 style="margin-left: 100px; margin-top: -50px;">房东：haku</h2><br><br>
+			</a><hr >
+			<div id="tips" ><br><br><br>
+				<h2>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				藝·净复古系列之复古花｡房间里有100寸幕布和极米H1投影仪｡
+				步行两分钟至太古里､ifs｡89平米的套房有厨房､洗衣机､冰箱､微波炉等配置｡270度落地窗俯瞰太古里和339电视塔</h2>
+			</div><br><br>
+			<a class="navA " data-method="safeguard" href="#a">
+				<div class="layui-col-xs2" >
+					<img src="../../img/tag/2.svg" >
+				</div><br>
+				<div class="layui-col-xs8">
+					<h2><b>爱彼迎旅行保障</b>	|	全方位保障 · 出行无忧</h2>
+				</div>
+			</a><br><br><br><br><br>
+			<div>
+				<div class="layui-col-xs3">
+					<h2><b>整套房子/公寓</b></h2>
+				</div>
+				<div class="layui-col-xs9">
+					<h2>独享整个房源，无需与房东或他人共住</h2>
+				</div>
+			</div><br><br><br><br>
+			<div>
+				<div class="layui-col-xs3">
+					<h2><b>入住/退房</b></h2>
+				</div>
+				<div class="layui-col-xs9">
+					<h2>入住时间 14:00后· 退房时间 12:00</h2>
+				</div>
+			</div>
+			<br><br><a name="comment"></a><br><br><hr><br><br><br><br>
+			<h1 ><b>评价</b></h1>
+			<div id="comment">
+				<br><br><a href="">
+					<img style="border-radius: 50%;" width="60px" height="60px" src="../../img/timg.jpg"  >
+					<h2 style="margin-left: 80px; margin-top: -50px;">haku</h2>
+					<h3 style="margin-left: 80px; margin-top: 0px;">2019年10月</h3><br>
+				</a>
+				<h3>地理位置：很好，步行5-10分钟太古里，
+				小区公共区域特别是楼道感觉不太好，很杂乱的感觉，
+				但是有门禁有电梯卡，应该是安全的。
+				房间设施：还是不错的，有投影仪，有大面积窗户，只是中央空调坏了，不过房东也积极解决了，给了我们补偿。
+				总体还是愉快的，虽然有点小插曲，但是房东尽量给我们解决了，希望下次能在客人入住前检查好设备，
+				毕竟房东离的挺远的，来回一趟一小时也很不容易，
+				大家时间也都很宝贵，还是非常感谢房东，有缘再见。</h3>
+				<br><hr >
+				<br><br><a href="">
+					<img style="border-radius: 50%;" width="60px" height="60px" src="../../img/timg.jpg"  >
+					<h2 style="margin-left: 80px; margin-top: -50px;">haku</h2>
+					<h3 style="margin-left: 80px; margin-top: 0px;">2019年10月</h3><br>
+				</a>
+				<h3>地理位置：很好，步行5-10分钟太古里，
+				小区公共区域特别是楼道感觉不太好，很杂乱的感觉，
+				但是有门禁有电梯卡，应该是安全的。
+				房间设施：还是不错的，有投影仪，有大面积窗户，只是中央空调坏了，不过房东也积极解决了，给了我们补偿。
+				总体还是愉快的，虽然有点小插曲，但是房东尽量给我们解决了，希望下次能在客人入住前检查好设备，
+				毕竟房东离的挺远的，来回一趟一小时也很不容易，
+				大家时间也都很宝贵，还是非常感谢房东，有缘再见。</h3>
+				<br><hr >
+				<br><br><a href="">
+					<img style="border-radius: 50%;" width="60px" height="60px" src="../../img/timg.jpg"  >
+					<h2 style="margin-left: 80px; margin-top: -50px;">haku</h2>
+					<h3 style="margin-left: 80px; margin-top: 0px;">2019年10月</h3><br>
+				</a>
+				<h3>地理位置：很好，步行5-10分钟太古里，
+				小区公共区域特别是楼道感觉不太好，很杂乱的感觉，
+				但是有门禁有电梯卡，应该是安全的。
+				房间设施：还是不错的，有投影仪，有大面积窗户，只是中央空调坏了，不过房东也积极解决了，给了我们补偿。
+				总体还是愉快的，虽然有点小插曲，但是房东尽量给我们解决了，希望下次能在客人入住前检查好设备，
+				毕竟房东离的挺远的，来回一趟一小时也很不容易，
+				大家时间也都很宝贵，还是非常感谢房东，有缘再见。</h3>
+				<br><hr >
+				<br><br><a href="">
+					<img style="border-radius: 50%;" width="60px" height="60px" src="../../img/timg.jpg"  >
+					<h2 style="margin-left: 80px; margin-top: -50px;">haku</h2>
+					<h3 style="margin-left: 80px; margin-top: 0px;">2019年10月</h3><br>
+				</a>
+				<h3>地理位置：很好，步行5-10分钟太古里，
+				小区公共区域特别是楼道感觉不太好，很杂乱的感觉，
+				但是有门禁有电梯卡，应该是安全的。
+				房间设施：还是不错的，有投影仪，有大面积窗户，只是中央空调坏了，不过房东也积极解决了，给了我们补偿。
+				总体还是愉快的，虽然有点小插曲，但是房东尽量给我们解决了，希望下次能在客人入住前检查好设备，
+				毕竟房东离的挺远的，来回一趟一小时也很不容易，
+				大家时间也都很宝贵，还是非常感谢房东，有缘再见。</h3>
+				<br><hr >
+				<br><br><a href="">
+					<img style="border-radius: 50%;" width="55px" height="55px" src="../../img/timg.jpg"  >
+					<h2 style="margin-left: 80px; margin-top: -50px;">haku</h2>
+					<h3 style="margin-left: 80px; margin-top: 0px;">2019年10月</h3><br>
+				</a>
+				<h3>地理位置：很好，步行5-10分钟太古里，
+				小区公共区域特别是楼道感觉不太好，很杂乱的感觉，
+				但是有门禁有电梯卡，应该是安全的。
+				房间设施：还是不错的，有投影仪，有大面积窗户，只是中央空调坏了，不过房东也积极解决了，给了我们补偿。
+				总体还是愉快的，虽然有点小插曲，但是房东尽量给我们解决了，希望下次能在客人入住前检查好设备，
+				毕竟房东离的挺远的，来回一趟一小时也很不容易，
+				大家时间也都很宝贵，还是非常感谢房东，有缘再见。</h3>
+				<br><hr >
+			</div><br><div id="demo"></div>
+			
+			<div style="margin-top: 100px;">
+				<h1>可订日期</h1>
+				<h3>请输入旅程日期来查看可订状态</h3><br><br>
+				<div id="canDate"></div>
+			</div>
+			<div id="location" style="margin-top: 100px;">
+				<h1><b>位置</b></h1><br><br>
+				<h2><b>成都市，四川省，中国</b></h2><br><br>
+				<h2>出行信息</h2><br>
+				<h3>民宿-驾车-双流机场 36分钟左右(交通顺畅的情况) 民宿-步行10分钟-春熙路地铁3-太平园站-双流机场 (地铁大约32分钟) 民宿-驾车-成都东客站 20分钟左右(交通顺畅的情况)｡</h3>
+				<br><div id="container"></div>
+			</div>
+			<a name="notice"></a>
+			<div id="notice" style="margin-top: 100px;">
+				<h1><b>须知</b></h1><br><br>
+				<div class="layui-col-xs6">
+					<h2><b>基本要求</b></h2>
+				</div>
+				<div class="layui-col-xs6">
+					<h3>不允许携带宠物<br>不允许举办派对和活动</h3>
+				</div>
+				<br><br><br><br>
+				<div class="layui-col-xs6">
+					<h2><b>取消政策</b></h2>
+				</div>
+				<div class="layui-col-xs6">
+					<h3>随时取消</h3>
+				</div>
+				<br><br><br><br>
+				<div class="layui-col-xs6">
+					<h2><b>安全须知</b></h2>
+				</div>
+				<div class="layui-col-xs6">
+					<h3>已安装烟雾报警器</h3>
+				</div>
+				<br><br><br><br>
+				<div class="layui-col-xs6">
+					<h2><b>交易提示</b></h2>
+				</div>
+				<div class="layui-col-xs6">
+					<h3>若需要开具房费发票，请您与房东协商。<br>为了保护您的账号隐私和付款安全，请不要相信其它任何平台的折扣或礼金券代订，并始终在爱彼迎站内转账和交流。</h3>
+				</div>
+			</div>
+			<div id="landlord" style="margin-top: 120px;">
+				<h1><b>房东</b></h1><br><br>
+				<div class="layui-col-xs8">
+					<h2><b>藝<br></b>注册时间：2016年7月</h2>
+				</div>
+				<div class="layui-col-xs4">
+					<a href="">
+						<img style="border-radius: 50%;" src="../../img/timg.jpg" width="60px" height="60px" >
+					</a>
+				</div><br><br><br><br><br><br>
+				<h2><b>自我介绍</b></h2>
+				<div style="margin-top: 15px;">
+					<h3>我们是位于东京市中心的禅宗主题设计胶囊酒店禅宗东京｡ <br>
+					我们距离人形町站有30秒的步行路程,可以直达东京的两个机场和几乎所有的旅游目的地｡<br>
+					酒店禅宗东京的客户体验以日本禅宗极简主义的精神为基础｡我们设计了最现代,
+					最紧凑的传统日本建筑,希望为我们的客人提供一个充分体验日本,
+					舒适和合理价格的机会｡我们酒店的客人可以享受融合了高效的胶囊住宿和正宗的传统设计 - 
+					实质上是在东京市中心的现代和城市日式旅馆体验｡</h3>
+				</div>
+				<br><br><br>
+				<h3><b>与房客的互动</b></h3><br>
+				<h3>入住期间有任何问题随时联系我</h3><br>
+				<h3>回复率：100%</h3><br>
+				<h3>回复时间：1小时内</h3><br>
+			</div>
+			<div style="margin-top: 100px;">
+				<h1>爱彼迎旅行保障</h1><br>
+				<div class="layui-col-xs4">
+					<a href=" #a"  class="navA " data-method="safeguard">
+						<img src="../../img/tag/1.svg">
+						<h4><b>安心房源保障</b> 人工审核所有中国房源页面信息，入住更放心</h4>
+					</a>
+				</div>
+				<div class="layui-col-xs4">
+					<a href=" #a" class="navA " data-method="safeguard">
+						<img src="../../img/tag/2.svg">
+						<h4><b>专业中文客服</b> 15973091401 24小时服务</h4>
+					</a>
+				</div>
+				<div class="layui-col-xs4">
+					<a href=" #a" class="navA " data-method="safeguard"	>
+						<img src="../../img/tag/3.svg">
+						<h4><b>旅行安全保障</b> 多重风险控制设计，全方位保障您的行程安全</h4>
+					</a>
+				</div>
+			</div>
+		</div>
+		<div class="foot" >
+			<div >
+				<div>京ICP备16017121号-3 京ICP证 160773号 
+				<img src="https://z1.muscache.cn/airbnb/static/packages/public_security_bureau_logo.d0289dc0.png"
 					 alt="中国公安局标志"> <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010502032345" target="_blank"
-					 rel="noopener noreferrer" class="_l501whs" aria-busy="false">京公网安备 11010502032345号</a>
+					 rel="noopener noreferrer"  aria-busy="false">京公网安备 11010502032345号</a>
 					技术支持：卓应教育（湖南）有限公司 <a href="https://a0.muscache.com/pictures/03ec62da-f467-4e2b-bfee-6eefd052d7f5.jpg" target="_blank"
-					 rel="noopener noreferrer" class="_l501whs" aria-busy="false">营业执照</a></div>
-				<div dir="ltr" class="_yylh3tj">© 2019 Airbnb, Inc. All rights reserved.</div>
+					 rel="noopener noreferrer"  aria-busy="false">营业执照</a></div>
+				<div dir="ltr" >© 2019 Airbnb, Inc. All rights reserved.</div>
 			</div>
 			<br><br><br><br><br><br>
 		</div>
+	
 	</body>
 	<script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.15&key=58436f5656c3bd85a8001b6cce31c890&plugin=AMap.Autocomplete"></script>
 	<script type="text/javascript" src="https://cache.amap.com/lbs/static/addToolbar.js"></script>
 	<script type="text/javascript">
 	    var map = new AMap.Map("container", {
-	        resizeEnable: true
+	        resizeEnable: true,
+			zoom:15
 	    });
 	    //输入提示
-	    var auto = new AMap.Autocomplete({
-	        input: "search"
-	    });
 		var auto = new AMap.Autocomplete({
 		   input:'topSearch'
 		});
 	</script>
 	<script>
-		layui.use(['carousel','form','element','layer','laydate'], function() {
+	// 获取模态窗口
+	var modal = document.getElementById('myModal');
+	// 获取 <span> 元素，设置关闭模态框按钮
+	var span = document.getElementsByClassName("close")[0];
+	// 点击 <span> 元素上的 (x), 关闭模态框
+	span.onclick = function() { 
+	    modal.style.display = "none";
+	}
+	var btn = document.getElementById("houseImgDiv").getElementsByTagName('img');
+	for (var i = 0; i < btn.length; i++) {
+		var modalImg = document.getElementById("bigImg");
+		var captionText = document.getElementById("caption");
+		btn[i].onclick = function(){
+			modal.style.display = "block";
+			modalImg.src = this.src;
+		}	
+		}
+	</script>
+	<script type="text/javascript">
+		// var userInfo=$.Cookie('userInfo');
+		var userInfo = {
+			user_id: '1000',
+			user_name:'haku',
+			user_img: '../../img/timg.jpg',
+			lanlord_id:'1001'
+		};
+		var houseInfo = {
+			house_name: '下榻日式风格的房源去畅玩太古里',
+			house_id: 4,
+			house_price: 289.5,
+			house_type: '独立房间',
+			houseImg:['1','2'],
+			house_intake:'',//房子容纳量
+			travel_information:'',//出行信息
+			house_address:'',//地址
+			room_number:'',
+			address_describe:'全北京路步行街最干净,最温馨浪漫的一居室｡房子近期重新装修,日系浪漫风格,高楼层视野广阔,你可以享受巨幅的家庭影院｡ 周边全是美食,来广州茶点或者沿江酒楼抑或音乐餐吧,还可以在珠江漫步｡',
+			toilet_number:1,
+			bed_number: 1,
+			//守则
+			building_name:[],
+			//设施
+			facilities_name:[],
+			//房东信息
+			landlord_id:'',
+			landlord_name:'',
+			landlord_img:''
+		}
+		if (userInfo.user_id != '') {
+			var html = '<li class="layui-nav-item" id="china"><a href="">退出</a></li>' +
+				'<li class="layui-nav-item "> <a href="" >房源订单中心</a></li>' +
+				'<li class="layui-nav-item"><a href="">故事</a></li>' +
+				'<li class="layui-nav-item"><a href="../index.html">首页</a> </li>' +
+				'<li class="layui-nav-item"><a href="">帮助</a> </li>' +
+				' <li class="layui-nav-item" lay-unselect=""><a href="javascript:;"><img src="'+
+				userInfo.user_img+'" class="layui-nav-img">'+userInfo.user_name+'</a> ';
+			$("#rightNav").empty();
+			$("#rightNav").append(html);
+			if(userInfo.isLanlord != '' || userInfo.isLanlord !=null) {
+				$("#china").after('<li class="layui-nav-item "> <a href="">查看我的房源</a></li>'+
+								'<li class="layui-nav-item "><a href="host/create_a_room/room.html">添加房源</a></li>');
+			} else  {
+				$("#china").after('<li class="layui-nav-item "> <a href="">成为房东</a></li>');
+			}
+		}
+		var url=window.location.search; //获取url中"?"符后的字串
+	    if(url.indexOf("?")!=-1) {
+			var house_id = url.substr(url.indexOf("=")+1);
+	    }
+		//请求后端拿到房子信息
+		// $.getJSON(basePath+"a?method=getHouseInfoByID&callback=?",{"house_id":4},function(res){
+		// 	console.log(houseInfo);
+		// 	houseInfo = res;
+		// 	console.log(houseInfo);
+		// });
+		$('title').text(houseInfo.house_name)
+		//日期格式化
+		Date.prototype.Format = function (fmt) { // author: meizz
+		    var o = {
+		        "M+": this.getMonth() + 1, // 月份
+		        "d+": this.getDate(), // 日
+		        "h+": this.getHours(), // 小时
+		        "m+": this.getMinutes(), // 分
+		        "s+": this.getSeconds(), // 秒
+		        "q+": Math.floor((this.getMonth() + 3) / 3), // 季度
+		        "S": this.getMilliseconds() // 毫秒
+		    };
+		    if (/(y+)/.test(fmt))
+		        fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+		    for (var k in o)
+		        if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+		          return fmt;
+		}
+		//计算两个日期的天数
+		function getDateNumber(dateStart,dateEnd) {
+			var start =dateStart.replace('年','-'); 
+				start =start.replace('月','-');
+				start=start.replace('日','');
+			var end =dateEnd.replace('年','-'); 
+				end	=end.replace('月','-');
+				end=end.replace('日','');
+			var date1Str = start.split("-");//将日期字符串分隔为数组,数组元素分别为年.月.日
+			//根据年 . 月 . 日的值创建Date对象
+			var date1Obj = new Date(date1Str[0],(date1Str[1]-1),date1Str[2]);
+			var date2Str = end.split("-");
+			var date2Obj = new Date(date2Str[0],(date2Str[1]-1),date2Str[2]);
+			var t1 = date1Obj.getTime();
+			var t2 = date2Obj.getTime();
+			var dateTime = 1000*60*60*24; //每一天的毫秒数
+			var minusDays = Math.floor(((t2-t1)/dateTime));//计算出两个日期的天数差
+			var days = Math.abs(minusDays);//取绝对值
+			return days;
+		}
+		var date = new Date().Format("yyyy-MM-dd");
+	</script>
+	<script>
+		layui.use(['carousel','form','element','layer','laydate','laypage'], function() {
 			var carousel = layui.carousel,
 				form = layui.form,laydate = layui.laydate;
 				$ = layui.jquery,
 				layer = layui.layer,
-				element = layui.element; //导航的hover效果、二级菜单等功能，需要依赖element模块
+				element = layui.element,
+				laypage = layui.laypage; 
 				laydate.render({
-				    elem: '#check' ,//指定元素
+				    elem: '#reDate' ,//指定元素
 					format: 'yyyy年MM月dd日',
 					min:date,
-					 range: true
+					 range: true,
+					 change: function(value, date){ //监听日期被切换
+						$("#ttt").remove();
+					 	var startDate = value.split('-')[0];
+					 	var endDate = value.split('-')[1];
+					 	var day =getDateNumber(startDate,endDate);
+					 	$("#reDate").val(value)
+					 	html='<div id="ttt"><br><hr ><div class="layui-col-xs7">'+
+					 		'<h3>￥'+houseInfo.house_price+'×'+day+'晚</h3></div>	<div class="layui-col-xs5">'+
+					 		'<h3>总价：￥'+(day*houseInfo.house_price)+'</h3>	</div></div>';
+					 	$("#reId").style = "height:500px; width:300px; border: 1px solid red;"; 
+						$("#reId a").before(html);
+					  },
 				  });
-			//监听导航点击
-			element.on('nav(demo)', function(elem) {
-				//console.log(elem)
-				layer.msg(elem.text());
-			});
+				  		
+				laydate.render({
+				    elem: '#canDate', //指定元素
+					position: 'static',
+					format: 'yyyy年MM月dd日',
+					min:date,
+					change: function(value, date){ //监听日期被切换
+						$("#ttt").remove();
+						var startDate = $("#check").val().split('-')[0];
+						var endDate = $("#check").val().split('-')[1];
+						var day =getDateNumber(startDate,endDate);
+						$("#reDate").val(value);
+						html='<div id="ttt" ><br><hr ><div class="layui-col-xs7">'+
+							'<h3>￥'+houseInfo.house_price+'×2晚</h3></div>	<div class="layui-col-xs5">'+
+							'<h3>总价：￥'+(day*houseInfo.house_price)+'</h3>	</div></div>';
+						$("#reId a").before(html);
+					 },
+				  	range: true,
+				});
+				  
+				   //图片轮播
+				    carousel.render({
+				      elem: '#test10'
+				      ,width: '778px'
+				      ,height: '440px'
+				      ,interval: 5000
+				    });
 			var html = '';
 			var active = {
-				login: function() {
-					//示范一个公告层
+				safeguard:function() {
 					var index = layer.open({
 						type: 2,
-						title: false //不显示标题栏
-							,
+						title: false,
 						closeBtn: true,
-						area: ['570px', '515px'],
+						area: ['1100px', '700px'],
 						offset: 'auto',
 						shade: 0.6,
-						id: 'LAY_layuipro' //设定一个id，防止重复弹出
-							,
-						content: ['loginBytel.html', 'no']
+						content: ['../tip/safeguard.html', 'no']
 					});
-				},
+				}
+			
 			};
+			$("body").on("click", ".navA", function() {
+				var othis = $(this),
+					method = othis.data('method');
+				active[method] ? active[method].call(this, othis) : '';
+			});
+		form.on('select(person)', function(data){
+			personNum = data.value;
+		});
 
 			$('.layui-btn').on('click', function() {
 				var othis = $(this),
@@ -157,6 +697,18 @@
 				alert(day)
 				return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
 			});
+			
+			
+			//分页
+			 //总页数大于页码总数
+			  laypage.render({
+			    elem: 'demo'
+				,limit:7
+			    ,count: 70 //数据总数
+			    ,jump: function(obj){
+			      console.log(obj)
+			    }
+			  });
 			
 		});
 	</script>
