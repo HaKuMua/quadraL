@@ -14,6 +14,8 @@
     <display-name>This is the display name of my J2EE component</display-name>
     <servlet-name>SubmitServlet</servlet-name>
     <servlet-class>com.zj.servlet.SubmitServlet</servlet-class>
+    <servlet-name>ArticleServlet</servlet-name>
+    <servlet-class>com.zj.servlet.ArticleServlet</servlet-class>
   </servlet>
 
 
@@ -24,6 +26,8 @@
   <servlet-mapping>
     <servlet-name>SubmitServlet</servlet-name>
     <url-pattern>/submit.do</url-pattern>
+    <servlet-name>ArticleServlet</servlet-name>
+    <url-pattern>/Article</url-pattern>
   </servlet-mapping>
 
 </web-app>

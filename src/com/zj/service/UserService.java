@@ -16,6 +16,7 @@ import com.zj.entity.User;
  */
 public class UserService {
 	private UserControl userControl = new UserControl();
+
 	/*
 	 * 将所有用户信息包装成一个list<map>返回
 	 */
@@ -65,4 +66,5 @@ public class UserService {
 		}
 		return map;
 	}
+
 }

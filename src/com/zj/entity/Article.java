@@ -99,14 +99,14 @@ public class Article implements Serializable{
 		this.article_collect = article_collect;
 	}
 
+
 	@Override
 	public String toString() {
 		return "Article [article_id=" + article_id + ", user_id=" + user_id
 				+ ", article_name=" + article_name + ", article_content="
 				+ article_content + ", article_date=" + article_date
-				+ ", article_praise=" + article_praise + ", article_collect="
-				+ article_collect + "]";
+				+ ", article_collect=" + article_collect + ", article_praise="
+				+ article_praise + "]";
 	}
-
 	
 }
