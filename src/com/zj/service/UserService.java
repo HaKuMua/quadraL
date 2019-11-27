@@ -18,7 +18,7 @@ import com.zj.service.imp.UserServiceImpl;
 public class UserService implements UserServiceImpl{
 	private UserDaoImpl userDaoImpl = new UserDao();
 
-	/*
+	/**
 	 * 将所有用户信息包装成一个list<map>返回
 	 */
 	public List<Map<String, Object>> getAllUserInfo(){
@@ -44,7 +44,7 @@ public class UserService implements UserServiceImpl{
 		}
 		return list;
 	}
-	/*
+	/**
 	 * 将单个用户信息包装成map返回
 	 * 用user_phone查询
 	 */

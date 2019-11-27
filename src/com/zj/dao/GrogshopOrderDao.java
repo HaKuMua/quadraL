@@ -23,14 +23,23 @@ public class GrogshopOrderDao implements GrogshopOrderDaoImpl {
 	private QueryRunner qr = new QueryRunner();
 	private Connection conn = GetConn.getConn();
 
-	@Override
+	/**
+	 * 获取所有酒店订单信息DAO层方法
+	 * @return
+	 * @throws SQLException
+	 */
 	public List<GrogshopOrder> getAllGrogshopOrderInfo() throws SQLException {
 		String sql = "select * from grogshop_order";
 		return qr.query(conn, sql, new BeanListHandler<GrogshopOrder>(
 				GrogshopOrder.class));
 	}
 
-	@Override
+	/**
+	 * 通过ID获取酒店订单信息DAO层接口
+	 * @param GrogshopOrderID
+	 * @return
+	 * @throws SQLException
+	 */
 	public GrogshopOrder getGrogshopOrderInfoByID(Integer GrogshopOrderID)
 			throws SQLException {
 		String sql = "select * from grogshop_order where grogshop_order_id = ?";

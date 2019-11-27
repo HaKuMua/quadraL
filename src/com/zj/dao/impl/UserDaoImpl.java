@@ -11,12 +11,12 @@ import com.zj.entity.User;
  *用户数据库操作接口
  */
 public interface UserDaoImpl {
-	/*
+	/**
 	 * 获取所有用户信息方法接口
 	 */
-	public List<User> getAllUserInfo() throws SQLException;
-	/*
+	List<User> getAllUserInfo() throws SQLException;
+	/**
 	 * 通过用户手机号获取单个用户信息方法接口
 	 */
-	public User getUserInfoByPhone(String phone) throws SQLException;
+	User getUserInfoByPhone(String phone) throws SQLException;
 }

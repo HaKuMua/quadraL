@@ -136,8 +136,9 @@ public class ArticleService implements ArticleServiceImpl{
 		}
 		return null;
 	}
-	
-	//分页显示评论
+	/**
+	 * 分页显示评论
+	 */
 	public List<Map<String, Object>> getPageCommInfo(Integer commPresentPage,Integer article_id) throws SQLException{
 		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
 		//评论分页
