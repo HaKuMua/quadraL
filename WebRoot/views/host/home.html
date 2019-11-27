@@ -103,8 +103,7 @@
 			}
 			
 			#title{
-				margin-left: 450px;
-				width: 600px;
+				width:100%;
 				position: -webkit-sticky;
 				position: sticky;
 				top: 0px;
@@ -227,7 +226,7 @@
 		  <img class="modal-content" id="bigImg">
 		</div>
 		<div id="title">
-			<div >
+			<div  style="margin-left: 400px;">
 				<a  href="#details">详情</a>&nbsp;·
 				<a  href="#comment">评价</a>&nbsp;·
 				<a  href="#date">可订日期</a>&nbsp;·
@@ -518,25 +517,31 @@
 		};
 		var houseInfo = {
 			house_name: '下榻日式风格的房源去畅玩太古里',
-			house_id: 4,
-			house_price: 289.5,
+			house_id: '1001',
+			house_imgs: ['../img/room/ac356f32-0ba7-4dd8-9796-94d085e711fa.jpg','../img/room/bbe8b0d4-4613-4bb2-8c8a-7f45914f0919.jpg',
+						'../img/room/9b267e78-d8ef-4c0e-a9ac-44cfa978e34e.jpg','../img/room/65e00580-6a91-4ee7-bc11-d05f259814ad.jpg'],
+			house_price: 999,
 			house_type: '独立房间',
-			houseImg:['1','2'],
-			house_intake:'',//房子容纳量
-			travel_information:'',//出行信息
-			house_address:'',//地址
-			room_number:'',
+			house_intake:1,//房子容纳量
+			travel_information:'民宿-驾车-双流机场 36分钟左右(交通顺畅的情况) 民宿-步行10分钟-春熙路地铁3-太平园站-双流机场 (地铁大约32分钟) 民宿-驾车-成都东客站 20分钟左右(交通顺畅的情况)｡',//出行信息
+			house_address:'成都市，四川省，中国',//地址
+			room_number:1,
 			address_describe:'全北京路步行街最干净,最温馨浪漫的一居室｡房子近期重新装修,日系浪漫风格,高楼层视野广阔,你可以享受巨幅的家庭影院｡ 周边全是美食,来广州茶点或者沿江酒楼抑或音乐餐吧,还可以在珠江漫步｡',
 			toilet_number:1,
 			bed_number: 1,
 			//守则
-			building_name:[],
+			building_name:['不允许携带宠物','不允许举办派对和活动'],
 			//设施
-			facilities_name:[],
+			facilities_name:['无线网络','吹风机','生活必需品','空调','洗衣机','电梯','独立入口'],
+			//酒店评论
+			houseCom_content:['入住体验很好，地理位置在地铁口，出行及吃饭都很便利，房间干净整洁，房东服务也很周到，还可以寄存行李，方便游玩。',
+			'先把小建议写在前面:高德打车的时候,定士居公寓定位比较好找,离虹桥世界中心就200米的直线距离~ 2､入住体验比较舒服,晚上睡觉也比较安静,离虹桥机场和火车站都很近,很方便~ 3､loft的居住舒适度非常好,很适合一家人住,而且设施齐全,自己简单做个面,煮个饺子都很好~ 4､性价比高,这个价格在这个位置能住到这样的,完全超预期!棒!',
+			'房子不错哦,房东人挺好的,交通也很方便的,入住的很愉快,房间物品一客一换哦,干净整洁不错,推荐哦嘻嘻',
+			'很好的地方｡ 很容易找到, 很干净｡ 没有问题!'],
 			//房东信息
-			landlord_id:'',
-			landlord_name:'',
-			landlord_img:''
+			landlord_id:'1',
+			landlord_name:'HaKu',
+			landlord_img:'../img/timg.jpg',
 		}
 		if (userInfo.user_id != '') {
 			var html = '<li class="layui-nav-item" id="china"><a href="">退出</a></li>' +
@@ -631,7 +636,6 @@
 						$("#reId a").before(html);
 					  },
 				  });
-				  		
 				laydate.render({
 				    elem: '#canDate', //指定元素
 					position: 'static',
@@ -650,14 +654,13 @@
 					 },
 				  	range: true,
 				});
-				  
-				   //图片轮播
-				    carousel.render({
-				      elem: '#test10'
-				      ,width: '778px'
-				      ,height: '440px'
-				      ,interval: 5000
-				    });
+				//图片轮播
+				carousel.render({
+				  elem: '#test10'
+				  ,width: '778px'
+				  ,height: '440px'
+				  ,interval: 5000
+				});
 			var html = '';
 			var active = {
 				safeguard:function() {
