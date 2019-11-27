@@ -16,7 +16,6 @@ import cn.com.uitl.GetConn;
 
 import com.zj.dao.impl.ArticleDaoImpl;
 import com.zj.entity.Article;
-import com.zj.entity.Comment;
 
 
 
@@ -96,5 +95,12 @@ public class ArticleDao implements ArticleDaoImpl{
 	public int updateArticle_collect(Integer article_id,Integer article_collect) throws SQLException {
 		String sql = "update article set article_collect = ? where article_id = ?";
 		return qr.update(conn, sql,article_collect,article_id );
+	}
+	/**
+	 * 获取所有的文章信息
+	 */
+	public List<Article> getAllArticle() throws SQLException {
+		String sql = "select * from article";
+		return qr.query(conn, sql, new BeanListHandler<Article>(Article.class));
 	}
 }

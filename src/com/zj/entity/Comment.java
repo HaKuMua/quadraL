@@ -97,13 +97,6 @@ public class Comment implements Serializable{
 	public void setReplier_id(String replier_id) {
 		this.replier_id = replier_id;
 	}
-	
-	public Integer getComment_praise() {
-		return comment_praise;
-	}
-	public void setComment_praise(Integer comment_praise) {
-		this.comment_praise = comment_praise;
-	}
 
 	@Override
 	public String toString() {

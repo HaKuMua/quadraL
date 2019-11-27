@@ -10,9 +10,7 @@ import org.apache.commons.dbutils.handlers.BeanListHandler;
 
 import cn.com.uitl.GetConn;
 
-import com.zj.dao.impl.ArticleDaoImpl;
 import com.zj.dao.impl.ArticleImgDaoImpl;
-import com.zj.entity.Article;
 import com.zj.entity.ArticleImg;
 /**
  * 

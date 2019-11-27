@@ -6,19 +6,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.zj.control.GrogshopOrderControl;
+import com.zj.dao.impl.GrogshopOrderDaoImpl;
+import com.zj.dao.realize.GrogshopOrderDao;
 import com.zj.entity.GrogshopOrder;
-import com.zj.entity.House;
-import com.zj.entity.HouseImg;
-import com.zj.entity.HouseParticulars;
+import com.zj.service.imp.GrogshopOrderServiceImpl;
 
 /**
  * 订单服务层
  * @author LanceEdward
  *
  */
-public class GrogshopOrderService {
-	private GrogshopOrderControl orderControl = new GrogshopOrderControl();
+public class GrogshopOrderService implements GrogshopOrderServiceImpl{
+	private GrogshopOrderDaoImpl orderDaoImpl = new GrogshopOrderDao();
 	
 	/**
 	 * 将所有订单信息包装成一个list<map>返回 
@@ -28,7 +27,7 @@ public class GrogshopOrderService {
 		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
 		
 		try {
-			List<GrogshopOrder> allOrder = orderControl.getAllGrogshopOrderInfo();
+			List<GrogshopOrder> allOrder = orderDaoImpl.getAllGrogshopOrderInfo();
 			if(allOrder != null){
 				list = new ArrayList<Map<String,Object>>();
 				for(int i = 0;i<allOrder.size();i++){
@@ -56,7 +55,7 @@ public class GrogshopOrderService {
 	public Map<String, Object> getAllGrogshopOrderInfoByID(Integer grogshop_order_id){
 		Map<String, Object> map = null;
 		try {
-			GrogshopOrder order = orderControl.getGrogshopOrderInfoById(grogshop_order_id);
+			GrogshopOrder order = orderDaoImpl.getGrogshopOrderInfoByID(grogshop_order_id);
 			if(order != null){
 				map = new HashMap<String, Object>();
 				map.put("grogshop_order_id", order.getGrogshop_order_id());

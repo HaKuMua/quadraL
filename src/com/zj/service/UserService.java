@@ -6,16 +6,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.zj.control.UserControl;
-import com.zj.entity.CheckInPerson;
+import com.zj.dao.impl.UserDaoImpl;
+import com.zj.dao.realize.UserDao;
 import com.zj.entity.User;
+import com.zj.service.imp.UserServiceImpl;
 /**
  * 
  * @author lijia
  *用户服务层类
  */
-public class UserService {
-	private UserControl userControl = new UserControl();
+public class UserService implements UserServiceImpl{
+	private UserDaoImpl userDaoImpl = new UserDao();
 
 	/*
 	 * 将所有用户信息包装成一个list<map>返回
@@ -23,7 +24,7 @@ public class UserService {
 	public List<Map<String, Object>> getAllUserInfo(){
 		List<Map<String, Object>> list = null;
 		try {
-			List<User> userList = userControl.getAllUserInfo();
+			List<User> userList = userDaoImpl.getAllUserInfo();
 			if(userList != null){
 				list = new ArrayList<Map<String,Object>>();
 				for(User user : userList){
@@ -50,7 +51,7 @@ public class UserService {
 	public Map<String, Object> getUserInfoByPhone(String user_phone){
 		Map<String, Object> map = null;
 		try {
-			User user = userControl.getUserInfoByPhone(user_phone);
+			User user = userDaoImpl.getUserInfoByPhone(user_phone);
 			if(user != null){
 				map = new HashMap<String, Object>();
 				map.put("user_id", user.getUser_id());

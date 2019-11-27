@@ -95,4 +95,11 @@ public class CommentDao implements CommentDaoImpl{
 		String sql = "select count(comment_praise) from comment where comment_id = ?";
 		return qr.query(conn, sql, new ScalarHandler<Long>(), comment_id);
 	}
+	/**
+	 * 获取所有评论方法
+	 */
+	public List<Comment> getAllComment() throws SQLException {
+		String sql = "select * from comment";
+		return qr.query(conn, sql, new BeanListHandler<Comment>(Comment.class));
+	}
 }

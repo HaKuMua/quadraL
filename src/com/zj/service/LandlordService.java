@@ -11,19 +11,19 @@ import cn.com.uitl.CheckoutEmail;
 import cn.com.uitl.CheckoutIDCard;
 import cn.com.uitl.CheckoutPhoneNumber;
 
-import com.zj.control.LandlordControl;
 import com.zj.dao.impl.LandlordDaoImpl;
 import com.zj.dao.realize.LandlordDao;
 import com.zj.entity.Landlord;
+import com.zj.service.imp.LandlordServiceImpl;
 
 /**
  * 
  * @author lijia
  *房东服务层类
  */
-public class LandlordService {
+public class LandlordService implements LandlordServiceImpl{
 	private LandlordDaoImpl landlordDaoImpl = new LandlordDao();
-	/*
+	/**
 	 * 将所有房东信息包装成list<map>返回
 	 */
 	public List<Map<String, Object>> getAllLandlordInfo(){
@@ -52,7 +52,7 @@ public class LandlordService {
 		}
 		return list;
 	}
-	/*
+	/**
 	 * 将单个房东信息包装成map返回
 	 * 按照房东电话号码返回信息
 	 */
@@ -78,7 +78,11 @@ public class LandlordService {
 		}
 		return map;
 	}
-	
+	/**
+	 * 添加一个房东信息
+	 * @param map
+	 * @return
+	 */
 	public String addLandlordInfo(Map<String, Object> map){
 		Landlord landlord = new Landlord();
 		if(!CheckoutEmail.checkEmail((String) map.get("landlord_email"))){

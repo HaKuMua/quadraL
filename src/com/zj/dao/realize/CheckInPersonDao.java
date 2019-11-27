@@ -10,7 +10,6 @@ import org.apache.commons.dbutils.handlers.BeanListHandler;
 
 import com.zj.dao.impl.CheckInPersonDaoImpl;
 import com.zj.entity.CheckInPerson;
-import com.zj.entity.User;
 
 import cn.com.uitl.GetConn;
 

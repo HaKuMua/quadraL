@@ -10,7 +10,6 @@ import org.apache.commons.dbutils.handlers.BeanListHandler;
 
 import cn.com.uitl.GetConn;
 
-import com.mchange.v2.c3p0.stmt.GooGooStatementCache;
 import com.zj.dao.impl.GrogshopOrderDaoImpl;
 import com.zj.entity.GrogshopOrder;
 
@@ -22,7 +21,7 @@ import com.zj.entity.GrogshopOrder;
  */
 public class GrogshopOrderDao implements GrogshopOrderDaoImpl {
 	private QueryRunner qr = new QueryRunner();
-	private Connection conn = new GetConn().getConn();
+	private Connection conn = GetConn.getConn();
 
 	@Override
 	public List<GrogshopOrder> getAllGrogshopOrderInfo() throws SQLException {

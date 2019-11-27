@@ -4,7 +4,6 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.zj.entity.Comment;
-import com.zj.entity.Landlord;
 
 /**
  * 
@@ -12,10 +11,10 @@ import com.zj.entity.Landlord;
  *评论数据库操作接口
  */
 public interface CommentDaoImpl {
-	/*
+	/**
 	 * 获取所有评论方法接口
 	 */
-	public List<Comment> getAllCommen() throws SQLException;
+	public List<Comment> getAllComment() throws SQLException;
 	/**
 	 * 给文章添加评论
 	 * @throws SQLException 

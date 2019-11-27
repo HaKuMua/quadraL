@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.zj.control.HouseControl;
 import com.zj.dao.impl.HouseDaoImpl;
 import com.zj.dao.impl.HouseImgDaoImpl;
 import com.zj.dao.impl.HouseParticularsDaoImpl;
@@ -16,13 +15,14 @@ import com.zj.dao.realize.HouseParticularsDao;
 import com.zj.entity.House;
 import com.zj.entity.HouseImg;
 import com.zj.entity.HouseParticulars;
+import com.zj.service.imp.HouseServiceImpl;
 
 /**
  * 
  * @author lijia
  *房子服务层类
  */
-public class HouseService {
+public class HouseService implements HouseServiceImpl{
 	private HouseDaoImpl houseDaoImpl = new HouseDao();
 	private HouseImgDaoImpl houseImgDaoImpl = new HouseImgDao();
 	private HouseParticularsDaoImpl houseParticularsDaoImpl = new HouseParticularsDao();

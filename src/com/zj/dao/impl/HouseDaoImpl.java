@@ -20,5 +20,5 @@ public interface HouseDaoImpl {
 	 */
 	public House getHouseInfoByID(Integer HouseID) throws SQLException;
 	
-	public Boolean addHouseInfoByID() throws SQLException;
+//	public Boolean addHouseInfoByID() throws SQLException;
 }
