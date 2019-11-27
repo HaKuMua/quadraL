@@ -11,10 +11,10 @@ import com.zj.entity.Article;
  *文章数据库操作接口
  */
 public interface ArticleDaoImpl {
-	/*
+	/**
 	 * 获取所有文章方法接口
 	 */
-	public List<Article> getAllArticle() throws SQLException;
+	List<Article> getAllArticle() throws SQLException;
 	/**
 	 * 添加文章
 	 * @throws SQLException 

@@ -11,13 +11,16 @@ import com.zj.dao.impl.CommentDaoImpl;
 import com.zj.entity.Comment;
 import com.zj.service.imp.CommentServiceImpl;
 /**
- * 评论服务层
+ * 
+ * @author lijia
+ *评论服务层
  */
 public class CommentService implements CommentServiceImpl{
 
 	private CommentDaoImpl commenDaoImpl = new CommentDao();
-	//将所有的评论打包成list返回
-
+	/**
+	 * 将所有的评论打包成list返回
+	 */
 	public List<Map<String, Object>> getAllComment(){
 		List<Map<String, Object>> list = null;
 		try {
