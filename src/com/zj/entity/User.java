@@ -43,6 +43,8 @@ public class User implements Serializable{
 	 */
 	private String user_pwd;
 	
+	private Double money;
+	
 	public User() {
 	}
 
@@ -111,12 +113,22 @@ public class User implements Serializable{
 		this.user_pwd = user_pwd;
 	}
 
+	public Double getMoney() {
+		return money;
+	}
+
+	public void setMoney(Double money) {
+		this.money = money;
+	}
+
+	@Override
 	public String toString() {
 		return "User [user_id=" + user_id + ", user_name=" + user_name
 				+ ", user_headimg_url=" + user_headimg_url + ", user_email="
 				+ user_email + ", user_phone=" + user_phone + ", user_IDcard="
 				+ user_IDcard + ", landlord_id=" + landlord_id + ", user_pwd="
-				+ user_pwd + "]";
+				+ user_pwd + ", money=" + money + "]";
 	}
+
 	
 }

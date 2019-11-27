@@ -85,12 +85,12 @@ public class Article implements Serializable{
 	}
 	
 	
-	public Integer getArticle_prais() {
-		return article_prais;
+	public Integer getArticle_praise() {
+		return article_praise;
 	}
 	
-	public void setArticle_prais(Integer article_prais) {
-		this.article_prais = article_prais;
+	public void setArticle_praise(Integer article_praise) {
+		this.article_praise = article_praise;
 	}
 	public Integer getArticle_collect() {
 		return article_collect;
@@ -103,7 +103,7 @@ public class Article implements Serializable{
 	public String toString() {
 		return "Article [article_id=" + article_id + ", user_id=" + user_id
 				+ ", article_name=" + article_name + ", article_content="
-				+ article_content + ", article_date=" + article_date +", article_prais="
-				+ article_prais + ", article_collect=" + article_collect "]";
+				+ article_content + ", article_date=" + article_date +", article_praise="
+				+ article_praise + ", article_collect=" + article_collect +"]";
 	}
 }
