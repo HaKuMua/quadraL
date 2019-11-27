@@ -6,7 +6,6 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -15,10 +14,11 @@ import org.json.JSONObject;
 import cn.com.uitl.BaseServlet;
 
 import com.zj.service.ArticleService;
+import com.zj.service.imp.ArticleServiceImpl;
 
 public class ArticleServlet extends BaseServlet {
 	private static final long serialVersionUID = 1L;
-	private ArticleService articleService = new ArticleService();
+	private ArticleServiceImpl articleService = new ArticleService();
 	public String callback;
 	/**
 	 * 分页显示文章所需信息

@@ -18,6 +18,7 @@
   <servlet>
   	<servlet-name>SubmitServlet</servlet-name>
     <servlet-class>com.zj.servlet.SubmitServlet</servlet-class>
+  
   </servlet>
 
 
@@ -26,12 +27,14 @@
     <url-pattern>/a</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
+
     <servlet-name>ArticleServlet</servlet-name>
     <url-pattern>/Article</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
   	<servlet-name>SubmitServlet</servlet-name>
     <url-pattern>/submit.do</url-pattern>
+
   </servlet-mapping>
 
 </web-app>

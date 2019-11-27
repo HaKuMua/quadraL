@@ -19,4 +19,6 @@ public interface HouseDaoImpl {
 	 * 通过房子ID获取单个房子信息方法接口
 	 */
 	public House getHouseInfoByID(Integer HouseID) throws SQLException;
+	
+//	public Boolean addHouseInfoByID() throws SQLException;
 }

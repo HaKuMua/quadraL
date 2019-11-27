@@ -12,6 +12,10 @@ import com.zj.entity.Comment;
  */
 public interface CommentDaoImpl {
 	/**
+	 * 获取所有评论方法接口
+	 */
+	public List<Comment> getAllComment() throws SQLException;
+	/**
 	 * 给文章添加评论
 	 * @throws SQLException 
 	 */

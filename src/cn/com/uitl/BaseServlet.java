@@ -17,7 +17,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class BaseServlet extends HttpServlet {
 	
-	
+	private static final long serialVersionUID = 1L;
+
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		response.setCharacterEncoding("utf-8");
