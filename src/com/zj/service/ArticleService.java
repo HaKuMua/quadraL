@@ -136,36 +136,73 @@ public class ArticleService implements ArticleServiceImpl{
 		}
 		return null;
 	}
-	
-	//分页显示评论
-	public List<Map<String, Object>> getPageCommInfo(Integer commPresentPage,Integer article_id) throws SQLException{
-		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
-		//评论分页
-		Long commCount = commentDaoImpl.queryCommCount(article_id);
-		PageUtil<Comment> pu = new PageUtil<Comment>();
-		pu.setCountRow(commCount.intValue());
-		pu.setCurrentPage(commPresentPage);
-		int commStartRow = pu.getStartRow();
-		int commPageSize = pu.getPageSize();
-		List<Comment> pageComm = commentDaoImpl.queryPageComment(article_id, commStartRow, commPageSize);
-		if(pageComm != null) {
-			for(Comment comment : pageComm) {
-				Map<String, Object> map = new HashMap<String, Object>();
-				map.put("comment_id", comment.getComment_id());
-				map.put("article_id", comment.getArticle_id());
-				map.put("user_id", comment.getUser_id());
-				map.put("comment_content", comment.getComment_content());
-				map.put("replier_id", comment.getReplier_id());
-				//获得该评论的回复数
-				Integer comment_id = comment.getComment_id();
-				Long replierCount = commentDaoImpl.queryReplierCount(comment_id);
-				map.put("replierCount", replierCount);
-				//获得该评论赞数量
-				Long praiseCount = commentDaoImpl.queryPraiseCount(comment_id);
-				map.put("praiseCount", praiseCount);
-				list.add(map);
-			}
-		}
-		return list;
+
+	/**
+	 * 添加文章
+	 * @throws SQLException 
+	 */
+	public int addArticle(Integer user_id, String article_name,
+			String article_content) throws SQLException {
+		return articleDaoImpl.addArticle(user_id, article_name, article_content);
+	}
+
+	/**
+	 * 通过id删除文章
+	 * @throws SQLException 
+	 */
+	public int deleteArticleById(Integer article_id) throws SQLException {
+		return articleDaoImpl.deleteArticleById(article_id);
+	}
+
+	/**
+	 * 修改文章
+	 * @throws SQLException 
+	 */
+	public int updateArticle(Integer article_id, String article_name,
+			String article_content) throws SQLException {
+		return articleDaoImpl.updateArticle(article_id, article_name, article_content);
+	}
+
+	/**
+	 * 通过id查询文章
+	 * @throws SQLException 
+	 */
+	public Article queryArticleById(Integer article_id) throws SQLException {
+		return articleDaoImpl.queryArticleById(article_id);
+	}
+
+	/**
+	 * 分页查询所有文章
+	 * @throws SQLException 
+	 */
+	public List<Article> queryPageArticle(int startRow, int pageSize)
+			throws SQLException {
+		return articleDaoImpl.queryPageArticle(startRow, pageSize);
+	}
+
+	/**
+	 * 查询所有文章数量
+	 * @throws SQLException 
+	 */
+	public Long queryCountArticle() throws SQLException {
+		return articleDaoImpl.queryCountArticle();
+	}
+
+	/**
+	 * 更新赞数量
+	 * @throws SQLException 
+	 */
+	public int updateArticle_praiset(Integer article_praise, Integer article_id)
+			throws SQLException {
+		return articleDaoImpl.updateArticle_praiset(article_praise, article_id);
+	}
+
+	/**
+	 * 更新收藏数量
+	 * @throws SQLException 
+	 */
+	public int updateArticle_collect(Integer article_id, Integer article_collect)
+			throws SQLException {
+		return articleDaoImpl.updateArticle_collect(article_id, article_collect);
 	}
 }

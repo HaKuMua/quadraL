@@ -19,4 +19,8 @@ public interface UserDaoImpl {
 	 * 通过用户手机号获取单个用户信息方法接口
 	 */
 	public User getUserInfoByPhone(String phone) throws SQLException;
+	/*
+	 * 添加用户
+	 */
+	int addUser(String user_name,String user_phone,String user_IDcard,Integer landlord_id,String user_pwd,)
 }

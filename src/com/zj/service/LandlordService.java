@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import cn.com.uitl.CheckoutEmail;
 import cn.com.uitl.CheckoutIDCard;
