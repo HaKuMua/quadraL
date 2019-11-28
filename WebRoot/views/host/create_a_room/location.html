@@ -39,7 +39,9 @@
     <body>
     	<div style="margin-top: -20px;z-index: 100; width: 100%;height: 65px; position: fixed;background-color: mistyrose;">
     		<br>
-    		&nbsp;&nbsp;&nbsp;&nbsp;<img src="../../../img/logo.jpg" class="layui-nav-img">
+    		&nbsp;&nbsp;&nbsp;&nbsp;<a href="../../index.html">
+				<img src="../../../img/logo.jpg" class="layui-nav-img">
+			</a>
     		<h2 style="position: absolute; margin-top: -30px; margin-left: 60px;">步骤1：先填写基本信息</h2>
     		<br><br>
     		<div class="layui-progress layui-progress-big" lay-showpercent="true" lay-filter="pro">
@@ -68,7 +70,6 @@
     		</button>
     	</div>
     </body>
-
 <script type="text/javascript"
  src="https://webapi.amap.com/maps?v=1.4.15&key=58436f5656c3bd85a8001b6cce31c890&plugin=AMap.Autocomplete,AMap.PlaceSearch,AMap.Geocoder""></script>
 <script type="text/javascript" src="https://cache.amap.com/lbs/static/addToolbar.js"></script>
@@ -136,8 +137,7 @@
 	$("#search").on("click",function() {
 		
 		var lo =$("#tipinput").val();
-		alert(lo)
-		geoCode()
+		// /geoCode()
 		// function select(e) {
 		// 	placeSearch.setCity(e.poi.adcode);
 		// 	placeSearch.search(e.poi.name);  //关键字查询查询

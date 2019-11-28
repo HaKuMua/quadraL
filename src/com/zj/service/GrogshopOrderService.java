@@ -49,7 +49,7 @@ public class GrogshopOrderService implements GrogshopOrderServiceImpl{
 		
 	}
 	
-	/*
+	/**
 	 * 将单个订单信息包装成map返回
 	 */
 	public Map<String, Object> getAllGrogshopOrderInfoByID(Integer grogshop_order_id){

@@ -6,13 +6,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.zj.dao.HouseCommentDao;
 import com.zj.dao.HouseDao;
 import com.zj.dao.HouseImgDao;
 import com.zj.dao.HouseParticularsDao;
+import com.zj.dao.impl.HouseCommentDaoImpl;
 import com.zj.dao.impl.HouseDaoImpl;
 import com.zj.dao.impl.HouseImgDaoImpl;
 import com.zj.dao.impl.HouseParticularsDaoImpl;
 import com.zj.entity.House;
+import com.zj.entity.HouseComment;
 import com.zj.entity.HouseImg;
 import com.zj.entity.HouseParticulars;
 import com.zj.service.imp.HouseServiceImpl;
@@ -26,7 +29,8 @@ public class HouseService implements HouseServiceImpl{
 	private HouseDaoImpl houseDaoImpl = new HouseDao();
 	private HouseImgDaoImpl houseImgDaoImpl = new HouseImgDao();
 	private HouseParticularsDaoImpl houseParticularsDaoImpl = new HouseParticularsDao();
-	/*
+	private HouseCommentDaoImpl houseCommentDaoImpl = new HouseCommentDao();
+	/**
 	 * 将所有房子信息包装成一个list<map>返回
 	 */
 	public List<Map<String, Object>> getAllHouseInfo(){
@@ -63,7 +67,7 @@ public class HouseService implements HouseServiceImpl{
 		}
 		return list;
 	}
-	/*
+	/**
 	 * 将单个房子信息包装成map返回
 	 */
 	public Map<String, Object> getHouseInfoByID(Integer house_id){
@@ -72,6 +76,7 @@ public class HouseService implements HouseServiceImpl{
 			House house = houseDaoImpl.getHouseInfoByID(house_id);
 			List<HouseImg> houseImgList = houseImgDaoImpl.getHouseImgByHouseID(house_id);
 			HouseParticulars houseParticulars = houseParticularsDaoImpl.getHouseParticularsInfoByID(house.getHouse_particulars_id());
+			List<HouseComment> houseCommentList = houseCommentDaoImpl.getHouseCommentByHouseID(house_id);
 			if(house != null){
 				map = new HashMap<String, Object>();
 				map.put("house_id", house.getHouse_id());
@@ -90,10 +95,23 @@ public class HouseService implements HouseServiceImpl{
 				map.put("address_describe", houseParticulars.getAddress_describe());
 				map.put("toilet_number", houseParticulars.getToilet_number());
 				map.put("allHouseImg", houseImgList);
+				map.put("allHouseComment", houseCommentList);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return map;
+	}
+	/**
+	 * 添加一个房子信息方法接口
+	 * @param house 一个房子信息
+	 * @return
+	 * @throws SQLException
+	 */
+	public String addHouseInfo(House house) throws SQLException {
+		if(house.getHouse_price() < 0 || house.getHouse_price() instanceof Double){
+			
+		}
+		return "";
 	}
 }

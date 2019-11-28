@@ -103,8 +103,7 @@
 			}
 			
 			#title{
-				margin-left: 450px;
-				width: 600px;
+				width:100%;
 				position: -webkit-sticky;
 				position: sticky;
 				top: 0px;
@@ -205,7 +204,7 @@
 		<div id="houseImgDiv">
 			<div  class="layui-col-xs6">
 				<img  class="houseImg"  src="../../img/room/640de340-cd72-4c32-ac24-e0f2515154a7.jpg"
-				 width="960" height="600">
+				 width="960">
 			</div>
 			<div class="layui-col-xs6">
 				<div class="layui-col-xs6">
@@ -227,7 +226,7 @@
 		  <img class="modal-content" id="bigImg">
 		</div>
 		<div id="title">
-			<div >
+			<div  style="margin-left: 400px;">
 				<a  href="#details">详情</a>&nbsp;·
 				<a  href="#comment">评价</a>&nbsp;·
 				<a  href="#date">可订日期</a>&nbsp;·
@@ -238,7 +237,9 @@
 			<hr>
 		</div>
 		<div id="reId">
-			<h1><b>价格￥498</b></h1>
+			<div id="price">
+				<h1><b>价格￥498</b></h1>
+			</div>
 			<br><br>
 			<hr>
 			<h3>日期</h3>
@@ -264,17 +265,20 @@
 				</div>
 			</div>
 		</div>
-		
 		<div id="main">
 			<a name="details"></a>
-			<h4>成都市 · 整套公寓</h4>
-			<h1><b>藝净- 复古花,太古里旁高层花园电影套房</b></h1><br>
-			<h3>1间卧室·1张床·1间卫生间·最多住2人</h3><br><hr >
-			<a href="#landlord">
-				<img style="border-radius: 50%;" width="70px" height="70px" src="../../img/timg.jpg"  >
-				<h2 style="margin-left: 100px; margin-top: -50px;">房东：haku</h2><br><br>
-			</a><hr >
-			<div id="tips" ><br><br><br>
+			<div id="t1">
+				<h4>成都市 · 整套公寓</h4>
+				<h1><b>藝净- 复古花,太古里旁高层花园电影套房</b></h1><br>
+				<h3>1间卧室·1张床·1间卫生间·最多住2人</h3><br><hr >
+				<a href="#landlord">
+					<img style="border-radius: 50%;" width="70px" height="70px" src="../../img/timg.jpg"  >
+					<h2 style="margin-left: 100px; margin-top: -50px;">房东：haku</h2><br><br>
+				</a>
+			</div>
+			<hr >
+			<div id="tips" >
+				<br><br><br>
 				<h2>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				藝·净复古系列之复古花｡房间里有100寸幕布和极米H1投影仪｡
 				步行两分钟至太古里､ifs｡89平米的套房有厨房､洗衣机､冰箱､微波炉等配置｡270度落地窗俯瞰太古里和339电视塔</h2>
@@ -287,19 +291,20 @@
 					<h2><b>爱彼迎旅行保障</b>	|	全方位保障 · 出行无忧</h2>
 				</div>
 			</a><br><br><br><br><br>
-			<div>
+			<div id="t2">
 				<div class="layui-col-xs3">
 					<h2><b>整套房子/公寓</b></h2>
 				</div>
 				<div class="layui-col-xs9">
 					<h2>独享整个房源，无需与房东或他人共住</h2>
 				</div>
-			</div><br><br><br><br>
+			</div>
+			<br><br><br><br>
 			<div>
 				<div class="layui-col-xs3">
-					<h2><b>入住/退房</b></h2>
+					<h3><b>入住/退房</b></h3>
 				</div>
-				<div class="layui-col-xs9">
+				<div class="layui-col-xs9" id="t3">
 					<h2>入住时间 14:00后· 退房时间 12:00</h2>
 				</div>
 			</div>
@@ -358,19 +363,21 @@
 				毕竟房东离的挺远的，来回一趟一小时也很不容易，
 				大家时间也都很宝贵，还是非常感谢房东，有缘再见。</h3>
 				<br><hr >
-				<br><br><a href="">
-					<img style="border-radius: 50%;" width="55px" height="55px" src="../../img/timg.jpg"  >
-					<h2 style="margin-left: 80px; margin-top: -50px;">haku</h2>
-					<h3 style="margin-left: 80px; margin-top: 0px;">2019年10月</h3><br>
-				</a>
-				<h3>地理位置：很好，步行5-10分钟太古里，
-				小区公共区域特别是楼道感觉不太好，很杂乱的感觉，
-				但是有门禁有电梯卡，应该是安全的。
-				房间设施：还是不错的，有投影仪，有大面积窗户，只是中央空调坏了，不过房东也积极解决了，给了我们补偿。
-				总体还是愉快的，虽然有点小插曲，但是房东尽量给我们解决了，希望下次能在客人入住前检查好设备，
-				毕竟房东离的挺远的，来回一趟一小时也很不容易，
-				大家时间也都很宝贵，还是非常感谢房东，有缘再见。</h3>
-				<br><hr >
+				<div >
+					<br><br><a href="">
+						<img style="border-radius: 50%;" width="55px" height="55px" src="../../img/timg.jpg"  >
+						<h2 style="margin-left: 80px; margin-top: -50px;">haku</h2>
+						<h3 style="margin-left: 80px; margin-top: 0px;">2019年10月</h3><br>
+					</a>
+					<h3>地理位置：很好，步行5-10分钟太古里，
+					小区公共区域特别是楼道感觉不太好，很杂乱的感觉，
+					但是有门禁有电梯卡，应该是安全的。
+					房间设施：还是不错的，有投影仪，有大面积窗户，只是中央空调坏了，不过房东也积极解决了，给了我们补偿。
+					总体还是愉快的，虽然有点小插曲，但是房东尽量给我们解决了，希望下次能在客人入住前检查好设备，
+					毕竟房东离的挺远的，来回一趟一小时也很不容易，
+					大家时间也都很宝贵，还是非常感谢房东，有缘再见。</h3>
+					<br><hr >
+				</div>
 			</div><br><div id="demo"></div>
 			
 			<div style="margin-top: 100px;">
@@ -380,33 +387,33 @@
 			</div>
 			<div id="location" style="margin-top: 100px;">
 				<h1><b>位置</b></h1><br><br>
-				<h2><b>成都市，四川省，中国</b></h2><br><br>
-				<h2>出行信息</h2><br>
-				<h3>民宿-驾车-双流机场 36分钟左右(交通顺畅的情况) 民宿-步行10分钟-春熙路地铁3-太平园站-双流机场 (地铁大约32分钟) 民宿-驾车-成都东客站 20分钟左右(交通顺畅的情况)｡</h3>
+				<div id="t4">
+					<h2><b>成都市，四川省，中国</b></h2><br><br>
+					<h2>出行信息</h2><br>
+					<h3>民宿-驾车-双流机场 36分钟左右(交通顺畅的情况) 民宿-步行10分钟-春熙路地铁3-太平园站-双流机场 (地铁大约32分钟) 民宿-驾车-成都东客站 20分钟左右(交通顺畅的情况)｡</h3>
+				</div>
 				<br><div id="container"></div>
 			</div>
 			<a name="notice"></a>
 			<div id="notice" style="margin-top: 100px;">
-				<h1><b>须知</b></h1><br><br>
-				<div class="layui-col-xs6">
-					<h2><b>基本要求</b></h2>
+				<h1><b>须知</b></h1>
+				<div style="margin-top: 20px;">
+					<div class="layui-col-xs6">
+						<h2><b>基本要求</b></h2>
+					</div>
+					<div class="layui-col-xs6" id="t5">
+						<h3>不允许携带宠物</h3>
+						<h3>不允许举办派对和活动</h3>
+						
+					</div>
 				</div>
-				<div class="layui-col-xs6">
-					<h3>不允许携带宠物<br>不允许举办派对和活动</h3>
-				</div>
-				<br><br><br><br>
-				<div class="layui-col-xs6">
-					<h2><b>取消政策</b></h2>
-				</div>
-				<div class="layui-col-xs6">
-					<h3>随时取消</h3>
-				</div>
-				<br><br><br><br>
-				<div class="layui-col-xs6">
-					<h2><b>安全须知</b></h2>
-				</div>
-				<div class="layui-col-xs6">
-					<h3>已安装烟雾报警器</h3>
+				<div style="margin-top: 120px;">
+					<div class="layui-col-xs6">
+						<h2><b>取消政策</b></h2>
+					</div>
+					<div class="layui-col-xs6">
+						<h3>随时取消</h3>
+					</div>
 				</div>
 				<br><br><br><br>
 				<div class="layui-col-xs6">
@@ -418,28 +425,34 @@
 			</div>
 			<div id="landlord" style="margin-top: 120px;">
 				<h1><b>房东</b></h1><br><br>
-				<div class="layui-col-xs8">
-					<h2><b>藝<br></b>注册时间：2016年7月</h2>
+				<div id="t6">
+					<div class="layui-col-xs8">
+						<h2><b>藝</b></h2>
+						<h3>已验证</h3>
+					</div>
+					<div class="layui-col-xs4">
+						<a href="landlord.html">
+							<img style="border-radius: 50%;" src="../../img/timg.jpg" width="60px" height="60px" >
+						</a>
+					</div>
 				</div>
-				<div class="layui-col-xs4">
-					<a href="landlord.html">
-						<img style="border-radius: 50%;" src="../../img/timg.jpg" width="60px" height="60px" >
-					</a>
-				</div><br><br><br><br><br><br>
-				<h2><b>自我介绍</b></h2>
-				<div style="margin-top: 15px;">
-					<h3>我们是位于东京市中心的禅宗主题设计胶囊酒店禅宗东京｡ <br>
-					我们距离人形町站有30秒的步行路程,可以直达东京的两个机场和几乎所有的旅游目的地｡<br>
-					酒店禅宗东京的客户体验以日本禅宗极简主义的精神为基础｡我们设计了最现代,
-					最紧凑的传统日本建筑,希望为我们的客人提供一个充分体验日本,
-					舒适和合理价格的机会｡我们酒店的客人可以享受融合了高效的胶囊住宿和正宗的传统设计 - 
-					实质上是在东京市中心的现代和城市日式旅馆体验｡</h3>
+				<br><br><br><br><br><br>
+				<div id="t7">
+					<h2><b>自我介绍</b></h2>
+					<div style="margin-top: 15px;">
+						<h3>我们是位于东京市中心的禅宗主题设计胶囊酒店禅宗东京｡ <br>
+						我们距离人形町站有30秒的步行路程,可以直达东京的两个机场和几乎所有的旅游目的地｡<br>
+						酒店禅宗东京的客户体验以日本禅宗极简主义的精神为基础｡我们设计了最现代,
+						最紧凑的传统日本建筑,希望为我们的客人提供一个充分体验日本,
+						舒适和合理价格的机会｡我们酒店的客人可以享受融合了高效的胶囊住宿和正宗的传统设计 - 
+						实质上是在东京市中心的现代和城市日式旅馆体验｡</h3>
+					</div>
 				</div>
-				<br><br><br>
-				<h3><b>与房客的互动</b></h3><br>
+				<!-- <br><br><br> -->
+				<!-- <h3><b>与房客的互动</b></h3><br>
 				<h3>入住期间有任何问题随时联系我</h3><br>
 				<h3>回复率：100%</h3><br>
-				<h3>回复时间：1小时内</h3><br>
+				<h3>回复时间：1小时内</h3><br> -->
 			</div>
 			<div style="margin-top: 100px;">
 				<h1>爱彼迎旅行保障</h1><br>
@@ -482,12 +495,9 @@
 	<script type="text/javascript">
 	    var map = new AMap.Map("container", {
 	        resizeEnable: true,
-			zoom:15
+			zoom:15,
+			center:[116.519942, 39.924677]
 	    });
-	    //输入提示
-		var auto = new AMap.Autocomplete({
-		   input:'topSearch'
-		});
 	</script>
 	<script>
 	// 获取模态窗口
@@ -502,10 +512,14 @@
 	for (var i = 0; i < btn.length; i++) {
 		var modalImg = document.getElementById("bigImg");
 		var captionText = document.getElementById("caption");
-		btn[i].onclick = function(){
+		$("body").on("click",".houseImg",function() {
 			modal.style.display = "block";
 			modalImg.src = this.src;
-		}	
+		})
+		// btn[i].onclick = function(){
+		// 	modal.style.display = "block";
+		// 	modalImg.src = this.src;
+		// }	
 		}
 	</script>
 	<script type="text/javascript">
@@ -518,25 +532,35 @@
 		};
 		var houseInfo = {
 			house_name: '下榻日式风格的房源去畅玩太古里',
-			house_id: 4,
-			house_price: 289.5,
-			house_type: '独立房间',
-			houseImg:['1','2'],
-			house_intake:'',//房子容纳量
-			travel_information:'',//出行信息
-			house_address:'',//地址
-			room_number:'',
+			house_id: '1001',
+			house_imgs: ['../../img/room/640de340-cd72-4c32-ac24-e0f2515154a7.jpg','../../img/room/ac356f32-0ba7-4dd8-9796-94d085e711fa.jpg','../../img/room/bbe8b0d4-4613-4bb2-8c8a-7f45914f0919.jpg',
+						'../../img/room/9b267e78-d8ef-4c0e-a9ac-44cfa978e34e.jpg','../../img/room/65e00580-6a91-4ee7-bc11-d05f259814ad.jpg'],
+			house_price: 999,
+			lease_type:'独立房间',
+			house_type: '公寓型住宅',
+			house_intake:1,//房子容纳量
+			travel_information:'民宿-驾车-双流机场 36分钟左右(交通顺畅的情况) 民宿-步行10分钟-春熙路地铁3-太平园站-双流机场 (地铁大约32分钟) 民宿-驾车-成都东客站 20分钟左右(交通顺畅的情况)｡',//出行信息
+			house_address:'成都市，四川省，中国',//地址
+			room_number:1,
 			address_describe:'全北京路步行街最干净,最温馨浪漫的一居室｡房子近期重新装修,日系浪漫风格,高楼层视野广阔,你可以享受巨幅的家庭影院｡ 周边全是美食,来广州茶点或者沿江酒楼抑或音乐餐吧,还可以在珠江漫步｡',
+			house_describe:'藝·净复古系列之复古花｡房间里有100寸幕布和极米H1投影仪｡步行两分钟至太古里､ifs｡89平米的套房有厨房､洗衣机､冰箱､微波炉等配置｡270度落地窗俯瞰太古里和339电视塔',
 			toilet_number:1,
 			bed_number: 1,
+			may_check_in_date:'14:00',
+			may_check_out_date:'12:00',
 			//守则
-			building_name:[],
+			building_name:['不允许携带宠物','不允许举办派对和活动'],
 			//设施
-			facilities_name:[],
+			facilities_name:['无线网络','吹风机','生活必需品','空调','洗衣机','电梯','独立入口'],
+			//酒店评论
+			houseCom:[{user_name:'liu',user_img:'../../img/timg.jpg',time:'2019.11.26',content:'入住体验很好，地理位置在地铁口，出行及吃饭都很便利，房间干净整洁，房东服务也很周到，还可以寄存行李，方便游玩。'},
+					{user_name:'liu',user_img:'../../img/timg.jpg',time:'2019.11.26',content:'入住体验很好，地理位置在地铁口，出行及吃饭都很便利，房间干净整洁，房东服务也很周到，还可以寄存行李，方便游玩。'},
+					{user_name:'liu',user_img:'../../img/timg.jpg',time:'2019.11.26',content:'入住体验很好，地理位置在地铁口，出行及吃饭都很便利，房间干净整洁，房东服务也很周到，还可以寄存行李，方便游玩。'}],
 			//房东信息
-			landlord_id:'',
-			landlord_name:'',
-			landlord_img:''
+			landlord_id:'1',
+			landlord_name:'HaKu',
+			landlord_img:'../../img/timg.jpg',
+			landlord_describe:'你好,我是一个重庆90后伪文青,喜欢电影､电视､追星,享受平凡而不平淡的生活,机缘巧合下和朋友合作做起了民宿,每一套房型都是经过精心挑选,亲力亲为布置､装扮,都是身处绝美夜景的江景房,希望朋友们来我家做客,带你领略别样的重庆风光｡',
 		}
 		if (userInfo.user_id != '') {
 			var html = '<li class="layui-nav-item" id="china"><a href="">退出</a></li>' +
@@ -565,7 +589,88 @@
 		// 	houseInfo = res;
 		// 	console.log(houseInfo);
 		// });
-		$('title').text(houseInfo.house_name)
+		window.onload=get();
+		
+		function get() {
+			$('title').text(houseInfo.house_name);
+			$("#houseImgDiv").empty();
+			html='<div  class="layui-col-xs6"><img  class="houseImg"  src="'+houseInfo.house_imgs[0]+'" width="960" height="600">'+
+				'</div><div class="layui-col-xs6">'+
+				'<div class="layui-col-xs6">'+
+				'<img  class="houseImg" src="'+houseInfo.house_imgs[1]+'"width="475" height="300">'+
+				'<img  class="houseImg" src="'+houseInfo.house_imgs[2]+'"width="475" height="300">'+
+				'</div><div class="layui-col-xs6">'+
+				'<img  class="houseImg" src="'+houseInfo.house_imgs[3]+'"width="475" height="300">'+
+				' <img  class="houseImg" src="'+houseInfo.house_imgs[4]+'" width="475" height="300">'+
+				'</div></div>';
+			$("#houseImgDiv").append(html);
+			$("#price").empty();
+			$("#price").append('<h1><b>价格￥'+houseInfo.house_price+'</b></h1>');
+			$("#t1").empty();
+			var html='<h4>'+houseInfo.house_address+' · '+houseInfo.house_type+'</h4>'+
+					 '<h1><b>'+houseInfo.house_name+'</b></h1><br>'+
+					 '<h3>'+houseInfo.room_number+'间卧室·'+houseInfo.bed_number+'张床·'+houseInfo.toilet_number+
+					 '间卫生间·最多住'+houseInfo.house_intake+'人</h3><br><hr >'+
+					 '<a href="#landlord"><img style="border-radius: 50%;" width="70px" height="70px" src="'+houseInfo.landlord_img+'"  >'+
+					 '<h2 style="margin-left: 100px; margin-top: -50px;">房东：'+houseInfo.landlord_name+'</h2><br><br></a>';
+			$("#t1").append(html);
+			$("#tips").empty();
+			html='<br><br><br>'+
+				 '<h2>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+houseInfo.house_describe+
+				 '</h2>';
+			$("#tips").append(html);
+			$("#t2").empty();
+			if(houseInfo.lease_type == '整个房源'){
+				html='<div class="layui-col-xs3">'+
+					 '<h3><b>'+houseInfo.lease_type+'/'+houseInfo.house_type+'</b></h3></div>'+
+					 '<div class="layui-col-xs9">'+
+					 '<h3>独享整个房源，无需与房东或他人共住</h3></div>';
+			} else if(houseInfo.lease_type == '独立房间') {
+				html='<div class="layui-col-xs3">'+
+					 '<h3><b>'+houseInfo.lease_type+'/'+houseInfo.house_type+'</b></h3></div>'+
+					 '<div class="layui-col-xs9">'+
+					 '<h3>房客拥有自己的独立房间，与其他人共享客厅等房间</h3></div>';
+			}else {
+				html='<div class="layui-col-xs3">'+
+					 '<h3><b>'+houseInfo.lease_type+'/'+houseInfo.house_type+'</b></h3></div>'+
+					 '<div class="layui-col-xs9">'+
+					 '<h3>与他人合住卧室或公共区域</h3></div>';
+			}
+			$("#t2").append(html);
+			$("#t3").empty();
+			$("#t3").append('<h3>入住时间 '+houseInfo.may_check_in_date+'后· 退房时间 '+houseInfo.may_check_out_date+'</h3>');
+			$("#comment").empty();
+			for(i=0;i<houseInfo.houseCom.length;i++) {
+				html='<div ><br><br><a href="">'+
+					'<img style="border-radius: 50%;" width="60px" height="60px" src="'+houseInfo.houseCom[i].user_img+'"  >'+
+					'<h2 style="margin-left: 80px; margin-top: -50px;">'+houseInfo.houseCom[i].user_name+'</h2>'+
+					'<h3 style="margin-left: 80px; margin-top: 0px;">'+houseInfo.houseCom[i].time+'</h3><br>'+
+					'</a><h3>'+houseInfo.houseCom[i].content+'</h3><br><hr ></div>';
+				$("#comment").append(html)
+			}
+			$("#t4").empty();	
+			html='<h2><b>'+houseInfo.house_address+'</b></h2><br><br><h2>出行信息</h2><br>'+
+				'<h3>'+houseInfo.address_describe+'</h3>';
+			$("#t4").append(html);
+			$("#t5").empty();
+			for(var i=0;i<houseInfo.building_name.length;i++) {
+				$("#t5").append('<h3>'+houseInfo.building_name[i]+'</h3>');
+			}
+			$("#t6").empty();	
+			html='<div class="layui-col-xs8">'+
+				'<h2><b>'+houseInfo.landlord_name+'</b></h2><br><i class="layui-icon layui-icon-ok" style="color: green;font-weight:border;">&nbsp;已验证</i><br><br></div>'+
+				'<div class="layui-col-xs4">'+
+				'<a href="landlord.html">'+
+				'<img style="border-radius: 50%;" src="../../img/timg.jpg" width="60px" height="60px" ></a></div>';
+			$("#t6").append(html);
+			if(houseInfo.landlord_describe != null || houseInfo.landlord_describe != '' ) {
+				$("#t7").empty();
+				html='<h2><b>自我介绍</b></h2><br>'+
+					'<div style="margin-top: 15px;"><h3>'+houseInfo.landlord_describe+'</h3></div>';
+				$("#t7").append(html);
+			}
+		}
+		
 		//日期格式化
 		Date.prototype.Format = function (fmt) { // author: meizz
 		    var o = {
@@ -618,7 +723,7 @@
 					format: 'yyyy年MM月dd日',
 					min:date,
 					 range: true,
-					 change: function(value, date){ //监听日期被切换
+					 done: function(value, date){ //监听日期被切换
 						$("#ttt").remove();
 					 	var startDate = value.split('-')[0];
 					 	var endDate = value.split('-')[1];
@@ -631,34 +736,24 @@
 						$("#reId a").before(html);
 					  },
 				  });
-				  		
 				laydate.render({
 				    elem: '#canDate', //指定元素
 					position: 'static',
 					format: 'yyyy年MM月dd日',
 					min:date,
-					change: function(value, date){ //监听日期被切换
-						$("#ttt").remove();
-						var startDate = $("#check").val().split('-')[0];
-						var endDate = $("#check").val().split('-')[1];
-						var day =getDateNumber(startDate,endDate);
-						$("#reDate").val(value);
-						html='<div id="ttt" ><br><hr ><div class="layui-col-xs7">'+
-							'<h3>￥'+houseInfo.house_price+'×2晚</h3></div>	<div class="layui-col-xs5">'+
-							'<h3>总价：￥'+(day*houseInfo.house_price)+'</h3>	</div></div>';
-						$("#reId a").before(html);
-					 },
-				  	range: true,
+					mark: {
+					    '2019-11-30': '已预订' ,
+						'2019-12-10': '已预订' //具体日期
+					  },
+					 
 				});
-				  
-				   //图片轮播
-				    carousel.render({
-				      elem: '#test10'
-				      ,width: '778px'
-				      ,height: '440px'
-				      ,interval: 5000
-				    });
-			var html = '';
+				//图片轮播
+				carousel.render({
+				  elem: '#test10'
+				  ,width: '778px'
+				  ,height: '440px'
+				  ,interval: 5000
+				});
 			var active = {
 				safeguard:function() {
 					var index = layer.open({
@@ -697,8 +792,6 @@
 				alert(day)
 				return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
 			});
-			
-			
 			//分页
 			 //总页数大于页码总数
 			  laypage.render({

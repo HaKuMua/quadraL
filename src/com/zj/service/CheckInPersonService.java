@@ -19,7 +19,7 @@ import com.zj.service.imp.CheckInPersonServiceImpl;
  */
 public class CheckInPersonService implements CheckInPersonServiceImpl{
 	private CheckInPersonDaoImpl cPDaoImpl = new CheckInPersonDao();
-	/*
+	/**
 	 * 将所有入住人员信息包装成一个list<map>返回
 	 */
 	public List<Map<String, Object>> getAllCheckInPersonInfo(){
@@ -42,7 +42,7 @@ public class CheckInPersonService implements CheckInPersonServiceImpl{
 		}
 		return list;
 	}
-	/*
+	/**
 	 * 将单个入住人员信息包装成map返回
 	 */
 	public Map<String, Object> getCheckInPersonInfoByIdCard(String check_in_person_ID_card){
