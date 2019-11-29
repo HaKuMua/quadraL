@@ -1,6 +1,7 @@
 package com.zj.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 
@@ -35,9 +36,9 @@ public class User implements Serializable{
 	 */
 	private String user_IDcard;
 	/**
-	 * 房东ID
+	 * 是否为房东
 	 */
-	private Integer landlord_id;
+	private Integer is_landlord;
 	/**
 	 * 用户密码
 	 */
@@ -54,6 +55,10 @@ public class User implements Serializable{
 	 * 用户签名
 	 */
 	private String user_describe;
+	/**
+	 * 创建时间
+	 */
+	private Date inform_date;
 	
 	public User() {
 	}
@@ -106,15 +111,14 @@ public class User implements Serializable{
 		this.user_IDcard = user_IDcard;
 	}
 
-	public Integer getLandlord_id() {
-		return landlord_id;
+	public Integer getIs_landlord() {
+		return is_landlord;
 	}
 
-	public void setLandlord_id(Integer landlord_id) {
-		this.landlord_id = landlord_id;
+	public void setIs_landlord(Integer is_landlord) {
+		this.is_landlord = is_landlord;
 	}
-	
-	
+
 	public String getUser_pwd() {
 		return user_pwd;
 	}
@@ -147,12 +151,21 @@ public class User implements Serializable{
 		this.user_describe = user_describe;
 	}
 
+	public Date getInform_date() {
+		return inform_date;
+	}
+
+	public void setInform_date(Date inform_date) {
+		this.inform_date = inform_date;
+	}
+
 	public String toString() {
 		return "User [user_id=" + user_id + ", user_name=" + user_name
 				+ ", user_headimg_url=" + user_headimg_url + ", user_email="
 				+ user_email + ", user_phone=" + user_phone + ", user_IDcard="
-				+ user_IDcard + ", landlord_id=" + landlord_id + ", user_pwd="
+				+ user_IDcard + ", is_landlord=" + is_landlord + ", user_pwd="
 				+ user_pwd + ", money=" + money + ", real_name=" + real_name
-				+ ", user_describe=" + user_describe + "]";
+				+ ", user_describe=" + user_describe + ", inform_date="
+				+ inform_date + "]";
 	}
 }

@@ -17,4 +17,10 @@ public interface UserServiceImpl {
 	 * 用user_phone查询
 	 */
 	Map<String, Object> getUserInfoByPhone(String user_phone);
+	/**
+	 * 添加一个用户方法接口
+	 * @param map
+	 * @return
+	 */
+	String addUserInfo(Map<String, Object> map);
 }

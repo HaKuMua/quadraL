@@ -18,7 +18,7 @@ import com.zj.entity.User;
  *用户数据库操作实现类
  */
 public class UserDao implements UserDaoImpl{
-	/*
+	/**
 	 * 获取jdbc连接
 	 */
 	private QueryRunner qr = new QueryRunner();
@@ -47,4 +47,14 @@ public class UserDao implements UserDaoImpl{
 		String sql = "select * from user where user_id=?";
 		return qr.query(conn, sql, new BeanHandler<User>(User.class), user_id);
 	}
+	/**
+	 * 添加一个用户信息
+	 */
+	public int addUserInfo(User user) throws SQLException {
+		String sql = "insert into user(user_name,user_headimg_url,user_email,user_phone,user_IDcard,is_landlord" +
+				",user_pwd,money,real_name,user_describe) value(?,?,?,?,?,?,?,?,?,?)";
+		return qr.update(conn, sql, user.getUser_name(),user.getUser_headimg_url(),user.getUser_email(),user.getUser_phone()
+				,user.getUser_IDcard(),user.getIs_landlord(),user.getUser_pwd(),user.getMoney(),user.getReal_name(),user.getUser_describe());
+	}
+	
 }
