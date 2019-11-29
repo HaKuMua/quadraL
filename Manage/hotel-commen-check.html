@@ -232,15 +232,13 @@
 									<table class="table table-hover" id="tablebox">
 										<thead>
 											<tr>
-												<th scope="col" class="t1">房东编号</th>
-												<th scope="col" class="t2">房东头像</th>
-												<th scope="col" class="t3">房东姓名</th>
-												<th scope="col" class="t4">描述</th>
-												<th scope="col" class="t5">身份证号</th>
-												<th scope="col" class="t6">电子邮件</th>
-												<th scope="col" class="t7">房东电话</th>
-												<th scope="col" class="t8">认证日期</th>
-												<th scope="col" class="t9">认证实名</th>
+												<th scope="col" class="t1">房间评论编号</th>
+												<th scope="col" class="t2">房间编号</th>
+												<th scope="col" class="t3">用户编号</th>
+												<th scope="col" class="t4">房间评论内容</th>
+												<th scope="col" class="t5">评论日期</th>
+												<th scope="col" class="t6">回复人编号</th>
+												<th scope="col" class="t7"></th>
 											</tr>
 										</thead>
 									</table>
@@ -267,22 +265,41 @@
 		</div>
 		<!-- End Wrapper -->
 		<script>
-			$.getJSON("http://localhost:80/QuadraL/a?method=getAllLandlordInfo&callback=?",
-				function(landlord_result) {
+			$.getJSON("http://localhost:80/QuadraL/house-comment.do?method=getAllHouseComment&callback=?",
+				function(house_comment_result) {
 					window.onload = function() {
 						var tdArr = document.getElementById('tablebox').firstElementChild;
-						for (var i = 0; i < landlord_result.list.length; i++) {
+						for (var i = 0; i < house_comment_result.list.length; i++) {
 							var tr = document.createElement("tr");
-							tr.innerHTML = '<td class="t1">' + landlord_result.list[i].landlord_id + '</td><td class="t2">' + landlord_result.list[i].landlord_headimg_url +
-								'</td><td class="t3">' + landlord_result.list[i].landlord_name + '</td><td class="t4">' + landlord_result.list[i].landlord_describe + 
-								'</td><td class="t5">' + landlord_result.list[i].landlord_IDcard + '</td><td class="t6">' + landlord_result.list[i].landlord_email +
-								'</td><td class="t7">' + landlord_result.list[i].landlord_phone + '</td><td class="t8">' + landlord_result.list[i].inform_date +
-								'</td><td class="t9">' + landlord_result.list[i].real_name;
+							tr.innerHTML = '<td class="t1">' + house_comment_result.list[i].houseCom_id + '</td><td class="t2">' + house_comment_result.list[i].house_id +
+								'</td><td class="t3">' + house_comment_result.list[i].user_id + '</td><td class="t4">' + house_comment_result.list[i].houseCom_content + 
+								'</td><td class="t5">' + house_comment_result.list[i].houseCom_date + '</td><td class="t6">' + house_comment_result.list[i].replier_id +
+								'</td><td class="t7">'+
+								'<button class="btn btn-primary delete btn-sm" id=" '+i+'" >删除</button>';;
 							tdArr.appendChild(tr)
 						}
 					};
 				}
 			);
+			$(document).on("click",".delete",function(){
+				var id = $(this).attr("id");
+				var num = $(this).parent().parent();
+				// $.mui.ajax('',{
+				// 	data:{
+						
+				// 	},
+				// 	dataType:'json',//服务器返回json格式数据
+				// 	type:'post',//HTTP请求类型
+				// 	timeout:10000,//超时时间设置为10秒；
+				// 	success:function(data){
+						
+				// 	},
+				// 	error:function(xhr,type,errorThrown){
+						
+				// 	}
+				// });
+				$(this).parent().parent().remove();
+			});
 		</script>
 		<script src="layui/layui.js" charset="utf-8"></script>
 		<script>

@@ -232,9 +232,9 @@
 										<thead>
 											<tr>
 												<th scope="col" class="t1">预定编号</th>
-												<th scope="col" class="t2">预定时间</th>
+												<th scope="col" class="t2">入住日期</th>
 												<th scope="col" class="t3">预定天数</th>
-												<th scope="col" class="t4">结算日期</th>
+												<th scope="col" class="t4">退房日期</th>
 												<th scope="col" class="t5">用户姓名</th>
 												<th scope="col" class="t6">房间名称</th>
 											</tr>
@@ -270,7 +270,7 @@
 							var tr = document.createElement("tr");
 							tr.innerHTML = '<td class="t1">' + reserve_result.list[i].reserve_id + '</td><td class="t2">' + reserve_result.list[i].reserve_date +
 								'</td><td class="t3">' + reserve_result.list[i].reserve_day_number + '</td><td class="t4">' + reserve_result.list[i].check_out_date +
-								'<td class="t5">' + reserve_result.list[i].user_id + '</td><td class="t6">' + reserve_result.list[i].house_id;
+								'<td class="t5">' + reserve_result.list[i].user_name + '</td><td class="t6">' + reserve_result.list[i].house_id;
 							tdArr.appendChild(tr)
 						}
 					};

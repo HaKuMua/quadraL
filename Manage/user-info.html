@@ -288,11 +288,11 @@
 		<script>
 			$.getJSON("http://localhost:80/QuadraL/user-info.do?method=getAllUserInfo&callback=?",
 				function(user_result) {
-					var text = user_result.list[i].is_landlord > 0 ? "是":"否"; 
 					window.onload = function() {
 						var tdArr = document.getElementById('tablebox').firstElementChild;
 						for (var i = 0; i < user_result.list.length; i++) {
 							var tr = document.createElement("tr");
+							var text = user_result.list[i].is_landlord > 0 ? "是":"否"; 
 							tr.innerHTML = '<td class="t1">' + user_result.list[i].user_id + '</td><td class="t2">' + user_result.list[i].user_name +
 								'</td><td class="t3">' + user_result.list[i].user_headimg_url + '</td><td class="t4">' + user_result.list[i].user_email + 
 								'</td><td class="t5">' + user_result.list[i].user_phone + '</td><td class="t6">' + user_result.list[i].user_IDcard +

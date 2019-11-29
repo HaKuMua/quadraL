@@ -16,10 +16,14 @@ import com.zj.service.imp.ReserveServiceImpl;
 
 public class ReserveService implements ReserveServiceImpl{
 	private ReserveDaoImpl reserveDaoImpl = new ReserveDao();
+	private UserDaoImpl  userDaoImpl = new UserDao(); 
+	
+	private Integer id;
 	@Override
 	public List<Map<String, Object>> getAllReserve() {
 		List<Map<String, Object>> list = null;
 		try {
+			User userList = userDaoImpl.getUserInfoById(id);
 			List<Reserve> reserveList = reserveDaoImpl.getAllReserve();
 			if(reserveList != null){
 				list = new ArrayList<Map<String,Object>>();
@@ -31,6 +35,7 @@ public class ReserveService implements ReserveServiceImpl{
 					map.put("check_out_date", reserve.getCheck_out_date());
 					map.put("user_id", reserve.getUser_id());
 					map.put("house_id", reserve.getHouse_id());
+					map.put("user_name", userList);
 					list.add(map);
 				}
 			}

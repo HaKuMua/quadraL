@@ -37,4 +37,12 @@ public class UserDao implements UserDaoImpl{
 		String sql = "select * from user where user_phone=?";
 		return qr.query(conn, sql, new BeanHandler<User>(User.class),phone);
 	}
+	/*
+	 * 通过用户id获取单个用户信息方法接口
+	 */
+	@Override
+	public User getUserInfoById(Integer id) throws SQLException {
+		String sql = "select * from user where user_id=?";
+		return qr.query(conn, sql, new BeanHandler<User>(User.class),id);
+	}
 }
