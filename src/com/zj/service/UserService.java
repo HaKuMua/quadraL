@@ -1,11 +1,16 @@
-package com.zj.service;
+﻿package com.zj.service;
 
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
+
+import cn.com.uitl.UUIDGenerator;
 
 import cn.com.uitl.CheckoutEmail;
 import cn.com.uitl.CheckoutIDCard;
@@ -20,6 +25,7 @@ import com.zj.service.impl.UserServiceImpl;
  * @author lijia
  *用户服务层类
  */
+
 public class UserService implements UserServiceImpl{
 	private UserDaoImpl userDaoImpl = new UserDao();
 
@@ -76,7 +82,64 @@ public class UserService implements UserServiceImpl{
 		}
 		return map;
 	}
-	
+	/**
+	 * 添加用户
+	 */
+	public int addUser(String user_phone) throws SQLException {
+		//自动生成user_name
+		String user_name = UUIDGenerator.getUUID().substring(0,8);
+		return userDaoImpl.addUser(user_name, user_phone);
+	}
+	/**
+	 * 修改用户
+	 */
+	public int updateUser(Integer user_id, String user_name,
+			String user_email, String user_phone,
+			String real_name,String user_describe,String user_IDcard) throws SQLException {
+		return userDaoImpl.updateUser(user_id, user_name, user_email, user_phone, real_name, user_describe, user_IDcard);
+	}
+	/**
+	 * 通过id查询用户
+	 * @throws SQLException 
+	 */
+	public User queryUser(Integer user_id) throws SQLException {
+		return userDaoImpl.queryUser(user_id);
+	}
+	/**
+	 * 查询手机号是否存在
+	 * @throws SQLException 
+	 */
+	public boolean queryPhoneExit(String user_phone) throws SQLException {
+		boolean bool = true;
+		Integer count = userDaoImpl.queryPhoneExit(user_phone);
+		if(count == null) {
+			bool = false;
+		}
+		return bool;
+	}
+	/**
+	 * 用户设置密码
+	 * @throws SQLException 
+	 */
+	public int setUserPwd(Integer user_id, String user_pwd) throws SQLException {
+		return userDaoImpl.setUserPwd(user_id, user_pwd);
+	}
+	/**
+	 * 用户修改密码
+	 * @throws SQLException 
+	 */
+	public int updateUserPwd(Integer user_id, String user_pwd)
+			throws SQLException {
+		return userDaoImpl.updateUserPwd(user_id, user_pwd);
+	}
+	/**
+	 * 用户上传头像
+	 * @throws SQLException 
+	 */
+	public int addUserHead(Integer user_id, String user_headimg_url)
+			throws SQLException {
+		return userDaoImpl.addUserHead(user_id, user_headimg_url);
+	}
 	/**
 	 * 添加一个用户信息
 	 * @param map
@@ -120,5 +183,6 @@ public class UserService implements UserServiceImpl{
 		}
 		return "插入失败";
 	}
+
 
 }

@@ -1,4 +1,4 @@
-package com.zj.entity;
+﻿package com.zj.entity;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -59,7 +59,7 @@ public class User implements Serializable{
 	 * 创建时间
 	 */
 	private Date inform_date;
-	
+
 	public User() {
 	}
 
@@ -134,6 +134,7 @@ public class User implements Serializable{
 	public void setMoney(Double money) {
 		this.money = money;
 	}
+	
 
 	public String getReal_name() {
 		return real_name;
@@ -159,6 +160,7 @@ public class User implements Serializable{
 		this.inform_date = inform_date;
 	}
 
+	@Override
 	public String toString() {
 		return "User [user_id=" + user_id + ", user_name=" + user_name
 				+ ", user_headimg_url=" + user_headimg_url + ", user_email="
@@ -168,4 +170,5 @@ public class User implements Serializable{
 				+ ", user_describe=" + user_describe + ", inform_date="
 				+ inform_date + "]";
 	}
+	
 }

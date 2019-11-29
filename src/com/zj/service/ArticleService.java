@@ -1,4 +1,4 @@
-package com.zj.service;
+﻿package com.zj.service;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -135,6 +135,75 @@ public class ArticleService implements ArticleServiceImpl{
 			return list;
 		}
 		return null;
+	}
+
+	/**
+	 * 添加文章
+	 * @throws SQLException 
+	 */
+	public int addArticle(Integer user_id, String article_name,
+			String article_content) throws SQLException {
+		return articleDaoImpl.addArticle(user_id, article_name, article_content);
+	}
+
+	/**
+	 * 通过id删除文章
+	 * @throws SQLException 
+	 */
+	public int deleteArticleById(Integer article_id) throws SQLException {
+		return articleDaoImpl.deleteArticleById(article_id);
+	}
+
+	/**
+	 * 修改文章
+	 * @throws SQLException 
+	 */
+	public int updateArticle(Integer article_id, String article_name,
+			String article_content) throws SQLException {
+		return articleDaoImpl.updateArticle(article_id, article_name, article_content);
+	}
+
+	/**
+	 * 通过id查询文章
+	 * @throws SQLException 
+	 */
+	public Article queryArticleById(Integer article_id) throws SQLException {
+		return articleDaoImpl.queryArticleById(article_id);
+	}
+
+	/**
+	 * 分页查询所有文章
+	 * @throws SQLException 
+	 */
+	public List<Article> queryPageArticle(int startRow, int pageSize)
+			throws SQLException {
+		return articleDaoImpl.queryPageArticle(startRow, pageSize);
+	}
+
+	/**
+	 * 查询所有文章数量
+	 * @throws SQLException 
+	 */
+	public Long queryCountArticle() throws SQLException {
+		return articleDaoImpl.queryCountArticle();
+	}
+
+	/**
+	 * 更新赞数量
+	 * @throws SQLException 
+	 */
+	public int updateArticle_praiset(Integer article_praise, Integer article_id)
+			throws SQLException {
+		return articleDaoImpl.updateArticle_praiset(article_praise, article_id);
+	}
+
+	/**
+	 * 更新收藏数量
+	 * @throws SQLException 
+	 */
+	public int updateArticle_collect(Integer article_id, Integer article_collect)
+			throws SQLException {
+		return articleDaoImpl.updateArticle_collect(article_id, article_collect);
 	}
 	/**
 	 * 分页显示评论

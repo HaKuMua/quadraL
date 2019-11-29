@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="utf-8">
@@ -647,6 +647,10 @@
 				$("#china").after('<li class="layui-nav-item "> <a href="">成为房东</a></li>');
 			}
 		}
+		var url=window.location.search; //获取url中"?"符后的字串
+		if(url.indexOf("?")!=-1) {
+			var house_id = url.substr(url.indexOf("=")+1);
+	     }
 		var url = window.location.search; //获取url中"?"符后的字串
 		if (url.indexOf("?") != -1) {
 			var house_id = url.substr(url.indexOf("=") + 1);
