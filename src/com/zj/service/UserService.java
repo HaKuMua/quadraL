@@ -84,11 +84,11 @@ public class UserService implements UserServiceImpl{
 	 */
 	public String addUserInfo(Map<String, Object> map){
 		User user = new User();
-		if(!CheckoutEmail.checkEmail((String) map.get("user_email"))){
+		if(!CheckoutEmail.checkEmail(map.get("user_email").toString())){
 			return "邮箱有误";
 		}
 		try {
-			if(!CheckoutIDCard.IDCardValidate((String) map.get("user_IDcard"))){
+			if(!CheckoutIDCard.IDCardValidate(map.get("user_IDcard").toString())){
 				return "身份证有误";
 			}
 		} catch (ParseException e) {

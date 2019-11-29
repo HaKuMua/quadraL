@@ -53,7 +53,6 @@ public class TestServlet extends BaseServlet {
 		JSONObject obj = new JSONObject(map);
 		response.getWriter().print(callback + "(" + obj + ")");
 	}
-
 	// 按照房子id返回信息
 	public void getHouseInfoByID(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {

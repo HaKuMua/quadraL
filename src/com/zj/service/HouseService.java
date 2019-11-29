@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 import com.zj.dao.HouseCommentDao;
 import com.zj.dao.HouseDao;
 import com.zj.dao.HouseImgDao;
@@ -34,6 +36,7 @@ public class HouseService implements HouseServiceImpl{
 	private HouseParticularsDaoImpl houseParticularsDaoImpl = new HouseParticularsDao();
 	private HouseCommentDaoImpl houseCommentDaoImpl = new HouseCommentDao();
 	private UserDaoImpl userDao = new UserDao();
+	private Logger log = Logger.getLogger(HouseService.class);
 	/**
 	 * 将所有房子信息包装成一个list<map>返回
 	 */
@@ -58,7 +61,7 @@ public class HouseService implements HouseServiceImpl{
 					map.put("travel_information", allHouse.get(i).getTravel_information());
 					map.put("house_price", allHouse.get(i).getHouse_price());
 					map.put("house_address", allHouse.get(i).getHouse_address());
-					map.put("landlord_id", allHouse.get(i).getLandlord_id());
+					map.put("user_id", allHouse.get(i).getUser_id());
 					map.put("room_number", allHouseParticulars.get(i).getRoom_number());
 					map.put("address_describe", allHouseParticulars.get(i).getAddress_describe());
 					map.put("toilet_number", allHouseParticulars.get(i).getToilet_number());
@@ -104,7 +107,7 @@ public class HouseService implements HouseServiceImpl{
 				map.put("travel_information", house.getTravel_information());
 				map.put("house_price", house.getHouse_price());
 				map.put("house_address", house.getHouse_address());
-				map.put("landlord_id", house.getLandlord_id());
+				map.put("User_id", house.getUser_id());
 				map.put("room_number", houseParticulars.getRoom_number());
 				map.put("address_describe", houseParticulars.getAddress_describe());
 				map.put("toilet_number", houseParticulars.getToilet_number());
@@ -122,12 +125,12 @@ public class HouseService implements HouseServiceImpl{
 	 * @return
 	 * @throws SQLException
 	 */
-	public String addHouseInfo(Map<String, Object> houseInfo) throws SQLException {
+	public String addHouseInfo(Map<String, Object> houseInfo) {
 		House house = new House();
 		HouseParticulars houseParticulars = new HouseParticulars();
 		//给房子实体类set值进去
 		if(houseInfo.get("landlord_id") != null)
-			house.setLandlord_id(Integer.valueOf(houseInfo.get("landlord_id").toString()));
+			house.setUser_id(Integer.valueOf(houseInfo.get("User_id").toString()));
 		if(houseInfo.get("house_name") != null)
 			house.setHouse_name(houseInfo.get("house_name").toString());
 		if(houseInfo.get("house_intake") != null)
@@ -160,9 +163,32 @@ public class HouseService implements HouseServiceImpl{
 			houseParticulars.setToilet_number(Integer.valueOf(houseInfo.get("toilet_number").toString()));
 		if(houseInfo.get("house_describe") != null)
 			houseParticulars.setHouse_describe(houseInfo.get("house_describe").toString());
-		if(houseDaoImpl.addHouseInfo(house)>0 && houseParticularsDaoImpl.addHouseParticularsInfo(houseParticulars)>0)
-			return "房子信息插入成功！";
-		else
-			return "房子信息插入失败！";
+		try {
+			if(houseDaoImpl.addHouseInfo(house)>0 && houseParticularsDaoImpl.addHouseParticularsInfo(houseParticulars)>0)
+				return "房子信息插入成功！";
+		} catch (SQLException e) {
+			log.error("插入异常！");
+		}
+		return "房子信息插入失败！";
 	}
+	/**
+	 * 添加一组图片方法
+	 */
+	public String addHouseImg(List<Map<String, Object>> houseImgList) {
+		for(Map<String, Object> map : houseImgList){
+			HouseImg houseImg = new HouseImg();
+			houseImg.setHouse_id(Integer.valueOf(map.get("house_id").toString()));
+			houseImg.setHouse_img_url(map.get("house_img_url").toString());
+			try {
+				if(houseImgDaoImpl.addHouseImgInfo(houseImg) > 0){
+					log.info("图片"+map.get("house_img_id")+"插入成功！");
+				}
+			} catch (SQLException e) {
+				log.error("插入异常！");
+				return "图片"+map.get("house_img_id")+"插入失败！";
+			}
+		}
+		return "插入成功！";
+	}
+	
 }

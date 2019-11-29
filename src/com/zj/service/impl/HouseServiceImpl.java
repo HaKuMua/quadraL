@@ -24,5 +24,9 @@ public interface HouseServiceImpl {
 	 * @return
 	 * @throws SQLException
 	 */
-	String addHouseInfo(Map<String, Object> houseInfo) throws SQLException;
+	String addHouseInfo(Map<String, Object> houseInfo);
+	/**
+	 * 添加一组图片方法
+	 */
+	String addHouseImg(List<Map<String, Object>> houseImgList);
 }

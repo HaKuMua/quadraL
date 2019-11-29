@@ -24,4 +24,11 @@ public interface GrogshopOrderDaoImpl {
 	 * @throws SQLException
 	 */
 	GrogshopOrder getGrogshopOrderInfoByID(Integer GrogshopOrderID) throws SQLException;
+	/**
+	 * 添加酒店订单信息DAO层接口
+	 * @param grogshopOrder
+	 * @return
+	 * @throws SQLException
+	 */
+	int addGrogshopOrderInfo(GrogshopOrder grogshopOrder) throws SQLException;
 }

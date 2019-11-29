@@ -9,58 +9,58 @@ import java.sql.Time;
  */
 public class House implements Serializable{
 	private static final long serialVersionUID = 1L;
-	/*
+	/**
 	 * 房子ID
 	 */
 	private Integer house_id;
-	/*
+	/**
 	 * 房子名称
 	 */
 	private String house_name;
-	/*
+	/**
 	 * 房子容纳量
 	 */
 	private Integer house_intake;
-	/*
+	/**
 	 * 出租类型
 	 */
 	private String lease_type;
-	/*
+	/**
 	 * 可入住时间
 	 */
 	private Time may_check_in_date;
-	/*
+	/**
 	 * 可退房时间
 	 */
 	private Time may_check_out_date;
-	/*
+	/**
 	 * 房子类型
 	 */
 	private String house_type;
-	/*
+	/**
 	 * 房子详情ID
 	 */
 	private Integer house_particulars_id;
-	/*
+	/**
 	 * 房子状态
 	 */
 	private Integer house_state;
-	/*
+	/**
 	 * 出行信息
 	 */
 	private String travel_information;
-	/*
+	/**
 	 * 房子价格
 	 */
 	private Double house_price;
-	/*
+	/**
 	 * 房子地址
 	 */
 	private String house_address;
-	/*
-	 * 房东ID
+	/**
+	 * 用户ID
 	 */
-	private Integer landlord_id;
+	private Integer user_id;
 	
 	public House() {
 	}
@@ -161,12 +161,12 @@ public class House implements Serializable{
 		this.house_address = house_address;
 	}
 
-	public Integer getLandlord_id() {
-		return landlord_id;
+	public Integer getUser_id() {
+		return user_id;
 	}
 
-	public void setLandlord_id(Integer landlord_id) {
-		this.landlord_id = landlord_id;
+	public void setUser_id(Integer user_id) {
+		this.user_id = user_id;
 	}
 
 	public String toString() {
@@ -178,6 +178,6 @@ public class House implements Serializable{
 				+ house_particulars_id + ", house_state=" + house_state
 				+ ", travel_information=" + travel_information
 				+ ", house_price=" + house_price + ", house_address="
-				+ house_address + ", landlord_id=" + landlord_id + "]";
+				+ house_address + ", user_id=" + user_id + "]";
 	}
 }

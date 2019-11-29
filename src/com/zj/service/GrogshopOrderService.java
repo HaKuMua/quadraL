@@ -33,7 +33,7 @@ public class GrogshopOrderService implements GrogshopOrderServiceImpl{
 				for(int i = 0;i<allOrder.size();i++){
 					Map<String, Object> map = new HashMap<String, Object>();
 					map.put("grogshop_order_id", allOrder.get(i).getGrogshop_order_id());
-					map.put("landlord_id", allOrder.get(i).getLandlord_id());
+					map.put("user_id", allOrder.get(i).getUser_id());
 					map.put("price", allOrder.get(i).getPrice());
 					map.put("place_an_order_date", allOrder.get(i).getPlace_an_order_date());
 					map.put("grogshop_order_state", allOrder.get(i).getGrogshop_order_state());
@@ -59,7 +59,7 @@ public class GrogshopOrderService implements GrogshopOrderServiceImpl{
 			if(order != null){
 				map = new HashMap<String, Object>();
 				map.put("grogshop_order_id", order.getGrogshop_order_id());
-				map.put("landlord_id", order.getLandlord_id());
+				map.put("user_id", order.getUser_id());
 				map.put("price", order.getPrice());
 				map.put("place_an_order_date", order.getGrogshop_order_state());
 				map.put("grogshop_order_state", order.getGrogshop_order_state());
