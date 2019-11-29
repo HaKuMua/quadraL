@@ -204,6 +204,7 @@ public class ArticleService implements ArticleServiceImpl{
 	public int updateArticle_collect(Integer article_id, Integer article_collect)
 			throws SQLException {
 		return articleDaoImpl.updateArticle_collect(article_id, article_collect);
+	}
 	/**
 	 * 分页显示评论
 	 */

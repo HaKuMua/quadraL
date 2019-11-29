@@ -17,7 +17,11 @@ import com.zj.service.ArticleService;
 import com.zj.service.CommentService;
 import com.zj.service.imp.ArticleServiceImpl;
 import com.zj.service.imp.CommentServiceImpl;
-
+/**
+ * 文章
+ * @author ml
+ *
+ */
 public class ArticleServlet extends BaseServlet {
 	private static final long serialVersionUID = 1L;
 	private ArticleServiceImpl articleService = new ArticleService();

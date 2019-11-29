@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
+
+import cn.com.uitl.UUIDGenerator;
 
 import com.zj.dao.UserDao;
 import com.zj.dao.impl.UserDaoImpl;
@@ -67,6 +70,64 @@ public class UserService implements UserServiceImpl{
 			e.printStackTrace();
 		}
 		return map;
+	}
+	/**
+	 * 添加用户
+	 */
+	public int addUser(String user_phone) throws SQLException {
+		//自动生成user_name
+		String user_name = UUIDGenerator.getUUID().substring(0,8);
+		return userDaoImpl.addUser(user_name, user_phone);
+	}
+	/**
+	 * 修改用户
+	 */
+	public int updateUser(Integer user_id, String user_name,
+			String user_email, String user_phone,
+			String real_name,String user_IDcard,String user_describe) throws SQLException {
+		return userDaoImpl.updateUser(user_id, user_name, user_email, user_phone, real_name, user_describe, user_IDcard);
+	}
+	/**
+	 * 通过id查询用户
+	 * @throws SQLException 
+	 */
+	public User queryUser(Integer user_id) throws SQLException {
+		return userDaoImpl.queryUser(user_id);
+	}
+	/**
+	 * 查询手机号是否存在
+	 * @throws SQLException 
+	 */
+	public boolean queryPhoneExit(String user_phone) throws SQLException {
+		boolean bool = false;
+		Integer count = userDaoImpl.queryPhoneExit(user_phone);
+		if(count != 0) {
+			bool = true;
+		}
+		return bool;
+	}
+	/**
+	 * 用户设置密码
+	 * @throws SQLException 
+	 */
+	public int setUserPwd(Integer user_id, String user_pwd) throws SQLException {
+		return userDaoImpl.setUserPwd(user_id, user_pwd);
+	}
+	/**
+	 * 用户修改密码
+	 * @throws SQLException 
+	 */
+	public int updateUserPwd(Integer user_id, String user_pwd)
+			throws SQLException {
+		return userDaoImpl.updateUserPwd(user_id, user_pwd);
+	}
+	/**
+	 * 用户上传头像
+	 * @throws SQLException 
+	 */
+	public int addUserHead(Integer user_id, String user_headimg_url)
+			throws SQLException {
+		return userDaoImpl.addUserHead(user_id, user_headimg_url);
 	}
 
 }

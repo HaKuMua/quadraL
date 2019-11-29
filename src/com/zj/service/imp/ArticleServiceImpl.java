@@ -6,14 +6,6 @@ import java.util.Map;
 
 import com.zj.entity.Article;
 
-public interface ArticleServiceImpl {
-	/**
-	 * 获得所有文章
-	 * @return
-	 */
-	List<Map<String, Object>> getAllArticle();
-	/**
-	 * 分页显示文章所需信息
 /**
  * 
  * @author lijia
@@ -76,7 +68,8 @@ public interface ArticleServiceImpl {
 	 * @throws SQLException 
 	 */
 	int updateArticle_collect(Integer article_id,Integer article_collect) throws SQLException;
-	 * 分页显示评论方法接口
+	/**
+	* 分页显示评论方法接口
 	 * @param commPresentPage
 	 * @param article_id
 	 * @return
