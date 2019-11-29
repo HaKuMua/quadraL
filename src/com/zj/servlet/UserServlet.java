@@ -18,7 +18,7 @@ import cn.com.uitl.BaseServlet;
 
 import com.zj.entity.User;
 import com.zj.service.UserService;
-import com.zj.service.imp.UserServiceImpl;
+import com.zj.service.impl.UserServiceImpl;
 /**
  * 用户
  * @author ml
@@ -67,6 +67,7 @@ public class UserServlet extends BaseServlet {
 	public void phoneLogin(HttpServletRequest request,HttpServletResponse response) {
 		Map<String, String> map = new HashMap<String, String>();
 		//判断手机号是否正确
+		user_phone = "15581238975";
 	    String regPhone = "^((13[0-9])|(14[5,7,9])|(15[0-3,5-9])|(166)|(17[3,5,6,7,8])" +
 	    							"|(18[0-9])|(19[8,9]))\\d{8}$";
 	     Pattern pRegPhone = Pattern.compile(regPhone);
@@ -77,6 +78,7 @@ public class UserServlet extends BaseServlet {
 	 			boolean bool = userServiceImpl.queryPhoneExit(user_phone);
 	 			if(bool) {
 	 				//手机号已存在，验证码登录
+	 				
 	 				map.put("msg", "手机号已存在,验证码登录");
 	 			} else{
 	 				//手机号不存在，直接注册
@@ -116,10 +118,17 @@ public class UserServlet extends BaseServlet {
 	 */
 	public void perfectInfo(HttpServletRequest request,HttpServletResponse response) {
 		//判断信息是否符合正则表达式
-	    String regName = "^\\w{3,12}$";
-	    String regRealName = "^\\w{3,12}$";
+		user_name = "李佳";
+		real_name = "李佳";
+		user_email = "1719741296@qq.com";
+		user_IDcard  ="432524199902285430";
+		user_phone = "15581238970";
+		user_id = 1;
+		user_describe = "分手快乐就发生就是减肥是登录副教授就咖啡连锁店";
+	    String regName = "^([\\u4e00-\\u9fa5]){2,12}$";
+	    String regRealName = "^([\\u4e00-\\u9fa5]){2,12}$";
 	    String regEmail = "^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$ ";
-	    String regIDcard = "^\\d{8,18}|[0-9x]{8,18}|[0-9X]{8,18}?$";
+	    String regIDcard = "^[1-9]\\d{5}(18|19|20)\\d{2}((0[1-9])|(1[0-2]))(([0-2][1-9])|10|20|30|31)\\d{3}[0-9Xx]$";
 	    String regPhone = "^((13[0-9])|(14[5,7,9])|(15[0-3,5-9])|(166)|(17[3,5,6,7,8])" +
 				"|(18[0-9])|(19[8,9]))\\d{8}$";
 	    //

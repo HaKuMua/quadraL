@@ -47,14 +47,6 @@ public class User implements Serializable{
 	 * 用户余额
 	 */
 	private Double money;
-	/*
-	 * 真实姓名
-	 */
-	private String real_name;
-	/*
-	 * 用户签名
-	 */
-	private String user_describe;
 	/**
 	 * 用户真实姓名
 	 */
@@ -143,21 +135,6 @@ public class User implements Serializable{
 		this.money = money;
 	}
 	
-	public String getReal_name() {
-		return real_name;
-	}
-
-	public void setReal_name(String real_name) {
-		this.real_name = real_name;
-	}
-	
-	public String getUser_describe() {
-		return user_describe;
-	}
-
-	public void setUser_describe(String user_describe) {
-		this.user_describe = user_describe;
-	}
 
 	public String getReal_name() {
 		return real_name;
@@ -183,23 +160,15 @@ public class User implements Serializable{
 		this.inform_date = inform_date;
 	}
 
+	@Override
 	public String toString() {
 		return "User [user_id=" + user_id + ", user_name=" + user_name
 				+ ", user_headimg_url=" + user_headimg_url + ", user_email="
 				+ user_email + ", user_phone=" + user_phone + ", user_IDcard="
-				+ user_IDcard + ", landlord_id=" + landlord_id + ", user_pwd="
-				+ user_pwd + ", money=" + money + ", real_name=" + real_name
-				+ ", user_describe=" + user_describe + "]";
-	}
-
-	
-
-	
-
-	
 				+ user_IDcard + ", is_landlord=" + is_landlord + ", user_pwd="
 				+ user_pwd + ", money=" + money + ", real_name=" + real_name
 				+ ", user_describe=" + user_describe + ", inform_date="
 				+ inform_date + "]";
 	}
+	
 }

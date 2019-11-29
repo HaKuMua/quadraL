@@ -2,7 +2,9 @@
 
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -93,7 +95,7 @@ public class UserService implements UserServiceImpl{
 	 */
 	public int updateUser(Integer user_id, String user_name,
 			String user_email, String user_phone,
-			String real_name,String user_IDcard,String user_describe) throws SQLException {
+			String real_name,String user_describe,String user_IDcard) throws SQLException {
 		return userDaoImpl.updateUser(user_id, user_name, user_email, user_phone, real_name, user_describe, user_IDcard);
 	}
 	/**
@@ -108,10 +110,10 @@ public class UserService implements UserServiceImpl{
 	 * @throws SQLException 
 	 */
 	public boolean queryPhoneExit(String user_phone) throws SQLException {
-		boolean bool = false;
+		boolean bool = true;
 		Integer count = userDaoImpl.queryPhoneExit(user_phone);
-		if(count != 0) {
-			bool = true;
+		if(count == null) {
+			bool = false;
 		}
 		return bool;
 	}
@@ -137,7 +139,7 @@ public class UserService implements UserServiceImpl{
 	public int addUserHead(Integer user_id, String user_headimg_url)
 			throws SQLException {
 		return userDaoImpl.addUserHead(user_id, user_headimg_url);
-	
+	}
 	/**
 	 * 添加一个用户信息
 	 * @param map
@@ -181,5 +183,6 @@ public class UserService implements UserServiceImpl{
 		}
 		return "插入失败";
 	}
+
 
 }

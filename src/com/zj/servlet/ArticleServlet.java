@@ -15,8 +15,8 @@ import cn.com.uitl.BaseServlet;
 
 import com.zj.service.ArticleService;
 import com.zj.service.CommentService;
-import com.zj.service.imp.ArticleServiceImpl;
-import com.zj.service.imp.CommentServiceImpl;
+import com.zj.service.impl.ArticleServiceImpl;
+import com.zj.service.impl.CommentServiceImpl;
 /**
  * 文章
  * @author ml

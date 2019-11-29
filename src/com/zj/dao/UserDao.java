@@ -2,6 +2,8 @@
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.dbutils.QueryRunner;
@@ -38,20 +40,21 @@ public class UserDao implements UserDaoImpl{
 		String sql = "select * from user where user_phone=?";
 		return qr.query(conn, sql, new BeanHandler<User>(User.class),phone);
 	}
-	/*
+	/**
 	 * 添加用户
 	 */
 	public int addUser(String user_name, String user_phone) throws SQLException {
-		String sql = "insert into user(user_name,user_phone) values(?,?)";
-		return qr.update(conn, sql, user_name,user_phone);
+		String sql = "insert into user(user_name,user_phone,inform_date) values(?,?,?)";
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		return qr.update(conn, sql, user_name,user_phone,format.format(new Date()));
 	}
-	/*
+	/**
 	 * 修改用户
 	 */
 	public int updateUser(Integer user_id,String user_name,
 			String user_email, String user_phone,
 			String real_name,String user_describe,String user_IDcard) throws SQLException {
-		String sql = "update user set user_name = ? and user_email = ? and user_phone = ? and real_name = ? and user_describe = ? and user_IDcard = ? where user_id = ?";
+		String sql = "update user set user_name = ?, user_email = ?, user_phone = ?, real_name = ?, user_describe = ?, user_IDcard = ? where user_id = ?";
 		return qr.update(conn, sql, user_name,user_email, user_phone,real_name,user_describe,user_IDcard,user_id);
 	}
 	/**

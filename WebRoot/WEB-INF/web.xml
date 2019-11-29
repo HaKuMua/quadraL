@@ -36,7 +36,7 @@
   <servlet-mapping>
 
     <servlet-name>ArticleServlet</servlet-name>
-    <url-pattern>/Article.do</url-pattern>
+    <url-pattern>/article.do</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
   	<servlet-name>SubmitServlet</servlet-name>

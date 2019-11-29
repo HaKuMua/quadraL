@@ -53,7 +53,7 @@ public interface UserServiceImpl {
 	 * @throws SQLException 
 	 */
 	int addUserHead(Integer user_id,String user_headimg_url) throws SQLException;
-	 * 添加一个用户方法接口
+	/** 添加一个用户方法接口
 	 * @param map
 	 * @return
 	 */
