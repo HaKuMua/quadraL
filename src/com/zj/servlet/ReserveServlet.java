@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONObject;
 
 import com.zj.service.ReserveService;
-import com.zj.service.imp.ReserveServiceImpl;
+import com.zj.service.impl.ReserveServiceImpl;
 
 import cn.com.uitl.BaseServlet;
 

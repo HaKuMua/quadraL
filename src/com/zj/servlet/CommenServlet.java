@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONObject;
 
 import com.zj.service.CommentService;
-import com.zj.service.imp.CommentServiceImpl;
+import com.zj.service.impl.CommentServiceImpl;
 
 import cn.com.uitl.BaseServlet;
 /**

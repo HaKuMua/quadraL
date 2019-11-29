@@ -2,13 +2,10 @@
 
 import java.sql.SQLException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 import cn.com.uitl.UUIDGenerator;
 
@@ -140,49 +137,49 @@ public class UserService implements UserServiceImpl{
 			throws SQLException {
 		return userDaoImpl.addUserHead(user_id, user_headimg_url);
 	}
-	/**
-	 * 添加一个用户信息
-	 * @param map
-	 * @return
-	 */
-	public String addUserInfo(Map<String, Object> map){
-		User user = new User();
-		if(!CheckoutEmail.checkEmail(map.get("user_email").toString())){
-			return "邮箱有误";
-		}
-		try {
-			if(!CheckoutIDCard.IDCardValidate(map.get("user_IDcard").toString())){
-				return "身份证有误";
-			}
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		if(!CheckoutPhoneNumber.isPhoneNumberValid(map.get("user_phone").toString())){
-			return "手机号有误";
-		}
-		try{
-		user.setUser_describe(map.get("user_describe").toString());
-		user.setUser_email(map.get("user_email").toString());
-		user.setUser_headimg_url(map.get("user_headimg_url").toString());
-		user.setUser_id(Integer.valueOf((String) map.get("is_landlord")) );
-		user.setUser_IDcard(map.get("user_IDcard").toString());
-		user.setUser_name(map.get("user_name").toString());
-		user.setUser_phone( map.get("user_phone").toString());
-		user.setReal_name( map.get("real_name").toString());
-		user.setUser_pwd( map.get("user_pwd").toString());
-		}catch (Exception e) {
-			e.printStackTrace();
-			return "输入有误";
-		}
-		try {
-			if(userDaoImpl.addUserInfo(user) > 0){
-				return "插入成功";
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return "插入失败";
-	}
+//	/**
+//	 * 添加一个用户信息
+//	 * @param map
+//	 * @return
+//	 */
+//	public String addUserInfo(Map<String, Object> map){
+//		User user = new User();
+//		if(!CheckoutEmail.checkEmail(map.get("user_email").toString())){
+//			return "邮箱有误";
+//		}
+//		try {
+//			if(!CheckoutIDCard.IDCardValidate(map.get("user_IDcard").toString())){
+//				return "身份证有误";
+//			}
+//		} catch (ParseException e) {
+//			e.printStackTrace();
+//		}
+//		if(!CheckoutPhoneNumber.isPhoneNumberValid(map.get("user_phone").toString())){
+//			return "手机号有误";
+//		}
+//		try{
+//		user.setUser_describe(map.get("user_describe").toString());
+//		user.setUser_email(map.get("user_email").toString());
+//		user.setUser_headimg_url(map.get("user_headimg_url").toString());
+//		user.setUser_id(Integer.valueOf((String) map.get("is_landlord")) );
+//		user.setUser_IDcard(map.get("user_IDcard").toString());
+//		user.setUser_name(map.get("user_name").toString());
+//		user.setUser_phone( map.get("user_phone").toString());
+//		user.setReal_name( map.get("real_name").toString());
+//		user.setUser_pwd( map.get("user_pwd").toString());
+//		}catch (Exception e) {
+//			e.printStackTrace();
+//			return "输入有误";
+//		}
+//		try {
+//			if(userDaoImpl.addUserInfo(user) > 0){
+//				return "插入成功";
+//			}
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//		return "插入失败";
+//	}
 
 
 }

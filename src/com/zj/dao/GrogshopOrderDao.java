@@ -56,10 +56,10 @@ public class GrogshopOrderDao implements GrogshopOrderDaoImpl {
 	 */
 	public int addGrogshopOrderInfo(GrogshopOrder grogshopOrder)
 			throws SQLException {
-		String sql = "insert into grogshop_order(user_id,price,place_an_order_date,grogshop_order_state" +
+		String sql = "insert into grogshop_order(user_id,price,grogshop_order_state" +
 				",grogshop_order_describe,reserve_id) value(?,?,?,?,?,?)";
-		return qr.update(conn, sql, grogshopOrder.getUser_id(),grogshopOrder.getPrice(),grogshopOrder.getPlace_an_order_date()
-				,grogshopOrder.getGrogshop_order_state(),grogshopOrder.getGrogshop_order_describe(),grogshopOrder.getReserve_id());
+		return qr.update(conn, sql, grogshopOrder.getUser_id(),grogshopOrder.getPrice(),grogshopOrder.getGrogshop_order_state()
+				,grogshopOrder.getGrogshop_order_describe(),grogshopOrder.getReserve_id());
 	}
 
 }

@@ -1,7 +1,6 @@
 package com.zj.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONObject;
 
 import com.zj.service.UserService;
-import com.zj.service.imp.UserServiceImpl;
+import com.zj.service.impl.UserServiceImpl;
 
 import cn.com.uitl.BaseServlet;
 

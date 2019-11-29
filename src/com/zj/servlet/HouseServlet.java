@@ -26,18 +26,18 @@ public class HouseServlet extends BaseServlet {
 	public String houseImgMap;
 	public String callback;
 	
-	public void addUserInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+	public void addHouseInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		@SuppressWarnings("unchecked")
 		Map<String, Object> house = (Map<String, Object>) JSON.parse(houseMap);
 		@SuppressWarnings("unchecked")
-		List<Map<String, Object>> houseImg = (List<Map<String, Object>>) JSON.parse(houseMap);
-		log.debug(house);
-		log.debug(houseImg);
-		String houseStr = houseService.addHouseInfo(house);
-		String houseImgStr = houseService.addHouseImg(houseImg);
+		List<Map<String, Object>> houseImg = (List<Map<String, Object>>) JSON.parse(houseImgMap);
+		log.info(house);
+		log.info(houseImg);
+		//String houseStr = houseService.addHouseInfo(house);
+		//String houseImgStr = houseService.addHouseImg(houseImg);
 		Map<String, String> hint = new HashMap<String, String>();
-		hint.put("houseHint", houseStr);
-		hint.put("houseHint", houseImgStr);
+		hint.put("houseHint", "111");
+		hint.put("houseImgHint", "222");
 		JSONObject json = new JSONObject(hint);
 		response.getWriter().print(callback+"("+json+")");
 	}

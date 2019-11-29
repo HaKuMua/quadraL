@@ -61,4 +61,14 @@ public class CheckInPersonService implements CheckInPersonServiceImpl{
 		}
 		return map;
 	}
+	/**
+	 * 添加一组入住人信息
+	 * @param checkInPersonInfoMap
+	 * @return
+	 */
+	public String addCheckInPerson(
+			List<Map<String, Object>> checkInPersonInfoMap) {
+		 
+		return null;
+	}
 }

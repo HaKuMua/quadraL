@@ -60,11 +60,11 @@ public interface UserDaoImpl {
 	 * @throws SQLException
 	 */
 	User getUserInfoByID(Integer user_id) throws SQLException;
-	/**
-	 * 添加一个用户信息方法接口
-	 * @param user
-	 * @return
-	 * @throws SQLException
-	 */
-	int addUserInfo(User user) throws SQLException;
+//	/**
+//	 * 添加一个用户信息方法接口
+//	 * @param user
+//	 * @return
+//	 * @throws SQLException
+//	 */
+//	int addUserInfo(User user) throws SQLException;
 }

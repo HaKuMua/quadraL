@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONObject;
 
 import com.zj.service.CheckInPersonService;
-import com.zj.service.imp.CheckInPersonServiceImpl;
+import com.zj.service.impl.CheckInPersonServiceImpl;
 
 import cn.com.uitl.BaseServlet;
 

@@ -23,8 +23,6 @@ import com.zj.service.impl.CommentServiceImpl;
  * @author ml
  *
  */
-import com.zj.service.impl.ArticleServiceImpl;
-
 public class ArticleServlet extends BaseServlet {
 	private static final long serialVersionUID = 1L;
 	private ArticleServiceImpl articleService = new ArticleService();
@@ -120,6 +118,9 @@ public class ArticleServlet extends BaseServlet {
 		String article_content = request.getParameter("article_content");
 		try {
 			 int count = articleService.addArticle(user_id, article_name, article_content);
+			 if(count > 0){
+				 
+			 }
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

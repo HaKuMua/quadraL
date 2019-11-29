@@ -6,13 +6,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.zj.dao.CommentDao;
 import com.zj.dao.HouseCommentDao;
-import com.zj.dao.impl.CommentDaoImpl;
 import com.zj.dao.impl.HouseCommentDaoImpl;
-import com.zj.entity.Comment;
 import com.zj.entity.HouseComment;
-import com.zj.service.imp.HouseCommentServiceImpl;
+import com.zj.service.impl.HouseCommentServiceImpl;
 
 public class HouseCommentService implements HouseCommentServiceImpl{
 

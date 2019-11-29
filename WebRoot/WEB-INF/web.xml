@@ -76,22 +76,19 @@
     <url-pattern>/a</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
-
-    <servlet-name>ArticleServlet</servlet-name>
-    <url-pattern>/article.do</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
   	<servlet-name>SubmitServlet</servlet-name>
     <url-pattern>/submit.do</url-pattern>
-
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>UserServlet</servlet-name>
     <url-pattern>/user.do</url-pattern>
   </servlet-mapping>
+  
   <servlet-mapping>
     <servlet-name>HouseServlet</servlet-name>
     <url-pattern>/house.do</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
     <servlet-name>ArticleServlet</servlet-name>
     <url-pattern>/article.do</url-pattern>
   </servlet-mapping>

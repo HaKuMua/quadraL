@@ -30,9 +30,9 @@ public class SubmitServlet extends BaseServlet {
 		@SuppressWarnings("unchecked")
 		Map<String, Object> myMap = (Map<String, Object>) JSON.parse(map);
 		log.debug(myMap);
-		String str = userService.addUserInfo(myMap);
+		//String str = userService.addUserInfo(myMap);
 		Map<String, String> hint = new HashMap<String, String>();
-		hint.put("hint", str);
+		//hint.put("hint", str);
 		JSONObject json = new JSONObject(hint);
 		response.getWriter().print(callback+"("+json+")");
 	}

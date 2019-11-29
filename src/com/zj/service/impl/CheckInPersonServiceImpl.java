@@ -16,4 +16,10 @@ public interface CheckInPersonServiceImpl {
 	 * 将单个入住人员信息包装成map返回方法接口
 	 */
 	Map<String, Object> getCheckInPersonInfoByIdCard(String check_in_person_ID_card);
+	/**
+	 * 添加一组入住人信息
+	 * @param checkInPersonInfoMap
+	 * @return
+	 */
+	String addCheckInPerson(List<Map<String, Object>> checkInPersonInfoMap);
 }
