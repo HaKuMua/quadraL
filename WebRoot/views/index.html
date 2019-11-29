@@ -7,7 +7,7 @@
 		<script src="../js/jquery.min.js"></script>
 		<link rel="stylesheet" type="text/css" href="../layui/css/layui.css">
 		<script src="../js/jquery.min.js"></script>
-		<script src="../layui/layui.all.js"></script>
+		<script src="../layui/layui.js"></script>
 		<script type="text/javascript" src="../layui/layui.js"></script>
 		<style type="text/css">
 			#navId li a {
@@ -375,7 +375,7 @@
 			user_id: '1000',
 			user_name:'haku',
 			user_img: '../img/timg.jpg',
-			lanlord_id:'1001'
+			islanlord:1
 		};
 		
 		var listHouse1 = [{
@@ -498,7 +498,7 @@
 					userInfo.user_img+'" class="layui-nav-img NavA"  data-method= "userInfo">'+userInfo.user_name+'</a> ';
 				$("#rightNav").empty();
 				$("#rightNav").append(html);
-				if(userInfo.isLanlord != '' || userInfo.isLanlord !=null) {
+				if(userInfo.islanlord != 0) {
 					$("#china").after('<li class="layui-nav-item "> <a href="">查看我的房源</a></li>'+
 									'<li class="layui-nav-item "><a href="host/create_a_room/room.html">添加房源</a></li>');
 				} else  {
@@ -594,6 +594,51 @@
 			return days;
 		}
 		var date = new Date().Format("yyyy-MM-dd");
+		/**
+		 * 时间格式化
+		 * @param {Date} dateVal 
+		 */
+		function formatDate(dateVal){
+		  let year = dateVal.getFullYear(),
+		      month = dateVal.getMonth()+1,
+		      day = dateVal.getDate()
+		  if(month < 10 ){
+		    month = `0${month}`
+		  }
+		  if(day < 10){
+		    day = `0${day}`
+		  }
+		  return `${year}-${month}-${day}`
+		}
+		
+		function formatTime(year,month,day){
+		  // let year = dateVal.getFullYear(),
+		  //     month = dateVal.getMonth()+1,
+		  //     day = dateVal.getDate()
+		  if(month < 10 ){
+		    month = `0${month}`
+		  }
+		  if(day < 10){
+		    day = `0${day}`
+		  }
+		  return `${year}-${month}-${day}`
+		}
+		/**
+		 * 批量生成日期函数
+		 * @param {Date} startTime 
+		 * @param {Date} endTime 
+		 */
+		function generateFun(startTime, endTime){
+		  let timeStamp = Math.ceil((endTime.getTime()-startTime.getTime())/(1000*60*60*24)),//判断两个日期相差多少天
+		      timeArr = [];
+		  for (let index = 1; index <= timeStamp; index++) {
+		    const element = startTime.setTime((1000*60*60*24) + startTime.getTime())
+		    timeArr.push(formatDate(new Date(element)))
+		  }
+		  timeArr.push(formatDate(startTime))
+		  return timeArr
+		}
+		
 		</script>
 		<script>
 		layui.use(['carousel','form','element','layer','laydate'], function() {
@@ -606,7 +651,12 @@
 				    elem: '#check' ,//指定元素
 					format: 'yyyy年MM月dd日',
 					min:date,
-					range: true
+					range: true,
+					done: function(value, date, endDate){
+						dateArr=generateFun(new Date(formatTime(date.year,date.month,date.date)), new Date(formatTime(endDate.year,endDate.month,endDate.date)));
+						console.log(dateArr)
+						DateNum=dateArr.length-1;
+					 }
 				  });
 			//监听导航点击
 			element.on('nav(demo)', function(elem) {
@@ -630,20 +680,7 @@
 						id: 'LAY_layuipro', //设定一个id，防止重复弹出
 						content: ['loginBytel.html', 'no']
 					});
-				},
-				userInfo:function() {
-					var index = layer.open({
-						type: 2,
-						title: false,
-						closeBtn: true,
-						area: ['1100px', '700px'],
-						offset: 'auto',
-						shade: 0.6,
-						id: 'LAY_layuipro', //设定一个id，防止重复弹出
-						content: ['tip/safeguard.html', 'no']
-					});
 				}
-
 			};
 			$("body").on("click", ".NavA", function() {
 				var othis = $(this),

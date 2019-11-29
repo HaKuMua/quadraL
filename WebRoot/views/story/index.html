@@ -3,33 +3,30 @@
 	<head>
 		<meta charset="utf-8">
 		<title>度假屋、民宿、体验和攻略 - Airbnb爱彼迎</title>
-		<script src="../../js/comment.js"></script>
-		<link rel="stylesheet" type="text/css" href="../../layui/css/layui.css">
-		<script src="../../js/jquery.min.js"></script>
-		<script src="../../layui/layui.all.js"></script>
-		<script src="../../layui/layui.js"></script>
+		<link rel="stylesheet" type="text/css" href="../layui/css/layui.css">
+		<script src="../js/jquery.min.js"></script>
+		<script src="../layui/layui.js"></script>
 		<style type="text/css">
 			#navId li a {
 				font-size: 15px;
 				color: white;
 				font-weight: bold;
 			}
-			
 			#rightNav {
 				float: right;
 			}
-
+			
 			#main{
-				margin-top: 80px;
+				margin-top: 10px;
 				position: absolute;
-				width: 1000px;
-				margin-left: 500px;
+				width: 100%;
 			}
-			#tab li{
-				font-size:20px;
+			
+			#main img{
+				border-radius: 10px;
 			}
 			.foot {
-				margin-top:120%;
+				margin-top:90%;
 				width: 1090px;
 				margin-left: 550px;
 			}
@@ -39,8 +36,8 @@
 		<div id="top">
 			<ul class="layui-nav layui-bg-green" id="navId">
 				<li class="layui-nav-item">
-					<a href="../index.html">
-						<img src="../../img/logo.jpg" class="layui-nav-img">
+					<a href="index.html">
+						<img src="../img/logo.jpg" class="layui-nav-img">
 					</a>
 				</li>
 				<li class="layui-nav-item ">
@@ -62,52 +59,6 @@
 			</ul>
 		</div>
 		<div id="main">
-			<span style="font-size: 40px; font-weight: bolder;color: gray;">房源订单中心</span>
-			<br><br><br><br><br>
-			<div class="layui-tab" id="tab">
-			  <ul class="layui-tab-title">
-			    <li class="layui-this">全部订单</li>
-			    <li>有效订单</li>
-			    <li>待支付订单</li>
-			  </ul>
-			  <div class="layui-tab-content"><br><br><br>
-			    <div class="layui-tab-item layui-show">
-					<div class="layui-col-xs4">
-						<a href="">
-							<img src="../../img/room/65e00580-6a91-4ee7-bc11-d05f259814ad.jpg" width="290px" height="216px" >
-							<h3>藝净- 复古花,太古里旁高层花园电影套房</h3>
-							<h4>2019/12/21 - 12/22 · 1晚</h4>
-							<h3>订单待支付 · ￥626.24</h3>
-						</a><br>
-						<button class="layui-btn" style="width: 290px;">查看是否可订</button>
-					</div>
-					<div class="layui-col-xs4">
-						<a href="">
-							<img src="../../img/room/ac356f32-0ba7-4dd8-9796-94d085e711fa.jpg"  width="290px" height="216px" >
-							<h3>藝净- 复古花,太古里旁高层花园电影套房</h3>
-							<h4>2019/12/21 - 12/22 · 1晚</h4>
-							<h3>订单待支付 · ￥626.24</h3>
-						</a><br>
-						<button class="layui-btn" style="width: 290px;">查看是否可订</button>
-					</div>
-					<div class="layui-col-xs4">
-						<a href="">
-							<img src="../../img/room/ac356f32-0ba7-4dd8-9796-94d085e711fa.jpg"  width="290px" height="216px" >
-							<h3>藝净- 复古花,太古里旁高层花园电影套房</h3>
-							<h4>2019/12/21 - 12/22 · 1晚</h4>
-							<h3>订单待支付 · ￥626.24</h3>
-						</a><br>
-						<button class="layui-btn" style="width: 290px;">查看是否可订</button>
-					</div>
-			    </div>
-			    <div class="layui-tab-item">
-					<h2>您当前没有「有效订单」，去首页探索下一段奇妙旅程吧</h2>
-				</div>
-			    <div class="layui-tab-item">
-					<h2>您当前没有「有效订单」，去首页探索下一段奇妙旅程吧</h2>
-				</div>
-			  </div>
-			</div>
 		</div>
 		<div class="foot" >
 			<div >
@@ -123,31 +74,20 @@
 		</div>
 	</body>
 	<script type="text/javascript">
-		//利用COokie拿到信息
+		//利用Cookie拿到信息
 		// var userInfo=$.Cookie('userInfo');
 		var userInfo = {
 			user_id: '1000',
 			user_name:'haku',
-			user_img: '../../img/timg.jpg',
+			user_img: '../img/timg.jpg',
+			user_id:'1001',
 			islanlord:1
 		};
-		// var houseInfo = {
-		// 	house_name: '下榻日式风格的房源去畅玩太古里',
-		// 	house_id: 4,
-		// 	house_price: 289.5,
-		// 	house_type: '独立房间',
-		// 	houseImg:['1','2'],
-		// 	house_intake:'',//房子容纳量
-		// 	travel_information:'',//出行信息
-		// 	house_address:'',//地址
-		// 	room_number:'',
-		// 	toilet_number:1,
-		// 	bed_number: 1,
-		// 	//房东信息
-		// 	user_id:'',
-		// 	user_name:'',
-		// 	user_img:''
-		// }
+		var storyInfo = [
+			[]
+			
+		]
+		
 		if (userInfo.user_id != '') {
 			var html = '<li class="layui-nav-item" id="china"><a href="">退出</a></li>' +
 				'<li class="layui-nav-item "> <a href="" >房源订单中心</a></li>' +
@@ -158,7 +98,7 @@
 				userInfo.user_img+'" class="layui-nav-img">'+userInfo.user_name+'</a> ';
 			$("#rightNav").empty();
 			$("#rightNav").append(html);
-			if(userInfo.islanlord != 1 || userInfo.islanlord !=null) {
+			if(userInfo.islanlord != 0) {
 				$("#china").after('<li class="layui-nav-item "> <a href="">查看我的房源</a></li>'+
 								'<li class="layui-nav-item "><a href="host/create_a_room/room.html">添加房源</a></li>');
 			} else  {
@@ -166,43 +106,71 @@
 			}
 		}
 		
-		//请求后端拿到订单信息
+		//请求后端拿到指定房子信息
 		// $.getJSON(basePath+"a?method=getHouseInfoByID&callback=?",{"house_id":4},function(res){
 		// 	console.log(houseInfo);
 		// 	houseInfo = res;
 		// 	console.log(houseInfo);
 		// });
+		getHouse("#hosue");
+		function getHouse(infoId) {
+			var len =houseInfo.length;
+			$(infoId).append('<div  style="height: 420px;" id="d1"></div>');
+			$(infoId).append('<div  style="height: 420px;" id="d2"></div>');
+			$(infoId).append('<div  style="height: 420px;" id="d3"></div>');
+			for (var k = 0; k < len; k++) {
+				var html = '<div class="layui-col-xs3" ><div class="layui-carousel" id="imgCarousel'+k+'"><div carousel-item=""></div></div>' +
+					'<a href="host/landlord.html?user_id='+houseInfo[k].user_id+'">'+
+					'<div class="layui-col-xs9"><h4>'+houseInfo[k].house_type+' · '+houseInfo[k].room_number+'室'+houseInfo[k].toilet_number+'卫'+houseInfo[k].bed_number+'床</h4>' +
+					'<h3>'+houseInfo[k].house_name+'</h3><h3>'+houseInfo[k].house_price+' 每晚</h3>'+
+					'</div><div class="layui-col-xs3" >'+
+					'<img style="border-radius: 50%;" src="'+houseInfo[k].landlord_img+'" width="45px" height="45px" >'+
+					'</div></a></div>';
+				if(k<4) {
+					$("#d1").append(html);
+				}else if(k >=4 &&k<8) {
+					$("#d2").append(html);
+				}else {
+					$("#d3").append(html);
+				}
+				for(var j=0;j<houseInfo[k].house_imgs.length;j++) {	
+					imghtml='<div><a href="host/home.html?house_id='+houseInfo[k].house_id+'"><img  src="'+houseInfo[k].house_imgs[j]+'"  width="460px" ></a></div>';
+					$("#imgCarousel"+k+" div").append(imghtml);
+				}
+			}
+		}
+		
 	</script>
 	<script>
-		layui.use(['form','element','layer','laypage'], function() {
+		layui.use(['form','element','layer','laypage','carousel'], function() {
 			var form = layui.form,
 				$ = layui.jquery,
 				layer = layui.layer,
 				element = layui.element,
-				laypage = layui.laypage; 
-	 //触发事件
-	  var active = {
-	   
-	    tabChange: function(){
-	      //切换到指定Tab项
-	      element.tabChange('demo', '22'); //切换到：用户管理
-	    }
-	  };
+				laypage = layui.laypage,
+				carousel=layui.carousel; 
+		//触发事件
+		var active = {
+			tabChange: function(){
+				//切换到指定Tab项
+				element.tabChange('demo', '22'); //切换到：用户管理
+			}
+		};
 	  
-	  $('.site-demo-active').on('click', function(){
-	    var othis = $(this), type = othis.data('type');
-	    active[type] ? active[type].call(this, othis) : '';
-	  });
-		 //总页数大于页码总数
-		  laypage.render({
+		$('.site-demo-active').on('click', function(){
+			var othis = $(this), type = othis.data('type');
+			active[type] ? active[type].call(this, othis) : '';
+		});
+		//总页数大于页码总数
+		laypage.render({
 			elem: 'demo'
 			,limit:7
 			,count: 70 //数据总数
 			,jump: function(obj){
-			  console.log(obj)
+			console.log(obj)
 			}
-		  });
-		
 		});
+		
+	});
 	</script>
 </html>

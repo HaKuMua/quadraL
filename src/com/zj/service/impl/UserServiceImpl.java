@@ -1,4 +1,4 @@
-package com.zj.service.imp;
+﻿package com.zj.service.impl;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -53,4 +53,9 @@ public interface UserServiceImpl {
 	 * @throws SQLException 
 	 */
 	int addUserHead(Integer user_id,String user_headimg_url) throws SQLException;
+	 * 添加一个用户方法接口
+	 * @param map
+	 * @return
+	 */
+	String addUserInfo(Map<String, Object> map);
 }

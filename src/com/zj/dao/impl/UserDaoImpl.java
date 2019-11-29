@@ -52,4 +52,19 @@ public interface UserDaoImpl {
 	 * @throws SQLException 
 	 */
 	int addUserHead(Integer user_id,String user_headimg_url) throws SQLException;
+	User getUserInfoByPhone(String phone) throws SQLException;
+	/**
+	 * 通过用户id获取单个用户信息方法接口
+	 * @param user_id
+	 * @return
+	 * @throws SQLException
+	 */
+	User getUserInfoByID(Integer user_id) throws SQLException;
+	/**
+	 * 添加一个用户信息方法接口
+	 * @param user
+	 * @return
+	 * @throws SQLException
+	 */
+	int addUserInfo(User user) throws SQLException;
 }

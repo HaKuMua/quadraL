@@ -25,7 +25,8 @@ public class HouseCommentDao implements HouseCommentDaoImpl{
 	 * @throws SQLException 
 	 */
 	public List<HouseComment> getHouseCommentByHouseID(Integer HouseID) throws SQLException {
-		String sql = "select * from house_comment while house_id=?";
+		String sql = "select * from house_comment where house_id=?";
 		return qr.query(conn, sql, new BeanListHandler<HouseComment>(HouseComment.class), HouseID);
 	}
+	
 }

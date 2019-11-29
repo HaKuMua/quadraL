@@ -1,4 +1,4 @@
-package com.zj.servlet;
+﻿package com.zj.servlet;
 
 
 import java.io.IOException;
@@ -22,6 +22,8 @@ import com.zj.service.imp.CommentServiceImpl;
  * @author ml
  *
  */
+import com.zj.service.impl.ArticleServiceImpl;
+
 public class ArticleServlet extends BaseServlet {
 	private static final long serialVersionUID = 1L;
 	private ArticleServiceImpl articleService = new ArticleService();

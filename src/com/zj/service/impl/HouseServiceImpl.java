@@ -1,10 +1,9 @@
-package com.zj.service.imp;
+package com.zj.service.impl;
 
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
-import com.zj.entity.House;
 /**
  * 
  * @author lijia
@@ -25,5 +24,5 @@ public interface HouseServiceImpl {
 	 * @return
 	 * @throws SQLException
 	 */
-	String addHouseInfo(House house) throws SQLException;
+	String addHouseInfo(Map<String, Object> houseInfo) throws SQLException;
 }

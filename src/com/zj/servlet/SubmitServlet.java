@@ -14,20 +14,21 @@ import org.json.JSONObject;
 
 
 import com.alibaba.fastjson.JSON;
-import com.zj.service.LandlordService;
-import com.zj.service.imp.LandlordServiceImpl;
+import com.zj.service.UserService;
+import com.zj.service.impl.UserServiceImpl;
 
 import cn.com.uitl.BaseServlet;
 
 public class SubmitServlet extends BaseServlet {
 	private static final long serialVersionUID = 1L;
-	private LandlordServiceImpl landlordService = new LandlordService();
+	private UserServiceImpl userService = new UserService();
 	public String map;
 	public String callback;
-	public void addLandlordInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+	public void addUserInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		@SuppressWarnings("unchecked")
 		Map<String, Object> myMap = (Map<String, Object>) JSON.parse(map);
 		System.out.println(myMap);
-		String str = landlordService.addLandlordInfo(myMap);
+		String str = userService.addUserInfo(myMap);
 		Map<String, String> hint = new HashMap<String, String>();
 		hint.put("hint", str);
 		JSONObject json = new JSONObject(hint);
