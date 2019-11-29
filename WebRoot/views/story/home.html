@@ -80,7 +80,7 @@
 			user_id: '1000',
 			user_name:'haku',
 			user_img: '../img/timg.jpg',
-			lanlord_id:'1001'
+			islanlord:1
 		};
 		var storyInfo = [
 			[]
@@ -97,7 +97,7 @@
 				userInfo.user_img+'" class="layui-nav-img">'+userInfo.user_name+'</a> ';
 			$("#rightNav").empty();
 			$("#rightNav").append(html);
-			if(userInfo.isLanlord != '' || userInfo.isLanlord !=null) {
+			if(userInfo.islanlord !=0) {
 				$("#china").after('<li class="layui-nav-item "> <a href="">查看我的房源</a></li>'+
 								'<li class="layui-nav-item "><a href="host/create_a_room/room.html">添加房源</a></li>');
 			} else  {
@@ -119,11 +119,11 @@
 			$(infoId).append('<div  style="height: 420px;" id="d3"></div>');
 			for (var k = 0; k < len; k++) {
 				var html = '<div class="layui-col-xs3" ><div class="layui-carousel" id="imgCarousel'+k+'"><div carousel-item=""></div></div>' +
-					'<a href="host/landlord.html?landlord_id='+houseInfo[k].lanlord_id+'">'+
+					'<a href="host/user.html?user_id='+houseInfo[k].lanlord_id+'">'+
 					'<div class="layui-col-xs9"><h4>'+houseInfo[k].house_type+' · '+houseInfo[k].room_number+'室'+houseInfo[k].toilet_number+'卫'+houseInfo[k].bed_number+'床</h4>' +
 					'<h3>'+houseInfo[k].house_name+'</h3><h3>'+houseInfo[k].house_price+' 每晚</h3>'+
 					'</div><div class="layui-col-xs3" >'+
-					'<img style="border-radius: 50%;" src="'+houseInfo[k].landlord_img+'" width="45px" height="45px" >'+
+					'<img style="border-radius: 50%;" src="'+houseInfo[k].user_img+'" width="45px" height="45px" >'+
 					'</div></a></div>';
 				if(k<4) {
 					$("#d1").append(html);

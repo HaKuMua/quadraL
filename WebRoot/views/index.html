@@ -375,7 +375,7 @@
 			user_id: '1000',
 			user_name:'haku',
 			user_img: '../img/timg.jpg',
-			lanlord_id:'1001'
+			islanlord:1
 		};
 		
 		var listHouse1 = [{
@@ -498,7 +498,7 @@
 					userInfo.user_img+'" class="layui-nav-img NavA"  data-method= "userInfo">'+userInfo.user_name+'</a> ';
 				$("#rightNav").empty();
 				$("#rightNav").append(html);
-				if(userInfo.isLanlord != '' || userInfo.isLanlord !=null) {
+				if(userInfo.islanlord != 0) {
 					$("#china").after('<li class="layui-nav-item "> <a href="">查看我的房源</a></li>'+
 									'<li class="layui-nav-item "><a href="host/create_a_room/room.html">添加房源</a></li>');
 				} else  {
