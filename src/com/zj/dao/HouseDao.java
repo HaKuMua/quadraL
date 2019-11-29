@@ -40,13 +40,13 @@ public class HouseDao implements HouseDaoImpl{
 	/**
 	 * 添加一个房子DAO层方法
 	 */
-	public Boolean addHouseInfo(House house) throws SQLException {
+	public int addHouseInfo(House house) throws SQLException {
 		String sql = "insert into house(landlord_id,house_name,house_intake,lease_type,may_check_in_date" +
 				",may_check_out_date,house_type,house_particulars_id,house_state,travel_information,house_price" +
 				",house_address) value(?,?,?,?,?,?,?,?,?,?,?,?)";
 		return qr.update(conn, sql, house.getLandlord_id(),house.getHouse_name(),house.getHouse_intake()
 				,house.getLease_type(),house.getMay_check_in_date(),house.getMay_check_out_date()
 				,house.getHouse_type(),house.getHouse_particulars_id(),house.getHouse_state(),house.getTravel_information()
-				,house.getHouse_price(),house.getHouse_address()) > 0 ? true : false;
+				,house.getHouse_price(),house.getHouse_address());
 	}
 }

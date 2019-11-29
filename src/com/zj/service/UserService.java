@@ -9,7 +9,7 @@ import java.util.Map;
 import com.zj.dao.UserDao;
 import com.zj.dao.impl.UserDaoImpl;
 import com.zj.entity.User;
-import com.zj.service.imp.UserServiceImpl;
+import com.zj.service.impl.UserServiceImpl;
 /**
  * 
  * @author lijia
@@ -36,6 +36,8 @@ public class UserService implements UserServiceImpl{
 					map.put("user_phone", user.getUser_phone());
 					map.put("user_IDcard", user.getUser_IDcard());
 					map.put("lanlord_id", user.getLandlord_id());
+					map.put("real_name", user.getReal_name());
+					map.put("user_describe", user.getUser_describe());
 					list.add(map);
 				}
 			}
@@ -61,6 +63,8 @@ public class UserService implements UserServiceImpl{
 				map.put("user_phone", user.getUser_phone());
 				map.put("user_IDcard", user.getUser_IDcard());
 				map.put("lanlord_id", user.getLandlord_id());
+				map.put("real_name", user.getReal_name());
+				map.put("user_describe", user.getUser_describe());
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

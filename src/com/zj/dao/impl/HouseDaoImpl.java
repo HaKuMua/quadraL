@@ -25,5 +25,5 @@ public interface HouseDaoImpl {
 	 * @return
 	 * @throws SQLException
 	 */
-	Boolean addHouseInfo(House house) throws SQLException;
+	int addHouseInfo(House house) throws SQLException;
 }

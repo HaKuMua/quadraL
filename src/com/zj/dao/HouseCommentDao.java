@@ -28,4 +28,5 @@ public class HouseCommentDao implements HouseCommentDaoImpl{
 		String sql = "select * from house_comment while house_id=?";
 		return qr.query(conn, sql, new BeanListHandler<HouseComment>(HouseComment.class), HouseID);
 	}
+	
 }

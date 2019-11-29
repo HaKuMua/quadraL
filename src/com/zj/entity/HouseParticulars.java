@@ -9,22 +9,26 @@ import java.io.Serializable;
  */
 public class HouseParticulars implements Serializable{
 	private static final long serialVersionUID = 1L;
-	/*
+	/**
 	 * 房子详情ID
 	 */
 	private Integer house_particulars_id;
-	/*
+	/**
 	 * 房间数量
 	 */
 	private Integer room_number;
-	/*
+	/**
 	 * 地址描述
 	 */
 	private String address_describe;
-	/*
+	/**
 	 * 卫生间数量
 	 */
 	private Integer toilet_number;
+	/**
+	 * 房子详情
+	 */
+	private String house_describe;
 	
 	public HouseParticulars() {
 	}
@@ -61,12 +65,18 @@ public class HouseParticulars implements Serializable{
 		this.toilet_number = toilet_number;
 	}
 
+	public String getHouse_describe() {
+		return house_describe;
+	}
+
+	public void setHouse_describe(String house_describe) {
+		this.house_describe = house_describe;
+	}
+
 	public String toString() {
 		return "HouseParticulars [house_particulars_id=" + house_particulars_id
 				+ ", room_number=" + room_number + ", address_describe="
-				+ address_describe + ", toilet_number=" + toilet_number + "]";
+				+ address_describe + ", toilet_number=" + toilet_number
+				+ ", house_describe=" + house_describe + "]";
 	}
-	
-	
-
 }

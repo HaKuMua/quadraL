@@ -14,7 +14,7 @@ import cn.com.uitl.CheckoutPhoneNumber;
 import com.zj.dao.LandlordDao;
 import com.zj.dao.impl.LandlordDaoImpl;
 import com.zj.entity.Landlord;
-import com.zj.service.imp.LandlordServiceImpl;
+import com.zj.service.impl.LandlordServiceImpl;
 
 /**
  * 

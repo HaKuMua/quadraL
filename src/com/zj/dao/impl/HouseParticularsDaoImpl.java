@@ -19,4 +19,11 @@ public interface HouseParticularsDaoImpl {
 	 * 通过房子详情ID获取单个房子详情方法接口
 	 */
 	HouseParticulars getHouseParticularsInfoByID(Integer HouseParticularsID) throws SQLException;
+	/**
+	 * 添加一个房子详情信息方法接口
+	 * @param houseParticulars
+	 * @return
+	 * @throws SQLException
+	 */
+	int addHouseParticularsInfo(HouseParticulars houseParticulars) throws SQLException;
 }
