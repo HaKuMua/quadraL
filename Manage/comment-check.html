@@ -138,6 +138,12 @@
 								</a>
 							</li>
 							<li class="sidebar-item">
+								<a class="sidebar-link waves-effect waves-dark sidebar-link" href="reserve.html" aria-expanded="false">
+									<i class="mdi mdi-file"></i>
+									<span class="hide-menu">预定信息</span>
+								</a>
+							</li>
+							<li class="sidebar-item">
 								<a class="sidebar-link waves-effect waves-dark sidebar-link" href="user-info.html" aria-expanded="false">
 									<i class="mdi mdi-arrange-bring-forward"></i>
 									<span class="hide-menu">用户信息</span>
@@ -260,6 +266,7 @@
 		</div>
 		<!-- End Wrapper -->
 		<script>
+			var count=0;
 			$.getJSON("http://localhost:80/QuadraL/a?method=getAllComment&callback=?",
 				function(comment_result) {
 					window.onload = function() {
@@ -271,19 +278,37 @@
 								'</td><td class="t5">' + comment_result.list[i].replier_id + '</td><td class="t6">' + comment_result.list[i].comment_date +
 								'</td><td class="t7">' + comment_result.list[i].comment_praise +
 								'</td><td class="t8">'+
-								'<button class="btn btn-primary btn-sm" id="delete" data-toggle="modal" data-target="#myModal">删除</button>';
+								'<button class="btn btn-primary delete btn-sm" id=" '+i+'" >删除</button>';
 							tdArr.appendChild(tr)
+							count++;
+							
 						}
 					};
 				}
 			);
+			$(document).on("click",".delete",function(){
+				var id = $(this).attr("id");
+				var num = $(this).parent().parent();
+				// $.mui.ajax('',{
+				// 	data:{
+						
+				// 	},
+				// 	dataType:'json',//服务器返回json格式数据
+				// 	type:'post',//HTTP请求类型
+				// 	timeout:10000,//超时时间设置为10秒；
+				// 	success:function(data){
+						
+				// 	},
+				// 	error:function(xhr,type,errorThrown){
+						
+				// 	}
+				// });
+				$(this).parent().parent().remove();
+			});
+			
+			
 		</script>
 		<!--删除按钮-->
-		<script>
-				$("#delete").on("click",function(){
-					$(this).parents().parent().remove();
-				});
-		</script>
 		<script src="layui/layui.js" charset="utf-8"></script>
 		<script>
 			layui.use(['laypage', 'layer'], function() {

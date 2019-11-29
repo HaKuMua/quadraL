@@ -136,6 +136,12 @@
 								</a>
 							</li>
 							<li class="sidebar-item">
+								<a class="sidebar-link waves-effect waves-dark sidebar-link" href="reserve.html" aria-expanded="false">
+									<i class="mdi mdi-file"></i>
+									<span class="hide-menu">预定信息</span>
+								</a>
+							</li>
+							<li class="sidebar-item">
 								<a class="sidebar-link waves-effect waves-dark sidebar-link" href="user-info.html" aria-expanded="false">
 									<i class="mdi mdi-arrange-bring-forward"></i>
 									<span class="hide-menu">用户信息</span>
@@ -346,6 +352,7 @@
 		<script >
 			$.getJSON("http://localhost:80/QuadraL/a?method=getAllHouseInfo&callback=?",
 				function(landlord_result) {
+					var map = landlord_result;
 					window.onload = function() {
 						var tdArr = document.getElementById('tablebox').firstElementChild;
 						for (var i = 0; i < landlord_result.list.length; i++) {
@@ -354,27 +361,27 @@
 								'</td><td class="t3">' + landlord_result.list[i].house_intake + '</td><td class="t4">' + landlord_result.list[i].lease_type +
 								'<td class="t5">' + landlord_result.list[i].house_type + '</td><td class="t6">' + landlord_result.list[i].house_address +
 								'<td class="t7">' + landlord_result.list[i].house_price + '</td><td class="t8">' +
-								'<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">审核</button>';
-
-							tdArr.appendChild(tr)
-						}
-					};
-				},
-				function(landlord_result2) {
-					window.onload = function() {
-						var tdArr = document.getElementById('tablebox2').firstElementChild;
-						for (var i = 0; i < landlord_result2.list.length; i++) {
-							var tr = document.createElement("tr");
-							tr.innerHTML = '<td class="t1">' + landlord_result2.list[i].house_id + '</td><td class="t2">' + landlord_result2.list[i].house_name +
-								'</td><td class="t3">' + landlord_result2.list[i].house_intake + '</td><td class="t4">' + landlord_result2.list[i].lease_type +
-								'<td class="t5">' + landlord_result2.list[i].house_type + '</td><td class="t6">' + landlord_result2.list[i].house_address +
-								'<td class="t7">' + landlord_result2.list[i].house_price;
-							
+								'<button class="btn check btn-primary btn-sm" id="'+i+'" data-toggle="modal" data-target="#myModal">审核</button>';
 							tdArr.appendChild(tr)
 						}
 					};
 				}
 			);
+			//模态框中酒店信息详情表单的信息加载
+			$(document).on("click",".check",function(){
+				var id = $(this).attr("id");
+				window.onload = function() {
+					var tdArr2 = document.getElementById('tablebox2').firstElementChild;
+					for (var i = 0; i < map.list.length; i++) {
+						var tr2 = document.createElement("tr");
+						tr2.innerHTML = '<td class="t1">' + map.list[id].house_id + '</td><td class="t2">' + map.list[id].house_name +
+							'</td><td class="t3">' + map.list[id].house_intake + '</td><td class="t4">' + map.list[id].lease_type +
+							'<td class="t5">' + map.list[id].house_type + '</td><td class="t6">' + map.list[id].house_address +
+							'<td class="t7">' + map.list[id].house_price;
+						tdArr2.appendChild(tr2)
+					}
+				};
+			})
 		</script>
 		<script src="layui/layui.js" charset="utf-8"></script>
 		<script>
