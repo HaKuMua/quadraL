@@ -38,23 +38,36 @@
 				<div class="lds-pos"></div>
 			</div>
 		</div>
+		<!-- ============================================================== -->
+		<!-- Main wrapper - style you can find in pages.scss -->
+		<!-- ============================================================== -->
 		<div id="main-wrapper" data-navbarbg="skin6" data-theme="light" data-layout="vertical" data-sidebartype="full"
 		 data-boxed-layout="full">
-			<!-- 顶部搜索框 使用者头像 退出登录 -->
+			<!-- ============================================================== -->
+			<!-- Topbar header - style you can find in pages.scss -->
+			<!-- ============================================================== -->
 			<header class="topbar" data-navbarbg="skin6">
 				<nav class="navbar top-navbar navbar-expand-md navbar-light">
 					<div class="navbar-header" data-logobg="skin5">
+						<!-- This is for the sidebar toggle which is visible on mobile only -->
 						<a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)">
 							<i class="ti-menu ti-close"></i>
 						</a>
-						<!-- 顶部公司logo -->
+						<!-- ============================================================== -->
+						<!-- Logo -->
+						<!-- ============================================================== -->
 						<div class="navbar-brand">
 							<a href="index.html" class="logo">
+								<!-- Logo icon -->
 								<b class="logo-icon">
+									<!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
+									<!-- Dark Logo icon -->
 									<img src="img/logo-icon.png" alt="homepage" class="dark-logo" />
+									<!-- Light Logo icon -->
 									<img src="img/logo-light-icon.png" alt="homepage" class="light-logo" />
 								</b>
-								<!-- 顶部公司logo -->
+								<!--End Logo icon -->
+								<!-- Logo text -->
 								<span class="logo-text">
 									<!-- dark Logo text -->
 									<img src="img/logo-text.png" alt="homepage" class="dark-logo" />
@@ -94,11 +107,13 @@
 						</ul>
 						<!-- Right side toggle and nav items -->
 						<ul class="navbar-nav float-right">
-							<!-- 登录用户头像 查询 -->
+							<!-- User profile and search -->
 							<li class="nav-item dropdown">
 								<a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href="" data-toggle="dropdown"
 								 aria-haspopup="true" aria-expanded="false"><img src="img/users/1.jpg" alt="user" class="rounded-circle" width="31"></a>
 								<div class="dropdown-menu dropdown-menu-right user-dd animated">
+									<a class="dropdown-item" href="javascript:void(0)"><i class="ti-user m-r-5 m-l-5"></i> 个人中心</a>
+									<a class="dropdown-item" href="javascript:void(0)"><i class="ti-wallet m-r-5 m-l-5"></i> 收支情况</a>
 									<a class="dropdown-item" href="javascript:void(0)"><i class="ti-email m-r-5 m-l-5"></i> 退出登录</a>
 								</div>
 							</li>
@@ -108,7 +123,7 @@
 				</nav>
 			</header>
 			<!-- End Topbar header -->
-			<!-- 左侧导航栏 -->
+			<!-- Left Sidebar - style you can find in sidebar.scss  -->
 			<aside class="left-sidebar" data-sidebarbg="skin5">
 				<!-- Sidebar scroll-->
 				<div class="scroll-sidebar">
@@ -176,13 +191,13 @@
 				<!-- End Sidebar scroll-->
 			</aside>
 			<!-- End Left Sidebar - style you can find in sidebar.scss  -->
-			<!-- Page wrapper 右上侧页面归属路径导航 -->
+			<!-- Page wrapper  -->
 			<div class="page-wrapper">
 				<!-- Bread crumb and right sidebar toggle -->
 				<div class="page-breadcrumb">
 					<div class="row">
 						<div class="col-5 align-self-center">
-							<h4 class="page-title">文章审核</h4>
+							<h4 class="page-title">预定信息</h4>
 						</div>
 						<div class="col-7 align-self-center">
 							<div class="d-flex align-items-center justify-content-end">
@@ -191,7 +206,7 @@
 										<li class="breadcrumb-item">
 											<a href="#">主页</a>
 										</li>
-										<li class="breadcrumb-item active" aria-current="page">文章审核</li>
+										<li class="breadcrumb-item active" aria-current="page">预定信息</li>
 									</ol>
 								</nav>
 							</div>
@@ -199,7 +214,7 @@
 					</div>
 				</div>
 				<!-- End Bread crumb and right sidebar toggle -->
-				<!-- Container fluid  表格主体-->
+				<!-- Container fluid  -->
 				<div class="container-fluid">
 					<!-- Start Page Content -->
 					<div class="row">
@@ -209,67 +224,35 @@
 									<div class="col-12">
 										<div class="card">
 											<div class="card-body">
-												<h4 class="card-title">文章审核</h4>
+												<h4 class="card-title">预定信息</h4>
 											</div>
 										</div>
 									</div>
-									<!-- 表格 -->
-									<table class="table table-hover table-striped " style="table-layout: fixed;" id="tablebox">
+									<table class="table table-hover" id="tablebox">
 										<thead>
 											<tr>
-												<th scope="col" class="t1">文章编号</th>
-												<th scope="col" class="t2">用户编号</th>
-												<th scope="col" class="t3">文章题目</th>
-												<th scope="col" class="t4">文章内容</th>
-												<th scope="col" class="t5">文章发布日期</th>
-												<th scope="col" class="t6">文章赞数</th>
-												<th scope="col" class="t7">文章收藏数</th>
-												<th scope="col" class="t8"></th>
-												<th scope="col" class="t9"></th>
+												<th scope="col" class="t1">预定编号</th>
+												<th scope="col" class="t2">预定时间</th>
+												<th scope="col" class="t3">预定天数</th>
+												<th scope="col" class="t4">结算日期</th>
+												<th scope="col" class="t5">用户姓名</th>
+												<th scope="col" class="t6">房间名称</th>
 											</tr>
 										</thead>
 									</table>
-									<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-										<div class="modal-dialog modal-lg">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h4 class="modal-title" id="myModalLabel">
-														文章详细内容
-													</h4>
-													<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-														×
-													</button>
-
-												</div>
-												<div class="modal-body">
-													<!--文本表格-->
-													<div id="text1" style=" overflow:scroll; width:750px; height:400px;">
-														
-													</div>
-													<div class="modal-footer">
-														<button type="button" class="btn btn-default" data-dismiss="modal">
-															返回继续操作
-														</button>
-													</div>
-												</div>
-											</div>
-										</div>
-										<!-- /.modal-content -->
-									</div>
-									<!-- /.modal -->
 								</div>
 							</div>
 						</div>
+					</div>
+					<div id="demo1">
 					</div>
 					<!-- End PAge Content -->
 					<!-- Right sidebar -->
 					<!-- .right-sidebar -->
 					<!-- End Right sidebar -->
-					<div id="demo1">
-					</div>
 				</div>
 				<!-- End Container fluid  -->
-				<!-- footer 页脚-->
+				<!-- footer -->
 				<footer class="footer text-center">
 					All Rights Reserved by Airbnb. Designed and Developed by QuadraL.
 				</footer>
@@ -278,63 +261,28 @@
 			<!-- End Page wrapper  -->
 		</div>
 		<!-- End Wrapper -->
-		<!-- All Jquery -->
-		<!-- 后端数据交互到前端表格 -->
-		<script>
-			var map;
-			$.getJSON("http://localhost:80/QuadraL/a?method=getAllArticle&callback=?",
-				function(article_result) {
-					map = article_result;
+		<script >
+			$.getJSON("http://localhost:80/QuadraL/a?method=getAllReserve&callback=?",
+				function(reserve_result) {
 					window.onload = function() {
 						var tdArr = document.getElementById('tablebox').firstElementChild;
-						for (var i = 0; i < article_result.list.length; i++) {
+						for (var i = 0; i < reserve_result.list.length; i++) {
 							var tr = document.createElement("tr");
-							tr.innerHTML = '<td class="t1">' + article_result.list[i].article_id + '</td><td class="t2">' + article_result.list[i].user_id +
-								'</td><td class="t3">' + article_result.list[i].article_name +
-								'</td><td class="t4" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' + article_result.list[i].article_content +
-								'</td><td class="t5">' + article_result.list[i].article_date + '</td><td class="t6">' + article_result.list[i].article_praise +
-								'</td><td class="t7">' + article_result.list[i].article_collect +
-								'</td><td class="t8">' +
-								'<button class="btn more btn-primary btn-sm" id="'+i+'" data-toggle="modal" data-target="#myModal">查看文章详细内容</button>' +
-								'</td><td class="t9">' +
-								'<button class="btn delete btn-primary btn-sm" id="delete">删除</button>';
+							tr.innerHTML = '<td class="t1">' + reserve_result.list[i].reserve_id + '</td><td class="t2">' + reserve_result.list[i].reserve_date +
+								'</td><td class="t3">' + reserve_result.list[i].reserve_day_number + '</td><td class="t4">' + reserve_result.list[i].check_out_date +
+								'<td class="t5">' + reserve_result.list[i].user_id + '</td><td class="t6">' + reserve_result.list[i].house_id;
 							tdArr.appendChild(tr)
 						}
 					};
 				}
 			);
-			$(document).on("click",".more",function(){
-				var id = $(this).attr("id");
-				var text = "&nbsp &nbsp &nbsp &nbsp &nbsp" + map.list[id].article_content;
-				document.getElementById("text1").innerHTML =  text;
-			});
-			$(document).on("click",".delete",function(){
-				var id = $(this).attr("id");
-				var num = $(this).parent().parent();
-				// $.mui.ajax('',{
-				// 	data:{
-						
-				// 	},
-				// 	dataType:'json',//服务器返回json格式数据
-				// 	type:'post',//HTTP请求类型
-				// 	timeout:10000,//超时时间设置为10秒；
-				// 	success:function(data){
-						
-				// 	},
-				// 	error:function(xhr,type,errorThrown){
-						
-				// 	}
-				// });
-				$(this).parent().parent().remove();
-			});
 		</script>
-		<!-- layui 实现表格内容分页-->
 		<script src="layui/layui.js" charset="utf-8"></script>
 		<script>
 			layui.use(['laypage', 'layer'], function() {
 				var laypage = layui.laypage,
 					layer = layui.layer;
-
+		
 				//总页数大于页码总数
 				laypage.render({
 					elem: 'demo1',
@@ -346,7 +294,7 @@
 				});
 			});
 		</script>
-
+		
 	</body>
 
 </html>
