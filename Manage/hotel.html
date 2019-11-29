@@ -154,12 +154,6 @@
 								</a>
 							</li>
 							<li class="sidebar-item">
-								<a class="sidebar-link waves-effect waves-dark sidebar-link" href="landlord.html" aria-expanded="false">
-									<i class="mdi mdi-border-none"></i>
-									<span class="hide-menu">房东信息</span>
-								</a>
-							</li>
-							<li class="sidebar-item">
 								<a class="sidebar-link waves-effect waves-dark sidebar-link" href="hotel.html" aria-expanded="false">
 									<i class="mdi mdi-face"></i>
 									<span class="hide-menu">酒店信息审核</span>
@@ -174,7 +168,13 @@
 							<li class="sidebar-item">
 								<a class="sidebar-link waves-effect waves-dark sidebar-link" href="comment-check.html" aria-expanded="false">
 									<i class="mdi mdi-arrange-bring-forward"></i>
-									<span class="hide-menu">评论审核</span>
+									<span class="hide-menu">文章评论审核</span>
+								</a>
+							</li>
+							<li class="sidebar-item">
+								<a class="sidebar-link waves-effect waves-dark sidebar-link" href="hotel-commen-check.html" aria-expanded="false" id="addLandlord">
+									<i class="mdi mdi-border-none"></i>
+									<span class="hide-menu">酒店评论审核</span>
 								</a>
 							</li>
 							<li class="sidebar-item">
@@ -350,14 +350,14 @@
 		<!-- End Wrapper -->
 		<!-- All Jquery -->
 		<script >
-			$.getJSON("http://localhost:80/QuadraL/a?method=getAllHouseInfo&callback=?",
+			$.getJSON("http://localhost:80/QuadraL/house-info.do?method=getAllHouseInfo&callback=?",
 				function(landlord_result) {
 					var map = landlord_result;
 					window.onload = function() {
 						var tdArr = document.getElementById('tablebox').firstElementChild;
 						for (var i = 0; i < landlord_result.list.length; i++) {
 							var tr = document.createElement("tr");
-							tr.innerHTML = '<td class="t1">' + landlord_result.list[i].house_id + '</td><td class="t2">' + landlord_result.list[i].house_name +
+							tr.innerHTML = '<td class="t1">' + landlord_result.list[i].house_id + '</td><td class="t2" style="width:300px">' + landlord_result.list[i].house_name +
 								'</td><td class="t3">' + landlord_result.list[i].house_intake + '</td><td class="t4">' + landlord_result.list[i].lease_type +
 								'<td class="t5">' + landlord_result.list[i].house_type + '</td><td class="t6">' + landlord_result.list[i].house_address +
 								'<td class="t7">' + landlord_result.list[i].house_price + '</td><td class="t8">' +

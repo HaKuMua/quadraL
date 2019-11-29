@@ -3,6 +3,7 @@
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -29,6 +30,17 @@ public class ArticleServlet extends BaseServlet {
 	private ArticleServiceImpl articleService = new ArticleService();
 	private CommentServiceImpl commentServiceImpl = new CommentService();
 	public String callback;
+	
+	// 返回所有的文章信息
+	public void getAllArticle(HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
+		List<Map<String, Object>> list = articleService.getAllArticle();
+		System.out.println(list);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		JSONObject obj = new JSONObject(map);
+		response.getWriter().print(callback + "(" + obj + ")");
+	}
 	/**
 	 * 分页显示文章所需信息
 	 */
