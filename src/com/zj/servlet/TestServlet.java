@@ -17,14 +17,12 @@ import com.zj.service.CheckInPersonService;
 import com.zj.service.CommentService;
 import com.zj.service.GrogshopOrderService;
 import com.zj.service.HouseService;
-import com.zj.service.LandlordService;
 import com.zj.service.UserService;
 import com.zj.service.impl.ArticleServiceImpl;
 import com.zj.service.impl.CheckInPersonServiceImpl;
 import com.zj.service.impl.CommentServiceImpl;
 import com.zj.service.impl.GrogshopOrderServiceImpl;
 import com.zj.service.impl.HouseServiceImpl;
-import com.zj.service.impl.LandlordServiceImpl;
 import com.zj.service.impl.UserServiceImpl;
 
 import cn.com.uitl.BaseServlet;
@@ -33,7 +31,6 @@ public class TestServlet extends BaseServlet {
 	private static final long serialVersionUID = 1L;
 	private UserServiceImpl userService = new UserService();
 	private HouseServiceImpl houseService = new HouseService();
-	private LandlordServiceImpl landlordService = new LandlordService();
 	private GrogshopOrderServiceImpl orderService = new GrogshopOrderService();
 	private CheckInPersonServiceImpl cipService = new CheckInPersonService();
 	private CommentServiceImpl commentService = new CommentService();
@@ -124,27 +121,6 @@ public class TestServlet extends BaseServlet {
 	public void getUserInfoByUserPhone(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		Map<String, Object> map = userService.getUserInfoByPhone(user_phone);
-		System.out.println(map);
-		JSONObject obj = new JSONObject(map);
-		response.getWriter().print(callback + "(" + obj + ")");
-	}
-
-	// 5返回所有房东信息
-	public void getAllLandlordInfo(HttpServletRequest request,
-			HttpServletResponse response) throws IOException {
-		List<Map<String, Object>> list = landlordService.getAllLandlordInfo();
-		System.out.println(list);
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("list", list);
-		JSONObject obj = new JSONObject(map);
-		response.getWriter().print(callback + "(" + obj + ")");
-	}
-
-	// 按返回单条房东信息
-	public void getLandlordInfoByLandlordPhone(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		Map<String, Object> map = landlordService
-				.getLandlordInfoByPhone(landlord_phone);
 		System.out.println(map);
 		JSONObject obj = new JSONObject(map);
 		response.getWriter().print(callback + "(" + obj + ")");
