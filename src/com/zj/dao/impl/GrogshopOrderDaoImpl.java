@@ -11,6 +11,17 @@ import com.zj.entity.GrogshopOrder;
  *订单数据库操作接口
  */
 public interface GrogshopOrderDaoImpl {
-	public List<GrogshopOrder> getAllGrogshopOrderInfo() throws SQLException;
-	public GrogshopOrder getGrogshopOrderInfoByID(Integer GrogshopOrderID) throws SQLException;
+	/**
+	 * 获取所有酒店订单信息DAO层接口
+	 * @return
+	 * @throws SQLException
+	 */
+	List<GrogshopOrder> getAllGrogshopOrderInfo() throws SQLException;
+	/**
+	 * 通过ID获取酒店订单信息DAO层接口
+	 * @param GrogshopOrderID
+	 * @return
+	 * @throws SQLException
+	 */
+	GrogshopOrder getGrogshopOrderInfoByID(Integer GrogshopOrderID) throws SQLException;
 }

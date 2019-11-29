@@ -6,22 +6,25 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.zj.control.CommentControl;
-import com.zj.control.UserControl;
+import com.zj.dao.CommentDao;
+import com.zj.dao.impl.CommentDaoImpl;
 import com.zj.entity.Comment;
-import com.zj.entity.User;
-
-public class CommentService {
+import com.zj.service.imp.CommentServiceImpl;
 /**
- * 评论服务层
+ * 
+ * @author lijia
+ *评论服务层
  */
-	private CommentControl commentControl = new CommentControl();
-	//将所有的评论打包成list返回
+public class CommentService implements CommentServiceImpl{
 
+	private CommentDaoImpl commenDaoImpl = new CommentDao();
+	/**
+	 * 将所有的评论打包成list返回
+	 */
 	public List<Map<String, Object>> getAllComment(){
 		List<Map<String, Object>> list = null;
 		try {
-			List<Comment> commentList = commentControl.getAllComment();
+			List<Comment> commentList = commenDaoImpl.getAllComment();
 			if(commentList != null){
 				list = new ArrayList<Map<String,Object>>();
 				for(Comment comment : commentList){
@@ -37,7 +40,6 @@ public class CommentService {
 				}
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return list;

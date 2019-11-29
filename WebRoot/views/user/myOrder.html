@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>度假屋、民宿、体验和攻略 - Airbnb爱彼迎</title>
+		<script src="../../js/comment.js"></script>
+		<link rel="stylesheet" type="text/css" href="../../layui/css/layui.css">
+		<script src="../../js/jquery.min.js"></script>
+		<script src="../../layui/layui.all.js"></script>
+		<script src="../../layui/layui.js"></script>
+		<style type="text/css">
+			#navId li a {
+				font-size: 15px;
+				color: white;
+				font-weight: bold;
+			}
+			
+			#rightNav {
+				float: right;
+			}
+
+			#main{
+				margin-top: 80px;
+				position: absolute;
+				width: 1000px;
+				margin-left: 500px;
+			}
+			#tab li{
+				font-size:20px;
+			}
+			.foot {
+				margin-top:120%;
+				width: 1090px;
+				margin-left: 550px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="top">
+			<ul class="layui-nav layui-bg-green" id="navId">
+				<li class="layui-nav-item">
+					<a href="../index.html">
+						<img src="../../img/logo.jpg" class="layui-nav-img">
+					</a>
+				</li>
+				<li class="layui-nav-item ">
+					<form class="layui-form" action="">
+						<input id="topSearch" style=" width: 400px;height:48px; font-weight: bold; font-size: 20px; " name="search" 
+						placeholder="搜一搜"
+						 autocomplete="off" class="layui-input">
+					</form>
+				</li>
+				<div id="rightNav" >
+					<li class="layui-nav-item" id="china"><a href="">退出</a></li>
+					<li class="layui-nav-item "> <a href="" >房源订单中心</a></li>
+					<li class="layui-nav-item"><a href="">故事</a></li>
+					<li class="layui-nav-item"><a href="../index.html">首页</a> </li>
+					<li class="layui-nav-item"><a href="">帮助</a> </li>
+					<li class="layui-nav-item" lay-unselect=""><a href="javascript:;">
+					<img src="'+userInfo.user_img+'" class="layui-nav-img"></a> 
+				</div>
+			</ul>
+		</div>
+		<div id="main">
+			<span style="font-size: 40px; font-weight: bolder;color: gray;">房源订单中心</span>
+			<br><br><br><br><br>
+			<div class="layui-tab" id="tab">
+			  <ul class="layui-tab-title">
+			    <li class="layui-this">全部订单</li>
+			    <li>有效订单</li>
+			    <li>待支付订单</li>
+			  </ul>
+			  <div class="layui-tab-content"><br><br><br>
+			    <div class="layui-tab-item layui-show">
+					<div class="layui-col-xs4">
+						<a href="">
+							<img src="../../img/room/65e00580-6a91-4ee7-bc11-d05f259814ad.jpg" width="290px" height="216px" >
+							<h3>藝净- 复古花,太古里旁高层花园电影套房</h3>
+							<h4>2019/12/21 - 12/22 · 1晚</h4>
+							<h3>订单待支付 · ￥626.24</h3>
+						</a><br>
+						<button class="layui-btn" style="width: 290px;">查看是否可订</button>
+					</div>
+					<div class="layui-col-xs4">
+						<a href="">
+							<img src="../../img/room/ac356f32-0ba7-4dd8-9796-94d085e711fa.jpg"  width="290px" height="216px" >
+							<h3>藝净- 复古花,太古里旁高层花园电影套房</h3>
+							<h4>2019/12/21 - 12/22 · 1晚</h4>
+							<h3>订单待支付 · ￥626.24</h3>
+						</a><br>
+						<button class="layui-btn" style="width: 290px;">查看是否可订</button>
+					</div>
+					<div class="layui-col-xs4">
+						<a href="">
+							<img src="../../img/room/ac356f32-0ba7-4dd8-9796-94d085e711fa.jpg"  width="290px" height="216px" >
+							<h3>藝净- 复古花,太古里旁高层花园电影套房</h3>
+							<h4>2019/12/21 - 12/22 · 1晚</h4>
+							<h3>订单待支付 · ￥626.24</h3>
+						</a><br>
+						<button class="layui-btn" style="width: 290px;">查看是否可订</button>
+					</div>
+			    </div>
+			    <div class="layui-tab-item">
+					<h2>您当前没有「有效订单」，去首页探索下一段奇妙旅程吧</h2>
+				</div>
+			    <div class="layui-tab-item">
+					<h2>您当前没有「有效订单」，去首页探索下一段奇妙旅程吧</h2>
+				</div>
+			  </div>
+			</div>
+		</div>
+		<div class="foot" >
+			<div >
+				<div>京ICP备16017121号-3 京ICP证 160773号 
+				<img src="https://z1.muscache.cn/airbnb/static/packages/public_security_bureau_logo.d0289dc0.png"
+					 alt="中国公安局标志"> <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010502032345" target="_blank"
+					 rel="noopener noreferrer"  aria-busy="false">京公网安备 11010502032345号</a>
+					技术支持：卓应教育（湖南）有限公司 <a href="https://a0.muscache.com/pictures/03ec62da-f467-4e2b-bfee-6eefd052d7f5.jpg" target="_blank"
+					 rel="noopener noreferrer"  aria-busy="false">营业执照</a></div>
+				<div dir="ltr" >© 2019 Airbnb, Inc. All rights reserved.</div>
+			</div>
+			<br><br><br><br><br><br>
+		</div>
+	</body>
+	<script type="text/javascript">
+		//利用COokie拿到信息
+		// var userInfo=$.Cookie('userInfo');
+		var userInfo = {
+			user_id: '1000',
+			user_name:'haku',
+			user_img: '../../img/timg.jpg',
+			lanlord_id:'1001'
+		};
+		// var houseInfo = {
+		// 	house_name: '下榻日式风格的房源去畅玩太古里',
+		// 	house_id: 4,
+		// 	house_price: 289.5,
+		// 	house_type: '独立房间',
+		// 	houseImg:['1','2'],
+		// 	house_intake:'',//房子容纳量
+		// 	travel_information:'',//出行信息
+		// 	house_address:'',//地址
+		// 	room_number:'',
+		// 	toilet_number:1,
+		// 	bed_number: 1,
+		// 	//房东信息
+		// 	landlord_id:'',
+		// 	landlord_name:'',
+		// 	landlord_img:''
+		// }
+		if (userInfo.user_id != '') {
+			var html = '<li class="layui-nav-item" id="china"><a href="">退出</a></li>' +
+				'<li class="layui-nav-item "> <a href="" >房源订单中心</a></li>' +
+				'<li class="layui-nav-item"><a href="">故事</a></li>' +
+				'<li class="layui-nav-item"><a href="../index.html">首页</a> </li>' +
+				'<li class="layui-nav-item"><a href="">帮助</a> </li>' +
+				' <li class="layui-nav-item" lay-unselect=""><a href="javascript:;"><img src="'+
+				userInfo.user_img+'" class="layui-nav-img">'+userInfo.user_name+'</a> ';
+			$("#rightNav").empty();
+			$("#rightNav").append(html);
+			if(userInfo.isLanlord != '' || userInfo.isLanlord !=null) {
+				$("#china").after('<li class="layui-nav-item "> <a href="">查看我的房源</a></li>'+
+								'<li class="layui-nav-item "><a href="host/create_a_room/room.html">添加房源</a></li>');
+			} else  {
+				$("#china").after('<li class="layui-nav-item "> <a href="">成为房东</a></li>');
+			}
+		}
+		
+		//请求后端拿到订单信息
+		// $.getJSON(basePath+"a?method=getHouseInfoByID&callback=?",{"house_id":4},function(res){
+		// 	console.log(houseInfo);
+		// 	houseInfo = res;
+		// 	console.log(houseInfo);
+		// });
+	</script>
+	<script>
+		layui.use(['form','element','layer','laypage'], function() {
+			var form = layui.form,
+				$ = layui.jquery,
+				layer = layui.layer,
+				element = layui.element,
+				laypage = layui.laypage; 
+	 //触发事件
+	  var active = {
+	   
+	    tabChange: function(){
+	      //切换到指定Tab项
+	      element.tabChange('demo', '22'); //切换到：用户管理
+	    }
+	  };
+	  
+	  $('.site-demo-active').on('click', function(){
+	    var othis = $(this), type = othis.data('type');
+	    active[type] ? active[type].call(this, othis) : '';
+	  });
+		 //总页数大于页码总数
+		  laypage.render({
+			elem: 'demo'
+			,limit:7
+			,count: 70 //数据总数
+			,jump: function(obj){
+			  console.log(obj)
+			}
+		  });
+		
+		});
+	</script>
+</html>

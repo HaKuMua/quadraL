@@ -1,7 +1,7 @@
+
 package com.zj.servlet;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,18 +19,25 @@ import com.zj.service.GrogshopOrderService;
 import com.zj.service.HouseService;
 import com.zj.service.LandlordService;
 import com.zj.service.UserService;
+import com.zj.service.imp.ArticleServiceImpl;
+import com.zj.service.imp.CheckInPersonServiceImpl;
+import com.zj.service.imp.CommentServiceImpl;
+import com.zj.service.imp.GrogshopOrderServiceImpl;
+import com.zj.service.imp.HouseServiceImpl;
+import com.zj.service.imp.LandlordServiceImpl;
+import com.zj.service.imp.UserServiceImpl;
 
 import cn.com.uitl.BaseServlet;
 
 public class TestServlet extends BaseServlet {
 	private static final long serialVersionUID = 1L;
-	private UserService userService = new UserService();
-	private HouseService houseService = new HouseService();
-	private LandlordService landlordService = new LandlordService();
-	private GrogshopOrderService orderService = new GrogshopOrderService();
-	private CheckInPersonService cipService = new CheckInPersonService();
-	private CommentService commentService = new CommentService();
-	private ArticleService articleService = new ArticleService(); 
+	private UserServiceImpl userService = new UserService();
+	private HouseServiceImpl houseService = new HouseService();
+	private LandlordServiceImpl landlordService = new LandlordService();
+	private GrogshopOrderServiceImpl orderService = new GrogshopOrderService();
+	private CheckInPersonServiceImpl cipService = new CheckInPersonService();
+	private CommentServiceImpl commentService = new CommentService();
+	private ArticleServiceImpl articleService = new ArticleService(); 
 	
 	public String callback;
 	public String house_id;

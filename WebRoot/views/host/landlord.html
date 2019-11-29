@@ -2,93 +2,307 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>为您的爱彼迎房源编辑房源</title>
-		<script src="../../../js/comment.js"></script>
-		<script src="../../../js/jquery.min.js"></script>
-		<link rel="stylesheet" type="text/css" href="../../../layui/css/layui.css">
-		<script src="../../../js/jquery.min.js"></script>
-		<script src="../../../layui/layui.all.js"></script>
+		<title>度假屋、民宿、体验和攻略 - Airbnb爱彼迎</title>
+		<script src="../../js/comment.js"></script>
+		<link rel="stylesheet" type="text/css" href="../../layui/css/layui.css">
+		<script src="../../js/jquery.min.js"></script>
+		<script src="../../layui/layui.all.js"></script>
+		<script src="../../layui/layui.js"></script>
 		<style type="text/css">
-			#child{
-				width: 100%;
-				height: 600px;
-				background-color: lightgray;
+			#navId li a {
+				font-size: 15px;
+				color: white;
+				font-weight: bold;
 			}
-			#btn button{
-				width: 322px;
+			
+			#rightNav {
+				float: right;
+			}
+			
+			#left{
+				position: absolute;
+				width: 300px;
+				height: 450px;
+				margin-left: 400px;
+				margin-top: 100px;
+				border: 1px solid gray;
+			}
+			#left img{
+				border-radius: 50%; 
+				margin-left: 30%; 
+				margin-top: 30px;
+			}
+			#left i ,#left h2{
+				margin-left: 13%; 
+				font-size: 17px;
+			}
+			#main{
+				margin-top: 100px;
+				position: absolute;
+				width: 600px;
+				margin-left: 900px;
+			}
+			
+			.foot {
+				margin-top:120%;
+				width: 1090px;
+				margin-left: 550px;
 			}
 		</style>
 	</head>
 	<body>
-		<br>
-		<div  style="width: 100%;height: 65px; ">
-			&nbsp;&nbsp;&nbsp;&nbsp;<img src="../../../img/logo.jpg" class="layui-nav-img">
-			<h2 style="position: absolute; margin-top: -30px; margin-left: 60px;">步骤1：先填写基本信息</h2>
-			<br><br>
-			<div class="layui-progress layui-progress-big" lay-showpercent="true" lay-filter="pro" >
-			  <div class="layui-progress-bar layui-bg-green" lay-percent="100%"></div>
-			</div>
-				<div class="layui-row layui-bg-blue" id="btn">
-					<div class="layui-col-xs2">
-					   <button class="layui-btn layui-bg-gray" id="btn1">房源类型</button>
-					</div>
-				    <div class="layui-col-xs2">
-				    <button class="layui-btn layui-bg-gray" >卧室</button>
-				    </div>
-				    <div class="layui-col-xs2">
-				       <button class="layui-btn layui-bg-gray" >卫生间</button>
-				    </div>
-					<div class="layui-col-xs2">
-					  <button class="layui-btn layui-bg-gray" >位置信息</button>
-					</div>
-					<div class="layui-col-xs2">
-					  <button class="layui-btn layui-bg-gray">便利设施</button>
-					</div>
-					<div class="layui-col-xs2">
-					    <button class="layui-btn layui-bg-gray">区域设施</button>
-					</div>
+		<div id="top">
+			<ul class="layui-nav layui-bg-green" id="navId">
+				<li class="layui-nav-item">
+					<a href="../index.html">
+						<img src="../../img/logo.jpg" class="layui-nav-img">
+					</a>
+				</li>
+				<li class="layui-nav-item ">
+					<form class="layui-form" action="">
+						<input id="topSearch" style=" width: 400px;height:48px; font-weight: bold; font-size: 20px; " name="search" 
+						placeholder="搜一搜"
+						 autocomplete="off" class="layui-input">
+					</form>
+				</li>
+				<div id="rightNav" >
+					<li class="layui-nav-item" id="china"><a href="">退出</a></li>
+					<li class="layui-nav-item "> <a href="" >房源订单中心</a></li>
+					<li class="layui-nav-item"><a href="">故事</a></li>
+					<li class="layui-nav-item"><a href="../index.html">首页</a> </li>
+					<li class="layui-nav-item"><a href="">帮助</a> </li>
+					<li class="layui-nav-item" lay-unselect=""><a href="javascript:;">
+					<img src="'+userInfo.user_img+'" class="layui-nav-img"></a> 
 				</div>
+			</ul>
 		</div>
-		<br><br><br>
-		<div id="child">
-			<iframe src="room.html" frameborder="0" id="contentIframe"></iframe>
+		<div id="left">
+				<img src="../../img/timg.jpg" width="120px" height="120px" >
+				<hr >
+				<i class="layui-icon layui-icon-face-smile" style="color: red;">&nbsp;超赞房东</i><br><br>
+				<i class="layui-icon layui-icon-dialogue" style="color: red;">&nbsp;554条评价</i><br><br>
+				<i class="layui-icon layui-icon-ok" style="color: red;">&nbsp;已验证</i><br><br>
+				<hr >
+				<h2>藝已提供</h2><br>
+				<i class="layui-icon layui-icon-ok" style="color: green;">&nbsp;电子邮件地址</i><br><br>
+				<i class="layui-icon layui-icon-ok" style="color: green;">&nbsp;手机号</i><br><br>
+				<i class="layui-icon layui-icon-ok" style="color: green;">&nbsp;身份证</i><br><br>
 		</div>
-		<div id="" style="text-align: center;">
-			 <button class="layui-btn site-demo-active" >< 返回</button>
-			  <button class="layui-btn site-demo-active" data-type="setPercent" id="btnGo">下一步</button>
+		<div id="main">
+			<div >
+				<div class="layui-col-xs12">
+					<span style="font-size: 50px; color: gray;">
+						您好，我叫藝
+					</span><br><br>
+					<h2>注册时间：2016年7月</h2>
+				</div><br><br><br><br><br><br>
+				<br><br><hr >
+				<div class="layui-col-xs12" >
+					<h2 style="color: gray;"><b>自我介绍</b></h2><br>
+					<h4>我们是位于东京市中心的禅宗主题设计胶囊酒店禅宗东京｡ <br>
+					我们距离人形町站有30秒的步行路程,可以直达东京的两个机场和几乎所有的旅游目的地｡<br>
+					酒店禅宗东京的客户体验以日本禅宗极简主义的精神为基础｡我们设计了最现代,
+					最紧凑的传统日本建筑,希望为我们的客人提供一个充分体验日本,
+					舒适和合理价格的机会｡我们酒店的客人可以享受融合了高效的胶囊住宿和正宗的传统设计 - 
+					实质上是在东京市中心的现代和城市日式旅馆体验｡</h4>
+				</div>
+				
+			</div><br><hr ><br>	
+			<div id="house">
+				<h2 style="color: gray;"><b>藝的房源</b></h2><br>
+				<div class="layui-col-xs6">
+					<a href="">
+						<img src="../../img/room/65e00580-6a91-4ee7-bc11-d05f259814ad.jpg" width="290px" height="216px" >
+						<h4>价格：500一晚·整套房子·最多2人</h4>
+						<h3>藝净- 复古花,太古里旁高层花园电影套房</h3>
+					</a>
+				</div>
+				<div class="layui-col-xs6">
+					<a href="">
+						<img src="../../img/room/ac356f32-0ba7-4dd8-9796-94d085e711fa.jpg"  width="290px" height="216px" >
+						<h4>价格：500一晚·整套房子·最多2人</h4>
+						<h3>藝净- 复古花,太古里旁高层花园电影套房</h3>
+					</a>
+				</div>
+			</div><br><hr ><br>	
+			<div id="comment">
+				<h2 style="color: gray;" ><b>554条评价</b></h2><br>
+				<div id="">
+					<div class="layui-col-xs10">
+							<a href="">住过藝净- 复古花,太古里旁高层花园电影套房</a>
+					</div>
+					<div class="layui-col-xs2">
+							<img src="../../img/room/997b02ab-9522-4500-a0de-6e67a94bbe9b.jpg" width="60px" >
+					</div><br><br><br>
+					<h3>地理位置：很好，步行5-10分钟太古里，
+					小区公共区域特别是楼道感觉不太好，很杂乱的感觉，
+					但是有门禁有电梯卡，应该是安全的。
+					房间设施：还是不错的，有投影仪，有大面积窗户，只是中央空调坏了，不过房东也积极解决了，给了我们补偿。
+					总体还是愉快的，虽然有点小插曲，但是房东尽量给我们解决了，希望下次能在客人入住前检查好设备，
+					毕竟房东离的挺远的，来回一趟一小时也很不容易，
+					大家时间也都很宝贵，还是非常感谢房东，有缘再见。
+					</h3>
+					<br><a href="">
+						<img style="border-radius: 50%;" width="50px" height="50px" src="../../img/room/65e00580-6a91-4ee7-bc11-d05f259814ad.jpg"  >
+						<h2 style="margin-left: 80px; margin-top: -50px;">haku</h2>
+						<h3 style="margin-left: 80px; margin-top: 0px;">2019年10月</h3><br>
+					</a><hr >
+				</div><br><br>
+				<div >
+					<div class="layui-col-xs10">
+							<a href="">住过藝净- 复古花,太古里旁高层花园电影套房</a>
+					</div>
+					<div class="layui-col-xs2">
+							<img src="../../img/room/997b02ab-9522-4500-a0de-6e67a94bbe9b.jpg" width="60px" >
+					</div><br><br><br>
+					<h3>套房宽敞明亮,干净整洁｡室内布置品味雅致｡各类设施完备｡地点超级便利｡房主热情专业,亲自带领入住并给予详细介绍｡应对非常迅速,礼貌周全,美好的住宿体验,
+					</h3>
+					<br><a href="">
+						<img style="border-radius: 50%;" width="50px" height="50px" src="../../img/room/65e00580-6a91-4ee7-bc11-d05f259814ad.jpg"  >
+						<h2 style="margin-left: 80px; margin-top: -50px;">haku</h2>
+						<h3 style="margin-left: 80px; margin-top: 0px;">2019年10月</h3><br>
+					</a><hr >
+				</div><br><br>
+				<div >
+					<div class="layui-col-xs10">
+							<a href="">住过藝净- 复古花,太古里旁高层花园电影套房</a>
+					</div>
+					<div class="layui-col-xs2">
+							<img src="../../img/room/997b02ab-9522-4500-a0de-6e67a94bbe9b.jpg" width="60px" >
+					</div><br><br><br>
+					<h3>超高性价比的房间,开门的一瞬间真的惊艳到了,比图片还好看｡最重要的是干净舒适｡房东人特别好,有问必答｡小区打车很方便｡给重庆之旅加了分的房间,赞
+					</h3>
+					<br><a href="">
+						<img style="border-radius: 50%;" width="50px" height="50px" src="../../img/room/65e00580-6a91-4ee7-bc11-d05f259814ad.jpg"  >
+						<h2 style="margin-left: 80px; margin-top: -50px;">haku</h2>
+						<h3 style="margin-left: 80px; margin-top: 0px;">2019年10月</h3><br>
+					</a><hr >
+				</div><br><br>
+				<div >
+					<div class="layui-col-xs10">
+							<a href="">住过藝净- 复古花,太古里旁高层花园电影套房</a>
+					</div>
+					<div class="layui-col-xs2">
+							<img src="../../img/room/997b02ab-9522-4500-a0de-6e67a94bbe9b.jpg" width="60px" >
+					</div><br><br><br>
+					<h3>超高性价比的房间,开门的一瞬间真的惊艳到了,比图片还好看｡最重要的是干净舒适｡房东人特别好,有问必答｡小区打车很方便｡给重庆之旅加了分的房间,赞
+					</h3>
+					<br><a href="">
+						<img style="border-radius: 50%;" width="50px" height="50px" src="../../img/room/65e00580-6a91-4ee7-bc11-d05f259814ad.jpg"  >
+						<h2 style="margin-left: 80px; margin-top: -50px;">haku</h2>
+						<h3 style="margin-left: 80px; margin-top: 0px;">2019年10月</h3><br>
+					</a><hr >
+				</div><br><br><div >
+					<div class="layui-col-xs10">
+							<a href="">住过藝净- 复古花,太古里旁高层花园电影套房</a>
+					</div>
+					<div class="layui-col-xs2">
+							<img src="../../img/room/997b02ab-9522-4500-a0de-6e67a94bbe9b.jpg" width="60px" >
+					</div><br><br><br>
+					<h3>超高性价比的房间,开门的一瞬间真的惊艳到了,比图片还好看｡最重要的是干净舒适｡房东人特别好,有问必答｡小区打车很方便｡给重庆之旅加了分的房间,赞
+					</h3>
+					<br><a href="">
+						<img style="border-radius: 50%;" width="50px" height="50px" src="../../img/room/65e00580-6a91-4ee7-bc11-d05f259814ad.jpg"  >
+						<h2 style="margin-left: 80px; margin-top: -50px;">haku</h2>
+						<h3 style="margin-left: 80px; margin-top: 0px;">2019年10月</h3><br>
+					</a><hr >
+				</div><br><br>
+			</div><br>
+			<div id="demo"></div>
+		</div>
+		<div class="foot" >
+			<div >
+				<div>京ICP备16017121号-3 京ICP证 160773号 
+				<img src="https://z1.muscache.cn/airbnb/static/packages/public_security_bureau_logo.d0289dc0.png"
+					 alt="中国公安局标志"> <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010502032345" target="_blank"
+					 rel="noopener noreferrer"  aria-busy="false">京公网安备 11010502032345号</a>
+					技术支持：卓应教育（湖南）有限公司 <a href="https://a0.muscache.com/pictures/03ec62da-f467-4e2b-bfee-6eefd052d7f5.jpg" target="_blank"
+					 rel="noopener noreferrer"  aria-busy="false">营业执照</a></div>
+				<div dir="ltr" >© 2019 Airbnb, Inc. All rights reserved.</div>
+			</div>
+			<br><br><br><br><br><br>
 		</div>
 	</body>
 	<script type="text/javascript">
-		progress=0;
-		function setProgress(num) {
-			progress =num;
+		//利用COokie拿到信息
+		// var userInfo=$.Cookie('userInfo');
+		var userInfo = {
+			user_id: '1000',
+			user_name:'haku',
+			user_img: '../../img/timg.jpg',
+			lanlord_id:'1001'
+		};
+		var houseInfo = {
+			house_name: '下榻日式风格的房源去畅玩太古里',
+			house_id: 4,
+			house_price: 289.5,
+			house_type: '独立房间',
+			houseImg:['1','2'],
+			house_intake:'',//房子容纳量
+			travel_information:'',//出行信息
+			house_address:'',//地址
+			room_number:'',
+			toilet_number:1,
+			bed_number: 1,
+			//房东信息
+			landlord_id:'',
+			landlord_name:'',
+			landlord_img:''
+		}
+		if (userInfo.user_id != '') {
+			var html = '<li class="layui-nav-item" id="china"><a href="">退出</a></li>' +
+				'<li class="layui-nav-item "> <a href="" >房源订单中心</a></li>' +
+				'<li class="layui-nav-item"><a href="">故事</a></li>' +
+				'<li class="layui-nav-item"><a href="../index.html">首页</a> </li>' +
+				'<li class="layui-nav-item"><a href="">帮助</a> </li>' +
+				' <li class="layui-nav-item" lay-unselect=""><a href="javascript:;"><img src="'+
+				userInfo.user_img+'" class="layui-nav-img">'+userInfo.user_name+'</a> ';
+			$("#rightNav").empty();
+			$("#rightNav").append(html);
+			if(userInfo.isLanlord != '' || userInfo.isLanlord !=null) {
+				$("#china").after('<li class="layui-nav-item "> <a href="">查看我的房源</a></li>'+
+								'<li class="layui-nav-item "><a href="host/create_a_room/room.html">添加房源</a></li>');
+			} else  {
+				$("#china").after('<li class="layui-nav-item "> <a href="">成为房东</a></li>');
+			}
 		}
 		
+		//请求后端拿到房东的房子信息
+		// $.getJSON(basePath+"a?method=getHouseInfoByID&callback=?",{"house_id":4},function(res){
+		// 	console.log(houseInfo);
+		// 	houseInfo = res;
+		// 	console.log(houseInfo);
+		// });
+		
+		
 	</script>
-	
 	<script>
-	layui.use('element', function(){
-	  var $ = layui.jquery
-	  ,element = layui.element; //Tab的切换功能，切换事件监听等，需要依赖element模块
-	  //触发事件
-	  var active = {
-	    setPercent: function(){
-	      //设置50%进度
-	      element.progress('pro', progress+'%')
-	    }
-	  };
-	 
-	  $('.site-demo-active').on('click', function(){
-		 type = $(this).data('type');
-		 if(type == "setPercent") {
-			 setProgress(progress+16.666666666)
-			 active[type].call(this, $(this));
-		 } else {
-			 setProgress(progress-16.666666666 == 0? 0:progress-16.666666666)
-			 active["setPercent"].call(this, $(this));
-		 }
-	   
-	  });
-	});
-	</script> 
+		layui.use(['form','element','layer','laypage'], function() {
+			var form = layui.form,
+				$ = layui.jquery,
+				layer = layui.layer,
+				element = layui.element,
+				laypage = layui.laypage; 
+		form.on('select(person)', function(data){
+			personNum = data.value;
+		});
+
+		$('.layui-btn').on('click', function() {
+			var othis = $(this),
+				method = othis.data('method');
+			active[method] ? active[method].call(this, othis) : '';
+		});
+			//分页
+			 //总页数大于页码总数
+			  laypage.render({
+			    elem: 'demo'
+				,limit:7
+			    ,count: 70 //数据总数
+			    ,jump: function(obj){
+			      console.log(obj)
+			    }
+			  });
+			
+		});
+	</script>
 </html>

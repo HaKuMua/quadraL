@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>便利设施</title>
+		<script src="../../../js/jquery.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="../../../layui/css/layui.css">
+		<script src="../../../js/jquery.min.js"></script>
+		<script type="text/javascript" src="../../../js/jquery.cookie.js"></script>
+		<script src="../../../layui/layui.all.js"></script>
+		<script src="../../../layui/layui.js"></script>]
+		<style type="text/css">
+			#warpper {
+				margin-left: 450px;
+				width: 500px;
+			}
+			#checkBox div,#checkBox h2{
+				margin-left: -80px;
+			}
+			#checkBox span{
+				font-size: 20px;
+			}
+			#footBtn button {
+				border-radius: 15px;
+				border-radius: 15px;
+				font-size: 15px;
+				font-weight: bolder;
+				width: 105px;
+				height: 55px;
+			}
+			#footBtn{
+				position:fixed;
+				top:92%;
+				left:440px; /* width的一半的相反数 */
+				z-index:999;
+			}
+		</style>
+	</head>
+	<body>
+		<div style="margin-top: -20px;z-index: 100; width: 100%;height: 65px; position: fixed;background-color: mistyrose;">
+			<br>
+			&nbsp;&nbsp;&nbsp;&nbsp;<a href="../../index.html">
+				<img src="../../../img/logo.jpg" class="layui-nav-img">
+			</a>
+			<h2 style="position: absolute; margin-top: -30px; margin-left: 60px;">步骤1：先填写基本信息</h2>
+			<br><br>
+			<div class="layui-progress layui-progress-big c" lay-showpercent="true" lay-filter="pro">
+				<div class="layui-progress-bar layui-bg-green" lay-percent="100%"></div>
+			</div>
+		</div>
+		<br><br><br><br><br>
+		<div id="warpper">
+			<br>
+			<h1 style="font-weight: bolder;">房客可以使用哪些区域或设施？</h1>
+			<br>
+			<h3>将公共区域涵盖其中，但不要添加您房源范围之外的空间。</h3>
+			<br><br><br>
+			<form class="layui-form" action="" style="width: 350px;font-weight: bolder;">
+			    <div id="checkBox" class="layui-input-block">
+				</div>
+			</form>
+		</div>
+		<div style="position: fixed; top: 10%; left: 60%;">
+			<img src="../../../img/ReleaseRoom/2.png" height="50%">
+		</div>
+		<div id="footBtn" >
+			<button class="layui-btn site-demo-active" onclick="location.href='amenities.html'">
+				< 返回</button> 
+				<button style="margin-left: 290px; " class="layui-btn " id="btnGo">下一步
+			</button>
+		</div>
+	</body>
+	<script>
+		layui.use(['form', 'layedit','laydate'], function(){
+			var form = layui.form
+			,layer = layui.layer
+			form.on('checkbox()', function(data){
+				if(data.elem.checked) {
+					mySpace.push(data.value);
+				} else {
+					mySpace.pop(data.value);
+				}
+				console.log(data.elem.checked); //是否被选中，true或者false
+				console.log(data.value); //复选框value值，也可以通过data.elem.value得到
+			});
+		});
+	</script>
+	<script>
+		var space=["厨房","洗衣机","干衣机","停车位","健身房","游泳池",
+					"按摩浴缸","电梯"];
+		var mySpace=[];
+		for(var i=0;i<space.length;i++) {
+			html='<input  type="checkbox" lay-filter="filter" name="space" lay-skin="primary" title="'+space[i]+'" value="'+space[i]+'"><br><br><br>'
+			$("#checkBox").append(html);
+		}
+		$('#btnGo').on('click', function() {
+			$.cookie('mySpace', mySpace);
+			location.href = "houseImage.html";
+		});
+		
+		window.onload = function() {
+			if($.cookie('mySpace') != null) {
+				var arr = $.cookie('mySpace').split(",");
+				mySpace=arr;
+			}
+			
+		}
+	</script>
+</html>
