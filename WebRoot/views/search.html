@@ -12,24 +12,29 @@
 				color: white;
 				font-weight: bold;
 			}
+
 			#rightNav {
 				float: right;
 			}
-			#choose{
+
+			#choose {
 				height: 50px;
 				border: 1px solid gainsboro;
 				line-height: 50px;
 			}
-			#main{
+
+			#main {
 				margin-top: 10px;
 				position: absolute;
 				width: 100%;
 			}
-			#main img{
+
+			#main img {
 				border-radius: 10px;
 			}
+
 			.foot {
-				margin-top:80%;
+				margin-top: 80%;
 				width: 1090px;
 				margin-left: 550px;
 			}
@@ -40,37 +45,36 @@
 			<ul class="layui-nav layui-bg-green" id="navId">
 				<li class="layui-nav-item">
 					<a href="index.html">
-						<img src="../img/logo.jpg" style="border-radius: 50%;" width="49px" height="49px" >
+						<img src="../img/logo.jpg" style="border-radius: 50%;" width="49px" height="49px">
 					</a>
 				</li>
 				<li class="layui-nav-item ">
 					<form class="layui-form" action="">
-						<input id="topSearch" style=" width: 400px;height:48px; font-weight: bold; font-size: 20px; " name="search" 
-						placeholder="搜一搜"
-						 autocomplete="off" class="layui-input">
+						<input id="topSearch" style=" width: 400px;height:48px; font-weight: bold; font-size: 20px; " name="search"
+						 placeholder="搜一搜" autocomplete="off" class="layui-input">
 					</form>
 				</li>
-				<div id="rightNav" >
+				<div id="rightNav">
 					<li class="layui-nav-item" id="china"><a href="">退出</a></li>
-					<li class="layui-nav-item "> <a href="" >房源订单中心</a></li>
+					<li class="layui-nav-item "> <a href="">房源订单中心</a></li>
 					<li class="layui-nav-item"><a href="">故事</a></li>
 					<li class="layui-nav-item"><a href="../index.html">首页</a> </li>
 					<li class="layui-nav-item"><a href="">帮助</a> </li>
 					<li class="layui-nav-item" lay-unselect=""><a href="javascript:;">
-					<img src="'+userInfo.user_img+'" class="layui-nav-img"></a> 
+							<img src="'+userInfo.user_img+'" class="layui-nav-img"></a>
 				</div>
 			</ul>
 		</div>
 		<div id="choose">
 			<button type="button" id="dateChoose" class="layui-btn  layui-btn-green">12月21日 - 12月22日</button>
-			<button type="button"  data-method="setPersonNum" class="layui-btn layui-btn-primary">房客</button>
-			<button type="button"  data-method="setPrice" class="layui-btn layui-btn-primary">价格</button>
+			<button type="button" data-method="setPersonNum" class="layui-btn layui-btn-primary">房客</button>
+			<button type="button" data-method="setPrice" class="layui-btn layui-btn-primary">价格</button>
 			<button type="button" class="layui-btn layui-btn-primary">房源人数</button>
 			<button type="button" class="layui-btn layui-btn-primary">建筑类型</button>
 			<button type="button" class="layui-btn layui-btn-primary">更多筛选条件</button>
 		</div>
 		<div id="main">
-			<img src="../img/tag/8.gif" >
+			<img src="../img/tag/8.gif">
 			<span id="t1" style="font-size: 23px; "><b>300多处住宿</b></span><br><br>
 			<div id="hosue">
 				<!-- <div style="height: 420px;">
@@ -151,15 +155,15 @@
 			</div>
 			<div style="text-align: center; margin-top: 60px;" id="page"></div>
 		</div>
-		<div class="foot" >
-			<div >
-				<div>京ICP备16017121号-3 京ICP证 160773号 
-				<img src="https://z1.muscache.cn/airbnb/static/packages/public_security_bureau_logo.d0289dc0.png"
-					 alt="中国公安局标志"> <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010502032345" target="_blank"
-					 rel="noopener noreferrer"  aria-busy="false">京公网安备 11010502032345号</a>
+		<div class="foot">
+			<div>
+				<div>京ICP备16017121号-3 京ICP证 160773号
+					<img src="https://z1.muscache.cn/airbnb/static/packages/public_security_bureau_logo.d0289dc0.png" alt="中国公安局标志">
+					<a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010502032345" target="_blank" rel="noopener noreferrer"
+					 aria-busy="false">京公网安备 11010502032345号</a>
 					技术支持：卓应教育（湖南）有限公司 <a href="https://a0.muscache.com/pictures/03ec62da-f467-4e2b-bfee-6eefd052d7f5.jpg" target="_blank"
-					 rel="noopener noreferrer"  aria-busy="false">营业执照</a></div>
-				<div dir="ltr" >© 2019 Airbnb, Inc. All rights reserved.</div>
+					 rel="noopener noreferrer" aria-busy="false">营业执照</a></div>
+				<div dir="ltr">© 2019 Airbnb, Inc. All rights reserved.</div>
 			</div>
 			<br><br><br><br><br><br>
 		</div>
@@ -169,424 +173,459 @@
 		// var userInfo=$.Cookie('userInfo');
 		var userInfo = {
 			user_id: '1000',
-			user_name:'haku',
+			user_name: 'haku',
 			user_img: '../img/timg.jpg',
-			lanlord_id:'1001'
+			islanlord: 1
 		};
-		var houseInfo = [
-			{
+		var houseInfo = [{
 				house_name: '下榻日式风格的房源去畅玩太古里',
 				house_id: '1001',
-				house_imgs: ['../img/room/ac356f32-0ba7-4dd8-9796-94d085e711fa.jpg','../img/room/bbe8b0d4-4613-4bb2-8c8a-7f45914f0919.jpg',
-							'../img/room/9b267e78-d8ef-4c0e-a9ac-44cfa978e34e.jpg','../img/room/65e00580-6a91-4ee7-bc11-d05f259814ad.jpg'],
+				house_imgs: ['../img/room/ac356f32-0ba7-4dd8-9796-94d085e711fa.jpg',
+					'../img/room/bbe8b0d4-4613-4bb2-8c8a-7f45914f0919.jpg',
+					'../img/room/9b267e78-d8ef-4c0e-a9ac-44cfa978e34e.jpg', '../img/room/65e00580-6a91-4ee7-bc11-d05f259814ad.jpg'
+				],
 				house_price: '289',
 				house_type: '独立房间',
 				bed_number: 1,
-				landlord_img:'../img/timg.jpg',
-				room_number:1,
-				toilet_number:1
-			},{
+				user_img: '../img/timg.jpg',
+				room_number: 1,
+				toilet_number: 1
+			}, {
 				house_name: '下榻日式风格的房源去畅玩太古里',
 				house_id: '1001',
-				house_imgs: ['../img/room/ac356f32-0ba7-4dd8-9796-94d085e711fa.jpg','../img/room/bbe8b0d4-4613-4bb2-8c8a-7f45914f0919.jpg',
-							'../img/room/9b267e78-d8ef-4c0e-a9ac-44cfa978e34e.jpg','../img/room/65e00580-6a91-4ee7-bc11-d05f259814ad.jpg'],
+				house_imgs: ['../img/room/ac356f32-0ba7-4dd8-9796-94d085e711fa.jpg',
+					'../img/room/bbe8b0d4-4613-4bb2-8c8a-7f45914f0919.jpg',
+					'../img/room/9b267e78-d8ef-4c0e-a9ac-44cfa978e34e.jpg', '../img/room/65e00580-6a91-4ee7-bc11-d05f259814ad.jpg'
+				],
 				house_price: '289',
 				house_type: '独立房间',
 				bed_number: '1',
-				landlord_img:'../img/timg.jpg',
-				room_number:1,
-				toilet_number:1
+				user_img: '../img/timg.jpg',
+				room_number: 1,
+				toilet_number: 1
 			},
 			{
 				house_name: '下榻日式风格的房源去畅玩太古里',
 				house_id: '1001',
-				house_imgs: ['../img/room/ac356f32-0ba7-4dd8-9796-94d085e711fa.jpg','../img/room/bbe8b0d4-4613-4bb2-8c8a-7f45914f0919.jpg',
-							'../img/room/9b267e78-d8ef-4c0e-a9ac-44cfa978e34e.jpg','../img/room/65e00580-6a91-4ee7-bc11-d05f259814ad.jpg'],
+				house_imgs: ['../img/room/ac356f32-0ba7-4dd8-9796-94d085e711fa.jpg',
+					'../img/room/bbe8b0d4-4613-4bb2-8c8a-7f45914f0919.jpg',
+					'../img/room/9b267e78-d8ef-4c0e-a9ac-44cfa978e34e.jpg', '../img/room/65e00580-6a91-4ee7-bc11-d05f259814ad.jpg'
+				],
 				house_price: '289',
 				house_type: '独立房间',
 				bed_number: '1',
-				landlord_img:'../img/timg.jpg',
-				room_number:1,
-				toilet_number:1
+				user_img: '../img/timg.jpg',
+				room_number: 1,
+				toilet_number: 1
 			},
 			{
 				house_name: '下榻日式风格的房源去畅玩太古里',
 				house_id: '1001',
-				house_imgs: ['../img/room/ac356f32-0ba7-4dd8-9796-94d085e711fa.jpg','../img/room/bbe8b0d4-4613-4bb2-8c8a-7f45914f0919.jpg',
-							'../img/room/9b267e78-d8ef-4c0e-a9ac-44cfa978e34e.jpg','../img/room/65e00580-6a91-4ee7-bc11-d05f259814ad.jpg'],
+				house_imgs: ['../img/room/ac356f32-0ba7-4dd8-9796-94d085e711fa.jpg',
+					'../img/room/bbe8b0d4-4613-4bb2-8c8a-7f45914f0919.jpg',
+					'../img/room/9b267e78-d8ef-4c0e-a9ac-44cfa978e34e.jpg', '../img/room/65e00580-6a91-4ee7-bc11-d05f259814ad.jpg'
+				],
 				house_price: '289',
 				house_type: '独立房间',
 				bed_number: '1',
-				landlord_img:'../img/timg.jpg',
-				room_number:1,
-				toilet_number:1
+				user_img: '../img/timg.jpg',
+				room_number: 1,
+				toilet_number: 1
 			},
 			{
 				house_name: '下榻日式风格的房源去畅玩太古里',
 				house_id: '1001',
-				house_imgs: ['../img/room/ac356f32-0ba7-4dd8-9796-94d085e711fa.jpg','../img/room/bbe8b0d4-4613-4bb2-8c8a-7f45914f0919.jpg',
-							'../img/room/9b267e78-d8ef-4c0e-a9ac-44cfa978e34e.jpg','../img/room/65e00580-6a91-4ee7-bc11-d05f259814ad.jpg'],
+				house_imgs: ['../img/room/ac356f32-0ba7-4dd8-9796-94d085e711fa.jpg',
+					'../img/room/bbe8b0d4-4613-4bb2-8c8a-7f45914f0919.jpg',
+					'../img/room/9b267e78-d8ef-4c0e-a9ac-44cfa978e34e.jpg', '../img/room/65e00580-6a91-4ee7-bc11-d05f259814ad.jpg'
+				],
 				house_price: '289',
 				house_type: '独立房间',
 				bed_number: '1',
-				landlord_img:'../img/timg.jpg',
-				room_number:1,
-				toilet_number:1
+				user_img: '../img/timg.jpg',
+				room_number: 1,
+				toilet_number: 1
 			},
 			{
 				house_name: '下榻日式风格的房源去畅玩太古里',
 				house_id: '1001',
-				house_imgs: ['../img/room/ac356f32-0ba7-4dd8-9796-94d085e711fa.jpg','../img/room/bbe8b0d4-4613-4bb2-8c8a-7f45914f0919.jpg',
-							'../img/room/9b267e78-d8ef-4c0e-a9ac-44cfa978e34e.jpg','../img/room/65e00580-6a91-4ee7-bc11-d05f259814ad.jpg'],
+				house_imgs: ['../img/room/ac356f32-0ba7-4dd8-9796-94d085e711fa.jpg',
+					'../img/room/bbe8b0d4-4613-4bb2-8c8a-7f45914f0919.jpg',
+					'../img/room/9b267e78-d8ef-4c0e-a9ac-44cfa978e34e.jpg', '../img/room/65e00580-6a91-4ee7-bc11-d05f259814ad.jpg'
+				],
 				house_price: '289',
 				house_type: '独立房间',
 				bed_number: '1',
-				landlord_img:'../img/timg.jpg',
-				room_number:1,
-				toilet_number:1
+				user_img: '../img/timg.jpg',
+				room_number: 1,
+				toilet_number: 1
 			},
 			{
 				house_name: '下榻日式风格的房源去畅玩太古里',
 				house_id: '1001',
-				house_imgs: ['../img/room/ac356f32-0ba7-4dd8-9796-94d085e711fa.jpg','../img/room/bbe8b0d4-4613-4bb2-8c8a-7f45914f0919.jpg',
-							'../img/room/9b267e78-d8ef-4c0e-a9ac-44cfa978e34e.jpg','../img/room/65e00580-6a91-4ee7-bc11-d05f259814ad.jpg'],
+				house_imgs: ['../img/room/ac356f32-0ba7-4dd8-9796-94d085e711fa.jpg',
+					'../img/room/bbe8b0d4-4613-4bb2-8c8a-7f45914f0919.jpg',
+					'../img/room/9b267e78-d8ef-4c0e-a9ac-44cfa978e34e.jpg', '../img/room/65e00580-6a91-4ee7-bc11-d05f259814ad.jpg'
+				],
 				house_price: '289',
 				house_type: '独立房间',
 				bed_number: 1,
-				landlord_img:'../img/timg.jpg',
-				room_number:1,
-				toilet_number:1
-			},{
+				user_img: '../img/timg.jpg',
+				room_number: 1,
+				toilet_number: 1
+			}, {
 				house_name: '下榻日式风格的房源去畅玩太古里',
 				house_id: '1001',
-				house_imgs: ['../img/room/ac356f32-0ba7-4dd8-9796-94d085e711fa.jpg','../img/room/bbe8b0d4-4613-4bb2-8c8a-7f45914f0919.jpg',
-							'../img/room/9b267e78-d8ef-4c0e-a9ac-44cfa978e34e.jpg','../img/room/65e00580-6a91-4ee7-bc11-d05f259814ad.jpg'],
+				house_imgs: ['../img/room/ac356f32-0ba7-4dd8-9796-94d085e711fa.jpg',
+					'../img/room/bbe8b0d4-4613-4bb2-8c8a-7f45914f0919.jpg',
+					'../img/room/9b267e78-d8ef-4c0e-a9ac-44cfa978e34e.jpg', '../img/room/65e00580-6a91-4ee7-bc11-d05f259814ad.jpg'
+				],
 				house_price: '289',
 				house_type: '独立房间',
 				bed_number: '1',
-				landlord_img:'../img/timg.jpg',
-				room_number:1,
-				toilet_number:1
+				user_img: '../img/timg.jpg',
+				room_number: 1,
+				toilet_number: 1
 			},
 			{
 				house_name: '下榻日式风格的房源去畅玩太古里',
 				house_id: '1001',
-				house_imgs: ['../img/room/ac356f32-0ba7-4dd8-9796-94d085e711fa.jpg','../img/room/bbe8b0d4-4613-4bb2-8c8a-7f45914f0919.jpg',
-							'../img/room/9b267e78-d8ef-4c0e-a9ac-44cfa978e34e.jpg','../img/room/65e00580-6a91-4ee7-bc11-d05f259814ad.jpg'],
+				house_imgs: ['../img/room/ac356f32-0ba7-4dd8-9796-94d085e711fa.jpg',
+					'../img/room/bbe8b0d4-4613-4bb2-8c8a-7f45914f0919.jpg',
+					'../img/room/9b267e78-d8ef-4c0e-a9ac-44cfa978e34e.jpg', '../img/room/65e00580-6a91-4ee7-bc11-d05f259814ad.jpg'
+				],
 				house_price: '289',
 				house_type: '独立房间',
 				bed_number: '1',
-				landlord_img:'../img/timg.jpg',
-				room_number:1,
-				toilet_number:1
+				user_img: '../img/timg.jpg',
+				room_number: 1,
+				toilet_number: 1
 			},
 			{
 				house_name: '下榻日式风格的房源去畅玩太古里',
 				house_id: '1001',
-				house_imgs: ['../img/room/ac356f32-0ba7-4dd8-9796-94d085e711fa.jpg','../img/room/bbe8b0d4-4613-4bb2-8c8a-7f45914f0919.jpg',
-							'../img/room/9b267e78-d8ef-4c0e-a9ac-44cfa978e34e.jpg','../img/room/65e00580-6a91-4ee7-bc11-d05f259814ad.jpg'],
+				house_imgs: ['../img/room/ac356f32-0ba7-4dd8-9796-94d085e711fa.jpg',
+					'../img/room/bbe8b0d4-4613-4bb2-8c8a-7f45914f0919.jpg',
+					'../img/room/9b267e78-d8ef-4c0e-a9ac-44cfa978e34e.jpg', '../img/room/65e00580-6a91-4ee7-bc11-d05f259814ad.jpg'
+				],
 				house_price: '289',
 				house_type: '独立房间',
 				bed_number: '1',
-				landlord_img:'../img/timg.jpg',
-				room_number:1,
-				toilet_number:1
-			},{
+				user_img: '../img/timg.jpg',
+				room_number: 1,
+				toilet_number: 1
+			}, {
 				house_name: '下榻日式风格的房源去畅玩太古里',
 				house_id: '1001',
-				house_imgs: ['../img/room/ac356f32-0ba7-4dd8-9796-94d085e711fa.jpg','../img/room/bbe8b0d4-4613-4bb2-8c8a-7f45914f0919.jpg',
-							'../img/room/9b267e78-d8ef-4c0e-a9ac-44cfa978e34e.jpg','../img/room/65e00580-6a91-4ee7-bc11-d05f259814ad.jpg'],
+				house_imgs: ['../img/room/ac356f32-0ba7-4dd8-9796-94d085e711fa.jpg',
+					'../img/room/bbe8b0d4-4613-4bb2-8c8a-7f45914f0919.jpg',
+					'../img/room/9b267e78-d8ef-4c0e-a9ac-44cfa978e34e.jpg', '../img/room/65e00580-6a91-4ee7-bc11-d05f259814ad.jpg'
+				],
 				house_price: '289',
 				house_type: '独立房间',
 				bed_number: 1,
-				landlord_img:'../img/timg.jpg',
-				room_number:1,
-				toilet_number:1
-			},{
+				user_img: '../img/timg.jpg',
+				room_number: 1,
+				toilet_number: 1
+			}, {
 				house_name: '下榻日式风格的房源去畅玩太古里',
 				house_id: '1001',
-				house_imgs: ['../img/room/ac356f32-0ba7-4dd8-9796-94d085e711fa.jpg','../img/room/bbe8b0d4-4613-4bb2-8c8a-7f45914f0919.jpg',
-							'../img/room/9b267e78-d8ef-4c0e-a9ac-44cfa978e34e.jpg','../img/room/65e00580-6a91-4ee7-bc11-d05f259814ad.jpg'],
+				house_imgs: ['../img/room/ac356f32-0ba7-4dd8-9796-94d085e711fa.jpg',
+					'../img/room/bbe8b0d4-4613-4bb2-8c8a-7f45914f0919.jpg',
+					'../img/room/9b267e78-d8ef-4c0e-a9ac-44cfa978e34e.jpg', '../img/room/65e00580-6a91-4ee7-bc11-d05f259814ad.jpg'
+				],
 				house_price: '289',
 				house_type: '独立房间',
 				bed_number: '1',
-				landlord_img:'../img/timg.jpg',
-				room_number:1,
-				toilet_number:1
+				user_img: '../img/timg.jpg',
+				room_number: 1,
+				toilet_number: 1
 			}
-			
+
 		]
 		//初始化导航栏
 		if (userInfo.user_id != '') {
-			var html = '<li class="layui-nav-item "> <a href="" >房源订单中心</a></li>' +
+			var html = '<li class="layui-nav-item " id="china"> <a href="" >房源订单中心</a></li>' +
 				'<li class="layui-nav-item"><a href="">故事</a></li>' +
-				'<li class="layui-nav-item"><a href="../index.html"></a> </li>' +
+				'<li class="layui-nav-item"><a href="../index.html">主页</a></li>' +
 				'<li class="layui-nav-item"><a href="">帮助</a> </li>' +
-				' <li class="layui-nav-item" lay-unselect=""><a href="javascript:;"><img src="'+
-				userInfo.user_img+'" class="layui-nav-img">'+userInfo.user_name+'</a> '+
-				'<dl class="layui-nav-child"><dd><a href="javascript:;">个人中心</a></dd>'+
+				' <li class="layui-nav-item" lay-unselect=""><a href="javascript:;"><img src="' +
+				userInfo.user_img + '" class="layui-nav-img">' + userInfo.user_name + '</a> ' +
+				'<dl class="layui-nav-child"><dd><a href="javascript:;">个人中心</a></dd>' +
 				' <dd><a href="javascript:;">修改信息</a></dd><dd><a href="javascript:;">退了</a></dd></dl>';
 			$("#rightNav").empty();
 			$("#rightNav").append(html);
-			if(userInfo.isLanlord != '' || userInfo.isLanlord !=null) {
-				$("#china").after('<li class="layui-nav-item "> <a href="">查看我的房源</a></li>'+
-								'<li class="layui-nav-item "><a href="host/create_a_room/room.html">添加房源</a></li>');
-			} else  {
+			if (userInfo.islanlord != 0 || userInfo.islanlord != null) {
+				$("#china").after('<li class="layui-nav-item "> <a href="">查看我的房源</a></li>' +
+					'<li class="layui-nav-item "><a href="host/create_a_room/room.html">添加房源</a></li>');
+			} else {
 				$("#china").after('<li class="layui-nav-item "> <a href="">成为房东</a></li>');
 			}
 		}
-		
+
 		//请求后端拿到指定房子信息
 		// $.getJSON(basePath+"a?method=getHouseInfoByID&callback=?",{"house_id":4},function(res){
 		// 	console.log(houseInfo);
 		// 	houseInfo = res;
 		// 	console.log(houseInfo);
 		// });
-		window.onload= function() {
+		window.onload = function() {
 			//从后端拿到房子数量
-			var sum=100;
+			var sum = 100;
 			$("#t1").empty();
-			$("#t1").append('<b>'+sum+'多处住宿</b>');
-		} 
+			$("#t1").append('<b>' + sum + '多处住宿</b>');
+		}
 		getHouse("#hosue");
+
 		function getHouse(infoId) {
-			var len =houseInfo.length;
+			var len = houseInfo.length;
 			$(infoId).append('<div  style="height: 420px;" id="d1"></div>');
 			$(infoId).append('<div  style="height: 420px;" id="d2"></div>');
 			$(infoId).append('<div  style="height: 420px;" id="d3"></div>');
 			for (var k = 0; k < len; k++) {
-				var html = '<div class="layui-col-xs3" ><div class="layui-carousel" id="imgCarousel'+k+'"><div carousel-item=""></div></div>' +
-					'<a href="host/landlord.html?landlord_id='+houseInfo[k].lanlord_id+'">'+
-					'<div class="layui-col-xs9"><h4>'+houseInfo[k].house_type+' · '+houseInfo[k].room_number+'室'+houseInfo[k].toilet_number+'卫'+houseInfo[k].bed_number+'床</h4>' +
-					'<h3>'+houseInfo[k].house_name+'</h3><h3>￥'+houseInfo[k].house_price+' 每晚</h3>'+
-					'</div><div class="layui-col-xs3" >'+
-					'<img style="border-radius: 50%;" src="'+houseInfo[k].landlord_img+'" width="45px" height="45px" >'+
+				var html = '<div class="layui-col-xs3" ><div class="layui-carousel" id="imgCarousel' + k +
+					'"><div carousel-item=""></div></div>' +
+					'<a href="host/user.html?user_id=' + houseInfo[k].user_id + '">' +
+					'<div class="layui-col-xs9"><h4>' + houseInfo[k].house_type + ' · ' + houseInfo[k].room_number + '室' + houseInfo[k]
+					.toilet_number + '卫' + houseInfo[k].bed_number + '床</h4>' +
+					'<h3>' + houseInfo[k].house_name + '</h3><h3>￥' + houseInfo[k].house_price + ' 每晚</h3>' +
+					'</div><div class="layui-col-xs3" >' +
+					'<img style="border-radius: 50%;" src="' + houseInfo[k].user_img + '" width="45px" height="45px" >' +
 					'</div></a></div>';
-				if(k<4) {
+				if (k < 4) {
 					$("#d1").append(html);
-				}else if(k >=4 &&k<8) {
+				} else if (k >= 4 && k < 8) {
 					$("#d2").append(html);
-				}else {
+				} else {
 					$("#d3").append(html);
 				}
-				for(var j=0;j<houseInfo[k].house_imgs.length;j++) {	
-					imghtml='<div><a href="host/home.html?house_id='+houseInfo[k].house_id+'"><img  src="'+houseInfo[k].house_imgs[j]+'"  width="460px" ></a></div>';
-					$("#imgCarousel"+k+" div").append(imghtml);
+				for (var j = 0; j < houseInfo[k].house_imgs.length; j++) {
+					imghtml = '<div><a href="host/home.html?house_id=' + houseInfo[k].house_id + '"><img  src="' + houseInfo[k].house_imgs[
+						j] + '"  width="460px" ></a></div>';
+					$("#imgCarousel" + k + " div").append(imghtml);
 				}
 			}
 		}
-		
-		
-		
+
 		/**
 		 * 时间格式化
 		 * @param {Date} dateVal 
 		 */
-		function formatDate(dateVal){
-		  let year = dateVal.getFullYear(),
-		      month = dateVal.getMonth()+1,
-		      day = dateVal.getDate()
-		  if(month < 10 ){
-		    month = `0${month}`
-		  }
-		  if(day < 10){
-		    day = `0${day}`
-		  }
-		  return `${year}-${month}-${day}`
+		function formatDate(dateVal) {
+			let year = dateVal.getFullYear(),
+				month = dateVal.getMonth() + 1,
+				day = dateVal.getDate()
+			if (month < 10) {
+				month = `0${month}`
+			}
+			if (day < 10) {
+				day = `0${day}`
+			}
+			return `${year}-${month}-${day}`
 		}
-		
-		function formatTime(year,month,day){
-		  // let year = dateVal.getFullYear(),
-		  //     month = dateVal.getMonth()+1,
-		  //     day = dateVal.getDate()
-		  if(month < 10 ){
-		    month = `0${month}`
-		  }
-		  if(day < 10){
-		    day = `0${day}`
-		  }
-		  return `${year}-${month}-${day}`
+
+		function formatTime(year, month, day) {
+			// let year = dateVal.getFullYear(),
+			//     month = dateVal.getMonth()+1,
+			//     day = dateVal.getDate()
+			if (month < 10) {
+				month = `0${month}`
+			}
+			if (day < 10) {
+				day = `0${day}`
+			}
+			return `${year}-${month}-${day}`
 		}
 		/**
 		 * 批量生成日期函数
 		 * @param {Date} startTime 
 		 * @param {Date} endTime 
 		 */
-		function generateFun(startTime, endTime){
-		  let timeStamp = Math.ceil((endTime.getTime()-startTime.getTime())/(1000*60*60*24)),//判断两个日期相差多少天
-		      timeArr = [];
-		  for (let index = 1; index <= timeStamp; index++) {
-		    const element = startTime.setTime((1000*60*60*24) + startTime.getTime())
-		    timeArr.push(formatDate(new Date(element)))
-		  }
-		  timeArr.push(formatDate(startTime))
-		  return timeArr
+		function generateFun(startTime, endTime) {
+			let timeStamp = Math.ceil((endTime.getTime() - startTime.getTime()) / (1000 * 60 * 60 * 24)), //判断两个日期相差多少天
+				timeArr = [];
+			for (let index = 1; index <= timeStamp; index++) {
+				const element = startTime.setTime((1000 * 60 * 60 * 24) + startTime.getTime())
+				timeArr.push(formatDate(new Date(element)))
+			}
+			timeArr.push(formatDate(startTime))
+			return timeArr
 		}
 	</script>
 	<script>
-		layui.use(['form','element','layer','laypage','carousel','laydate'], function() {
+		layui.use(['form', 'element', 'layer', 'laypage', 'carousel', 'laydate'], function() {
 			var form = layui.form,
 				$ = layui.jquery,
 				layer = layui.layer,
 				element = layui.element,
 				laypage = layui.laypage,
-				carousel=layui.carousel,
-				laydate=layui.laydate; 
+				carousel = layui.carousel,
+				laydate = layui.laydate;
 			//日期范围
 			laydate.render({
-				elem: '#dateChoose'
-				,range: true
-				,format: 'MM月dd日' //可任意组合
-				,done: function(value, date, endDate){
-					dateArr=generateFun(new Date(formatTime(date.year,date.month,date.date)), new Date(formatTime(endDate.year,endDate.month,endDate.date)));
+				elem: '#dateChoose',
+				range: true,
+				format: 'MM月dd日' //可任意组合
+					,
+				done: function(value, date, endDate) {
+					dateArr = generateFun(new Date(formatTime(date.year, date.month, date.date)), new Date(formatTime(endDate.year,
+						endDate.month, endDate.date)));
 					console.log(dateArr)
-					DateNum=dateArr.length-1;
+					DateNum = dateArr.length - 1;
 					//请求后端，再拿到房子数据
-				  }
+				}
 			});
-			
-			  //触发事件
-			   var active = {
-				setPersonNum: function(){
-					html=''
-			       //示范一个公告层
-			       layer.open({
-			         type: 1
-			         ,title: false //不显示标题栏
-			         ,closeBtn: false
-			         ,area:['300px', '200px']
-			         ,shade: 0.5,
-					 offset: ['110px', '200px']
-			         ,btn: ['取消','确认']
-			         ,btnAlign: 'c'
-			         ,moveType: 1 //拖拽模式，0或者1
-			         ,content:html
-			         ,btn1: function(index, layero){
-			             //按钮【按钮二】的回调
-						 layer.close(index)
-			           }
-			           ,btn2: function(index, layero){
-						   alert(index)
-			             console.log(layero)
-			           }
-			       });
-			     }
-			     ,setPrice: function(othis){
-			       var type = othis.data('type')
-			       ,text = othis.text();
-			       layer.open({
-			         type: 1
-			         ,offset: type //具体配置参考：http://www.layui.com/doc/modules/layer.html#offset
-			         ,id: 'layerDemo'+type //防止重复弹出
-			         ,content: '<div style="padding: 20px 100px;">'+ text +'</div>'
-			         ,btn: '关闭全部'
-			         ,btnAlign: 'c' //按钮居中
-			         ,shade: 0.5 //不显示遮罩
-			         ,yes: function(){
-			           layer.closeAll();
-			        }
-			       });
-			     }
-			   };
-			  
-			  $('.layui-btn').on('click', function(){
-			    var othis = $(this), method = othis.data('method');
-			    active[method] ? active[method].call(this, othis) : '';
-			  });
-				
-		//总页数大于页码总数
-		laypage.render({
-			elem: 'page'
-			,limit:7
-			,count: 70 //数据总数
-			,jump: function(obj){
-			console.log(obj)
-			}
+
+			//触发事件
+			var active = {
+				setPersonNum: function() {
+					html = ''
+					//示范一个公告层
+					layer.open({
+						type: 1,
+						title: false //不显示标题栏
+							,
+						closeBtn: false,
+						area: ['300px', '200px'],
+						shade: 0.5,
+						offset: ['110px', '200px'],
+						btn: ['取消', '确认'],
+						btnAlign: 'c',
+						moveType: 1 //拖拽模式，0或者1
+							,
+						content: html,
+						btn1: function(index, layero) {
+							//按钮【按钮二】的回调
+							layer.close(index)
+						},
+						btn2: function(index, layero) {
+							alert(index)
+							console.log(layero)
+						}
+					});
+				},
+				setPrice: function(othis) {
+					var type = othis.data('type'),
+						text = othis.text();
+					layer.open({
+						type: 1,
+						offset: type //具体配置参考：http://www.layui.com/doc/modules/layer.html#offset
+							,
+						id: 'layerDemo' + type //防止重复弹出
+							,
+						content: '<div style="padding: 20px 100px;">' + text + '</div>',
+						btn: '关闭全部',
+						btnAlign: 'c' //按钮居中
+							,
+						shade: 0.5 //不显示遮罩
+							,
+						yes: function() {
+							layer.closeAll();
+						}
+					});
+				}
+			};
+
+			$('.layui-btn').on('click', function() {
+				var othis = $(this),
+					method = othis.data('method');
+				active[method] ? active[method].call(this, othis) : '';
+			});
+
+			//总页数大于页码总数
+			laypage.render({
+				elem: 'page',
+				limit: 7,
+				count: 70 //数据总数
+					,
+				jump: function(obj) {
+					console.log(obj)
+				}
+			});
+			//图片轮播
+			carousel.render({
+				elem: '#imgCarousel0',
+				width: '460px',
+				height: '306.6px',
+				autoplay: false
+			});
+			//图片轮播
+			carousel.render({
+				elem: '#imgCarousel1',
+				width: '460px',
+				height: '306.6px',
+				autoplay: false
+			});
+			carousel.render({
+				elem: '#imgCarousel2',
+				width: '460px',
+				height: '306.6px',
+				autoplay: false
+			});
+			//图片轮播
+			carousel.render({
+				elem: '#imgCarousel3',
+				width: '460px',
+				height: '306.6px',
+				autoplay: false
+			});
+			//图片轮播
+			carousel.render({
+				elem: '#imgCarousel4',
+				width: '460px',
+				height: '306.6px',
+				autoplay: false
+			});
+			//图片轮播
+			carousel.render({
+				elem: '#imgCarousel5',
+				width: '460px',
+				height: '306.6px',
+				autoplay: false
+			});
+			//图片轮播
+			carousel.render({
+				elem: '#imgCarousel6',
+				width: '460px',
+				height: '306.6px',
+				autoplay: false
+			});
+			//图片轮播
+			carousel.render({
+				elem: '#imgCarousel7',
+				width: '460px',
+				height: '306.6px',
+				autoplay: false
+			});
+			//图片轮播
+			carousel.render({
+				elem: '#imgCarousel8',
+				width: '460px',
+				height: '306.6px',
+				autoplay: false
+			});
+			//图片轮播
+			carousel.render({
+				elem: '#imgCarousel9',
+				width: '460px',
+				height: '306.6px',
+				autoplay: false
+			});
+			//图片轮播
+			carousel.render({
+				elem: '#imgCarousel10',
+				width: '460px',
+				height: '306.6px',
+				autoplay: false
+			});
+			//图片轮播
+			carousel.render({
+				elem: '#imgCarousel11',
+				width: '460px',
+				height: '306.6px',
+				autoplay: false
+			});
+
 		});
-		//图片轮播
-		carousel.render({
-		  elem: '#imgCarousel0'
-		  ,width: '460px'
-		  ,height: '306.6px'
-		  ,autoplay:false
-		});
-		//图片轮播
-		carousel.render({
-		  elem: '#imgCarousel1'
-		  ,width: '460px'
-		  ,height: '306.6px'
-		 ,autoplay:false
-		});
-		carousel.render({
-			elem: '#imgCarousel2'
-			,width: '460px'
-			,height: '306.6px'
-			,autoplay:false
-		});
-		//图片轮播
-		carousel.render({
-			elem: '#imgCarousel3'
-			,width: '460px'
-			,height: '306.6px'
-			,autoplay:false
-		});
-		//图片轮播
-		carousel.render({
-			elem: '#imgCarousel4'
-			,width: '460px'
-			,height: '306.6px'
-			,autoplay:false
-		});
-		//图片轮播
-		carousel.render({
-			elem: '#imgCarousel5'
-			,width: '460px'
-			,height: '306.6px'
-			,autoplay:false
-		});
-		//图片轮播
-		carousel.render({
-			elem: '#imgCarousel6'
-			,width: '460px'
-			,height: '306.6px'
-			,autoplay:false
-		});
-		//图片轮播
-		carousel.render({
-			elem: '#imgCarousel7'
-			,width: '460px'
-			,height: '306.6px'
-			,autoplay:false
-		});
-		//图片轮播
-		carousel.render({
-			elem: '#imgCarousel8'
-			,width: '460px'
-			,height: '306.6px'
-			,autoplay:false
-		});
-		//图片轮播
-		carousel.render({
-			elem: '#imgCarousel9'
-			,width: '460px'
-			,height: '306.6px'
-			,autoplay:false
-		});
-		//图片轮播
-		carousel.render({
-			elem: '#imgCarousel10'
-			,width: '460px'
-			,height: '306.6px'
-			,autoplay:false
-		});
-		//图片轮播
-		carousel.render({
-			elem: '#imgCarousel11'
-			,width: '460px'
-			,height: '306.6px'
-			,autoplay:false
-		});
-		
-	});
 	</script>
 </html>

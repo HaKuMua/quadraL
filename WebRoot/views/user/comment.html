@@ -127,7 +127,8 @@
 			user_pwd:'',
 			money:'',
 			user_phone:'',
-			real_name:''
+			real_name:'',
+			islanlord:1
 		};
 		if(userInfo.user_id != '') {
 			var html = '<li class="layui-nav-item" id="china"><a href="">退出</a></li>' +
@@ -139,7 +140,7 @@
 				userInfo.user_headimg_url+'" class="layui-nav-img">'+userInfo.user_name+'</a> ';
 			$("#rightNav").empty();
 			$("#rightNav").append(html);
-			if(userInfo.isLanlord != '' || userInfo.isLanlord !=null) {
+			if(userInfo.islanlord != '' || userInfo.islanlord !=null) {
 				$("#china").after('<li class="layui-nav-item "> <a href="">查看我的房源</a></li>'+
 								'<li class="layui-nav-item "><a href="host/create_a_room/room.html">添加房源</a></li>');
 			} else  {

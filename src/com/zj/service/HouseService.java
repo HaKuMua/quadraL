@@ -89,7 +89,12 @@ public class HouseService implements HouseServiceImpl{
 				Map<String, Object> commentMap = new HashMap<String, Object>();
 				commentMap.put("houseCom_content", houseComment.getHouseCom_content());
 				commentMap.put("houseCom_date", houseComment.getHouseCom_date());
-				commentMap.put("replier_name", userDao.getUserInfoByID(houseComment.getReplier_id()).getUser_name());
+				if(houseComment.getReplier_id() != null) {
+					commentMap.put("replier_name", userDao.getUserInfoByID(houseComment.getReplier_id()).getUser_name());
+				}else {
+					commentMap.put("replier_name",null);
+				}
+				
 				commentMap.put("user_name", userDao.getUserInfoByID(houseComment.getUser_id()).getUser_name());
 				commentMap.put("user_headimg_url", userDao.getUserInfoByID(houseComment.getUser_id()).getUser_headimg_url());
 				list.add(commentMap);
