@@ -10,30 +10,30 @@ import java.util.Date;
  */
 public class HouseComment implements Serializable{
 	private static final long serialVersionUID = 1L;
-	/*
+	/**
 	 * 房子评论ID
 	 */
 	private Integer houseCom_id;
-	/*
+	/**
 	 * 房子ID
 	 */
 	private Integer house_id;
-	/*
+	/**
 	 * 用户ID
 	 */
 	private Integer user_id;
-	/*
+	/**
 	 * 评论内容
 	 */
 	private String houseCom_content;
-	/*
+	/**
 	 * 房子评论时间
 	 */
 	private Date houseCom_date;
-	/*
+	/**
 	 * 回复ID
 	 */
-	private String replier_id;
+	private Integer replier_id;
 	
 	public HouseComment() {
 	}
@@ -78,11 +78,12 @@ public class HouseComment implements Serializable{
 		this.houseCom_date = houseCom_date;
 	}
 
-	public String getReplier_id() {
+	
+	public Integer getReplier_id() {
 		return replier_id;
 	}
 
-	public void setReplier_id(String replier_id) {
+	public void setReplier_id(Integer replier_id) {
 		this.replier_id = replier_id;
 	}
 

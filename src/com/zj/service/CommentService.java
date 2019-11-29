@@ -9,7 +9,7 @@ import java.util.Map;
 import com.zj.dao.CommentDao;
 import com.zj.dao.impl.CommentDaoImpl;
 import com.zj.entity.Comment;
-import com.zj.service.imp.CommentServiceImpl;
+import com.zj.service.impl.CommentServiceImpl;
 /**
  * 
  * @author lijia

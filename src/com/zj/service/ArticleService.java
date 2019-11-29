@@ -18,7 +18,7 @@ import com.zj.dao.impl.CommentDaoImpl;
 import com.zj.entity.Article;
 import com.zj.entity.ArticleImg;
 import com.zj.entity.Comment;
-import com.zj.service.imp.ArticleServiceImpl;
+import com.zj.service.impl.ArticleServiceImpl;
 
 /**
  * 文章服务层

@@ -23,18 +23,28 @@ public class UserDao implements UserDaoImpl{
 	 */
 	private QueryRunner qr = new QueryRunner();
 	private Connection conn = GetConn.getConn();
-	/*
+	/**
 	 * 获取所有用户信息方法
 	 */
 	public List<User> getAllUserInfo() throws SQLException {
 		String sql = "select * from user";
 		return qr.query(conn, sql, new BeanListHandler<User>(User.class));
 	}
-	/*
-	 * 通过用户手机号获取单个用户信息方法接口
+	/**
+	 * 通过用户手机号获取单个用户信息方法
 	 */
 	public User getUserInfoByPhone(String phone) throws SQLException {
 		String sql = "select * from user where user_phone=?";
 		return qr.query(conn, sql, new BeanHandler<User>(User.class),phone);
+	}
+	/**
+	 * 通过用户id获取单个用户信息方法
+	 * @param user_id
+	 * @return
+	 * @throws SQLException
+	 */
+	public User getUserInfoByID(Integer user_id) throws SQLException {
+		String sql = "select * from user where user_id=?";
+		return qr.query(conn, sql, new BeanHandler<User>(User.class), user_id);
 	}
 }

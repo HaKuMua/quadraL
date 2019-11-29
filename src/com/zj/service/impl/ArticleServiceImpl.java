@@ -1,4 +1,4 @@
-package com.zj.service.imp;
+package com.zj.service.impl;
 
 import java.sql.SQLException;
 import java.util.List;

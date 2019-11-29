@@ -10,42 +10,50 @@ import java.io.Serializable;
  */
 public class User implements Serializable{
 	private static final long serialVersionUID = 1L;
-	/*
+	/**
 	 * 用户ID
 	 */
 	private Integer user_id;
-	/*
+	/**
 	 * 用户姓名
 	 */
 	private String user_name;
-	/*
+	/**
 	 * 用户头像URL
 	 */
 	private String user_headimg_url;
-	/*
+	/**
 	 * 用户邮箱
 	 */
 	private String user_email;
-	/*
+	/**
 	 * 用户手机号
 	 */
 	private String user_phone;
-	/*
+	/**
 	 * 用户身份证
 	 */
 	private String user_IDcard;
-	/*
+	/**
 	 * 房东ID
 	 */
 	private Integer landlord_id;
-	/*
+	/**
 	 * 用户密码
 	 */
 	private String user_pwd;
-	/*
+	/**
 	 * 用户余额
 	 */
 	private Double money;
+	/**
+	 * 用户真实姓名
+	 */
+	private String real_name;
+	/**
+	 * 用户签名
+	 */
+	private String user_describe;
 	
 	public User() {
 	}
@@ -123,14 +131,28 @@ public class User implements Serializable{
 		this.money = money;
 	}
 
-	@Override
+	public String getReal_name() {
+		return real_name;
+	}
+
+	public void setReal_name(String real_name) {
+		this.real_name = real_name;
+	}
+
+	public String getUser_describe() {
+		return user_describe;
+	}
+
+	public void setUser_describe(String user_describe) {
+		this.user_describe = user_describe;
+	}
+
 	public String toString() {
 		return "User [user_id=" + user_id + ", user_name=" + user_name
 				+ ", user_headimg_url=" + user_headimg_url + ", user_email="
 				+ user_email + ", user_phone=" + user_phone + ", user_IDcard="
 				+ user_IDcard + ", landlord_id=" + landlord_id + ", user_pwd="
-				+ user_pwd + ", money=" + money + "]";
+				+ user_pwd + ", money=" + money + ", real_name=" + real_name
+				+ ", user_describe=" + user_describe + "]";
 	}
-
-	
 }

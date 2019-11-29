@@ -9,7 +9,7 @@ import java.util.Map;
 import com.zj.dao.CheckInPersonDao;
 import com.zj.dao.impl.CheckInPersonDaoImpl;
 import com.zj.entity.CheckInPerson;
-import com.zj.service.imp.CheckInPersonServiceImpl;
+import com.zj.service.impl.CheckInPersonServiceImpl;
 
 
 /**

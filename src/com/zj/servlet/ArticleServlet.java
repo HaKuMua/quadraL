@@ -14,7 +14,7 @@ import org.json.JSONObject;
 import cn.com.uitl.BaseServlet;
 
 import com.zj.service.ArticleService;
-import com.zj.service.imp.ArticleServiceImpl;
+import com.zj.service.impl.ArticleServiceImpl;
 
 public class ArticleServlet extends BaseServlet {
 	private static final long serialVersionUID = 1L;
