@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>编辑个人信息</title>
+		<link rel="stylesheet" type="text/css" href="../../layui/css/layui.css">
+		<script src="../../js/jquery.min.js"></script>
+		<script src="../../layui/layui.js"></script>
+		<style type="text/css">
+			#navId li a {
+				font-size: 15px;
+				color: white;
+				font-weight: bold;
+			}
+			#rightNav {
+				float: right;
+			}
+			
+			#leftDiv{
+				margin-top: 20px;
+				position: absolute;
+				width:250px;
+				height: 300px;
+				margin-left: 350px;
+				text-align: center;
+			}
+			
+			#main{
+				margin-top: 20px;
+				position: absolute;
+				width:700px;
+				margin-left: 700px;
+			}
+			
+			.foot {
+				margin-top:90%;
+				width: 1090px;
+				margin-left: 550px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="top">
+			<ul class="layui-nav layui-bg-green" id="navId">
+				<li class="layui-nav-item">
+					<a href="index.html">
+						<img src="../../img/logo.jpg" class="layui-nav-img">
+					</a>
+				</li>
+				<li class="layui-nav-item ">
+					<form class="layui-form" action="">
+						<input id="topSearch" style=" width: 400px;height:48px; font-weight: bold; font-size: 20px; " name="search" 
+						placeholder="搜一搜"
+						 autocomplete="off" class="layui-input">
+					</form>
+				</li>
+				<div id="rightNav" >
+					<li class="layui-nav-item" id="china"><a href="">退出</a></li>
+					<li class="layui-nav-item "> <a href="" >房源订单中心</a></li>
+					<li class="layui-nav-item"><a href="">故事</a></li>
+					<li class="layui-nav-item"><a href="../index.html">首页</a> </li>
+					<li class="layui-nav-item"><a href="">帮助</a> </li>
+					<li class="layui-nav-item" lay-unselect=""><a href="javascript:;">
+					<img src="'+userInfo.user_img+'" class="layui-nav-img"></a> 
+				</div>
+			</ul>
+		</div>
+		<div id="leftDiv" >
+			<br><br><a href=""><h2><b>编辑个人资料</b></h2></a><br><br>
+			<a href="image.html"><h2>安全</h2></a><br><br>
+			<a href="image.html"><h2>照片</h2></a><br><br>
+			<a href=""><h2>我的评论</h2></a><br><br>
+			<a href=""  class="layui-btn layui-btn-primary">查看我的个人资料</a>
+		</div>
+		<div id="main">
+			<div style="border: 1px solid grey;" >
+				<div id=""style="height: 40px;background-color: #F2F4F5; line-height: 40px;">
+					<h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;必填</h3>
+				</div><br><br><br>
+				<form class="layui-form" action="" >
+					<label class="layui-form-label">姓名</label>
+				    <div class="layui-input-inline">
+				      <input style="" type="text" name="title" lay-verify="title" autocomplete="off" placeholder="您的姓名" class="layui-input">
+						<h4>您的公开个人资料将仅显示您的名字。申请预订时，房东会看到您的名字和姓氏。</h4>
+					</div>
+					<br><br><br>
+					<label class="layui-form-label">你是</label>
+					<div class="layui-input-inline">
+						<select name="quiz1">
+							<option value="" selected="">性别</option>
+							<option value="1" >男性</option>
+							<option value="2">女性</option>
+							<option value="3">其他</option>
+						</select>
+						<h4>此数据仅用于分析，我们不会透露给其它用户。</h4>		
+					</div><br><br>
+					  <label class="layui-form-label">出生日期</label>
+					  <div class="layui-input-inline">
+						<input type="text" name="date" id="date" lay-verify="date" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input">
+						<h4>您必须年满 18 周岁才能使用QuadraL的网站和服务。</h4>
+					</div>
+					<br><br><br>
+					<label class="layui-form-label">真实姓名</label>
+					  <div class="layui-input-inline">
+						<input type="text" name="email" lay-verify="email" autocomplete="off" placeholder="您的真实姓名" class="layui-input">
+						<h4>请正确填写您的真实姓名，以保证实名认证的通过。</h4>
+					</div>
+					<br><br><br>
+					<label class="layui-form-label">身份证号码</label>
+					  <div class="layui-input-inline">
+						<input type="text" name="email" lay-verify="email" autocomplete="off" placeholder="您的身份证号码" class="layui-input">
+						<h4>请正确填写您的真实身份证，以保证实名认证的通过。</h4>
+					</div>
+					<br><br><br>
+					<label class="layui-form-label">电子邮件</label>
+					<div id="emailDiv" class="layui-input-inline">
+						<input type="text" name="email" lay-verify="email" autocomplete="off" placeholder="您的电子邮箱" class="layui-input">
+						<h4>我们不会向其他QuadraL用户透露您的个人邮箱地址。</h4>
+					</div><br><br><br>
+					<label class="layui-form-label">电话号码</label>
+					<div id="telDiv" class="layui-input-inline">
+						<div id=""style="line-height: 35px; text-align: center; width: 120px;height: 35px; border: 1px solid #B9BBBE; background-color:#F2F4F5;">
+							159****1401
+						</div>
+						<div style="position: absolute; width: 260px;height: 35px;line-height: 30px; border: 1px solid #B9BBBE; margin-top: -37px; margin-left: 121px;">
+							<i class="layui-icon-ok-circle layui-icon "></i>已验证
+						</div><br>
+						<a href="#1" id="editTel"><i class=" layui-icon layui-icon-survey"></i>编辑手机号</a><br><br>
+						<h4>只有在您和另一名QuadraL用户确认预订时，此资料才会被分享。<br>这是我们帮助大家联系彼此的方式。</h4>
+					</div><br><br><br>
+					    <label class="layui-form-label">自我介绍</label>
+					    <div class="layui-input-inline">
+					      <textarea placeholder="请输入内容" class="layui-textarea"></textarea>
+						<h4>QuadraL以相互信任为基础，请帮助其他人了解您。</h4><br>
+						<h4>告诉他们您喜欢什么，您离开了哪几样东西就不能活？<br>分享您最喜爱的旅游目的地、书籍、电影、电视节目、音乐以及美食。</h4>
+						<br><h4>告诉他们您会是个什么样的房东或房客.	<br>您旅游的风格是怎样的，您作为QuadraL房东的风格又如何。</h4>
+						<br><h4>您也可以向大家介绍一下自己的人生格言。</h4>
+					  </div><br><br><br><br><br><br>
+					  
+				</form>
+			</div><br>
+			<button class="layui-btn layui-bg-red" style="width: 100px; height: 45px;">保存</button>
+		</div>
+		<div class="foot" >
+			<div >
+				<div>京ICP备16017121号-3 京ICP证 160773号 
+				<img src="https://z1.muscache.cn/airbnb/static/packages/public_security_bureau_logo.d0289dc0.png"
+					 alt="中国公安局标志"> <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010502032345" target="_blank"
+					 rel="noopener noreferrer"  aria-busy="false">京公网安备 11010502032345号</a>
+					技术支持：卓应教育（湖南）有限公司 <a href="https://a0.muscache.com/pictures/03ec62da-f467-4e2b-bfee-6eefd052d7f5.jpg" target="_blank"
+					 rel="noopener noreferrer"  aria-busy="false">营业执照</a></div>
+				<div dir="ltr" >© 2019 Airbnb, Inc. All rights reserved.</div>
+			</div>
+			<br><br><br><br><br><br>
+		</div>
+	</body>
+	<script type="text/javascript">
+		//利用Cookie拿到信息
+		// var userInfo=$.Cookie('userInfo');
+		var userInfo = {
+			user_id: '1000',
+			user_name:'haku',
+			user_headimg_url: '../../img/timg.jpg',
+			user_email:'',
+			user_IDcard:'',
+			user_pwd:'',
+			money:'',
+			user_phone:'',
+			real_name:''
+		};
+		if(userInfo.user_id != '') {
+			var html = '<li class="layui-nav-item" id="china"><a href="">退出</a></li>' +
+				'<li class="layui-nav-item "> <a href="" >房源订单中心</a></li>' +
+				'<li class="layui-nav-item"><a href="">故事</a></li>' +
+				'<li class="layui-nav-item"><a href="../index.html">首页</a> </li>' +
+				'<li class="layui-nav-item"><a href="">帮助</a> </li>' +
+				' <li class="layui-nav-item" lay-unselect=""><a href="javascript:;"><img src="'+
+				userInfo.user_headimg_url+'" class="layui-nav-img">'+userInfo.user_name+'</a> ';
+			$("#rightNav").empty();
+			$("#rightNav").append(html);
+			if(userInfo.isLanlord != '' || userInfo.isLanlord !=null) {
+				$("#china").after('<li class="layui-nav-item "> <a href="">查看我的房源</a></li>'+
+								'<li class="layui-nav-item "><a href="host/create_a_room/room.html">添加房源</a></li>');
+			} else  {
+				$("#china").after('<li class="layui-nav-item "> <a href="">成为房东</a></li>');
+			}
+		}
+		
+		$("#editTel").on("click",function() {
+			$("#telDiv").empty();
+			html='';
+		});
+		
+	</script>
+	<script>
+		layui.use(['form','element','layer','laydate'], function() {
+			var form = layui.form,
+				$ = layui.jquery,
+				layer = layui.layer,
+				element = layui.element,
+				laydate=layui.laydate;
+			 //常规用法
+			  laydate.render({
+				elem: '#date'
+			  });
+		});
+	</script>
+</html>
