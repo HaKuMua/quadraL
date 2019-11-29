@@ -5,6 +5,7 @@
 		<title>度假屋、民宿、体验和攻略 - Airbnb爱彼迎</title>
 		<script src="../../js/comment.js"></script>
 		<link rel="stylesheet" type="text/css" href="../../layui/css/layui.css">
+		 <link rel="stylesheet" href="../../css/jquery.cxcalendar.css">
 		<script src="../../js/jquery.min.js"></script>
 		<script src="../../layui/layui.all.js"></script>
 		<script src="../../layui/layui.js"></script>
@@ -118,7 +119,7 @@
 			#reId{
 				margin-left: 1150px;
 				width: 400px;
-				height: 500px;
+				height: 600px;
 				position: -webkit-sticky;
 				position: sticky;
 				top: 40px;
@@ -242,9 +243,13 @@
 			</div>
 			<br><br>
 			<hr>
-			<h3>日期</h3>
-			<input   type="text" class="layui-input checkDate" id="reDate" placeholder="入住日期-退房日期"><br>
-			<h3>人数</h3>
+			<h3>日期</h3><br>
+			    <input style="margin-left:30px;width: 145px; height: 45px;" id="date_first" name="mydate" type="text" readonly ><span >
+							--
+			    </span>
+				 <input style="width: 145px;height: 45px;" id="date_last" name="mydate" type="text" readonly ><br><br>
+			<!-- <input   type="text" class="layui-input checkDate" id="reDate" placeholder="入住日期-退房日期"><br> -->
+			<h3>人数</h3><br>
 			<form class="layui-form" id="formSe" action="">
 				<select  name="modules" lay-verify="required" lay-filter="person"  lay-search="">
 					<option value="1">1人</option>
@@ -561,6 +566,10 @@
 			landlord_name:'HaKu',
 			landlord_img:'../../img/timg.jpg',
 			landlord_describe:'你好,我是一个重庆90后伪文青,喜欢电影､电视､追星,享受平凡而不平淡的生活,机缘巧合下和朋友合作做起了民宿,每一套房型都是经过精心挑选,亲力亲为布置､装扮,都是身处绝美夜景的江景房,希望朋友们来我家做客,带你领略别样的重庆风光｡',
+			checked: {
+					    '2019-11-30': '已预订',
+						'2019-12-10': '已预订' 
+					  }
 		}
 		if (userInfo.user_id != '') {
 			var html = '<li class="layui-nav-item" id="china"><a href="">退出</a></li>' +
@@ -590,7 +599,6 @@
 		// 	console.log(houseInfo);
 		// });
 		window.onload=get();
-		
 		function get() {
 			$('title').text(houseInfo.house_name);
 			$("#houseImgDiv").empty();
@@ -670,7 +678,6 @@
 				$("#t7").append(html);
 			}
 		}
-		
 		//日期格式化
 		Date.prototype.Format = function (fmt) { // author: meizz
 		    var o = {
@@ -741,11 +748,8 @@
 					position: 'static',
 					format: 'yyyy年MM月dd日',
 					min:date,
-					mark: {
-					    '2019-11-30': '已预订' ,
-						'2019-12-10': '已预订' //具体日期
-					  },
-					 
+					mark:houseInfo.checked,
+					showBottom: false
 				});
 				//图片轮播
 				carousel.render({
@@ -766,7 +770,6 @@
 						content: ['../tip/safeguard.html', 'no']
 					});
 				}
-			
 			};
 			$("body").on("click", ".navA", function() {
 				var othis = $(this),
@@ -776,7 +779,6 @@
 		form.on('select(person)', function(data){
 			personNum = data.value;
 		});
-
 			$('.layui-btn').on('click', function() {
 				var othis = $(this),
 					method = othis.data('method');
@@ -794,15 +796,70 @@
 			});
 			//分页
 			 //总页数大于页码总数
-			  laypage.render({
-			    elem: 'demo'
+			laypage.render({
+				elem: 'demo'
 				,limit:7
-			    ,count: 70 //数据总数
-			    ,jump: function(obj){
-			      console.log(obj)
-			    }
+				,count: 70 //数据总数
+				,jump: function(obj){
+					console.log(obj)
+				}
 			  });
 			
 		});
+	</script>
+	<script src="http://cdn.staticfile.org/jquery/2.1.1-rc2/jquery.min.js"></script>
+	<script src="../../js/jquery.cxcalendar.js"></script>
+	<script src="../../js/jquery.cxcalendar.languages.js"></script>
+	<script>
+	   (function () {
+	       var dateFirst = $('#date_first');
+	       var dateLast = $('#date_last');
+	       var dateFirstApi;
+	       var dateLastApi;
+	   
+	       dateFirst.cxCalendar({
+	   		baseClass: 'cxcalendar_holyday',
+	   		wday: 0,
+	   		 type: 'datetime',
+	   		 format: 'YYYY-MM-DD',
+	   		unday: [
+	   		  '2019-11-26',
+	   		  '2019-11-20',
+	   		  '2019-12-30'
+	   		],
+	   		startDate:new Date("YYYY-MM-DD")
+	   	},function (api) {
+	           dateFirstApi = api;
+	       });
+	   
+	       dateLast.cxCalendar({
+				baseClass: 'cxcalendar_holyday',
+				wday: 0,
+				 type: 'datetime',
+				 format: 'YYYY-MM-DD',
+				unday: ['2019-11-26','2019-11-20','2019-12-30'],
+			},function (api) {
+				   dateLastApi = api;
+			});
+	       dateFirst.on('change', function () {
+	           var firstTime = parseInt(dateFirstApi.getDate('TIME'), 10);
+	           var lastTime = parseInt(dateLastApi.getDate('TIME'), 10);
+	           if (lastTime < firstTime) {
+	               dateLastApi.clearDate();
+	           };
+	           dateLastApi.setOptions({
+	               startDate: firstTime
+	           });
+	           dateLastApi.gotoDate(firstTime);
+	           dateLastApi.show();
+	       });
+		   dateLast.on('change', function () {
+				var firstTime = parseInt(dateFirstApi.getDate('TIME'), 10);
+				var lastTime = parseInt(dateLastApi.getDate('TIME'), 10);
+				console.log(firstTime);
+		   		console.log(lastTime);
+				console.log(firstTime-lastTime)
+		   });
+	   })();
 	</script>
 </html>
