@@ -282,7 +282,7 @@
 		<!-- 后端数据交互到前端表格 -->
 		<script>
 			var map;
-			$.getJSON("http://localhost:80/QuadraL/a?method=getAllArticle&callback=?",
+			$.getJSON("http://localhost:80/QuadraL/article.do?method=getAllArticle&callback=?",
 				function(article_result) {
 					map = article_result;
 					window.onload = function() {

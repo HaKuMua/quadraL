@@ -12,6 +12,10 @@ import com.zj.entity.HouseComment;
  */
 public interface HouseCommentDaoImpl {
 	/**
+	 * 获取房子所有评论接口
+	 */
+	List<HouseComment> getAllHouseComment() throws SQLException;
+	/**
 	 * 通过房子ID获取此房子的所有评论方法接口
 	 * @return
 	 * @throws SQLException 

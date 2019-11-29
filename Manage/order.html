@@ -155,12 +155,6 @@
 								</a>
 							</li>
 							<li class="sidebar-item">
-								<a class="sidebar-link waves-effect waves-dark sidebar-link" href="landlord.html" aria-expanded="false">
-									<i class="mdi mdi-border-none"></i>
-									<span class="hide-menu">房东信息</span>
-								</a>
-							</li>
-							<li class="sidebar-item">
 								<a class="sidebar-link waves-effect waves-dark sidebar-link" href="hotel.html" aria-expanded="false">
 									<i class="mdi mdi-face"></i>
 									<span class="hide-menu">酒店信息审核</span>
@@ -175,7 +169,13 @@
 							<li class="sidebar-item">
 								<a class="sidebar-link waves-effect waves-dark sidebar-link" href="comment-check.html" aria-expanded="false">
 									<i class="mdi mdi-arrange-bring-forward"></i>
-									<span class="hide-menu">评论审核</span>
+									<span class="hide-menu">文章评论审核</span>
+								</a>
+							</li>
+							<li class="sidebar-item">
+								<a class="sidebar-link waves-effect waves-dark sidebar-link" href="hotel-commen-check.html" aria-expanded="false" id="addLandlord">
+									<i class="mdi mdi-border-none"></i>
+									<span class="hide-menu">酒店评论审核</span>
 								</a>
 							</li>
 							<li class="sidebar-item">
@@ -263,7 +263,7 @@
 		</div>
 		<!-- End Wrapper -->
 		<script >
-			$.getJSON("http://localhost:80/QuadraL/a?method=getAllGrogshopOrderInfo&callback=?",
+			$.getJSON("http://localhost:80/QuadraL/order.do?method=getAllGrogshopOrderInfo&callback=?",
 				function(order_result) {
 					window.onload = function() {
 						var tdArr = document.getElementById('tablebox').firstElementChild;

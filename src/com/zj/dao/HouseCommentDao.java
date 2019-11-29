@@ -10,6 +10,7 @@ import org.apache.commons.dbutils.handlers.BeanListHandler;
 import cn.com.uitl.GetConn;
 
 import com.zj.dao.impl.HouseCommentDaoImpl;
+import com.zj.entity.Comment;
 import com.zj.entity.HouseComment;
 
 /**
@@ -20,6 +21,13 @@ import com.zj.entity.HouseComment;
 public class HouseCommentDao implements HouseCommentDaoImpl{
 	private QueryRunner qr = new QueryRunner();
 	private Connection conn = GetConn.getConn();
+	/**
+	 * 获取房子评论所有信息方法
+	 */
+	public List<HouseComment> getAllHouseComment() throws SQLException {
+		String sql = "select * from house_comment";
+		return qr.query(conn, sql, new BeanListHandler<HouseComment>(HouseComment.class));
+	}
 	/**
 	 * 同过房子ID获取此房子的所有评论DAO层方法
 	 * @throws SQLException 

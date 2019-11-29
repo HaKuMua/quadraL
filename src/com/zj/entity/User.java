@@ -47,6 +47,7 @@ public class User implements Serializable{
 	 */
 	private Double money;
 	
+	
 	public User() {
 	}
 

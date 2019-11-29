@@ -157,12 +157,6 @@
 								</a>
 							</li>
 							<li class="sidebar-item">
-								<a class="sidebar-link waves-effect waves-dark sidebar-link" href="landlord.html" aria-expanded="false">
-									<i class="mdi mdi-border-none"></i>
-									<span class="hide-menu">房东信息</span>
-								</a>
-							</li>
-							<li class="sidebar-item">
 								<a class="sidebar-link waves-effect waves-dark sidebar-link" href="hotel.html" aria-expanded="false">
 									<i class="mdi mdi-face"></i>
 									<span class="hide-menu">酒店信息审核</span>
@@ -177,7 +171,13 @@
 							<li class="sidebar-item">
 								<a class="sidebar-link waves-effect waves-dark sidebar-link" href="comment-check.html" aria-expanded="false">
 									<i class="mdi mdi-arrange-bring-forward"></i>
-									<span class="hide-menu">评论审核</span>
+									<span class="hide-menu">文章评论审核</span>
+								</a>
+							</li>
+							<li class="sidebar-item">
+								<a class="sidebar-link waves-effect waves-dark sidebar-link" href="hotel-commen-check.html" aria-expanded="false" id="addLandlord">
+									<i class="mdi mdi-border-none"></i>
+									<span class="hide-menu">酒店评论审核</span>
 								</a>
 							</li>
 							<li class="sidebar-item">
@@ -249,6 +249,11 @@
 												<th scope="col" class="t4">用户电邮</th>
 												<th scope="col" class="t5">用户电话</th>
 												<th scope="col" class="t6">身份证号</th>
+												<th scope="col" class="t7">是否为房东</th>
+												<th scope="col" class="t8">用户密码</th>
+												<th scope="col" class="t9">余额</th>
+												<th scope="col" class="t10">真实姓名</th>
+												<th scope="col" class="t11">用户描述</th>
 											</tr>
 										</thead>
 									</table>
@@ -281,15 +286,19 @@
 			<!-- ============================================================== -->
 		</div>
 		<script>
-			$.getJSON("http://localhost:80/QuadraL/a?method=getAllUserInfo&callback=?",
+			$.getJSON("http://localhost:80/QuadraL/user-info.do?method=getAllUserInfo&callback=?",
 				function(user_result) {
+					var text = user_result.list[i].is_landlord > 0 ? "是":"否"; 
 					window.onload = function() {
 						var tdArr = document.getElementById('tablebox').firstElementChild;
 						for (var i = 0; i < user_result.list.length; i++) {
 							var tr = document.createElement("tr");
 							tr.innerHTML = '<td class="t1">' + user_result.list[i].user_id + '</td><td class="t2">' + user_result.list[i].user_name +
 								'</td><td class="t3">' + user_result.list[i].user_headimg_url + '</td><td class="t4">' + user_result.list[i].user_email + 
-								'</td><td class="t5">' + user_result.list[i].user_phone + '</td><td class="t6">' + user_result.list[i].user_IDcard;
+								'</td><td class="t5">' + user_result.list[i].user_phone + '</td><td class="t6">' + user_result.list[i].user_IDcard +
+								'</td><td class="t7">' + text + '</td><td class="t8">' + user_result.list[i].user_pwd +
+								'</td><td class="t9">' + user_result.list[i].money + '</td><td class="t10">' + user_result.list[i].real_name +
+								'</td><td class="t11">' + user_result.list[i].user_describe;
 							tdArr.appendChild(tr)
 						}
 					};
