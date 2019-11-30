@@ -32,7 +32,7 @@ public interface UserDaoImpl {
 	 * 通过id查询用户
 	 * @throws SQLException 
 	 */
-	User queryUser(Integer user_id) throws SQLException;
+	User queryUserById(Integer user_id) throws SQLException;
 	/**
 	 * 查询手机号是否存在
 	 * @throws SQLException 
@@ -67,4 +67,9 @@ public interface UserDaoImpl {
 	 * @throws SQLException
 	 */
 	int addUserInfo(User user) throws SQLException;
+	/**
+	 * 根据电话/email和密码查询用户
+	 * @throws SQLException 
+	 */
+	User queryUserInfo(String user_phone,String user_email,String user_pwd) throws SQLException;
 }
