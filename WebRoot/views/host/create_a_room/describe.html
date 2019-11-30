@@ -56,8 +56,8 @@
 			<h3>请撰写房源简介。 不妨突出房源和街区的特别之处，以及您的待客之道有何特色。</h3>
 			<br>
 			 <textarea id="textarea1" placeholder="请输入内容" class="layui-textarea"></textarea><br><br>
-			<h1  style="font-weight: bolder;">想添加更多信息吗？ （选填）</h1><br><br>
-			<h3>请添加如下几类内容，分享更多详情。</h3>
+			<h1  style="font-weight: bolder;">想添加更多信息吗？ （选填）</h1><br>
+			<h3>请添加如下几类内容，分享更多详情。</h3><br><br><br>
 			<h2>您的空间</h2>
 			<h3>不妨添加其他详情，帮助房客设定住宿期待。</h3><br>
 			<textarea id="textarea2" placeholder="请输入内容" class="layui-textarea"></textarea><br><br>
@@ -79,15 +79,27 @@
 		</div>
 	</body>
 	<script>
-		locationDescribe=$("#textarea1").text();
 		$('#btnGo').on('click', function() {
-			$.cookie('locationDescribe', locationDescribe);
-			location.href = "name.html";
+			house_describe=document.getElementById("textarea1").value;
+			console.log(house_describe)
+			address_describe=document.getElementById("textarea3").value;
+			console.log(address_describe)
+			travel_information=document.getElementById("textarea4").value;
+			console.log(travel_information)
+			if(house_describe == null || house_describe=='') {
+				layer.msg("请输入房源简介！")
+			}else {
+				$.cookie('house_describe', house_describe);
+				$.cookie('address_describe', address_describe);
+				$.cookie('travel_information', travel_information);
+				location.href = "name.html";
+			}
+			
 		});
 		
 		window.onload = function() {
-			if($.cookie('locationDescribe') != null) {
-				locationDescribe=$.cookie('locationDescribe');
+			if($.cookie('house_describehouse_describe') != null) {
+				locationDescribe=$.cookie('house_describe');
 			}
 			
 		}

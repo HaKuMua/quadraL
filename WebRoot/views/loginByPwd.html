@@ -12,7 +12,6 @@
 			.login {
 				width: 568px;
 				height: 374px;
-				border: 1px solid #000000;
 			}
 
 
@@ -82,11 +81,15 @@
 					console.log(data.field) //当前容器的全部表单字段，名值对形式：{name: value}
 					var userId =data.field.phone;
 					var pwd = data.field.password;
+					alert()
+					map='"userId":'+userId+',"user_pwd":'+pwd;
 					//后端验证并获得userInfoCookie
-					// $.getJSON(basePath+"user?method=login&callback=?",
-					// {"userId":userId,"user_pwd":pwd,"image":image},function(result){
-					// 	layer.close(layer.index);
-					// });
+					$.getJSON(basePath+"user?method=login&callback=?",
+					{"map":map},function(result){
+						layer.close(layer.index);
+						userInfo=reult.obj;
+					});
+					
 					parent.location.reload();
 					
 				});

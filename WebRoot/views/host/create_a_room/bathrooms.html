@@ -51,7 +51,7 @@
 			<br>
 			<h3>没有淋浴区或浴缸的卫生间算半个卫生间。。</h3>
 			<br><br><br>
-			<h2 style="font-weight: bolder;">最多容纳房客人数</h2>
+			<h2 style="font-weight: bolder;">卫生间数量</h2>
 			<div style="position: absolute;margin-top: -25px;margin-left: 330px;">
 				<button id="subBtn" class="layui-btn layui-btn-sm"><i class="layui-icon"></i></button>
 				&nbsp;&nbsp;&nbsp;<span id="bathRoomNum" style="font-size: 15px; font-weight: bolder;">1</span>&nbsp;&nbsp;&nbsp;
@@ -73,11 +73,11 @@
 			bathRoomNum=1;
 		}
 		$("#addBtn").on("click", function() {
-			bathRoomNum > 16 ? 16 : bathRoomNum++;
+			bathRoomNum > 16 ? 16 : bathRoomNum+=0.5;
 			$("#bathRoomNum").text(bathRoomNum);
 		});
 		$("#subBtn").on("click", function() {
-			bathRoomNum <= 1 ? 1 : bathRoomNum--;
+			bathRoomNum <= 0.5 ? 1 : bathRoomNum -=0.5;
 			$("#bathRoomNum").text(bathRoomNum);
 		});
 		$('#btnGo').on('click', function() {

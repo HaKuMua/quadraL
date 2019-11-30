@@ -154,8 +154,8 @@
 				 autocomplete="off" class="layui-input">
 			</div>
 			
-			<button type="button" class="layui-btn layui-bg-red layui-btn-radius" 
-			style= " margin-top:50px; width: 110px;height: 50px; font-size: 20px;">继续</button>
+			<a type="button" class="layui-btn layui-bg-red layui-btn-radius" 
+			style= " margin-top:50px; width: 110px;height: 50px; font-size: 20px;" href="pay.html">继续</a>
 		</div>
 		<div id="rightNav">
 			<div id="house">
@@ -254,24 +254,27 @@
 		});
 	</script>
 	<script>
-		var space=["厨房","洗衣机","干衣机","停车位","健身房","游泳池",
-					"按摩浴缸","电梯"];
-		var mySpace=[];
-		for(var i=0;i<space.length;i++) {
-			html='<input  type="checkbox" lay-filter="filter" name="space" lay-skin="primary" title="'+space[i]+'" value="'+space[i]+'"><br><br><br>'
-			$("#checkBox").append(html);
-		}
-		$('#btnGo').on('click', function() {
-			$.cookie('mySpace', mySpace);
-			location.href = "houseImage.html";
-		});
+		//获取Cookie
+		function getCookie(cname) {
+		    var name = cname + "=";
+		    var decodedCookie = decodeURIComponent(document.cookie);
+		    var ca = decodedCookie.split(';');
+		    for(var i = 0; i <ca.length; i++) {
+		        var c = ca[i];
+		        while (c.charAt(0) == ' ') {
+		            c = c.substring(1);
+		         }
+		         if (c.indexOf(name) == 0) {
+		            return c.substring(name.length, c.length);
+		         }
+		     }
+		    return "";
+		} 
 		
 		window.onload = function() {
-			if($.cookie('mySpace') != null) {
-				var arr = $.cookie('mySpace').split(",");
-				mySpace=arr;
-			}
-			
+			myCookie=getCookie('orderInfo')
+			orderInfo = JSON.parse(myCookie);
+			console.log(orderInfo)
 		}
 	</script>
 </html>

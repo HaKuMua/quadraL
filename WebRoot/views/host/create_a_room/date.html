@@ -60,7 +60,7 @@
 			<form class="layui-form" action="" style="width: 350px;font-weight: bolder;">
 			   <div id="checkBox" class="layui-input-block">
 			   	<input  type="checkbox" lay-filter="filter" name="tips" lay-skin="primary"
-			   	title="知道了！我会及时更新日历。" value="	知道了！我会及时更新日历。"><br><br><br><br>
+			   	title="知道了！我会及时更新日历。" value="知道了！我会及时更新日历。"><br><br><br><br>
 			   </div>
 			</form>
 		</div>
@@ -75,14 +75,14 @@
 		</div>
 	</body>
 	<script>
-		layui.use('form', function(){
+		layui.use(['form','layer'], function(){
 			var form = layui.form
 			,layer = layui.layer
 			form.on('checkbox()', function(data){
 				if(data.elem.checked) {
-					myRules.push(data.value);
-				} else {
-					myRules.pop(data.value);
+					myDate=data.value;
+				}else {
+					myDate=''
 				}
 				console.log(data.elem.checked); //是否被选中，true或者false
 				console.log(data.value); //复选框value值，也可以通过data.elem.value得到
@@ -90,8 +90,14 @@
 		});
 	</script>
 	<script>
+		myDate='';
 		$('#btnGo').on('click', function() {
-			location.href = "date_setting.html";
+			if(myDate != '') {
+				location.href = "date_setting.html";
+			} else {
+				layer.msg("请勾选！")
+			}
+			
 		});
 		
 	</script>
