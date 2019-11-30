@@ -22,13 +22,13 @@ import cn.com.uitl.GetConn;
  */
 public class CheckInPersonDao implements CheckInPersonDaoImpl {
 
-	/*
+	/**
 	 * 获取jdbc连接
 	 */
 	private QueryRunner qr = new QueryRunner();
 	private Connection conn = null;
 
-	/*
+	/**
 	 * 获取所有入住人员信息方法
 	 */
 	public List<CheckInPerson> getAllCheckInPersonInfo() throws SQLException {
@@ -41,8 +41,8 @@ public class CheckInPersonDao implements CheckInPersonDaoImpl {
 
 	}
 
-	/*
-	 * 通过入住人员身份证号获取单个用户信息方法接口
+	/**
+	 * 通过入住人员身份证号获取单个用户信息方法
 	 */
 	public CheckInPerson getCheckInPersonByIdCard(String check_in_person_ID_card)
 			throws SQLException {
@@ -53,6 +53,18 @@ public class CheckInPersonDao implements CheckInPersonDaoImpl {
 				check_in_person_ID_card);
 		GetConn.colseConn(conn);
 		return data;
+	}
+	/**
+	 * 添加一个入住人信息
+	 * @param checkInPerson
+	 * @return
+	 * @throws SQLException
+	 */
+	public int addCheckInPerson(CheckInPerson checkInPerson)
+			throws SQLException {
+		String sql = "insert into check_in_person(grogshop_order_id,check_in_person_name,check_in_person_ID_card)" +
+				" value(?,?,?)";
+		return qr.update(conn, sql, checkInPerson.getGrogshop_order_id(),checkInPerson.getCheck_in_person_name(),checkInPerson.getCheck_in_person_ID_card());
 	}
 
 }

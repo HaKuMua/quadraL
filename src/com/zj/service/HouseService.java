@@ -44,11 +44,11 @@ public class HouseService implements HouseServiceImpl{
 		List<Map<String, Object>> list = null;
 		try {
 			List<House> allHouse = houseDaoImpl.getAllHouseInfo();
-			List<HouseImg> allHouseImg = houseImgDaoImpl.getAllHouseImgInfo();
 			List<HouseParticulars> allHouseParticulars = houseParticularsDaoImpl.getAllHouseParticularsInfo();
 			if(allHouse != null){
 				list = new ArrayList<Map<String,Object>>();
 				for(int i = 0;i<allHouse.size();i++){
+					List<HouseImg> allHouseImg = houseImgDaoImpl.getHouseImgByHouseID(allHouse.get(i).getHouse_id());
 					Map<String, Object> map = new HashMap<String, Object>();
 					map.put("house_id", allHouse.get(i).getHouse_id());
 					//通过房子id获取房子图片路径

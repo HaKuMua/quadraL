@@ -12,7 +12,7 @@ public class GrogshopOrder implements Serializable{
 	/**
 	 * 订单ID
 	 */
-	private Integer grogshop_order_id;
+	private String grogshop_order_id;
 	/**
 	 * 用户ID
 	 */
@@ -41,11 +41,11 @@ public class GrogshopOrder implements Serializable{
 	public GrogshopOrder() {
 	}
 
-	public Integer getGrogshop_order_id() {
+	public String getGrogshop_order_id() {
 		return grogshop_order_id;
 	}
 
-	public void setGrogshop_order_id(Integer grogshop_order_id) {
+	public void setGrogshop_order_id(String grogshop_order_id) {
 		this.grogshop_order_id = grogshop_order_id;
 	}
 

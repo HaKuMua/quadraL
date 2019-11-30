@@ -33,7 +33,7 @@ public class GrogshopOrderDao implements GrogshopOrderDaoImpl {
 		String sql = "select * from grogshop_order";
 		List<GrogshopOrder> data =  qr.query(conn, sql, new BeanListHandler<GrogshopOrder>(
 				GrogshopOrder.class));
-		GetConn.colseConn(conn);
+		GetConn.closeConn(conn);
 		return data;
 	}
 
@@ -50,7 +50,7 @@ public class GrogshopOrderDao implements GrogshopOrderDaoImpl {
 		GrogshopOrder data =   qr.query(conn, sql,
 				new BeanHandler<GrogshopOrder>(GrogshopOrder.class),
 				GrogshopOrderID);
-		GetConn.colseConn(conn);
+		GetConn.closeConn(conn);
 		return data;
 	}
 	
@@ -63,11 +63,11 @@ public class GrogshopOrderDao implements GrogshopOrderDaoImpl {
 	public int addGrogshopOrderInfo(GrogshopOrder grogshopOrder)
 			throws SQLException {
 		conn = GetConn.getConn();
-		String sql = "insert into grogshop_order(user_id,price,place_an_order_date,grogshop_order_state" +
+		String sql = "insert into grogshop_order(user_id,price,grogshop_order_state" +
 				",grogshop_order_describe,reserve_id) value(?,?,?,?,?,?)";
-		int data = qr.update(conn, sql, grogshopOrder.getUser_id(),grogshopOrder.getPrice(),grogshopOrder.getPlace_an_order_date()
-				,grogshopOrder.getGrogshop_order_state(),grogshopOrder.getGrogshop_order_describe(),grogshopOrder.getReserve_id());
-		GetConn.colseConn(conn);
+		int data = qr.update(conn, sql, grogshopOrder.getUser_id(),grogshopOrder.getPrice(),grogshopOrder.getGrogshop_order_state()
+				,grogshopOrder.getGrogshop_order_describe(),grogshopOrder.getReserve_id());
+		GetConn.closeConn(conn);
 		return data;
 	}
 

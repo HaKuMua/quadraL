@@ -16,7 +16,7 @@ public class CheckInPerson implements Serializable{
 	/*
 	 * 酒店订单ID
 	 */
-	private Integer grogshop_order_id;
+	private String grogshop_order_id;
 	/*
 	 * 入住人姓名
 	 */
@@ -37,11 +37,11 @@ public class CheckInPerson implements Serializable{
 		this.check_in_person_id = check_in_person_id;
 	}
 
-	public Integer getGrogshop_order_id() {
+	public String getGrogshop_order_id() {
 		return grogshop_order_id;
 	}
 
-	public void setGrogshop_order_id(Integer grogshop_order_id) {
+	public void setGrogshop_order_id(String grogshop_order_id) {
 		this.grogshop_order_id = grogshop_order_id;
 	}
 

@@ -19,7 +19,7 @@ public class GetConn {
 		}
 		return conn;
 	}
-	public static void colseConn(Connection conn){
+	public static void closeConn(Connection conn){
 		if(conn != null){
 			try {
 				conn.close();
@@ -28,6 +28,5 @@ public class GetConn {
 				e.printStackTrace();
 			}
 		}
-		
 	}
 }

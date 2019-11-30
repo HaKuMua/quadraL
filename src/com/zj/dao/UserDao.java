@@ -33,7 +33,7 @@ public class UserDao implements UserDaoImpl{
 		conn = GetConn.getConn();
 		String sql = "select * from user";
 		List<User> data = qr.query(conn, sql, new BeanListHandler<User>(User.class));
-		GetConn.colseConn(conn);
+		GetConn.closeConn(conn);
 		return data;
 	}
 	/**
@@ -43,7 +43,7 @@ public class UserDao implements UserDaoImpl{
 		conn = GetConn.getConn();
 		String sql = "select * from user where user_phone=?";
 		User data = qr.query(conn, sql, new BeanHandler<User>(User.class),phone);
-		GetConn.colseConn(conn);
+		GetConn.closeConn(conn);
 		return data;
 	}
 
@@ -55,7 +55,7 @@ public class UserDao implements UserDaoImpl{
 		conn = GetConn.getConn();
 		String sql = "select * from user where user_id=?";
 		User data =  qr.query(conn, sql, new BeanHandler<User>(User.class),id);
-		GetConn.colseConn(conn);
+		GetConn.closeConn(conn);
 		return data;
 	}
 
@@ -67,7 +67,7 @@ public class UserDao implements UserDaoImpl{
 		String sql = "insert into user(user_name,user_phone,inform_date) values(?,?,?)";
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		int data = qr.update(conn, sql, user_name,user_phone,format.format(new Date()));
-		GetConn.colseConn(conn);
+		GetConn.closeConn(conn);
 		return data;
 	}
 	/**
@@ -79,7 +79,7 @@ public class UserDao implements UserDaoImpl{
 		conn = GetConn.getConn();
 		String sql = "update user set user_name = ?, user_email = ?, user_phone = ?, real_name = ?, user_describe = ?, user_IDcard = ? where user_id = ?";
 		int data = qr.update(conn, sql, user_name,user_email, user_phone,real_name,user_describe,user_IDcard,user_id);
-		GetConn.colseConn(conn);
+		GetConn.closeConn(conn);
 		return data;
 	}
 	/**
@@ -90,7 +90,7 @@ public class UserDao implements UserDaoImpl{
 		conn = GetConn.getConn();
 		String sql = "select * from user where user_id = ?";
 		User data = qr.query(conn, sql, new BeanHandler<User>(User.class), user_id);
-		GetConn.colseConn(conn);
+		GetConn.closeConn(conn);
 		return data;
 	}
 	/**
@@ -101,7 +101,7 @@ public class UserDao implements UserDaoImpl{
 		conn = GetConn.getConn();
 		String sql = "select * from user where user_phone = ?";
 		Integer data = qr.query(conn, sql, new ScalarHandler<Integer>(), user_phone);
-		GetConn.colseConn(conn);
+		GetConn.closeConn(conn);
 		return data;
 	}
 	/**
@@ -112,7 +112,7 @@ public class UserDao implements UserDaoImpl{
 		conn = GetConn.getConn();
 		String sql = "insert into user(user_pwd) value(?) where user_id = ?";
 		int data = qr.update(conn, sql, user_pwd,user_id);
-		GetConn.colseConn(conn);
+		GetConn.closeConn(conn);
 		return data;
 	}
 	/**
@@ -123,7 +123,7 @@ public class UserDao implements UserDaoImpl{
 		conn = GetConn.getConn();
 		String sql = "update user set user_pwd = ? where user_id = ?";
 		int data = qr.update(conn, sql, user_pwd,user_id);
-		GetConn.colseConn(conn);
+		GetConn.closeConn(conn);
 		return data;
 	}
 	/**
@@ -134,7 +134,7 @@ public class UserDao implements UserDaoImpl{
 		conn = GetConn.getConn();
 		String sql = "insert into user(user_headimg_url) value(?) where user_id = ?";
 		int data = qr.update(conn, sql, user_headimg_url,user_id);
-		GetConn.colseConn(conn);
+		GetConn.closeConn(conn);
 		return data;
 	}
 	/**
@@ -147,7 +147,7 @@ public class UserDao implements UserDaoImpl{
 		conn = GetConn.getConn();
 		String sql = "select * from user where user_id=?";
 		User data = qr.query(conn, sql, new BeanHandler<User>(User.class), user_id);
-		GetConn.colseConn(conn);
+		GetConn.closeConn(conn);
 		return data;
 	}
 	/**
@@ -159,9 +159,16 @@ public class UserDao implements UserDaoImpl{
 				",user_pwd,money,real_name,user_describe) value(?,?,?,?,?,?,?,?,?,?)";
 		int data = qr.update(conn, sql, user.getUser_name(),user.getUser_headimg_url(),user.getUser_email(),user.getUser_phone()
 				,user.getUser_IDcard(),user.getIs_landlord(),user.getUser_pwd(),user.getMoney(),user.getReal_name(),user.getUser_describe());
-		GetConn.colseConn(conn);
+		GetConn.closeConn(conn);
 		return data;
 	}
 	
-
+	
+	public int updateUserMoney(Double price,Integer user_id) throws SQLException {
+		conn = GetConn.getConn();
+		String sql = "update user set money=money-? where user_id=?";
+		int data = qr.update(conn, sql, price,user_id);
+		GetConn.closeConn(conn);
+		return data;
+	}
 }

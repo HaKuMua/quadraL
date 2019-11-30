@@ -2,6 +2,7 @@ package com.zj.service.impl;
 
 import java.util.List;
 import java.util.Map;
+
 /**
  * 
  * @author lijia
@@ -17,4 +18,10 @@ public interface GrogshopOrderServiceImpl {
 	 * 将单个订单信息包装成map返回方法接口
 	 */
 	Map<String, Object> getAllGrogshopOrderInfoByID(Integer grogshop_order_id);
+	/**
+	 * 添加一个订单信息方法接口
+	 * @param grogshopOrder
+	 * @return
+	 */
+	String addGrogshopOrderInfo(Map<String, Object> grogshopOrderInfo,List<Map<String, Object>> checkInPersonInfoMap);
 }
