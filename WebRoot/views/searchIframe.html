@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../layui/css/layui.css">
+		<script src="../js/jquery.min.js"></script>
+		<script src="../layui/layui.js"></script>
+		<script type="text/javascript" src="../js/jquery.cookie.js"></script>
+		<style type="text/css">
+			.formSe div{
+				width: 340px;
+			}
+			
+			.formSe input,#typeId input{
+				height: 40px;
+				font-size: 20px;
+			}
+		</style>
+	</head>
+	<body>
+		<div style="width: 500px;height: 350px; border:1px solid #000000;">
+			<div id="">
+				<br>
+				<form class="layui-form "  action="">
+				   <label class="layui-form-label"><h3>房客人数</h3></label>
+					<div  class="layui-input-inline formSe">
+				     <select  name="modules" lay-verify="required" lay-filter="person"  lay-search="">
+				     	<option value="1">1人</option>
+				     	<option value="2">2人</option>
+				     	<option value="3">3人</option>
+				     	<option value="4">4人</option>
+				     	<option value="5">5人</option>
+						<option value="6">6人</option>
+						<option value="7">7人</option>
+						<option value="8">8人</option>
+						<option value="9">9人</option>
+						<option value="10">10人</option>
+				     </select>
+				    </div>
+					<br><br><br><hr ><br>
+					<div class="layui-form-item">
+					    <div class="layui-inline">
+					      <label class="layui-form-label"><h3>价格</h3></label>
+					      <div class="layui-input-inline" style="width: 100px;">
+					        <input type="number" id="price_min" name="price_min" placeholder="￥最低价" autocomplete="off" class="layui-input">
+					      </div>
+					      <div class="layui-form-mid">-</div>
+					      <div class="layui-input-inline" style="width: 100px;">
+					        <input type="number" id="price_max" name="price_max" placeholder="￥最高价" autocomplete="off" class="layui-input">
+					      </div>
+					    </div>
+					  </div>
+					<br><hr ><br>
+					<div class="layui-form-item">
+					    <label class="layui-form-label"><h3>房源类型</h3></label>
+					    <div class="layui-input-block">
+					      <input type="checkbox" name="houseType" title="整个房源" value="整个房源">
+					      <input type="checkbox" name="houseType" title="独立房间 " value="独立房间" checked="">
+					      <input type="checkbox" name="houseType" title="合住房间" value="合住房间">
+					    </div>
+					 </div>
+					
+				</form>
+			</div>
+		</div>
+	</body>
+	<script>
+		layui.use(['form', 'layedit','laydate'], function(){
+			var form = layui.form
+			,layer = layui.layer
+			form.on('select(person)', function(data){
+				personNum=data.value;
+				price_max=$("#price_max").val();
+				price_min=$("#price_min").val();
+				$.cookie('houseType',houseType);
+				$.cookie('personNum',personNum);
+				$.cookie('price_max',price_max);
+				$.cookie('price_min',price_min);
+			});
+			form.on('checkbox()', function(data){
+				if(data.elem.checked) {
+					price_max=$("#price_max").val();
+					price_min=$("#price_min").val();
+					houseType.push(data.value);
+					
+					$.cookie('houseType',houseType);
+					$.cookie('personNum',personNum);
+					$.cookie('price_max',price_max);
+					$.cookie('price_min',price_min);
+				} else {
+					houseType.pop(data.value);
+					$.cookie('houseType',houseType);
+					$.cookie('personNum',personNum);
+					$.cookie('price_max',price_max);
+					$.cookie('price_min',price_min);
+				}
+			});
+			
+		});
+	</script>
+	<script type="text/javascript">
+		houseType=[]
+		personNum=1;
+		price_max=0;
+		price_min=0;
+		
+		
+	</script>
+</html>

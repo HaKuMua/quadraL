@@ -6,6 +6,7 @@
 		<script src="../js/comment.js"></script>
 		<script src="../js/jquery.min.js"></script>
 		<link rel="stylesheet" type="text/css" href="../layui/css/layui.css">
+		<script type="text/javascript" src="../js/jquery.cookie.js"></script>
 		<script src="../js/jquery.min.js"></script>
 		<script src="../layui/layui.js"></script>
 		<script type="text/javascript" src="../layui/layui.js"></script>
@@ -112,7 +113,6 @@
 					</form>
 				</li>
 				<div id="rightNav">
-					<li class="layui-nav-item"><a href="">退出</a></li>
 					<li class="layui-nav-item"><a href="">故事</a></li>
 					<li class="layui-nav-item"><a href="">帮助</a> </li>
 					<li class="layui-nav-item"><a class="NavA" data-method="login">注册</a></li>
@@ -371,12 +371,15 @@
 		});
 	</script>
 	<script>
-		var userInfo = {
-			user_id: '1000',
-			user_name:'haku',
-			user_img: '../img/timg.jpg',
-			islanlord:1
+		userInfo = {
+			user_id: '',
+			user_name:'',
+			user_img: '',
+			islanlord:''
 		};
+		if($.cookie('userInfo') != null) {
+			userInfo=$.cookie('userInfo')
+		}
 		
 		var listHouse1 = [{
 				house_name: '下榻日式风格的房源去畅玩太古里',
@@ -489,8 +492,7 @@
 		window.onload = function() {
 			console.log(userInfo.user_id == '')
 			if (userInfo.user_id != '') {
-				var html = '<li class="layui-nav-item" id="china"><a href="">退出</a></li>' +
-					'<li class="layui-nav-item "> <a href="user/myOrder.html" >房源订单中心</a></li>' +
+				var html = '<li class="layui-nav-item" id="china"> <a href="user/myOrder.html" >房源订单中心</a></li>' +
 					'<li class="layui-nav-item"><a href="">故事</a></li>' +
 					'<li class="layui-nav-item"><a href="">消息</a> </li>' +
 					'<li class="layui-nav-item"><a href="">帮助</a> </li>' +

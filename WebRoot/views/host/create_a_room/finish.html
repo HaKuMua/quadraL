@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>房源名字</title>
+		<title>完成</title>
 		<script src="../../../js/jquery.min.js"></script>
 		<link rel="stylesheet" type="text/css" href="../../../layui/css/layui.css">
 		<script src="../../../js/jquery.min.js"></script>
@@ -14,10 +14,8 @@
 				margin-left: 450px;
 				width: 500px;
 			}
-			#checkBox div,#checkBox h2{
-				margin-left: -80px;
-			}
-			#checkBox span{
+			#form input{
+				height: 60px;
 				font-size: 20px;
 			}
 			#footBtn button {
@@ -31,7 +29,7 @@
 			#footBtn{
 				position:fixed;
 				top:92%;
-				left:440px;/* width的一半的相反数 */
+				left:440px; /* width的一半的相反数 */
 				z-index:999;
 			}
 		</style>
@@ -42,51 +40,47 @@
 			&nbsp;&nbsp;&nbsp;&nbsp;<a href="../../index.html">
 				<img src="../../../img/logo.jpg" class="layui-nav-img">
 			</a>
-			<h2 style="position: absolute; margin-top: -30px; margin-left: 60px;">步骤2：添加房源详情</h2>
+			<h2 style="position: absolute; margin-top: -30px; margin-left: 60px;">已完成，开始迎接您的第一位房客吧</h2>
 			<br><br>
 			<div class="layui-progress layui-progress-big c" lay-showpercent="true" lay-filter="pro">
 				<div class="layui-progress-bar layui-bg-green" lay-percent="100%"></div>
 			</div>
 		</div>
-		<br><br><br><br><br>
+		<br><br><br><br><br><br><br>
 		<div id="warpper">
-			<br><br><br>
-			<h1 style="font-weight: bolder;">为您的房源起个名字</h1>
-			<br>
-			<h3>为房源起一个能突出其独特之处的标题，吸引更多房客。</h3>
-			<br><br><br>
-			 <input id="nameText" type="text" class="layui-input" name="houseName" placeholder="请输入房源名称" style="height: 60px;"/><br><br>
-			<h2>好的房源标题可以增加房客的点击率，房屋名称可包含地标、位置、附近交通、房屋特色等信息。</h2>
-			<br><br><br><br><br><br><br><br>
+			
 		</div>
-		<div style="position: fixed; top: 8%; left: 60%;">
+		<div style="position: fixed; top: 10%; left: 60%;">
 			<img src="../../../img/ReleaseRoom/2.png" height="50%">
 		</div>
 		<div id="footBtn" >
-			<button class="layui-btn site-demo-active" onclick="location.href='describe.html'">
+			<button class="layui-btn site-demo-active" onclick="location.href='date.html'">
 				< 返回</button> 
-				<button style="margin-left: 290px; " class="layui-btn" id="btnGo">下一步
+				<button style="margin-left: 290px; " class="layui-btn " id="btnGo">完成，跳转首页
 			</button>
 		</div>
 	</body>
 	<script>
-		
-		$('#btnGo').on('click', function() {
-			text=document.getElementById("nameText").value;
-			if(text == null || text == '') {
-				layer.msg("请输入房源名称！")
-			}else {
-				$.cookie('house_name', text);
-				location.href = "rules.html";
-			}
+		layui.use('form', function(){
+			var form = layui.form
+			,layer = layui.layer
+			
 			
 		});
+	</script>
+	<script>
+		$('#btnGo').on('click', function() {
+			myPrice=$("#price").val();
+			 if (!checkNumber(myPrice)) {
+			    layer.msg("请输入正确价格！")
+			    return false;
+			 }else {
+				$.cookie('may_check_in_date',may_check_in_date);
+				$.cookie('may_check_out_date',may_check_out_date);
+				$.cookie('myPrice',myPrice);
+				location.href = "finish.html";
+			 }
+		});
 		
-		window.onload = function() {
-			if($.cookie('house_name') != null) {
-				text=$.cookie('house_name');
-			}
-			
-		}
 	</script>
 </html>
