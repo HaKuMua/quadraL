@@ -86,7 +86,7 @@ public class UserDao implements UserDaoImpl{
 	 * 通过id查询用户
 	 * @throws SQLException 
 	 */
-	public User queryUser(Integer user_id) throws SQLException {
+	public User queryUserById(Integer user_id) throws SQLException {
 		conn = GetConn.getConn();
 		String sql = "select * from user where user_id = ?";
 		User data = qr.query(conn, sql, new BeanHandler<User>(User.class), user_id);
@@ -110,7 +110,7 @@ public class UserDao implements UserDaoImpl{
 	 */
 	public int setUserPwd(Integer user_id, String user_pwd) throws SQLException {
 		conn = GetConn.getConn();
-		String sql = "insert into user(user_pwd) value(?) where user_id = ?";
+		String sql = "update user set user_pwd = ? where user_id = ?";
 		int data = qr.update(conn, sql, user_pwd,user_id);
 		GetConn.closeConn(conn);
 		return data;
@@ -132,7 +132,7 @@ public class UserDao implements UserDaoImpl{
 	 */
 	public int addUserHead(Integer user_id, String user_headimg_url) throws SQLException {
 		conn = GetConn.getConn();
-		String sql = "insert into user(user_headimg_url) value(?) where user_id = ?";
+		String sql = "update user set user_headimg_url = ? where user_id = ?";
 		int data = qr.update(conn, sql, user_headimg_url,user_id);
 		GetConn.closeConn(conn);
 		return data;
@@ -163,5 +163,13 @@ public class UserDao implements UserDaoImpl{
 	public int updateUserMoney(Double price,Integer user_id) throws SQLException {
 		String sql = "update user set money=money-? where user_id=?";
 		return qr.update(conn, sql, price,user_id);
+	}
+	/**
+	 * 根据电话/email和密码查询用户
+	 * @throws SQLException 
+	 */
+	public User queryUserInfo(String user_phone,String user_email, String user_pwd) throws SQLException {
+		String sql = "select * from user where((user_phone = ? and user_pwd = ?) or (user_email = ? and user_pwd = ?))";
+		return qr.query(conn, sql, new BeanHandler<User>(User.class), user_phone,user_pwd,user_email,user_pwd);
 	}
 }

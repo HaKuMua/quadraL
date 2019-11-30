@@ -27,14 +27,13 @@ public class ArticleDao implements ArticleDaoImpl{
 	 * @throws SQLException 
 	 */
 	public int addArticle(Integer user_id, String article_name,
-			String article_content) throws SQLException {
+			String article_content,Integer house_id) throws SQLException {
 		conn = GetConn.getConn();
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-		String sql = "insert into article(user_id,article_name,article_content, article_date) values(?,?,?,?)";
-		int data = qr.update(conn, sql, user_id,article_name,article_content,format.format(new Date()));
+		String sql = "update article(article_name,article_content,article_date,house_id) values(?,?,?) where user_id = ?";
+		int data = qr.update(conn, sql, article_name,article_content,format.format(new Date()),house_id,user_id);
 		GetConn.closeConn(conn);
 		return data;
-		
 	}
 
 	/**
@@ -131,4 +130,14 @@ public class ArticleDao implements ArticleDaoImpl{
 		GetConn.closeConn(conn);
 		return data;
 	}
+
+	/**
+	 * 通过名字前两个字模糊查文章
+	 * @throws SQLException 
+	 */
+	public List<Article> queryFuzzyQuery(String keyWord) throws SQLException {
+		String sql = "select * from article where article_name like %?%";
+		return qr.query(conn, sql, new BeanListHandler<Article>(Article.class), keyWord);
+	}
+	
 }

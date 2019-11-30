@@ -102,11 +102,17 @@ public class UserService implements UserServiceImpl{
 	}
 	/**
 	 * 添加用户
+	 * 返回user
 	 */
-	public int addUser(String user_phone) throws SQLException {
+	public User addUser(String user_phone) throws SQLException {
 		//自动生成user_name
+		User user = null;
 		String user_name = UUIDGenerator.getUUID().substring(0,8);
-		return userDaoImpl.addUser(user_name, user_phone);
+		int count = userDaoImpl.addUser(user_name, user_phone);
+		if(count != 0) {
+			user = userDaoImpl.getUserInfoByPhone(user_phone);
+		}
+		return user;
 	}
 	/**
 	 * 修改用户
@@ -120,9 +126,10 @@ public class UserService implements UserServiceImpl{
 	 * 通过id查询用户
 	 * @throws SQLException 
 	 */
-	public User queryUser(Integer user_id) throws SQLException {
-		return userDaoImpl.queryUser(user_id);
+	public User queryUserById(Integer user_id) throws SQLException {
+		return userDaoImpl.queryUserById(user_id);
 	}
+	
 	/**
 	 * 查询手机号是否存在
 	 * @throws SQLException 
@@ -204,6 +211,60 @@ public class UserService implements UserServiceImpl{
 //		}
 //		return "插入失败";
 //	}
+	public String addUserInfo(Map<String, Object> map){
+		User user = new User();
+		if(!CheckoutEmail.checkEmail((String) map.get("user_email"))){
+			return "邮箱有误";
+		}
+		try {
+			if(!CheckoutIDCard.IDCardValidate((String) map.get("user_IDcard"))){
+				return "身份证有误";
+			}
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		if(!CheckoutPhoneNumber.isPhoneNumberValid(map.get("user_phone").toString())){
+			return "手机号有误";
+		}
+		try{
+		user.setUser_describe(map.get("user_describe").toString());
+		user.setUser_email(map.get("user_email").toString());
+		user.setUser_headimg_url(map.get("user_headimg_url").toString());
+		user.setUser_id(Integer.valueOf((String) map.get("is_landlord")) );
+		user.setUser_IDcard(map.get("user_IDcard").toString());
+		user.setUser_name(map.get("user_name").toString());
+		user.setUser_phone( map.get("user_phone").toString());
+		user.setReal_name( map.get("real_name").toString());
+		user.setUser_pwd( map.get("user_pwd").toString());
+		}catch (Exception e) {
+			e.printStackTrace();
+			return "输入有误";
+		}
+		try {
+			if(userDaoImpl.addUserInfo(user) > 0){
+				return "插入成功";
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return "插入失败";
+	}
+	/**
+	 * 根据电话/email和密码查询用户
+	 * @throws SQLException 
+	 */
+	public User queryUserInfo(String user_phone, String user_email,
+			String user_pwd) throws SQLException {
+		User user = null;
+		if(user_phone != null && user_email == null) {
+			user_email = "";
+			user = userDaoImpl.queryUserInfo(user_phone, user_email, user_pwd);
+		} else {
+			user_phone = "";
+			user = userDaoImpl.queryUserInfo(user_phone, user_email, user_pwd);
+		}
+		return user;
+	}
 
 
 }

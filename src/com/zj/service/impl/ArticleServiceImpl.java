@@ -33,7 +33,7 @@ public interface ArticleServiceImpl {
 	 * 添加文章
 	 * @throws SQLException 
 	 */
-	int addArticle(Integer user_id,String article_name,String article_content) throws SQLException;
+	int addArticle(Integer user_id,String article_name,String article_content,Integer house_id) throws SQLException;
 	/**
 	 * 通过id删除文章
 	 * @throws SQLException 
