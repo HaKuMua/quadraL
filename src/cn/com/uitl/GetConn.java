@@ -1,6 +1,7 @@
 package cn.com.uitl;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
@@ -17,5 +18,16 @@ public class GetConn {
 			e.printStackTrace();
 		}
 		return conn;
+	}
+	public static void colseConn(Connection conn){
+		if(conn != null){
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
 	}
 }

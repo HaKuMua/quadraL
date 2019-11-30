@@ -22,31 +22,40 @@ public class HouseDao implements HouseDaoImpl{
 	 * 获取jdbc连接
 	 */
 	private QueryRunner qr = new QueryRunner();
-	private Connection conn = GetConn.getConn();
+	private Connection conn = null;
 	/**
 	 * 获取所有房子信息方法
 	 */
 	public List<House> getAllHouseInfo() throws SQLException {
+		conn = GetConn.getConn();
 		String sql = "select * from house";
-		return qr.query(conn, sql, new BeanListHandler<House>(House.class));
+		List<House> data = qr.query(conn, sql, new BeanListHandler<House>(House.class));
+		GetConn.colseConn(conn);
+		return data;
 	}
 	/**
 	 * 通过房子ID获取单个房子信息方法
 	 */
 	public House getHouseInfoByID(Integer HouseID) throws SQLException {
+		conn = GetConn.getConn();
 		String sql = "select * from house where house_id=?";
-		return qr.query(conn, sql, new BeanHandler<House>(House.class),HouseID);
+		House data = qr.query(conn, sql, new BeanHandler<House>(House.class),HouseID);
+		GetConn.colseConn(conn);
+		return data;
 	}
 	/**
 	 * 添加一个房子DAO层方法
 	 */
-	public Boolean addHouseInfo(House house) throws SQLException {
-		String sql = "insert into house(landlord_id,house_name,house_intake,lease_type,may_check_in_date" +
+	public int addHouseInfo(House house) throws SQLException {
+		conn = GetConn.getConn();
+		String sql = "insert into house(User_id,house_name,house_intake,lease_type,may_check_in_date" +
 				",may_check_out_date,house_type,house_particulars_id,house_state,travel_information,house_price" +
 				",house_address) value(?,?,?,?,?,?,?,?,?,?,?,?)";
-		return qr.update(conn, sql, house.getLandlord_id(),house.getHouse_name(),house.getHouse_intake()
+		int data = qr.update(conn, sql, house.getUser_id(),house.getHouse_name(),house.getHouse_intake()
 				,house.getLease_type(),house.getMay_check_in_date(),house.getMay_check_out_date()
 				,house.getHouse_type(),house.getHouse_particulars_id(),house.getHouse_state(),house.getTravel_information()
-				,house.getHouse_price(),house.getHouse_address()) > 0 ? true : false;
+				,house.getHouse_price(),house.getHouse_address());
+		GetConn.colseConn(conn);
+		return data;
 	}
 }

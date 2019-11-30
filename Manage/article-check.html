@@ -136,7 +136,7 @@
 							<li class="sidebar-item">
 								<a class="sidebar-link waves-effect waves-dark sidebar-link" href="checkin-person-info.html" aria-expanded="false">
 									<i class="mdi mdi-arrange-bring-forward"></i>
-									<span class="hide-menu">住户信息</span>
+									<span class="hide-menu">入住人信息</span>
 								</a>
 							</li>
 							<li class="sidebar-item">
@@ -218,7 +218,7 @@
 										<thead>
 											<tr>
 												<th scope="col" class="t1">文章编号</th>
-												<th scope="col" class="t2">用户编号</th>
+												<th scope="col" class="t2">用户姓名</th>
 												<th scope="col" class="t3">文章题目</th>
 												<th scope="col" class="t4">文章内容</th>
 												<th scope="col" class="t5">文章发布日期</th>
@@ -289,7 +289,7 @@
 						var tdArr = document.getElementById('tablebox').firstElementChild;
 						for (var i = 0; i < article_result.list.length; i++) {
 							var tr = document.createElement("tr");
-							tr.innerHTML = '<td class="t1">' + article_result.list[i].article_id + '</td><td class="t2">' + article_result.list[i].user_id +
+							tr.innerHTML = '<td class="t1">' + article_result.list[i].article_id + '</td><td class="t2">' + article_result.list[i].user_name +
 								'</td><td class="t3">' + article_result.list[i].article_name +
 								'</td><td class="t4" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' + article_result.list[i].article_content +
 								'</td><td class="t5">' + article_result.list[i].article_date + '</td><td class="t6">' + article_result.list[i].article_praise +

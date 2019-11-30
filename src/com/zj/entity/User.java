@@ -1,6 +1,7 @@
-package com.zj.entity;
+﻿package com.zj.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 
@@ -10,43 +11,54 @@ import java.io.Serializable;
  */
 public class User implements Serializable{
 	private static final long serialVersionUID = 1L;
-	/*
+	/**
 	 * 用户ID
 	 */
 	private Integer user_id;
-	/*
+	/**
 	 * 用户姓名
 	 */
 	private String user_name;
-	/*
+	/**
 	 * 用户头像URL
 	 */
 	private String user_headimg_url;
-	/*
+	/**
 	 * 用户邮箱
 	 */
 	private String user_email;
-	/*
+	/**
 	 * 用户手机号
 	 */
 	private String user_phone;
-	/*
+	/**
 	 * 用户身份证
 	 */
 	private String user_IDcard;
-	/*
-	 * 房东ID
+	/**
+	 * 是否为房东
 	 */
-	private Integer landlord_id;
-	/*
+	private Integer is_landlord;
+	/**
 	 * 用户密码
 	 */
 	private String user_pwd;
-	/*
+	/**
 	 * 用户余额
 	 */
 	private Double money;
-	
+	/**
+	 * 用户真实姓名
+	 */
+	private String real_name;
+	/**
+	 * 用户签名
+	 */
+	private String user_describe;
+	/**
+	 * 创建时间
+	 */
+	private Date inform_date;
 	
 	public User() {
 	}
@@ -99,15 +111,14 @@ public class User implements Serializable{
 		this.user_IDcard = user_IDcard;
 	}
 
-	public Integer getLandlord_id() {
-		return landlord_id;
+	public Integer getIs_landlord() {
+		return is_landlord;
 	}
 
-	public void setLandlord_id(Integer landlord_id) {
-		this.landlord_id = landlord_id;
+	public void setIs_landlord(Integer is_landlord) {
+		this.is_landlord = is_landlord;
 	}
-	
-	
+
 	public String getUser_pwd() {
 		return user_pwd;
 	}
@@ -123,15 +134,41 @@ public class User implements Serializable{
 	public void setMoney(Double money) {
 		this.money = money;
 	}
+	
+
+	public String getReal_name() {
+		return real_name;
+	}
+
+	public void setReal_name(String real_name) {
+		this.real_name = real_name;
+	}
+
+	public String getUser_describe() {
+		return user_describe;
+	}
+
+	public void setUser_describe(String user_describe) {
+		this.user_describe = user_describe;
+	}
+
+	public Date getInform_date() {
+		return inform_date;
+	}
+
+	public void setInform_date(Date inform_date) {
+		this.inform_date = inform_date;
+	}
 
 	@Override
 	public String toString() {
 		return "User [user_id=" + user_id + ", user_name=" + user_name
 				+ ", user_headimg_url=" + user_headimg_url + ", user_email="
 				+ user_email + ", user_phone=" + user_phone + ", user_IDcard="
-				+ user_IDcard + ", landlord_id=" + landlord_id + ", user_pwd="
-				+ user_pwd + ", money=" + money + "]";
+				+ user_IDcard + ", is_landlord=" + is_landlord + ", user_pwd="
+				+ user_pwd + ", money=" + money + ", real_name=" + real_name
+				+ ", user_describe=" + user_describe + ", inform_date="
+				+ inform_date + "]";
 	}
-
 	
 }

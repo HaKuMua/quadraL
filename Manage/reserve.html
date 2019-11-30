@@ -151,7 +151,7 @@
 							<li class="sidebar-item">
 								<a class="sidebar-link waves-effect waves-dark sidebar-link" href="checkin-person-info.html" aria-expanded="false">
 									<i class="mdi mdi-arrange-bring-forward"></i>
-									<span class="hide-menu">住户信息</span>
+									<span class="hide-menu">入住人信息</span>
 								</a>
 							</li>
 							<li class="sidebar-item">
@@ -268,6 +268,7 @@
 						var tdArr = document.getElementById('tablebox').firstElementChild;
 						for (var i = 0; i < reserve_result.list.length; i++) {
 							var tr = document.createElement("tr");
+							console.log(reserve_result.list[i].user_id);
 							tr.innerHTML = '<td class="t1">' + reserve_result.list[i].reserve_id + '</td><td class="t2">' + reserve_result.list[i].reserve_date +
 								'</td><td class="t3">' + reserve_result.list[i].reserve_day_number + '</td><td class="t4">' + reserve_result.list[i].check_out_date +
 								'<td class="t5">' + reserve_result.list[i].user_name + '</td><td class="t6">' + reserve_result.list[i].house_id;

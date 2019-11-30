@@ -1,4 +1,4 @@
-package com.zj.entity;
+﻿package com.zj.entity;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -34,6 +34,7 @@ public class Article implements Serializable{
 	 * 文章赞数
 	 */
 	private Integer article_praise;
+
 	/*
 	 * 文章收藏数
 	 */
@@ -108,5 +109,8 @@ public class Article implements Serializable{
 				+ ", article_collect=" + article_collect + ", article_praise="
 				+ article_praise + "]";
 	}
+
+	
+	
 	
 }

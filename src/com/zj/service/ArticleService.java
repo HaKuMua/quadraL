@@ -1,4 +1,4 @@
-package com.zj.service;
+﻿package com.zj.service;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -12,13 +12,16 @@ import cn.com.uitl.PageUtil;
 import com.zj.dao.ArticleDao;
 import com.zj.dao.ArticleImgDao;
 import com.zj.dao.CommentDao;
+import com.zj.dao.UserDao;
 import com.zj.dao.impl.ArticleDaoImpl;
 import com.zj.dao.impl.ArticleImgDaoImpl;
 import com.zj.dao.impl.CommentDaoImpl;
+import com.zj.dao.impl.UserDaoImpl;
 import com.zj.entity.Article;
 import com.zj.entity.ArticleImg;
 import com.zj.entity.Comment;
-import com.zj.service.imp.ArticleServiceImpl;
+import com.zj.entity.User;
+import com.zj.service.impl.ArticleServiceImpl;
 
 /**
  * 文章服务层
@@ -29,6 +32,7 @@ public class ArticleService implements ArticleServiceImpl{
 	private ArticleDaoImpl articleDaoImpl = new ArticleDao();
 	private ArticleImgDaoImpl articleImgDaoImpl = new ArticleImgDao();
 	private CommentDaoImpl commentDaoImpl = new CommentDao();
+	private UserDaoImpl  userDaoImpl = new UserDao(); 
 	/**
 	 * 获得所有文章
 	 * @return
@@ -43,6 +47,9 @@ public class ArticleService implements ArticleServiceImpl{
 					Map<String, Object> map = new HashMap<String, Object>();
 					map.put("article_id", article.getArticle_id());
 					map.put("user_id", article.getUser_id());
+					Integer user_id = article.getUser_id();
+					User user = userDaoImpl.getUserInfoById(user_id);
+					map.put("user_name", user.getUser_name());
 					map.put("article_name", article.getArticle_name());
 					map.put("article_content", article.getArticle_content());
 					map.put("article_date", article.getArticle_date());
@@ -135,6 +142,75 @@ public class ArticleService implements ArticleServiceImpl{
 			return list;
 		}
 		return null;
+	}
+
+	/**
+	 * 添加文章
+	 * @throws SQLException 
+	 */
+	public int addArticle(Integer user_id, String article_name,
+			String article_content) throws SQLException {
+		return articleDaoImpl.addArticle(user_id, article_name, article_content);
+	}
+
+	/**
+	 * 通过id删除文章
+	 * @throws SQLException 
+	 */
+	public int deleteArticleById(Integer article_id) throws SQLException {
+		return articleDaoImpl.deleteArticleById(article_id);
+	}
+
+	/**
+	 * 修改文章
+	 * @throws SQLException 
+	 */
+	public int updateArticle(Integer article_id, String article_name,
+			String article_content) throws SQLException {
+		return articleDaoImpl.updateArticle(article_id, article_name, article_content);
+	}
+
+	/**
+	 * 通过id查询文章
+	 * @throws SQLException 
+	 */
+	public Article queryArticleById(Integer article_id) throws SQLException {
+		return articleDaoImpl.queryArticleById(article_id);
+	}
+
+	/**
+	 * 分页查询所有文章
+	 * @throws SQLException 
+	 */
+	public List<Article> queryPageArticle(int startRow, int pageSize)
+			throws SQLException {
+		return articleDaoImpl.queryPageArticle(startRow, pageSize);
+	}
+
+	/**
+	 * 查询所有文章数量
+	 * @throws SQLException 
+	 */
+	public Long queryCountArticle() throws SQLException {
+		return articleDaoImpl.queryCountArticle();
+	}
+
+	/**
+	 * 更新赞数量
+	 * @throws SQLException 
+	 */
+	public int updateArticle_praiset(Integer article_praise, Integer article_id)
+			throws SQLException {
+		return articleDaoImpl.updateArticle_praiset(article_praise, article_id);
+	}
+
+	/**
+	 * 更新收藏数量
+	 * @throws SQLException 
+	 */
+	public int updateArticle_collect(Integer article_id, Integer article_collect)
+			throws SQLException {
+		return articleDaoImpl.updateArticle_collect(article_id, article_collect);
 	}
 	/**
 	 * 分页显示评论

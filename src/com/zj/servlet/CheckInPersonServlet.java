@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONObject;
 
 import com.zj.service.CheckInPersonService;
-import com.zj.service.imp.CheckInPersonServiceImpl;
+import com.zj.service.impl.CheckInPersonServiceImpl;
 
 import cn.com.uitl.BaseServlet;
 
@@ -26,7 +26,7 @@ public class CheckInPersonServlet extends BaseServlet {
 	public String callback;
 	public String check_in_person_ID_card;
 	
-	// 3返回所有入住人员信息
+	// 返回所有入住人员信息
 	public void getAllCheckInPersonInfo(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
 		List<Map<String, Object>> list = cipService.getAllCheckInPersonInfo();

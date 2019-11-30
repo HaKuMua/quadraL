@@ -7,9 +7,12 @@ import java.util.List;
 import java.util.Map;
 
 import com.zj.dao.GrogshopOrderDao;
+import com.zj.dao.UserDao;
 import com.zj.dao.impl.GrogshopOrderDaoImpl;
+import com.zj.dao.impl.UserDaoImpl;
 import com.zj.entity.GrogshopOrder;
-import com.zj.service.imp.GrogshopOrderServiceImpl;
+import com.zj.entity.User;
+import com.zj.service.impl.GrogshopOrderServiceImpl;
 
 /**
  * 订单服务层
@@ -18,6 +21,7 @@ import com.zj.service.imp.GrogshopOrderServiceImpl;
  */
 public class GrogshopOrderService implements GrogshopOrderServiceImpl{
 	private GrogshopOrderDaoImpl orderDaoImpl = new GrogshopOrderDao();
+	private UserDaoImpl  userDaoImpl = new UserDao(); 
 	
 	/**
 	 * 将所有订单信息包装成一个list<map>返回 
@@ -25,7 +29,6 @@ public class GrogshopOrderService implements GrogshopOrderServiceImpl{
 	 */
 	public List<Map<String, Object>> getAllGrogshopOrderInfo(){
 		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
-		
 		try {
 			List<GrogshopOrder> allOrder = orderDaoImpl.getAllGrogshopOrderInfo();
 			if(allOrder != null){
@@ -33,7 +36,10 @@ public class GrogshopOrderService implements GrogshopOrderServiceImpl{
 				for(int i = 0;i<allOrder.size();i++){
 					Map<String, Object> map = new HashMap<String, Object>();
 					map.put("grogshop_order_id", allOrder.get(i).getGrogshop_order_id());
-					map.put("landlord_id", allOrder.get(i).getLandlord_id());
+					map.put("user_id", allOrder.get(i).getUser_id());
+					Integer user_id = allOrder.get(i).getUser_id();
+					User user = userDaoImpl.getUserInfoById(user_id);
+					map.put("user_name", user.getUser_name());
 					map.put("price", allOrder.get(i).getPrice());
 					map.put("place_an_order_date", allOrder.get(i).getPlace_an_order_date());
 					map.put("grogshop_order_state", allOrder.get(i).getGrogshop_order_state());
@@ -59,7 +65,7 @@ public class GrogshopOrderService implements GrogshopOrderServiceImpl{
 			if(order != null){
 				map = new HashMap<String, Object>();
 				map.put("grogshop_order_id", order.getGrogshop_order_id());
-				map.put("landlord_id", order.getLandlord_id());
+				map.put("user_id", order.getUser_id());
 				map.put("price", order.getPrice());
 				map.put("place_an_order_date", order.getGrogshop_order_state());
 				map.put("grogshop_order_state", order.getGrogshop_order_state());

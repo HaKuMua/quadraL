@@ -129,7 +129,7 @@
 			user_id: '1000',
 			user_name:'haku',
 			user_img: '../../img/timg.jpg',
-			lanlord_id:'1001'
+			islanlord:1
 		};
 		// var houseInfo = {
 		// 	house_name: '下榻日式风格的房源去畅玩太古里',
@@ -144,9 +144,9 @@
 		// 	toilet_number:1,
 		// 	bed_number: 1,
 		// 	//房东信息
-		// 	landlord_id:'',
-		// 	landlord_name:'',
-		// 	landlord_img:''
+		// 	user_id:'',
+		// 	user_name:'',
+		// 	user_img:''
 		// }
 		if (userInfo.user_id != '') {
 			var html = '<li class="layui-nav-item" id="china"><a href="">退出</a></li>' +
@@ -158,7 +158,7 @@
 				userInfo.user_img+'" class="layui-nav-img">'+userInfo.user_name+'</a> ';
 			$("#rightNav").empty();
 			$("#rightNav").append(html);
-			if(userInfo.isLanlord != '' || userInfo.isLanlord !=null) {
+			if(userInfo.islanlord != 1 || userInfo.islanlord !=null) {
 				$("#china").after('<li class="layui-nav-item "> <a href="">查看我的房源</a></li>'+
 								'<li class="layui-nav-item "><a href="host/create_a_room/room.html">添加房源</a></li>');
 			} else  {

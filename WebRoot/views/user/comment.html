@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>编辑个人信息</title>
+		<link rel="stylesheet" type="text/css" href="../../layui/css/layui.css">
+		<script src="../../js/jquery.min.js"></script>
+		<script src="../../layui/layui.js"></script>
+		<style type="text/css">
+			#navId li a {
+				font-size: 15px;
+				color: white;
+				font-weight: bold;
+			}
+			#rightNav {
+				float: right;
+			}
+			
+			#leftDiv{
+				margin-top: 90px;
+				position: absolute;
+				width:250px;
+				height: 300px;
+				margin-left: 350px;
+				text-align: center;
+			}
+			
+			#main{
+				margin-top: 90px;
+				position: absolute;
+				width:700px;
+				margin-left: 700px;
+			}
+			
+			.foot {
+				margin-top:30%;
+				width: 1090px;
+				margin-left: 550px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="top">
+			<ul class="layui-nav layui-bg-green" id="navId">
+				<li class="layui-nav-item">
+					<a href="index.html">
+						<img src="../../img/logo.jpg" class="layui-nav-img">
+					</a>
+				</li>
+				<li class="layui-nav-item ">
+					<form class="layui-form" action="">
+						<input id="topSearch" style=" width: 400px;height:48px; font-weight: bold; font-size: 20px; " name="search" 
+						placeholder="搜一搜"
+						 autocomplete="off" class="layui-input">
+					</form>
+				</li>
+				<div id="rightNav" >
+					<li class="layui-nav-item" id="china"><a href="">退出</a></li>
+					<li class="layui-nav-item "> <a href="" >房源订单中心</a></li>
+					<li class="layui-nav-item"><a href="">故事</a></li>
+					<li class="layui-nav-item"><a href="../index.html">首页</a> </li>
+					<li class="layui-nav-item"><a href="">帮助</a> </li>
+					<li class="layui-nav-item" lay-unselect=""><a href="javascript:;">
+					<img src="'+userInfo.user_img+'" class="layui-nav-img"></a> 
+				</div>
+			</ul>
+		</div>
+		<div id="leftDiv" >
+			<br><br><a href="modifyInfo.html"><h2>编辑个人资料</h2></a><br><br>
+			<a href="image.html"><h2>照片</h2></a><br><br>
+			<a href="comment.html"><h2><b>我的评论</b></h2></a><br><br>
+			<a href="../host/landlord.html"  class="layui-btn layui-btn-primary">查看我的个人资料</a>
+		</div>
+		<div id="main">
+			
+				<div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+				  <ul class="layui-tab-title">
+				    <li class="layui-this">对于您的评价</li>
+				    <li>您写的评价</li>
+				  </ul>
+				  <br><br>
+				  <div class="layui-tab-content" style="height: 100px;">
+					<div class="layui-tab-item layui-show" style="border: 1px solid grey; height:200px;">
+						<div style="height: 40px;background-color: #F2F4F5; line-height: 40px;">
+							<h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;过往评价</h3>
+						</div><br><br>
+						<div id="Capa_1">
+							<h3>预订的住宿结束后才能在爱彼迎网站上撰写评价。您收到的评价将出现在这里以及您公开的个人资料中。</h3>
+							<br>
+							<h4>尚未有人对您进行评价。</h4>
+							
+						</div>
+					</div>
+				    <div class="layui-tab-item " style="border: 1px solid grey; height: 200px;">
+				    	<div style="height: 40px;background-color: #F2F4F5; line-height: 40px;">
+				    		<h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;撰写评论</h3>
+				    	</div><br><br>
+						<div id="">
+							<h4>目前没有写评价的需要。该是预订另一个旅程的时候了！</h4>
+						</div>
+				    </div>
+				</div>
+			</div><br>
+		</div>
+		<div class="foot" >
+			<div >
+				<div>京ICP备16017121号-3 京ICP证 160773号 
+				<img src="https://z1.muscache.cn/airbnb/static/packages/public_security_bureau_logo.d0289dc0.png"
+					 alt="中国公安局标志"> <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010502032345" target="_blank"
+					 rel="noopener noreferrer"  aria-busy="false">京公网安备 11010502032345号</a>
+					技术支持：卓应教育（湖南）有限公司 <a href="https://a0.muscache.com/pictures/03ec62da-f467-4e2b-bfee-6eefd052d7f5.jpg" target="_blank"
+					 rel="noopener noreferrer"  aria-busy="false">营业执照</a></div>
+				<div dir="ltr" >© 2019 Airbnb, Inc. All rights reserved.</div>
+			</div>
+			<br><br><br><br><br><br>
+		</div>
+	</body>
+	<script type="text/javascript">
+		//利用Cookie拿到信息
+		// var userInfo=$.Cookie('userInfo');
+		var userInfo = {
+			user_id: '1000',
+			user_name:'haku',
+			user_headimg_url: '../../img/timg.jpg',
+			user_email:'',
+			user_IDcard:'',
+			user_pwd:'',
+			money:'',
+			user_phone:'',
+			real_name:'',
+			islanlord:1
+		};
+		if(userInfo.user_id != '') {
+			var html = '<li class="layui-nav-item" id="china"><a href="">退出</a></li>' +
+				'<li class="layui-nav-item "> <a href="" >房源订单中心</a></li>' +
+				'<li class="layui-nav-item"><a href="">故事</a></li>' +
+				'<li class="layui-nav-item"><a href="../index.html">首页</a> </li>' +
+				'<li class="layui-nav-item"><a href="">帮助</a> </li>' +
+				' <li class="layui-nav-item" lay-unselect=""><a href="javascript:;"><img src="'+
+				userInfo.user_headimg_url+'" class="layui-nav-img">'+userInfo.user_name+'</a> ';
+			$("#rightNav").empty();
+			$("#rightNav").append(html);
+			if(userInfo.islanlord != '' || userInfo.islanlord !=null) {
+				$("#china").after('<li class="layui-nav-item "> <a href="">查看我的房源</a></li>'+
+								'<li class="layui-nav-item "><a href="host/create_a_room/room.html">添加房源</a></li>');
+			} else  {
+				$("#china").after('<li class="layui-nav-item "> <a href="">成为房东</a></li>');
+			}
+		}
+		
+	</script>
+	<script>
+		layui.use(['form','element','layer','laypage','carousel'], function() {
+			var form = layui.form,
+				$ = layui.jquery,
+				layer = layui.layer,
+				element = layui.element,
+				laypage = layui.laypage,
+				carousel=layui.carousel; 
+		
+	});
+	</script>
+</html>

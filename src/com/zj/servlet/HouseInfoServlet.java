@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONObject;
 
 import com.zj.service.HouseService;
-import com.zj.service.imp.HouseServiceImpl;
+import com.zj.service.impl.HouseServiceImpl;
 
 import cn.com.uitl.BaseServlet;
 

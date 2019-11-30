@@ -23,4 +23,11 @@ public interface HouseImgDaoImpl {
 	 * 通过房子ID获取一组房子图片方法接口
 	 */
 	List<HouseImg> getHouseImgByHouseID(Integer HouseID) throws SQLException;
+	/**
+	 * 添加一个房子图片信息方法接口
+	 * @param houseImg 传递一个房子图片实体类进来
+	 * @return 返回值若大于0则插入成功
+	 * @throws SQLException
+	 */
+	int addHouseImgInfo(HouseImg houseImg) throws SQLException;
 }

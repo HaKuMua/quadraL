@@ -152,7 +152,7 @@
 							<li class="sidebar-item">
 								<a class="sidebar-link waves-effect waves-dark sidebar-link" href="checkin-person-info.html" aria-expanded="false">
 									<i class="mdi mdi-arrange-bring-forward"></i>
-									<span class="hide-menu">住户信息</span>
+									<span class="hide-menu">入住人信息</span>
 								</a>
 							</li>
 							<li class="sidebar-item">
@@ -229,20 +229,49 @@
 											</div>
 										</div>
 									</div>
-									<table class="table table-hover" id="tablebox">
+									<table class="table table-hover table-striped" id="tablebox" style="table-layout: fixed;">
 										<thead>
 											<tr>
 												<th scope="col" class="t1">评论编号</th>
-												<th scope="col" class="t2">文章编号</th>
-												<th scope="col" class="t3">用户编号</th>
+												<th scope="col" class="t2">文章名</th>
+												<th scope="col" class="t3">用户名</th>
 												<th scope="col" class="t4">评论内容</th>
-												<th scope="col" class="t5">回复人编号</th>
+												<th scope="col" class="t5">回复人</th>
 												<th scope="col" class="t6">评论时间</th>
 												<th scope="col" class="t7">赞的数量</th>
 												<th scope="col" class="t8"></th>
+												<th scope="col" class="t9"></th>
 											</tr>
 										</thead>
 									</table>
+									<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+										<div class="modal-dialog modal-lg">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h4 class="modal-title" id="myModalLabel">
+														文章评论详细内容
+													</h4>
+													<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+														×
+													</button>
+									
+												</div>
+												<div class="modal-body">
+													<!--文本表格-->
+													<div id="text1" style="  width:750px; height:400px;">
+														
+													</div>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-default" data-dismiss="modal">
+															返回继续操作
+														</button>
+													</div>
+												</div>
+											</div>
+										</div>
+										<!-- /.modal-content -->
+									</div>
+									<!-- /.modal -->
 								</div>
 							</div>
 						</div>
@@ -267,17 +296,21 @@
 		<!-- End Wrapper -->
 		<script>
 			var count=0;
+			var map;
 			$.getJSON("http://localhost:80/QuadraL/commen.do?method=getAllComment&callback=?",
 				function(comment_result) {
+					map = comment_result;
 					window.onload = function() {
 						var tdArr = document.getElementById('tablebox').firstElementChild;
 						for (var i = 0; i < comment_result.list.length; i++) {
 							var tr = document.createElement("tr");
-							tr.innerHTML = '<td class="t1">' + comment_result.list[i].comment_id + '</td><td class="t2">' + comment_result.list[i].article_id +
-								'</td><td class="t3">' + comment_result.list[i].user_id + '</td><td class="t4">' + comment_result.list[i].comment_content + 
+							tr.innerHTML = '<td class="t1">' + comment_result.list[i].comment_id + '</td><td class="t2">' + comment_result.list[i].article_name +
+								'</td><td class="t3">' + comment_result.list[i].user_name + '</td><td class="t4" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' + comment_result.list[i].comment_content + 
 								'</td><td class="t5">' + comment_result.list[i].replier_id + '</td><td class="t6">' + comment_result.list[i].comment_date +
 								'</td><td class="t7">' + comment_result.list[i].comment_praise +
-								'</td><td class="t8">'+
+								'</td><td class="t8">' +
+								'<button class="btn more btn-primary btn-sm" id="'+i+'" data-toggle="modal" data-target="#myModal">查看文章评论详细内容</button>' +
+								'</td><td class="t9">'+
 								'<button class="btn btn-primary delete btn-sm" id=" '+i+'" >删除</button>';
 							tdArr.appendChild(tr)
 							count++;
@@ -286,6 +319,11 @@
 					};
 				}
 			);
+			$(document).on("click",".more",function(){
+				var id = $(this).attr("id");
+				var text = "&nbsp &nbsp &nbsp &nbsp &nbsp" + map.list[id].comment_content;
+				document.getElementById("text1").innerHTML =  text;
+			});
 			$(document).on("click",".delete",function(){
 				var id = $(this).attr("id");
 				var num = $(this).parent().parent();

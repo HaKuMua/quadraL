@@ -15,7 +15,7 @@ import org.json.JSONObject;
 import com.zj.dao.HouseCommentDao;
 import com.zj.dao.impl.HouseCommentDaoImpl;
 import com.zj.service.HouseCommentService;
-import com.zj.service.imp.HouseCommentServiceImpl;
+import com.zj.service.impl.HouseCommentServiceImpl;
 
 import cn.com.uitl.BaseServlet;
 
