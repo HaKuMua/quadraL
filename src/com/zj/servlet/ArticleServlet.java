@@ -120,8 +120,9 @@ public class ArticleServlet extends BaseServlet {
 		Integer user_id = new Integer(request.getParameter("article_id"));
 		String article_name = request.getParameter("article_name");
 		String article_content = request.getParameter("article_content");
+		Integer house_id = new Integer(request.getParameter("house_id"));
 		try {
-			 int count = articleService.addArticle(user_id, article_name, article_content);
+			 int count = articleService.addArticle(user_id, article_name, article_content, house_id);
 			 if(count > 0){
 				 
 			 }

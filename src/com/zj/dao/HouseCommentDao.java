@@ -10,7 +10,6 @@ import org.apache.commons.dbutils.handlers.BeanListHandler;
 import cn.com.uitl.GetConn;
 
 import com.zj.dao.impl.HouseCommentDaoImpl;
-import com.zj.entity.Comment;
 import com.zj.entity.HouseComment;
 
 /**

@@ -11,7 +11,6 @@ import org.apache.commons.dbutils.handlers.BeanListHandler;
 import com.zj.dao.impl.CheckInPersonDaoImpl;
 import com.zj.entity.CheckInPerson;
 
-import cn.com.uitl.DBHelper;
 import cn.com.uitl.GetConn;
 
 /**

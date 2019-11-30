@@ -1,7 +1,6 @@
 ﻿package com.zj.dao.impl;
 
 import java.sql.SQLException;
-import java.util.Date;
 import java.util.List;
 
 import com.zj.entity.User;
