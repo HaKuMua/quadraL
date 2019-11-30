@@ -61,6 +61,10 @@ public class House implements Serializable{
 	 * 用户ID
 	 */
 	private Integer user_id;
+	/**
+	 * 门牌号
+	 */
+	private String location_id;
 	
 	public House() {
 	}
@@ -169,6 +173,14 @@ public class House implements Serializable{
 		this.user_id = user_id;
 	}
 
+	public String getLocation_id() {
+		return location_id;
+	}
+
+	public void setLocation_id(String location_id) {
+		this.location_id = location_id;
+	}
+
 	public String toString() {
 		return "House [house_id=" + house_id + ", house_name=" + house_name
 				+ ", house_intake=" + house_intake + ", lease_type="
@@ -178,6 +190,7 @@ public class House implements Serializable{
 				+ house_particulars_id + ", house_state=" + house_state
 				+ ", travel_information=" + travel_information
 				+ ", house_price=" + house_price + ", house_address="
-				+ house_address + ", user_id=" + user_id + "]";
+				+ house_address + ", user_id=" + user_id + ", location_id="
+				+ location_id + "]";
 	}
 }

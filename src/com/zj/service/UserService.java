@@ -1,17 +1,12 @@
 ﻿package com.zj.service;
 
 import java.sql.SQLException;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import cn.com.uitl.UUIDGenerator;
-
-import cn.com.uitl.CheckoutEmail;
-import cn.com.uitl.CheckoutIDCard;
-import cn.com.uitl.CheckoutPhoneNumber;
 
 import com.zj.dao.UserDao;
 import com.zj.dao.impl.UserDaoImpl;

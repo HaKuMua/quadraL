@@ -1,6 +1,7 @@
 package com.zj.dao.impl;
 
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 
 import com.zj.entity.House;
@@ -26,4 +27,28 @@ public interface HouseDaoImpl {
 	 * @throws SQLException
 	 */
 	int addHouseInfo(House house) throws SQLException;
+	/**
+	 * 按房子地址模糊查询房子信息
+	 * @param house_address
+	 * @return
+	 * @throws SQLException
+	 */
+	List<House> getHouseByAdd(String house_address) throws SQLException;
+	/**
+	 * 按是否有空闲时间查询房子
+	 * @param reserve_date
+	 * @param check_out_date
+	 * @return
+	 * @throws SQLException
+	 */
+	List<House> getHouseByDate(Date reserve_date ,Date check_out_date) throws SQLException;
+	/**
+	 * 按时间和地址联合查询房间
+	 * @param reserve_date 预定时间
+	 * @param check_out_date 退房时间
+	 * @param house_address 房子地址
+	 * @return
+	 * @throws SQLException
+	 */
+	List<House> getHouseByDateAndAdd(Date reserve_date ,Date check_out_date,String house_address) throws SQLException;
 }

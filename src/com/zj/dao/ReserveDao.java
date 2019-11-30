@@ -2,6 +2,9 @@ package com.zj.dao;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.dbutils.QueryRunner;
@@ -10,6 +13,7 @@ import org.apache.commons.dbutils.handlers.BeanListHandler;
 import cn.com.uitl.GetConn;
 
 import com.zj.dao.impl.ReserveDaoImpl;
+import com.zj.entity.House;
 import com.zj.entity.Reserve;
 
 /**
@@ -30,7 +34,7 @@ public class ReserveDao implements ReserveDaoImpl{
 		return qr.query(conn, sql, new BeanListHandler<Reserve>(Reserve.class));
 	}
 	/**
-	 * 添加一条预订信息方法接口
+	 * 添加一条预订信息方法
 	 * @param reserve
 	 * @return
 	 * @throws SQLException

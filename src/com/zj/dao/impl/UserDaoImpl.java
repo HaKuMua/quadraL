@@ -67,4 +67,8 @@ public interface UserDaoImpl {
 //	 * @throws SQLException
 //	 */
 //	int addUserInfo(User user) throws SQLException;
+	/**
+	 * 更新用户余额
+	 */
+	int updateUserMoney(Double price,Integer user_id) throws SQLException;
 }

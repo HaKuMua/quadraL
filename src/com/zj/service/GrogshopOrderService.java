@@ -1,14 +1,29 @@
 package com.zj.service;
 
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
+import cn.com.uitl.UUIDGenerator;
+
+import com.zj.dao.CheckInPersonDao;
 import com.zj.dao.GrogshopOrderDao;
+import com.zj.dao.ReserveDao;
+import com.zj.dao.UserDao;
+import com.zj.dao.impl.CheckInPersonDaoImpl;
 import com.zj.dao.impl.GrogshopOrderDaoImpl;
+import com.zj.dao.impl.ReserveDaoImpl;
+import com.zj.dao.impl.UserDaoImpl;
+import com.zj.entity.CheckInPerson;
 import com.zj.entity.GrogshopOrder;
+import com.zj.entity.Reserve;
+import com.zj.entity.User;
 import com.zj.service.impl.GrogshopOrderServiceImpl;
 
 /**
@@ -18,7 +33,10 @@ import com.zj.service.impl.GrogshopOrderServiceImpl;
  */
 public class GrogshopOrderService implements GrogshopOrderServiceImpl{
 	private GrogshopOrderDaoImpl orderDaoImpl = new GrogshopOrderDao();
-	
+	private ReserveDaoImpl reserveDaoImpl = new ReserveDao();
+	private CheckInPersonDaoImpl checkInPersonDaoImpl = new CheckInPersonDao();
+	private UserDaoImpl userDaoImpl = new UserDao();
+	private Logger log = Logger.getLogger(GrogshopOrderService.class);
 	/**
 	 * 将所有订单信息包装成一个list<map>返回 
 	 * @return
@@ -67,8 +85,76 @@ public class GrogshopOrderService implements GrogshopOrderServiceImpl{
 				map.put("reserve_id", order.getReserve_id());
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			log.error("数据库操作异常");
 		}
 		return map;
+	}
+	/**
+	 * 添加一个订单信息方法
+	 * @param grogshopOrder
+	 * @return
+	 */
+	public String addGrogshopOrderInfo(Map<String, Object> grogshopOrderInfo,
+			List<Map<String, Object>> checkInPersonInfoMap) {
+		try {
+			//下单先扣钱
+			Integer user_id = Integer.valueOf(grogshopOrderInfo.get("user_id").toString());
+			Double price = Double.valueOf(grogshopOrderInfo.get("price").toString());
+			User user = userDaoImpl.getUserInfoByID(user_id);
+			if(price>user.getMoney())
+				return "余额不足下单失败";
+			if(userDaoImpl.updateUserMoney(price, user_id) > 0)
+				log.debug("扣钱成功");
+			//插入预定表
+			Reserve reserve = new Reserve();
+			reserve.setReserve_date(new SimpleDateFormat("yyyy-MM-dd").parse(grogshopOrderInfo.get("reserve_date").toString()));
+			reserve.setReserve_day_number(Integer.valueOf(grogshopOrderInfo.get("reserve_day_number").toString()));
+			reserve.setCheck_out_date(new SimpleDateFormat("yyyy-MM-dd").parse(grogshopOrderInfo.get("check_out_date").toString()));
+			reserve.setUser_id(user_id);
+			reserve.setHouse_id(Integer.valueOf(grogshopOrderInfo.get("house_id").toString()));
+			if(reserveDaoImpl.addReserve(reserve)>0){
+				log.debug("插入信息成功");
+			}else{
+				log.debug("插入信息失败");
+				return null;
+			}
+			//插入订单表
+			GrogshopOrder grogshopOrder = new GrogshopOrder();
+			String uuID = UUIDGenerator.getUUID();
+			grogshopOrder.setGrogshop_order_id(uuID);
+			grogshopOrder.setUser_id(Integer.valueOf(grogshopOrderInfo.get("user_id").toString()));
+			grogshopOrder.setPrice(price);
+			grogshopOrder.setGrogshop_order_state(grogshopOrderInfo.get("grogshop_order_state").toString());
+			if(grogshopOrderInfo.get("grogshop_order_describe") !=null)
+				grogshopOrder.setGrogshop_order_describe(grogshopOrderInfo.get("grogshop_order_describe").toString());
+			grogshopOrder.setReserve_id(Integer.valueOf(grogshopOrderInfo.get("reserve_id").toString()));
+			log.debug(grogshopOrder);
+			if(orderDaoImpl.addGrogshopOrderInfo(grogshopOrder) > 0){
+				log.debug("订单信息插入成功");
+			}else{
+				log.debug("订单信息插入失败");
+				return null;
+			}
+			//插入入住人表
+			for(Map<String, Object> checkInPersonMap : checkInPersonInfoMap){
+				CheckInPerson checkInPerson = new CheckInPerson();
+				checkInPerson.setGrogshop_order_id(uuID);
+				checkInPerson.setCheck_in_person_name(checkInPersonMap.get("check_in_person_name").toString());
+				checkInPerson.setCheck_in_person_ID_card(checkInPersonMap.get("check_in_person_ID_card").toString());
+				if(checkInPersonDaoImpl.addCheckInPerson(checkInPerson)>0){
+					log.debug("插入入住人信息成功");
+				}else{
+					log.debug("插入入住人信息失败");
+					return null;
+				}
+			}
+		} catch (SQLException e1) {
+			log.error("数据库操作异常");
+			return null;
+		} catch (ParseException e) {
+			log.error("Date型转换异常");
+			return null;
+		}
+		return "订单插入成功";
 	}
 }
