@@ -32,7 +32,7 @@ public class ArticleDao implements ArticleDaoImpl{
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 		String sql = "insert into article(user_id,article_name,article_content, article_date) values(?,?,?,?)";
 		int data = qr.update(conn, sql, user_id,article_name,article_content,format.format(new Date()));
-		GetConn.colseConn(conn);
+		GetConn.closeConn(conn);
 		return data;
 		
 	}
@@ -45,7 +45,7 @@ public class ArticleDao implements ArticleDaoImpl{
 		conn = GetConn.getConn();
 		String sql = "delete from article where article_id = ?";
 		int data = qr.update(conn, sql, article_id);
-		GetConn.colseConn(conn);
+		GetConn.closeConn(conn);
 		return data;
 	}
 
@@ -58,7 +58,7 @@ public class ArticleDao implements ArticleDaoImpl{
 		conn = GetConn.getConn();
 		String sql = "update article set article_name = ?, article_content = ? where article_id = ?";
 		int data = qr.update(conn, sql, article_name,article_content,article_id);
-		GetConn.colseConn(conn);
+		GetConn.closeConn(conn);
 		return data;
 	}
 
@@ -70,7 +70,7 @@ public class ArticleDao implements ArticleDaoImpl{
 		conn = GetConn.getConn();
 		String sql = "select * from article where article_id = ?";
 		Article data =  qr.query(conn, sql, new BeanHandler<Article>(Article.class), article_id);
-		GetConn.colseConn(conn);
+		GetConn.closeConn(conn);
 		return data;
 	}
 
@@ -82,7 +82,7 @@ public class ArticleDao implements ArticleDaoImpl{
 		conn = GetConn.getConn();
 		String sql = "select * from article limit ?,?";
 		List<Article>  data = qr.query(conn, sql, new BeanListHandler<Article>(Article.class), startRow,pageSize); 
-		GetConn.colseConn(conn);
+		GetConn.closeConn(conn);
 		return data;
 	}
 
@@ -94,7 +94,7 @@ public class ArticleDao implements ArticleDaoImpl{
 		conn = GetConn.getConn();
 		String sql = "select count(*) from article";
 		Long data =  qr.query(conn, sql, new ScalarHandler<Long>());
-		GetConn.colseConn(conn);
+		GetConn.closeConn(conn);
 		return data;
 	}
 
@@ -106,7 +106,7 @@ public class ArticleDao implements ArticleDaoImpl{
 		conn = GetConn.getConn();
 		String sql = "update article set article_praise = ? where article_id = ?";
 		int data =  qr.update(conn, sql, article_praise,article_id);
-		GetConn.colseConn(conn);
+		GetConn.closeConn(conn);
 		return data;
 	}
 
@@ -118,7 +118,7 @@ public class ArticleDao implements ArticleDaoImpl{
 		conn = GetConn.getConn();
 		String sql = "update article set article_collect = ? where article_id = ?";
 		int data =  qr.update(conn, sql,article_collect,article_id );
-		GetConn.colseConn(conn);
+		GetConn.closeConn(conn);
 		return data;
 	}
 	/**
@@ -128,7 +128,7 @@ public class ArticleDao implements ArticleDaoImpl{
 		conn = GetConn.getConn();
 		String sql = "select * from article";
 		List<Article> data = qr.query(conn, sql, new BeanListHandler<Article>(Article.class));
-		GetConn.colseConn(conn);
+		GetConn.closeConn(conn);
 		return data;
 	}
 }

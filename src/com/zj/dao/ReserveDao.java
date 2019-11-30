@@ -33,7 +33,7 @@ public class ReserveDao implements ReserveDaoImpl{
 		conn = GetConn.getConn();
 		String sql = "select * from reserve";
 		List<Reserve> data = qr.query(conn, sql, new BeanListHandler<Reserve>(Reserve.class));
-		GetConn.colseConn(conn);
+		GetConn.closeConn(conn);
 		return data;
 	}
 	/**

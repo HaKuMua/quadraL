@@ -36,7 +36,7 @@ public class CheckInPersonDao implements CheckInPersonDaoImpl {
 		String sql = "select * from check_in_person";
 		List<CheckInPerson> data = qr.query(conn, sql,
 				new BeanListHandler<CheckInPerson>(CheckInPerson.class));
-		GetConn.colseConn(conn);
+		GetConn.closeConn(conn);
 		return data;
 
 	}
@@ -51,7 +51,7 @@ public class CheckInPersonDao implements CheckInPersonDaoImpl {
 		CheckInPerson data = qr.query(conn, sql,
 				new BeanHandler<CheckInPerson>(CheckInPerson.class),
 				check_in_person_ID_card);
-		GetConn.colseConn(conn);
+		GetConn.closeConn(conn);
 		return data;
 	}
 	/**

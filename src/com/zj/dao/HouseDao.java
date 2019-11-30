@@ -31,7 +31,7 @@ public class HouseDao implements HouseDaoImpl{
 		conn = GetConn.getConn();
 		String sql = "select * from house";
 		List<House> data = qr.query(conn, sql, new BeanListHandler<House>(House.class));
-		GetConn.colseConn(conn);
+		GetConn.closeConn(conn);
 		return data;
 	}
 	/**
@@ -41,7 +41,7 @@ public class HouseDao implements HouseDaoImpl{
 		conn = GetConn.getConn();
 		String sql = "select * from house where house_id=?";
 		House data = qr.query(conn, sql, new BeanHandler<House>(House.class),HouseID);
-		GetConn.colseConn(conn);
+		GetConn.closeConn(conn);
 		return data;
 	}
 	/**
@@ -56,7 +56,7 @@ public class HouseDao implements HouseDaoImpl{
 				,house.getLease_type(),house.getMay_check_in_date(),house.getMay_check_out_date()
 				,house.getHouse_type(),house.getHouse_particulars_id(),house.getHouse_state(),house.getTravel_information()
 				,house.getHouse_price(),house.getHouse_address());
-		GetConn.colseConn(conn);
+		GetConn.closeConn(conn);
 		return data;
 	}
 	/**

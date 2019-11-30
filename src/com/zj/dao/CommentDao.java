@@ -32,7 +32,7 @@ public class CommentDao implements CommentDaoImpl{
 		conn = GetConn.getConn();
 		String sql = "insert into comment(article_id, user_id,comment_content,replier_id) values(?,?,?,?)";
 		int data = qr.update(conn, sql, article_id, user_id,comment_content,replier_id);
-		GetConn.colseConn(conn);
+		GetConn.closeConn(conn);
 		return data;
 	}
 
@@ -44,7 +44,7 @@ public class CommentDao implements CommentDaoImpl{
 		conn = GetConn.getConn();
 		String sql = "delete from comment where comment_id = ?";
 		int data = qr.update(conn, sql, comment_id);
-		GetConn.colseConn(conn);
+		GetConn.closeConn(conn);
 		return data;
 	}
 
@@ -56,7 +56,7 @@ public class CommentDao implements CommentDaoImpl{
 		conn = GetConn.getConn();
 		String sql = "select * from comment where comment_id = ?";
 		Comment data = qr.query(conn, sql, new BeanHandler<Comment>(Comment.class), comment_id);
-		GetConn.colseConn(conn);
+		GetConn.closeConn(conn);
 		return data;
 	}
 	
@@ -69,7 +69,7 @@ public class CommentDao implements CommentDaoImpl{
 		conn = GetConn.getConn();
 		String sql = "(select * from comment where article_id = ?) limit ?,?";
 		List<Comment> data =  qr.query(conn, sql, new BeanListHandler<Comment>(Comment.class),article_id, startRow,pageSize);
-		GetConn.colseConn(conn);
+		GetConn.closeConn(conn);
 		return data;
 	}
 
@@ -82,7 +82,7 @@ public class CommentDao implements CommentDaoImpl{
 		conn = GetConn.getConn();
 		String sql = "select * from comment";
 		List<Comment> data = qr.query(conn, sql, new BeanListHandler<Comment>(Comment.class));
-		GetConn.colseConn(conn);
+		GetConn.closeConn(conn);
 		return data;
 	}
 	/**
@@ -92,7 +92,7 @@ public class CommentDao implements CommentDaoImpl{
 		conn = GetConn.getConn();
 		String sql = "select count(*) from comment where article_id = ?";
 		Long data = qr.query(conn, sql, new ScalarHandler<Long>(), article_id);
-		GetConn.colseConn(conn);
+		GetConn.closeConn(conn);
 		return data;
 	}
 
@@ -104,7 +104,7 @@ public class CommentDao implements CommentDaoImpl{
 		conn = GetConn.getConn();
 		String sql = "select count(replier_id) from comment where comment_id = ?";
 		Long data  = qr.query(conn, sql, new ScalarHandler<Long>(), comment_id);
-		GetConn.colseConn(conn);
+		GetConn.closeConn(conn);
 		return data;
 	}
 
@@ -116,7 +116,7 @@ public class CommentDao implements CommentDaoImpl{
 		conn = GetConn.getConn();
 		String sql = "select count(comment_praise) from comment where comment_id = ?";
 		Long data = qr.query(conn, sql, new ScalarHandler<Long>(), comment_id);
-		GetConn.colseConn(conn);
+		GetConn.closeConn(conn);
 		return data;
 	}
 	/**
@@ -126,7 +126,7 @@ public class CommentDao implements CommentDaoImpl{
 		conn = GetConn.getConn();
 		String sql = "select * from comment";
 		List<Comment> data = qr.query(conn, sql, new BeanListHandler<Comment>(Comment.class));
-		GetConn.colseConn(conn);
+		GetConn.closeConn(conn);
 		return data;
 	}
 }

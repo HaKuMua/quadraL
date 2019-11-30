@@ -30,7 +30,7 @@ public class HouseImgDao implements HouseImgDaoImpl{
 		conn = GetConn.getConn();
 		String sql = "select * from house_img";
 		List<HouseImg> data = qr.query(conn, sql, new BeanListHandler<HouseImg>(HouseImg.class));
-		GetConn.colseConn(conn);
+		GetConn.closeConn(conn);
 		return data;
 	}
 	/**
@@ -40,7 +40,7 @@ public class HouseImgDao implements HouseImgDaoImpl{
 		conn = GetConn.getConn();
 		String sql = "select * from house_img where house_img_id=?";
 		HouseImg data = qr.query(conn, sql, new BeanHandler<HouseImg>(HouseImg.class),HouseImgID);
-		GetConn.colseConn(conn);
+		GetConn.closeConn(conn);
 		return data;
 	}
 	/**
@@ -50,7 +50,7 @@ public class HouseImgDao implements HouseImgDaoImpl{
 		conn = GetConn.getConn();
 		String sql = "select * from house_img where house_id=?";
 		List<HouseImg> data = qr.query(conn, sql, new BeanListHandler<HouseImg>(HouseImg.class),HouseID);
-		GetConn.colseConn(conn);
+		GetConn.closeConn(conn);
 		return data;
 	}
 	/**
@@ -63,7 +63,7 @@ public class HouseImgDao implements HouseImgDaoImpl{
 		conn = GetConn.getConn();
 		String sql = "insert into house_img(house_id,house_img_url) value(?,?) ";
 		int data = qr.update(conn, sql, houseImg.getHouse_id(),houseImg.getHouse_img_url());
-		GetConn.colseConn(conn);
+		GetConn.closeConn(conn);
 		return data;
 	}
 	
