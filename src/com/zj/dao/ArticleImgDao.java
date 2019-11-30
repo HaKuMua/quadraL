@@ -28,7 +28,7 @@ public class ArticleImgDao implements ArticleImgDaoImpl{
 		conn = GetConn.getConn();
 		String sql = "insert into article_image(article_id,image_url) values(?,?)";
 		int data = qr.update(conn, sql,article_id,image_url );
-		GetConn.colseConn(conn);
+		GetConn.closeConn(conn);
 		return data;
 	}
 
@@ -40,7 +40,7 @@ public class ArticleImgDao implements ArticleImgDaoImpl{
 		conn = GetConn.getConn();
 		String sql = "delete from article_image where image_id = ?";
 		int data = qr.update(conn, sql,image_id );
-		GetConn.colseConn(conn);
+		GetConn.closeConn(conn);
 		return data;
 	}
 
@@ -52,7 +52,7 @@ public class ArticleImgDao implements ArticleImgDaoImpl{
 		conn = GetConn.getConn();
 		String sql = "select * from article_image where image_id = ?";
 		ArticleImg data =  qr.query(conn, sql, new BeanHandler<ArticleImg>(ArticleImg.class), image_id);
-		GetConn.colseConn(conn);
+		GetConn.closeConn(conn);
 		return data;
 	}
 
@@ -64,7 +64,7 @@ public class ArticleImgDao implements ArticleImgDaoImpl{
 		conn = GetConn.getConn();
 		String sql = "select * from article_image where article_id = ?";
 		List<ArticleImg> data =  qr.query(conn, sql, new BeanListHandler<ArticleImg>(ArticleImg.class), article_id);
-		GetConn.colseConn(conn);
+		GetConn.closeConn(conn);
 		return data;
 	}
 
@@ -76,7 +76,7 @@ public class ArticleImgDao implements ArticleImgDaoImpl{
 		conn = GetConn.getConn();
 		String sql = "select * from article_image";
 		List<ArticleImg> data =  qr.query(conn, sql, new BeanListHandler<ArticleImg>(ArticleImg.class));
-		GetConn.colseConn(conn);
+		GetConn.closeConn(conn);
 		return data;
 	}
 }

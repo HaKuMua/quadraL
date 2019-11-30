@@ -32,7 +32,7 @@ public class HouseParticularsDao implements HouseParticularsDaoImpl{
 		conn = GetConn.getConn();
 		String sql = "select * from house_particulars";
 		List<HouseParticulars> data = qr.query(conn, sql, new BeanListHandler<HouseParticulars>(HouseParticulars.class));
-		GetConn.colseConn(conn);
+		GetConn.closeConn(conn);
 		return data;
 	}
 	/**
@@ -43,7 +43,7 @@ public class HouseParticularsDao implements HouseParticularsDaoImpl{
 		conn = GetConn.getConn();
 		String sql = "select * from house_particulars where house_particulars_id=?";
 		HouseParticulars data =  qr.query(conn, sql, new BeanHandler<HouseParticulars>(HouseParticulars.class),HouseParticularsID);
-		GetConn.colseConn(conn);
+		GetConn.closeConn(conn);
 		return data;
 	}
 	/**
@@ -56,7 +56,7 @@ public class HouseParticularsDao implements HouseParticularsDaoImpl{
 				",house_describe) value(?,?,?,?)";
 		int data = qr.update(conn, sql, houseParticulars.getRoom_number(),houseParticulars.getAddress_describe()
 				,houseParticulars.getToilet_number(),houseParticulars.getHouse_describe());
-		GetConn.colseConn(conn);
+		GetConn.closeConn(conn);
 		return data;
 	}
 

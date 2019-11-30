@@ -24,7 +24,7 @@ public class BuildingCodesDao implements BuildingCodesDaoImpl{
 		conn = GetConn.getConn();
 		String sql = "insert into building_codes(house_id,building_name) values(?,?)";
 		int data = qr.update(conn, sql, house_id,building_name);
-		GetConn.colseConn(conn);
+		GetConn.closeConn(conn);
 		return data;
 		
 	}
@@ -37,7 +37,7 @@ public class BuildingCodesDao implements BuildingCodesDaoImpl{
 		conn = GetConn.getConn();
 		String sql = "delete from building_codes where building_codes_id = ?";
 		int data =  qr.update(conn, sql, building_codes_id);
-		GetConn.colseConn(conn);
+		GetConn.closeConn(conn);
 		return data;
 	}
 
@@ -50,7 +50,7 @@ public class BuildingCodesDao implements BuildingCodesDaoImpl{
 		conn = GetConn.getConn();
 		String sql = "update building_codes set house_id = ? and building_name = ? where building_codes_id = ?";
 		int data = qr.update(conn, sql,  house_id,building_name,building_codes_id);
-		GetConn.colseConn(conn);
+		GetConn.closeConn(conn);
 		return data;
 	}
 
@@ -62,7 +62,7 @@ public class BuildingCodesDao implements BuildingCodesDaoImpl{
 		conn = GetConn.getConn();
 		String sql = "select * from building_codes where building_codes_id = ?";
 		BuildingCodes data =  qr.query(conn, sql, new BeanHandler<BuildingCodes>(BuildingCodes.class), building_codes_id);
-		GetConn.colseConn(conn);
+		GetConn.closeConn(conn);
 		return data;
 	}
 
@@ -74,7 +74,7 @@ public class BuildingCodesDao implements BuildingCodesDaoImpl{
 		conn = GetConn.getConn();
 		String sql = "select * from building_codes";
 		List<BuildingCodes> data = qr.query(conn, sql, new BeanListHandler<BuildingCodes>(BuildingCodes.class));
-		GetConn.colseConn(conn);
+		GetConn.closeConn(conn);
 		return data;
 	}
 
@@ -86,7 +86,7 @@ public class BuildingCodesDao implements BuildingCodesDaoImpl{
 		conn = GetConn.getConn();
 		String sql = "select * from building_codes where house_id = ?";
 		List<BuildingCodes> data = qr.query(conn, sql, new BeanListHandler<BuildingCodes>(BuildingCodes.class), house_id);
-		GetConn.colseConn(conn);
+		GetConn.closeConn(conn);
 		return data;
 	}
 

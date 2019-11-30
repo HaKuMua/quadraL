@@ -28,7 +28,7 @@ public class HouseCommentDao implements HouseCommentDaoImpl{
 		conn = GetConn.getConn();
 		String sql = "select * from house_comment";
 		List<HouseComment> data = qr.query(conn, sql, new BeanListHandler<HouseComment>(HouseComment.class));
-		GetConn.colseConn(conn);
+		GetConn.closeConn(conn);
 		return data;
 	}
 	/**
@@ -39,7 +39,7 @@ public class HouseCommentDao implements HouseCommentDaoImpl{
 		conn = GetConn.getConn();
 		String sql = "select * from house_comment where house_id=?";
 		List<HouseComment> data = qr.query(conn, sql, new BeanListHandler<HouseComment>(HouseComment.class), HouseID);
-		GetConn.colseConn(conn);
+		GetConn.closeConn(conn);
 		return data;
 	}
 	
