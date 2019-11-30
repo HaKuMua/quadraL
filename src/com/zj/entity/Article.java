@@ -40,7 +40,11 @@ public class Article implements Serializable{
 	 */
 	private Integer article_collect;
 	
-
+	/*
+	 * 房子id
+	 */
+	private Integer house_id;
+	
 	public Article() {
 	}
 
@@ -99,18 +103,21 @@ public class Article implements Serializable{
 	public void setArticle_collect(Integer article_collect) {
 		this.article_collect = article_collect;
 	}
+	
+	public Integer getHouse_id() {
+		return house_id;
+	}
 
+	public void setHouse_id(Integer house_id) {
+		this.house_id = house_id;
+	}
 
 	@Override
 	public String toString() {
 		return "Article [article_id=" + article_id + ", user_id=" + user_id
 				+ ", article_name=" + article_name + ", article_content="
 				+ article_content + ", article_date=" + article_date
-				+ ", article_collect=" + article_collect + ", article_praise="
-				+ article_praise + "]";
+				+ ", article_praise=" + article_praise + ", article_collect="
+				+ article_collect + ", house_id=" + house_id + "]";
 	}
-
-	
-	
-	
 }

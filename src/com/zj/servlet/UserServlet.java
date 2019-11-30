@@ -63,8 +63,8 @@ public class UserServlet extends BaseServlet {
 	 * 邮箱/电话密码登录
 	 */
 	public void login(HttpServletRequest request,HttpServletResponse response) {
+		Map<String, Object> map = new HashMap<String, Object>();
 		try {
-			Map<String, Object> map = new HashMap<String, Object>();
 			User userInfo = userServiceImpl.queryUserInfo(user_phone, user_email, user_pwd);
 			if(userInfo != null) {
 				//登录成功
@@ -75,10 +75,13 @@ public class UserServlet extends BaseServlet {
 				map.put("msg","登录失败，用户名或密码错误");
 				map.put("userInfo", null);
 			}
-			JSONObject obj = new JSONObject(map);
-			response.getWriter().print(callback+"("+obj+")");
 		} catch (SQLException e) {
+			map.put("msg", "sql异常");
 			e.printStackTrace();
+		}
+		JSONObject obj = new JSONObject(map);
+		try {
+			response.getWriter().print(callback+"("+obj+")");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -112,6 +115,7 @@ public class UserServlet extends BaseServlet {
 	 				}
 	 			}
 	 		} catch (SQLException e) {
+	 			map.put("msg", "sql异常");
 	 			e.printStackTrace();
 	 		}
 	     }else {
@@ -152,7 +156,7 @@ public class UserServlet extends BaseServlet {
 							map.put("msg", "密码设置失败");
 						}
 					} catch (SQLException e) {
-						// TODO Auto-generated catch block
+						map.put("msg", "sql异常");
 						e.printStackTrace();
 					}
 		 	    } else {
@@ -213,6 +217,7 @@ public class UserServlet extends BaseServlet {
 		 				map.put("msg", "用户信息修改失败");
 		 			}
 		    	} catch (SQLException e) {
+		    		map.put("msg", "sql异常");
 		 			e.printStackTrace();
 		 		}
 		    } else {
@@ -277,7 +282,7 @@ public class UserServlet extends BaseServlet {
 			}
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			map.put("msg", "sql异常");
 			e.printStackTrace();
 		}
 		try {
@@ -303,7 +308,7 @@ public class UserServlet extends BaseServlet {
 				map.put("msg", "头像上传失败");
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			map.put("msg", "sql异常");
 			e.printStackTrace();
 		}
 		try {

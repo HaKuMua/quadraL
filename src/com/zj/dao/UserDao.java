@@ -116,6 +116,7 @@ public class UserDao implements UserDaoImpl{
 		return qr.update(conn, sql, user.getUser_name(),user.getUser_headimg_url(),user.getUser_email(),user.getUser_phone()
 				,user.getUser_IDcard(),user.getIs_landlord(),user.getUser_pwd(),user.getMoney(),user.getReal_name(),user.getUser_describe());
 	}
+	
 	/**
 	 * 根据电话/email和密码查询用户
 	 * @throws SQLException 
