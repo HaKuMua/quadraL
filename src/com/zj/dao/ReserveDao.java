@@ -25,13 +25,16 @@ public class ReserveDao implements ReserveDaoImpl{
 	 * 获取jdbc连接
 	 */
 	private QueryRunner qr = new QueryRunner();
-	private Connection conn = GetConn.getConn();
+	private Connection conn = null;
 	/**
 	 * 获取所有预定信息方法
 	 */
 	public List<Reserve> getAllReserve() throws SQLException {
+		conn = GetConn.getConn();
 		String sql = "select * from reserve";
-		return qr.query(conn, sql, new BeanListHandler<Reserve>(Reserve.class));
+		List<Reserve> data = qr.query(conn, sql, new BeanListHandler<Reserve>(Reserve.class));
+		GetConn.colseConn(conn);
+		return data;
 	}
 	/**
 	 * 添加一条预订信息方法

@@ -21,7 +21,7 @@ import com.zj.entity.GrogshopOrder;
  */
 public class GrogshopOrderDao implements GrogshopOrderDaoImpl {
 	private QueryRunner qr = new QueryRunner();
-	private Connection conn = GetConn.getConn();
+	private Connection conn = null;
 
 	/**
 	 * 获取所有酒店订单信息DAO层方法
@@ -29,9 +29,12 @@ public class GrogshopOrderDao implements GrogshopOrderDaoImpl {
 	 * @throws SQLException
 	 */
 	public List<GrogshopOrder> getAllGrogshopOrderInfo() throws SQLException {
+		conn = GetConn.getConn();
 		String sql = "select * from grogshop_order";
-		return qr.query(conn, sql, new BeanListHandler<GrogshopOrder>(
+		List<GrogshopOrder> data =  qr.query(conn, sql, new BeanListHandler<GrogshopOrder>(
 				GrogshopOrder.class));
+		GetConn.colseConn(conn);
+		return data;
 	}
 
 	/**
@@ -42,10 +45,13 @@ public class GrogshopOrderDao implements GrogshopOrderDaoImpl {
 	 */
 	public GrogshopOrder getGrogshopOrderInfoByID(Integer GrogshopOrderID)
 			throws SQLException {
+		conn = GetConn.getConn();
 		String sql = "select * from grogshop_order where grogshop_order_id = ?";
-		return   qr.query(conn, sql,
+		GrogshopOrder data =   qr.query(conn, sql,
 				new BeanHandler<GrogshopOrder>(GrogshopOrder.class),
 				GrogshopOrderID);
+		GetConn.colseConn(conn);
+		return data;
 	}
 	
 	/**
@@ -56,10 +62,13 @@ public class GrogshopOrderDao implements GrogshopOrderDaoImpl {
 	 */
 	public int addGrogshopOrderInfo(GrogshopOrder grogshopOrder)
 			throws SQLException {
+		conn = GetConn.getConn();
 		String sql = "insert into grogshop_order(user_id,price,grogshop_order_state" +
 				",grogshop_order_describe,reserve_id) value(?,?,?,?,?,?)";
-		return qr.update(conn, sql, grogshopOrder.getUser_id(),grogshopOrder.getPrice(),grogshopOrder.getGrogshop_order_state()
+		int data = qr.update(conn, sql, grogshopOrder.getUser_id(),grogshopOrder.getPrice(),grogshopOrder.getGrogshop_order_state()
 				,grogshopOrder.getGrogshop_order_describe(),grogshopOrder.getReserve_id());
+		GetConn.colseConn(conn);
+		return data;
 	}
 
 }

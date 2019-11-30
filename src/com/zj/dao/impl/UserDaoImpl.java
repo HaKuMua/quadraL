@@ -19,7 +19,11 @@ public interface UserDaoImpl {
 	/**
 	 * 通过用户手机号获取单个用户信息方法接口
 	 */
-	public User getUserInfoByPhone(String phone) throws SQLException;
+	User getUserInfoByPhone(String phone) throws SQLException;
+	/**
+	 * 通过用户id获取单个用户信息方法接口
+	 */
+	User getUserInfoById(Integer id) throws SQLException;
 	/**
 	 * 添加用户
 	 */

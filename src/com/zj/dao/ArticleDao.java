@@ -21,16 +21,20 @@ import com.zj.entity.Article;
 
 public class ArticleDao implements ArticleDaoImpl{
 	private QueryRunner qr = new QueryRunner();
-	private Connection conn = GetConn.getConn();
+	private Connection conn = null;
 	/**
 	 * 添加文章
 	 * @throws SQLException 
 	 */
 	public int addArticle(Integer user_id, String article_name,
 			String article_content) throws SQLException {
+		conn = GetConn.getConn();
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 		String sql = "insert into article(user_id,article_name,article_content, article_date) values(?,?,?,?)";
-		return qr.update(conn, sql, user_id,article_name,article_content,format.format(new Date()));
+		int data = qr.update(conn, sql, user_id,article_name,article_content,format.format(new Date()));
+		GetConn.colseConn(conn);
+		return data;
+		
 	}
 
 	/**
@@ -38,8 +42,11 @@ public class ArticleDao implements ArticleDaoImpl{
 	 * @throws SQLException 
 	 */
 	public int deleteArticleById(Integer article_id) throws SQLException {
+		conn = GetConn.getConn();
 		String sql = "delete from article where article_id = ?";
-		return qr.update(conn, sql, article_id);
+		int data = qr.update(conn, sql, article_id);
+		GetConn.colseConn(conn);
+		return data;
 	}
 
 	/**
@@ -48,8 +55,11 @@ public class ArticleDao implements ArticleDaoImpl{
 	 */
 	public int updateArticle(Integer article_id, String article_name,
 			String article_content) throws SQLException {
+		conn = GetConn.getConn();
 		String sql = "update article set article_name = ?, article_content = ? where article_id = ?";
-		return qr.update(conn, sql, article_name,article_content,article_id);
+		int data = qr.update(conn, sql, article_name,article_content,article_id);
+		GetConn.colseConn(conn);
+		return data;
 	}
 
 	/**
@@ -57,8 +67,11 @@ public class ArticleDao implements ArticleDaoImpl{
 	 * @throws SQLException 
 	 */
 	public Article queryArticleById(Integer article_id) throws SQLException {
+		conn = GetConn.getConn();
 		String sql = "select * from article where article_id = ?";
-		return qr.query(conn, sql, new BeanHandler<Article>(Article.class), article_id);
+		Article data =  qr.query(conn, sql, new BeanHandler<Article>(Article.class), article_id);
+		GetConn.colseConn(conn);
+		return data;
 	}
 
 	/**
@@ -66,8 +79,11 @@ public class ArticleDao implements ArticleDaoImpl{
 	 * @throws SQLException 
 	 */
 	public List<Article> queryPageArticle(int startRow,int pageSize) throws SQLException {
+		conn = GetConn.getConn();
 		String sql = "select * from article limit ?,?";
-		return qr.query(conn, sql, new BeanListHandler<Article>(Article.class), startRow,pageSize); 
+		List<Article>  data = qr.query(conn, sql, new BeanListHandler<Article>(Article.class), startRow,pageSize); 
+		GetConn.colseConn(conn);
+		return data;
 	}
 
 	/**
@@ -75,8 +91,11 @@ public class ArticleDao implements ArticleDaoImpl{
 	 * @throws SQLException 
 	 */
 	public Long queryCountArticle() throws SQLException {
+		conn = GetConn.getConn();
 		String sql = "select count(*) from article";
-		return qr.query(conn, sql, new ScalarHandler<Long>());
+		Long data =  qr.query(conn, sql, new ScalarHandler<Long>());
+		GetConn.colseConn(conn);
+		return data;
 	}
 
 	/**
@@ -84,8 +103,11 @@ public class ArticleDao implements ArticleDaoImpl{
 	 * @throws SQLException 
 	 */
 	public int updateArticle_praiset(Integer article_praise,Integer article_id) throws SQLException {
+		conn = GetConn.getConn();
 		String sql = "update article set article_praise = ? where article_id = ?";
-		return qr.update(conn, sql, article_praise,article_id);
+		int data =  qr.update(conn, sql, article_praise,article_id);
+		GetConn.colseConn(conn);
+		return data;
 	}
 
 	/**
@@ -93,14 +115,20 @@ public class ArticleDao implements ArticleDaoImpl{
 	 * @throws SQLException 
 	 */
 	public int updateArticle_collect(Integer article_id,Integer article_collect) throws SQLException {
+		conn = GetConn.getConn();
 		String sql = "update article set article_collect = ? where article_id = ?";
-		return qr.update(conn, sql,article_collect,article_id );
+		int data =  qr.update(conn, sql,article_collect,article_id );
+		GetConn.colseConn(conn);
+		return data;
 	}
 	/**
 	 * 获取所有的文章信息
 	 */
 	public List<Article> getAllArticle() throws SQLException {
+		conn = GetConn.getConn();
 		String sql = "select * from article";
-		return qr.query(conn, sql, new BeanListHandler<Article>(Article.class));
+		List<Article> data = qr.query(conn, sql, new BeanListHandler<Article>(Article.class));
+		GetConn.colseConn(conn);
+		return data;
 	}
 }

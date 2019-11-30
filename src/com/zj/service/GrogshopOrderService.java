@@ -43,7 +43,6 @@ public class GrogshopOrderService implements GrogshopOrderServiceImpl{
 	 */
 	public List<Map<String, Object>> getAllGrogshopOrderInfo(){
 		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
-		
 		try {
 			List<GrogshopOrder> allOrder = orderDaoImpl.getAllGrogshopOrderInfo();
 			if(allOrder != null){
@@ -52,6 +51,9 @@ public class GrogshopOrderService implements GrogshopOrderServiceImpl{
 					Map<String, Object> map = new HashMap<String, Object>();
 					map.put("grogshop_order_id", allOrder.get(i).getGrogshop_order_id());
 					map.put("user_id", allOrder.get(i).getUser_id());
+					Integer user_id = allOrder.get(i).getUser_id();
+					User user = userDaoImpl.getUserInfoById(user_id);
+					map.put("user_name", user.getUser_name());
 					map.put("price", allOrder.get(i).getPrice());
 					map.put("place_an_order_date", allOrder.get(i).getPlace_an_order_date());
 					map.put("grogshop_order_state", allOrder.get(i).getGrogshop_order_state());

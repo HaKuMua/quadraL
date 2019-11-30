@@ -74,6 +74,32 @@ public class UserService implements UserServiceImpl{
 		}
 		return map;
 	}
+	
+	/**
+	 * 将单个用户信息包装成map返回
+	 * 用user_id查询
+	 */
+	public Map<String, Object> getUserInfoById(Integer user_id){
+		Map<String, Object> map = null;
+		try {
+			User user = userDaoImpl.getUserInfoById(user_id);
+			if(user != null){
+				map = new HashMap<String, Object>();
+				map.put("user_id", user.getUser_id());
+				map.put("user_name", user.getUser_name());
+				map.put("user_headimg_url", user.getUser_headimg_url());
+				map.put("user_email", user.getUser_email());
+				map.put("user_phone", user.getUser_phone());
+				map.put("user_IDcard", user.getUser_IDcard());
+				map.put("is_lanlord", user.getIs_landlord());
+				map.put("real_name", user.getReal_name());
+				map.put("user_describe", user.getUser_describe());
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return map;
+	}
 	/**
 	 * 添加用户
 	 */
@@ -132,11 +158,12 @@ public class UserService implements UserServiceImpl{
 			throws SQLException {
 		return userDaoImpl.addUserHead(user_id, user_headimg_url);
 	}
-//	/**
-//	 * 添加一个用户信息
-//	 * @param map
-//	 * @return
-//	 */
+
+	/**
+	 * 添加一个用户信息
+	 * @param map
+	 * @return
+	 */
 //	public String addUserInfo(Map<String, Object> map){
 //		User user = new User();
 //		if(!CheckoutEmail.checkEmail(map.get("user_email").toString())){
@@ -172,6 +199,8 @@ public class UserService implements UserServiceImpl{
 //			}
 //		} catch (SQLException e) {
 //			e.printStackTrace();
+//		}
+//			return map;
 //		}
 //		return "插入失败";
 //	}

@@ -12,12 +12,15 @@ import cn.com.uitl.PageUtil;
 import com.zj.dao.ArticleDao;
 import com.zj.dao.ArticleImgDao;
 import com.zj.dao.CommentDao;
+import com.zj.dao.UserDao;
 import com.zj.dao.impl.ArticleDaoImpl;
 import com.zj.dao.impl.ArticleImgDaoImpl;
 import com.zj.dao.impl.CommentDaoImpl;
+import com.zj.dao.impl.UserDaoImpl;
 import com.zj.entity.Article;
 import com.zj.entity.ArticleImg;
 import com.zj.entity.Comment;
+import com.zj.entity.User;
 import com.zj.service.impl.ArticleServiceImpl;
 
 /**
@@ -29,6 +32,7 @@ public class ArticleService implements ArticleServiceImpl{
 	private ArticleDaoImpl articleDaoImpl = new ArticleDao();
 	private ArticleImgDaoImpl articleImgDaoImpl = new ArticleImgDao();
 	private CommentDaoImpl commentDaoImpl = new CommentDao();
+	private UserDaoImpl  userDaoImpl = new UserDao(); 
 	/**
 	 * 获得所有文章
 	 * @return
@@ -43,6 +47,9 @@ public class ArticleService implements ArticleServiceImpl{
 					Map<String, Object> map = new HashMap<String, Object>();
 					map.put("article_id", article.getArticle_id());
 					map.put("user_id", article.getUser_id());
+					Integer user_id = article.getUser_id();
+					User user = userDaoImpl.getUserInfoById(user_id);
+					map.put("user_name", user.getUser_name());
 					map.put("article_name", article.getArticle_name());
 					map.put("article_content", article.getArticle_content());
 					map.put("article_date", article.getArticle_date());

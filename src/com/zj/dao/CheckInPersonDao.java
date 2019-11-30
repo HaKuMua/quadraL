@@ -11,6 +11,7 @@ import org.apache.commons.dbutils.handlers.BeanListHandler;
 import com.zj.dao.impl.CheckInPersonDaoImpl;
 import com.zj.entity.CheckInPerson;
 
+import cn.com.uitl.DBHelper;
 import cn.com.uitl.GetConn;
 
 /**
@@ -25,15 +26,19 @@ public class CheckInPersonDao implements CheckInPersonDaoImpl {
 	 * 获取jdbc连接
 	 */
 	private QueryRunner qr = new QueryRunner();
-	private Connection conn = GetConn.getConn();
+	private Connection conn = null;
 
 	/**
 	 * 获取所有入住人员信息方法
 	 */
 	public List<CheckInPerson> getAllCheckInPersonInfo() throws SQLException {
+		conn = GetConn.getConn();
 		String sql = "select * from check_in_person";
-		return qr.query(conn, sql, new BeanListHandler<CheckInPerson>(
-				CheckInPerson.class));
+		List<CheckInPerson> data = qr.query(conn, sql,
+				new BeanListHandler<CheckInPerson>(CheckInPerson.class));
+		GetConn.colseConn(conn);
+		return data;
+
 	}
 
 	/**
@@ -41,9 +46,13 @@ public class CheckInPersonDao implements CheckInPersonDaoImpl {
 	 */
 	public CheckInPerson getCheckInPersonByIdCard(String check_in_person_ID_card)
 			throws SQLException {
+		conn = GetConn.getConn();
 		String sql = "select * from check_in_person where check_in_person_ID_card=?";
-		return qr.query(conn, sql, new BeanHandler<CheckInPerson>(
-				CheckInPerson.class), check_in_person_ID_card);
+		CheckInPerson data = qr.query(conn, sql,
+				new BeanHandler<CheckInPerson>(CheckInPerson.class),
+				check_in_person_ID_card);
+		GetConn.colseConn(conn);
+		return data;
 	}
 	/**
 	 * 添加一个入住人信息

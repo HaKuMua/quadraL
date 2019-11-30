@@ -51,6 +51,10 @@ public class HouseService implements HouseServiceImpl{
 					List<HouseImg> allHouseImg = houseImgDaoImpl.getHouseImgByHouseID(allHouse.get(i).getHouse_id());
 					Map<String, Object> map = new HashMap<String, Object>();
 					map.put("house_id", allHouse.get(i).getHouse_id());
+					//通过房子id获取房子图片路径
+					Integer house_id = allHouse.get(i).getHouse_id();
+					HouseImg hImg =  (HouseImg) houseImgDaoImpl.getHouseImgByHouseID(house_id);
+					map.put("house_img_url", hImg.getHouse_img_url());
 					map.put("house_name", allHouse.get(i).getHouse_name());
 					map.put("house_intake", allHouse.get(i).getHouse_intake());
 					map.put("lease_type", allHouse.get(i).getLease_type());
