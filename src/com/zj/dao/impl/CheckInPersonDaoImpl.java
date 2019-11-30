@@ -19,4 +19,11 @@ public interface CheckInPersonDaoImpl {
 	 * 通过入住人员身份证号获取单个用户信息方法接口
 	 */
 	CheckInPerson getCheckInPersonByIdCard(String check_in_person_ID_card) throws SQLException;
+	/**
+	 * 添加一个入住人信息方法接口
+	 * @param checkInPerson
+	 * @return
+	 * @throws SQLException
+	 */
+	int addCheckInPerson(CheckInPerson checkInPerson) throws SQLException;
 }

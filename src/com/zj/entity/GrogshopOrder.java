@@ -9,31 +9,31 @@ import java.util.Date;
  */
 public class GrogshopOrder implements Serializable{
 	private static final long serialVersionUID = 1L;
-	/*
+	/**
 	 * 订单ID
 	 */
-	private Integer grogshop_order_id;
-	/*
-	 * 房东ID
+	private String grogshop_order_id;
+	/**
+	 * 用户ID
 	 */
-	private Integer	landlord_id;
-	/*
+	private Integer	user_id;
+	/**
 	 * 价格
 	 */
 	private Double price;
-	/*
+	/**
 	 * 下单时间
 	 */
 	private Date place_an_order_date;
-	/*
+	/**
 	 * 订单状态
 	 */
 	private String grogshop_order_state;
-	/*
+	/**
 	 * 订单详情
 	 */
 	private String grogshop_order_describe;
-	/*
+	/**
 	 * 预定ID
 	 */
 	private Integer reserve_id;
@@ -41,20 +41,20 @@ public class GrogshopOrder implements Serializable{
 	public GrogshopOrder() {
 	}
 
-	public Integer getGrogshop_order_id() {
+	public String getGrogshop_order_id() {
 		return grogshop_order_id;
 	}
 
-	public void setGrogshop_order_id(Integer grogshop_order_id) {
+	public void setGrogshop_order_id(String grogshop_order_id) {
 		this.grogshop_order_id = grogshop_order_id;
 	}
 
-	public Integer getLandlord_id() {
-		return landlord_id;
+	public Integer getUser_id() {
+		return user_id;
 	}
 
-	public void setLandlord_id(Integer landlord_id) {
-		this.landlord_id = landlord_id;
+	public void setUser_id(Integer user_id) {
+		this.user_id = user_id;
 	}
 
 	public Double getPrice() {
@@ -99,7 +99,7 @@ public class GrogshopOrder implements Serializable{
 
 	public String toString() {
 		return "GrogshopOrder [grogshop_order_id=" + grogshop_order_id
-				+ ", landlord_id=" + landlord_id + ", price=" + price
+				+ ", user_id=" + user_id + ", price=" + price
 				+ ", place_an_order_date=" + place_an_order_date
 				+ ", grogshop_order_state=" + grogshop_order_state
 				+ ", grogshop_order_describe=" + grogshop_order_describe

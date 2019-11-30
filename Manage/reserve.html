@@ -14,8 +14,6 @@
 		<title>后台管理</title>
 		<!-- Custom CSS -->
 		<link href="css/style.min.css" rel="stylesheet">
-		<!-- All Jquery -->
-		<!-- ============================================================== -->
 		<script src="libs/jquery/dist/jquery.min.js"></script>
 		<!-- Bootstrap tether Core JavaScript -->
 		<script src="libs/popper.js/dist/umd/popper.min.js"></script>
@@ -192,20 +190,14 @@
 				</div>
 				<!-- End Sidebar scroll-->
 			</aside>
-			<!-- ============================================================== -->
 			<!-- End Left Sidebar - style you can find in sidebar.scss  -->
-			<!-- ============================================================== -->
-			<!-- ============================================================== -->
 			<!-- Page wrapper  -->
-			<!-- ============================================================== -->
 			<div class="page-wrapper">
-				<!-- ============================================================== -->
 				<!-- Bread crumb and right sidebar toggle -->
-				<!-- ============================================================== -->
 				<div class="page-breadcrumb">
 					<div class="row">
 						<div class="col-5 align-self-center">
-							<h4 class="page-title">用户信息</h4>
+							<h4 class="page-title">预定信息</h4>
 						</div>
 						<div class="col-7 align-self-center">
 							<div class="d-flex align-items-center justify-content-end">
@@ -214,19 +206,15 @@
 										<li class="breadcrumb-item">
 											<a href="#">主页</a>
 										</li>
-										<li class="breadcrumb-item active" aria-current="page">用户信息</li>
+										<li class="breadcrumb-item active" aria-current="page">预定信息</li>
 									</ol>
 								</nav>
 							</div>
 						</div>
 					</div>
 				</div>
-				<!-- ============================================================== -->
 				<!-- End Bread crumb and right sidebar toggle -->
-				<!-- ============================================================== -->
-				<!-- ============================================================== -->
 				<!-- Container fluid  -->
-				<!-- ============================================================== -->
 				<div class="container-fluid">
 					<!-- Start Page Content -->
 					<div class="row">
@@ -236,24 +224,19 @@
 									<div class="col-12">
 										<div class="card">
 											<div class="card-body">
-												<h4 class="card-title">用户信息</h4>
+												<h4 class="card-title">预定信息</h4>
 											</div>
 										</div>
 									</div>
 									<table class="table table-hover" id="tablebox">
 										<thead>
 											<tr>
-												<th scope="col" class="t1">用户编号</th>
-												<th scope="col" class="t2">用户姓名</th>
-												<th scope="col" class="t3">用户头像</th>
-												<th scope="col" class="t4">用户电邮</th>
-												<th scope="col" class="t5">用户电话</th>
-												<th scope="col" class="t6">身份证号</th>
-												<th scope="col" class="t7">是否为房东</th>
-												<th scope="col" class="t8">用户密码</th>
-												<th scope="col" class="t9">余额</th>
-												<th scope="col" class="t10">真实姓名</th>
-												<th scope="col" class="t11">用户描述</th>
+												<th scope="col" class="t1">预定编号</th>
+												<th scope="col" class="t2">预定时间</th>
+												<th scope="col" class="t3">预定天数</th>
+												<th scope="col" class="t4">结算日期</th>
+												<th scope="col" class="t5">用户姓名</th>
+												<th scope="col" class="t6">房间名称</th>
 											</tr>
 										</thead>
 									</table>
@@ -268,37 +251,26 @@
 					<!-- .right-sidebar -->
 					<!-- End Right sidebar -->
 				</div>
-				<!-- ============================================================== -->
 				<!-- End Container fluid  -->
-				<!-- ============================================================== -->
-				<!-- ============================================================== -->
 				<!-- footer -->
-				<!-- ============================================================== -->
 				<footer class="footer text-center">
 					All Rights Reserved by Airbnb. Designed and Developed by QuadraL.
 				</footer>
-				<!-- ============================================================== -->
 				<!-- End footer -->
-				<!-- ============================================================== -->
 			</div>
-			<!-- ============================================================== -->
 			<!-- End Page wrapper  -->
-			<!-- ============================================================== -->
 		</div>
-		<script>
-			$.getJSON("http://localhost:80/QuadraL/user-info.do?method=getAllUserInfo&callback=?",
-				function(user_result) {
-					var text = user_result.list[i].is_landlord > 0 ? "是":"否"; 
+		<!-- End Wrapper -->
+		<script >
+			$.getJSON("http://localhost:80/QuadraL/reserve.do?method=getAllReserve&callback=?",
+				function(reserve_result) {
 					window.onload = function() {
 						var tdArr = document.getElementById('tablebox').firstElementChild;
-						for (var i = 0; i < user_result.list.length; i++) {
+						for (var i = 0; i < reserve_result.list.length; i++) {
 							var tr = document.createElement("tr");
-							tr.innerHTML = '<td class="t1">' + user_result.list[i].user_id + '</td><td class="t2">' + user_result.list[i].user_name +
-								'</td><td class="t3">' + user_result.list[i].user_headimg_url + '</td><td class="t4">' + user_result.list[i].user_email + 
-								'</td><td class="t5">' + user_result.list[i].user_phone + '</td><td class="t6">' + user_result.list[i].user_IDcard +
-								'</td><td class="t7">' + text + '</td><td class="t8">' + user_result.list[i].user_pwd +
-								'</td><td class="t9">' + user_result.list[i].money + '</td><td class="t10">' + user_result.list[i].real_name +
-								'</td><td class="t11">' + user_result.list[i].user_describe;
+							tr.innerHTML = '<td class="t1">' + reserve_result.list[i].reserve_id + '</td><td class="t2">' + reserve_result.list[i].reserve_date +
+								'</td><td class="t3">' + reserve_result.list[i].reserve_day_number + '</td><td class="t4">' + reserve_result.list[i].check_out_date +
+								'<td class="t5">' + reserve_result.list[i].user_id + '</td><td class="t6">' + reserve_result.list[i].house_id;
 							tdArr.appendChild(tr)
 						}
 					};
@@ -322,10 +294,6 @@
 				});
 			});
 		</script>
-		<!-- ============================================================== -->
-		<!-- End Wrapper -->
-		<!-- ============================================================== -->
-		<!-- ============================================================== -->
 		
 	</body>
 

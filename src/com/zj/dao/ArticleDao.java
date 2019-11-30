@@ -48,7 +48,7 @@ public class ArticleDao implements ArticleDaoImpl{
 	 */
 	public int updateArticle(Integer article_id, String article_name,
 			String article_content) throws SQLException {
-		String sql = "update article set article_name = ? and article_content = ? where article_id = ?";
+		String sql = "update article set article_name = ?, article_content = ? where article_id = ?";
 		return qr.update(conn, sql, article_name,article_content,article_id);
 	}
 

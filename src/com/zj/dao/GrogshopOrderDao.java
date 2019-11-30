@@ -35,7 +35,7 @@ public class GrogshopOrderDao implements GrogshopOrderDaoImpl {
 	}
 
 	/**
-	 * 通过ID获取酒店订单信息DAO层接口
+	 * 通过ID获取酒店订单信息DAO层
 	 * @param GrogshopOrderID
 	 * @return
 	 * @throws SQLException
@@ -46,6 +46,20 @@ public class GrogshopOrderDao implements GrogshopOrderDaoImpl {
 		return   qr.query(conn, sql,
 				new BeanHandler<GrogshopOrder>(GrogshopOrder.class),
 				GrogshopOrderID);
+	}
+	
+	/**
+	 * 添加酒店订单信息DAO层
+	 * @param grogshopOrder
+	 * @return
+	 * @throws SQLException
+	 */
+	public int addGrogshopOrderInfo(GrogshopOrder grogshopOrder)
+			throws SQLException {
+		String sql = "insert into grogshop_order(user_id,price,grogshop_order_state" +
+				",grogshop_order_describe,reserve_id) value(?,?,?,?,?,?)";
+		return qr.update(conn, sql, grogshopOrder.getUser_id(),grogshopOrder.getPrice(),grogshopOrder.getGrogshop_order_state()
+				,grogshopOrder.getGrogshop_order_describe(),grogshopOrder.getReserve_id());
 	}
 
 }
