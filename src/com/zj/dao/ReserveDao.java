@@ -39,8 +39,11 @@ public class ReserveDao implements ReserveDaoImpl{
 	 * @throws SQLException
 	 */
 	public int addReserve(Reserve reserve) throws SQLException {
+		conn = GetConn.getConn();
 		String sql = "insert into reserve(reserve_date,reserve_day_number,check_out_date,user_id,house_id)";
-		return qr.update(conn, sql, reserve.getReserve_date(),reserve.getReserve_day_number(),reserve.getCheck_out_date()
+		int data = qr.update(conn, sql, reserve.getReserve_date(),reserve.getReserve_day_number(),reserve.getCheck_out_date()
 				,reserve.getUser_id(),reserve.getHouse_id());
+		GetConn.closeConn(conn);
+		return data;
 	}
 }

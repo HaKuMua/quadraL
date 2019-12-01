@@ -68,55 +68,56 @@
 
 
 
-  <servlet-mapping>
-    <servlet-name>TestServlet</servlet-name>
-    <url-pattern>/a</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-  	<servlet-name>SubmitServlet</servlet-name>
-    <url-pattern>/submit.do</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>UserServlet</servlet-name>
-    <url-pattern>/user.do</url-pattern>
-  </servlet-mapping>
-  
-  <servlet-mapping>
-    <servlet-name>HouseServlet</servlet-name>
-    <url-pattern>/house.do</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>ArticleServlet</servlet-name>
-    <url-pattern>/article.do</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>UserInfoServlet</servlet-name>
-    <url-pattern>/user-info.do</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>HouseInfoServlet</servlet-name>
-    <url-pattern>/house-info.do</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>OrderServlet</servlet-name>
-    <url-pattern>/order.do</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>CheckInPersonServlet</servlet-name>
-    <url-pattern>/check-in-person.do</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>CommenServlet</servlet-name>
-    <url-pattern>/commen.do</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>ReserveServlet</servlet-name>
-    <url-pattern>/reserve.do</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>HouseCommentServlet</servlet-name>
-    <url-pattern>/house-comment.do</url-pattern>
-  </servlet-mapping>
 
+
+
+	<servlet-mapping>
+		<servlet-name>TestServlet</servlet-name>
+		<url-pattern>/a</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ArticleServlet</servlet-name>
+		<url-pattern>/article.do</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>SubmitServlet</servlet-name>
+		<url-pattern>/submit.do</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>UserServlet</servlet-name>
+		<url-pattern>/user.do</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>HouseServlet</servlet-name>
+		<url-pattern>/house.do</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>UserInfoServlet</servlet-name>
+		<url-pattern>/user-info.do</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>HouseInfoServlet</servlet-name>
+		<url-pattern>/house-info.do</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>OrderServlet</servlet-name>
+		<url-pattern>/order.do</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>CheckInPersonServlet</servlet-name>
+		<url-pattern>/check-in-person.do</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>CommenServlet</servlet-name>
+		<url-pattern>/commen.do</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ReserveServlet</servlet-name>
+		<url-pattern>/reserve.do</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>HouseCommentServlet</servlet-name>
+		<url-pattern>/house-comment.do</url-pattern>
+	</servlet-mapping>
 
 </web-app>

@@ -27,6 +27,7 @@ import com.zj.entity.ArticleImg;
 import com.zj.entity.Comment;
 import com.zj.entity.House;
 import com.zj.entity.HouseImg;
+import com.zj.entity.HouseParticulars;
 import com.zj.entity.User;
 import com.zj.service.impl.ArticleServiceImpl;
 
@@ -49,12 +50,17 @@ public class ArticleService implements ArticleServiceImpl{
 	public List<Map<String, Object>> getAllArticle(){
 		List<Map<String, Object>> list = null;
 		try {
+			
 			List<Article> articleList = articleDaoImpl.getAllArticle();
 			if(articleList != null){
 				list = new ArrayList<Map<String,Object>>();
 				for(Article article : articleList){
 					Map<String, Object> map = new HashMap<String, Object>();
 					map.put("article_id", article.getArticle_id());
+					//获取对应的文章图片
+					Integer article_id = article.getArticle_id();
+					List<ArticleImg> articleImg = articleImgDaoImpl.queryArticleImgByArticleId(article_id);
+					map.put("article_img", articleImg);
 					map.put("user_id", article.getUser_id());
 					Integer user_id = article.getUser_id();
 					User user = userDaoImpl.getUserInfoById(user_id);
@@ -80,6 +86,8 @@ public class ArticleService implements ArticleServiceImpl{
 	 */
 	public List<Map<String, Object>> getPageArticleInfo(Integer articlePresentPage) throws SQLException{
 		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+		//查询文章所有图片
+		
 		//文章分页
 		Long articleCount = articleDaoImpl.queryCountArticle();
 		PageUtil<Article> pu = new PageUtil<Article>();

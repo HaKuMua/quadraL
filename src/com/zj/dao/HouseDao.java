@@ -86,9 +86,9 @@ public class HouseDao implements HouseDaoImpl{
 		conn = GetConn.getConn();
 		String sql = "select * from reserve,house where (reserve_date > '?' or check_out_date < '?') and "+ 
 "reserve.house_id=house.house_id";
-		List<House> date = qr.query(conn, sql, new BeanListHandler<House>(House.class), check_out_date,reserve_date);
+		List<House> data = qr.query(conn, sql, new BeanListHandler<House>(House.class), check_out_date,reserve_date);
 		conn.close();
-		return date;
+		return data;
 	}
 	/**
 	 * 按房子地址模糊查询房子信息
@@ -99,7 +99,7 @@ public class HouseDao implements HouseDaoImpl{
 	public List<House> getHouseByAdd(String house_address) throws SQLException {
 		conn = GetConn.getConn();
 		String sql = "select * from house where house_address LIKE '%?%'";
-		List<House> date = qr.query(conn, sql, new BeanListHandler<House>(House.class),house_address);
+		List<House> data = qr.query(conn, sql, new BeanListHandler<House>(House.class),house_address);
 		conn.close();
 		return date;
 	}
@@ -113,6 +113,7 @@ public class HouseDao implements HouseDaoImpl{
 		conn = GetConn.getConn();
 		String sql = "select * from house where user_id=?";
 		List<House> data = qr.query(conn, sql, new BeanListHandler<House>(House.class), user_id);
+		conn.close();
 		return data;
 	}
 }

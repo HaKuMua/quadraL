@@ -31,6 +31,7 @@
 		      width: 100%;
 		      height: 100%;
 			}
+			
 		</style>
 	</head>
 	<body>
@@ -172,7 +173,8 @@
 								</a>
 							</li>
 							<li class="sidebar-item">
-								<a class="sidebar-link waves-effect waves-dark sidebar-link" href="hotel-commen-check.html" aria-expanded="false" id="addLandlord">
+								<a class="sidebar-link waves-effect waves-dark sidebar-link" href="hotel-commen-check.html" aria-expanded="false"
+								 id="addLandlord">
 									<i class="mdi mdi-border-none"></i>
 									<span class="hide-menu">酒店评论审核</span>
 								</a>
@@ -239,87 +241,10 @@
 													</thead>
 												</table>
 												<!--模态框-->
-												<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-													<div class="modal-dialog modal-lg">
-														<div class="modal-content">
-															<div class="modal-header">
-																<h4 class="modal-title" id="myModalLabel">
-																	酒店审核
-																</h4>
-																<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-																	×
-																</button>
+												<div class="myModal">
 
-															</div>
-															<div class="modal-body">
-																<div id="demo" class="carousel slide" data-ride="carousel">
-																	<!-- 指示符 -->
-																	<ul class="carousel-indicators">
-																		<li data-target="#demo" data-slide-to="0" class="active"></li>
-																		<li data-target="#demo" data-slide-to="1"></li>
-																		<li data-target="#demo" data-slide-to="2"></li>
-																	</ul>
-																	<!-- 轮播图片 -->
-																	<div class="carousel-inner">
-																		<div class="carousel-item active">
-																			<img src="img/hotel/u=1705980909,3590301906&fm=26&gp=0.jpg">
-																			<div class="carousel-caption">
-																				<h3>房间1</h3>
-																				<p>提供便捷的交通</p>
-																			</div>
-																		</div>
-																		<div class="carousel-item">
-																			<img src="img/hotel/16pic_5271012_b.jpg">
-																			<div class="carousel-caption">
-																				<h3>房间2</h3>
-																				<p>提供便捷的交通!</p>
-																			</div>
-																		</div>
-																		<div class="carousel-item">
-																			<img src="img/hotel/u=1705980909,3590301906&fm=26&gp=0.jpg">
-																			<div class="carousel-caption">
-																				<h3>房间3</h3>
-																				<p>提供便捷的交通!</p>
-																			</div>
-																		</div>
-																	</div>
-																	<!-- 左右切换按钮 -->
-																	<a class="carousel-control-prev" href="#demo" data-slide="prev">
-																		<span class="carousel-control-prev-icon"></span>
-																	</a>
-																	<a class="carousel-control-next" href="#demo" data-slide="next">
-																		<span class="carousel-control-next-icon"></span>
-																	</a>
-																</div>
-																<!--轮播图结束-->
-																<!--文本表格-->
-																<table class="table" id="tablebox2">
-																	<thead>
-																		<tr>
-																			<th scope="col" class="t1">酒店编号</th>
-																			<th scope="col" class="t2">酒店名称</th>
-																			<th scope="col" class="t3">酒店容纳量</th>
-																			<th scope="col" class="t4">出租类型</th>
-																			<th scope="col" class="t5">酒店类型</th>
-																			<th scope="col" class="t6">酒店地址</th>
-																			<th scope="col" class="t7">酒店价格</th>
-																			<th scope="col" class="t8"></th>
-																		</tr>
-																	</thead>
-																</table>
-																<div class="modal-footer">
-																	<button type="button" class="btn btn-default" data-dismiss="modal">
-																		审核通过
-																	</button>
-																	<button type="button" class="btn btn-primary">
-																		拒绝通过
-																	</button>
-																</div>
-															</div>
-														</div>
-													</div>
-													<!-- /.modal-content -->
 												</div>
+
 												<!-- /.modal -->
 											</div>
 										</div>
@@ -349,39 +274,111 @@
 		</div>
 		<!-- End Wrapper -->
 		<!-- All Jquery -->
-		<script >
+		<script>
+			var houseImg;
 			$.getJSON("http://localhost:80/QuadraL/house-info.do?method=getAllHouseInfo&callback=?",
-				function(landlord_result) {
-					var map = landlord_result;
+				function(house_result) {
+					var map = house_result;
+					houseImg = house_result.allHouseImg;
 					window.onload = function() {
 						var tdArr = document.getElementById('tablebox').firstElementChild;
-						for (var i = 0; i < landlord_result.list.length; i++) {
+						for (var i = 0; i < house_result.list.length; i++) {
+							$(".myModal").append(
+								'<div class="modal fade" id="myModal' + i +
+								'" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >' +
+								'<div class="modal-dialog modal-lg">' +
+								'<div class="modal-content">' +
+								'<div class="modal-header">' +
+								'<h4 class="modal-title" id="myModalLabel">' +
+								'酒店审核' +
+								'</h4>' +
+								'<button type="button" class="close" data-dismiss="modal" aria-hidden="true">' +
+								'×' +
+								'</button>' +
+								'</div>' +
+								'<div class="modal-body">' +
+								'<div id="demo' + i + '" class="carousel slide" data-ride="carousel">' +
+								'<!-- 指示符 -->' +
+								'<ul class="carousel-indicators" id="inner' + i + '">' +
+								'</ul>' +
+								'<!-- 轮播图片 -->' +
+								'<div class="carousel-inner" id="carouselImg' + i + '">' +
+								'</div>' +
+								'<!-- 左右切换按钮 -->' +
+								'<a class="carousel-control-prev" href="#demo' + i + '" data-slide="prev">' +
+								'<span class="carousel-control-prev-icon"></span>' +
+								'</a>' +
+								'<a class="carousel-control-next" href="#demo' + i + '" data-slide="next">' +
+								'<span class="carousel-control-next-icon"></span>' +
+								'</a>' +
+								'</div>' +
+								'<!--轮播图结束-->' +
+								'<!--文本表格-->' +
+								'<table class="table" id="tablebox2">' +
+								'<thead>' +
+								'<tr>' +
+								'<th scope="col" class="t1">酒店编号</th>' +
+								'<th scope="col" class="t2">酒店名称</th>' +
+								'<th scope="col" class="t3">酒店容纳量</th>' +
+								'<th scope="col" class="t4">出租类型</th>' +
+								'<th scope="col" class="t5">酒店类型</th>' +
+								'<th scope="col" class="t6">酒店地址</th>' +
+								'<th scope="col" class="t7">酒店价格</th>' +
+								'<th scope="col" class="t8"></th>' +
+								'</tr>' +
+								'</thead>' +
+								'</table>' +
+								'<div class="modal-footer">' +
+								'<button type="button" class="btn btn-default" data-dismiss="modal">' +
+								'审核通过' +
+								'</button>' +
+								'<button type="button" class="btn btn-primary">' +
+								'拒绝通过' +
+								'</button>' +
+								'</div>' +
+								'</div>' +
+								'</div>' +
+								'</div>' +
+								<!-- /.modal-content -->
+								'</div>'
+							);
+							var j = 0;
 							var tr = document.createElement("tr");
-							tr.innerHTML = '<td class="t1">' + landlord_result.list[i].house_id + '</td><td class="t2" style="width:300px">' + landlord_result.list[i].house_name +
-								'</td><td class="t3">' + landlord_result.list[i].house_intake + '</td><td class="t4">' + landlord_result.list[i].lease_type +
-								'<td class="t5">' + landlord_result.list[i].house_type + '</td><td class="t6">' + landlord_result.list[i].house_address +
-								'<td class="t7">' + landlord_result.list[i].house_price + '</td><td class="t8">' +
-								'<button class="btn check btn-primary btn-sm" id="'+i+'" data-toggle="modal" data-target="#myModal">审核</button>';
+							tr.innerHTML = '<td class="t1">' + house_result.list[i].house_id +
+								'</td><td class="t2" style="width:300px">' +
+								house_result.list[i].house_name +
+								'</td><td class="t3">' + house_result.list[i].house_intake + '</td><td class="t4">' + house_result.list[i].lease_type +
+								'<td class="t5">' + house_result.list[i].house_type + '</td><td class="t6">' + house_result.list[i].house_address +
+								'<td class="t7">' + house_result.list[i].house_price + '</td><td class="t8">' +
+								'<button class="btn check btn-primary btn-sm" id="t' + i +
+								'" data-toggle="modal" data-target="#myModal' + i + '">审核</button>';
 							tdArr.appendChild(tr)
+
+							for (j = 0; j < house_result.list[i].allHouseImg.length; j++) {
+								$("#carouselImg" + i).append('<div class="carousel-item">' +
+									'<img src="img/hotel/16pic_5271012_b.jpg" id="imgSrc' + j + '"> ' +
+									'<div class="carousel-caption"> ' +
+									'<h3>房间2</h3>' +
+									'<p>提供便捷的交通!</p>' +
+									'</div>' +
+									'</div>');
+								// $("#imgSrc"+j).attr('src',house_result.list[i].allHouseImg[j].house_img_url); 
+								// alert(house_result.list[i].allHouseImg[i].house_img_url);
+								$("#inner" + i).append(
+									'<li data-target="#demo' + j + '" data-slide-to="' + j + '"></li>'
+								);
+								$("#inner" + i).children(":first").addClass("active");
+							}
+							$("#carouselImg" + i).children(":first").addClass("active");
 						}
 					};
 				}
 			);
-			//模态框中酒店信息详情表单的信息加载
-			$(document).on("click",".check",function(){
-				var id = $(this).attr("id");
-				window.onload = function() {
-					var tdArr2 = document.getElementById('tablebox2').firstElementChild;
-					for (var i = 0; i < map.list.length; i++) {
-						var tr2 = document.createElement("tr");
-						tr2.innerHTML = '<td class="t1">' + map.list[id].house_id + '</td><td class="t2">' + map.list[id].house_name +
-							'</td><td class="t3">' + map.list[id].house_intake + '</td><td class="t4">' + map.list[id].lease_type +
-							'<td class="t5">' + map.list[id].house_type + '</td><td class="t6">' + map.list[id].house_address +
-							'<td class="t7">' + map.list[id].house_price;
-						tdArr2.appendChild(tr2)
-					}
-				};
-			})
+
+			$(".check").click(function() {
+
+
+			});
 		</script>
 		<script src="layui/layui.js" charset="utf-8"></script>
 		<script>
