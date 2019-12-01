@@ -103,4 +103,16 @@ public class HouseDao implements HouseDaoImpl{
 		conn.close();
 		return date;
 	}
+	/**
+	 * 通过用户ID获取此用户旗下所有房子信息
+	 * @param user_id
+	 * @return
+	 * @throws SQLException
+	 */
+	public List<House> getHouseByID(Integer user_id) throws SQLException {
+		conn = GetConn.getConn();
+		String sql = "select * from house where user_id=?";
+		List<House> data = qr.query(conn, sql, new BeanListHandler<House>(House.class), user_id);
+		return data;
+	}
 }

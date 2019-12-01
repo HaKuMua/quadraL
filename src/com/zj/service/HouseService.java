@@ -2,6 +2,8 @@ package com.zj.service;
 
 import java.sql.SQLException;
 import java.sql.Time;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -198,6 +200,77 @@ public class HouseService implements HouseServiceImpl{
 			}
 		}
 		return "插入成功！";
+	}
+	/**
+	 * 通过用户ID获取此用户旗下所有房子信息
+	 * @param user_id
+	 * @return
+	 */
+	public List<Map<String, Object>> getHouseByID(Integer user_id) {
+		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+		try {
+			List<House> houseList = houseDaoImpl.getHouseByID(user_id);
+			for(House house : houseList){
+				Map<String , Object> map = new HashMap<String, Object>();
+				map.put("house_id", house.getHouse_id());
+				map.put("house_name", house.getHouse_name());
+				map.put("house_intake", house.getHouse_intake());
+				map.put("lease_type", house.getLease_type());
+				map.put("may_check_in_date", house.getMay_check_in_date());
+				map.put("may_check_out_date", house.getMay_check_out_date());
+				map.put("house_type", house.getHouse_type());
+				map.put("house_state", house.getHouse_state());
+				map.put("travel_information", house.getTravel_information());
+				map.put("house_price", house.getHouse_price());
+				map.put("house_address", house.getHouse_address());
+				map.put("location_id", house.getLocation_id());
+				list.add(map);
+			}
+		} catch (SQLException e) {
+			log.error("数据库查询异常");
+		}
+		return list;
+	}
+	/**
+	 * 通过筛选返回指定房子信息
+	 * @return
+	 */
+	public List<Map<String, Object>> getHouseByDateOrAddress(String reserve_date,
+			String check_out_date, String house_address) {
+		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+		try {
+			List<House> houseList = null;
+			if(house_address == null || house_address == ""){
+				houseList = houseDaoImpl.getHouseByDate(new SimpleDateFormat("yyyy-MM-dd").parse(reserve_date), 
+						new SimpleDateFormat("yyyy-MM-dd").parse(check_out_date));
+			}else if(reserve_date == null || reserve_date == ""){
+				houseList = houseDaoImpl.getHouseByAdd(house_address);
+			}else {
+				houseList = houseDaoImpl.getHouseByDateAndAdd(new SimpleDateFormat("yyyy-MM-dd").parse(reserve_date), 
+						new SimpleDateFormat("yyyy-MM-dd").parse(check_out_date), house_address);
+			}
+			for(House house : houseList){
+				Map<String , Object> map = new HashMap<String, Object>();
+				map.put("house_id", house.getHouse_id());
+				map.put("house_name", house.getHouse_name());
+				map.put("house_intake", house.getHouse_intake());
+				map.put("lease_type", house.getLease_type());
+				map.put("may_check_in_date", house.getMay_check_in_date());
+				map.put("may_check_out_date", house.getMay_check_out_date());
+				map.put("house_type", house.getHouse_type());
+				map.put("house_state", house.getHouse_state());
+				map.put("travel_information", house.getTravel_information());
+				map.put("house_price", house.getHouse_price());
+				map.put("house_address", house.getHouse_address());
+				map.put("location_id", house.getLocation_id());
+				list.add(map);
+			}
+		} catch (SQLException e) {
+			log.error("数据库查询异常");
+		} catch (ParseException e) {
+			log.error("时间类型转换异常");
+		}
+		return list;
 	}
 	
 }

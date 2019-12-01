@@ -181,12 +181,12 @@ public class ArticleService implements ArticleServiceImpl{
 				//获得相关文章文章的第一张图片
 				Integer relatedArticleArticle_id = relatedArticle.getArticle_id();
 				List<ArticleImg> relatedArticleCurrenArticleImg = articleImgDaoImpl.queryArticleImgByArticleId(relatedArticleArticle_id);
-				ArticleImg relatedArticleFirstImg  = currenArticleImg.get(0);
+				ArticleImg relatedArticleFirstImg  = relatedArticleCurrenArticleImg.get(0);
 				map.put("relatedArticleImage_id", relatedArticleFirstImg.getImage_id());
 				map.put("relatedArticleImage_url", relatedArticleFirstImg.getImage_url());
 				//获取相关文章文章评论数量
 				Long relatedArticleCommCount = commentDaoImpl.queryCommCount(relatedArticleArticle_id);
-				map.put("relatedArticleCommCount", commCount);
+				map.put("relatedArticleCommCount", relatedArticleCommCount);
 				//获得相关文章用户头像
 				Integer relatedArticleUser_id = relatedArticle.getUser_id();
 				User relatedArticleUser = userDaoImpl.queryUserById(relatedArticleUser_id);

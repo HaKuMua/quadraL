@@ -43,7 +43,7 @@ public class ReserveService implements ReserveServiceImpl{
 				}
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			log.error("数据库异常");
 		}
 		return list;
 	}
