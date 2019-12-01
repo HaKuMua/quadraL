@@ -91,15 +91,11 @@ public class UserService implements UserServiceImpl{
 	 * 添加用户
 	 * 返回user
 	 */
-	public User addUser(String user_phone) throws SQLException {
+	public int addUser(String user_phone) throws SQLException {
 		//自动生成user_name
-		User user = null;
 		String user_name = UUIDGenerator.getUUID().substring(0,8);
 		int count = userDaoImpl.addUser(user_name, user_phone);
-		if(count != 0) {
-			user = userDaoImpl.getUserInfoByPhone(user_phone);
-		}
-		return user;
+		return count;
 	}
 	/**
 	 * 修改用户
@@ -233,17 +229,17 @@ public class UserService implements UserServiceImpl{
 				//登录成功
 				map.put("msg", "登录成功");
 				map.put("user_id", userInfo.getUser_id());
-				map.put("user_name", userInfo);
-				map.put("user_headimg_url", userInfo);
-				map.put("user_email", userInfo);
-				map.put("user_phone", userInfo);
-				map.put("user_IDcard", userInfo);
-				map.put("is_landlord", userInfo);
-				map.put("user_pwd", userInfo);
-				map.put("money", userInfo);
-				map.put("real_name", userInfo);
-				map.put("user_describe", userInfo);
-				map.put("inform_date", userInfo);
+				map.put("user_name", userInfo.getUser_name());
+				map.put("user_headimg_url", userInfo.getUser_headimg_url());
+				map.put("user_email", userInfo.getUser_email());
+				map.put("user_phone", userInfo.getUser_phone());
+				map.put("user_IDcard", userInfo.getUser_IDcard());
+				map.put("is_landlord", userInfo.getIs_landlord());
+				map.put("user_pwd", userInfo.getUser_pwd());
+				map.put("money", userInfo.getMoney());
+				map.put("real_name", userInfo.getReal_name());
+				map.put("user_describe", userInfo.getUser_describe());
+				map.put("inform_date", userInfo.getInform_date());
 			} else {
 				//登录失败
 				map.put("msg", "密码错误");
@@ -273,22 +269,26 @@ public class UserService implements UserServiceImpl{
 			 				
 			 		} else{
 			 			//手机号不存在，直接注册
-			 			User userInfo = this.addUser(user_phone);
-			 			if(userInfo != null) {
+			 			int count = this.addUser(user_phone);
+			 			if(count != 0) {
+			 				User userInfo = this.queryUserByPhone(user_phone);
 			 				//注册成功
 							map.put("msg", "注册成功");
 							map.put("user_id", userInfo.getUser_id());
-							map.put("user_name", userInfo);
-							map.put("user_headimg_url", userInfo);
-							map.put("user_email", userInfo);
-							map.put("user_phone", userInfo);
-							map.put("user_IDcard", userInfo);
-							map.put("is_landlord", userInfo);
-							map.put("user_pwd", userInfo);
-							map.put("money", userInfo);
-							map.put("real_name", userInfo);
-							map.put("user_describe", userInfo);
-							map.put("inform_date", userInfo);
+							map.put("user_name", userInfo.getUser_name());
+							map.put("user_headimg_url", userInfo.getUser_headimg_url());
+							map.put("user_email", userInfo.getUser_email());
+							map.put("user_phone", userInfo.getUser_phone());
+							map.put("user_IDcard", userInfo.getUser_IDcard());
+							map.put("is_landlord", userInfo.getIs_landlord());
+							map.put("user_pwd", userInfo.getUser_pwd());
+							map.put("money", userInfo.getMoney());
+							map.put("real_name", userInfo.getReal_name());
+							map.put("user_describe", userInfo.getUser_describe());
+							map.put("inform_date", userInfo.getInform_date());
+			 			} else {
+			 				//注册失败
+			 				map.put("msg", "注册失败");
 			 			}
 			 		} 
 			 	} catch (SQLException e) {
@@ -525,5 +525,12 @@ public class UserService implements UserServiceImpl{
 			e.printStackTrace();
 		}
 		return map;
+	}
+	/**
+	 * 通过手机号获取用户
+	 * @throws SQLException 
+	 */
+	public User queryUserByPhone(String user_phone) throws SQLException {
+		return userDaoImpl.getUserInfoByPhone(user_phone);
 	}
 }

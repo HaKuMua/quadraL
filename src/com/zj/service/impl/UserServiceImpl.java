@@ -22,9 +22,8 @@ public interface UserServiceImpl {
 	Map<String, Object> getUserInfoByPhone(String user_phone);
 	/**
 	 * 添加用户
-	 * 返回user
 	 */
-	User addUser(String user_phone) throws SQLException;
+	int addUser(String user_phone) throws SQLException;
 	/**
 	 * 修改用户
 	 */
@@ -88,5 +87,9 @@ public interface UserServiceImpl {
 	 * 用户上传头像
 	 */
 	Map<String, Object> addUserHead(Map<String, Object> addUserHeadInfo);
-	
+	/**
+	 * 通过手机号获取用户
+	 * @throws SQLException 
+	 */
+	User queryUserByPhone(String user_phone) throws SQLException;
 }
