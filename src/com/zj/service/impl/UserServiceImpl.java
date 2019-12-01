@@ -22,9 +22,8 @@ public interface UserServiceImpl {
 	Map<String, Object> getUserInfoByPhone(String user_phone);
 	/**
 	 * 添加用户
-	 * 返回user
 	 */
-	User addUser(String user_phone) throws SQLException;
+	int addUser(String user_phone) throws SQLException;
 	/**
 	 * 修改用户
 	 */
@@ -64,4 +63,33 @@ public interface UserServiceImpl {
 	 * @throws SQLException 
 	 */
 	User queryUserInfo(String user_phone,String user_email,String user_pwd) throws SQLException;
+	/**
+	 * 手机号/邮箱和密码登录
+	 */
+	Map<String, Object> login(Map<String, Object> loginInfo);
+	/**
+	 * 手机号登录，若手机号存在则用户注册
+	 */
+	Map<String, Object> phoneLogin(Map<String, Object> phoneLoginInfo);
+	/**
+	 * 用户设置密码
+	 */
+	Map<String, Object> setUserPwd(Map<String, Object> setUserPwdInfo);
+	/**
+	 * 修改基本信息
+	 */
+	Map<String, Object> updateBasicInfo(Map<String, Object> setUserInfo);
+	/**
+	 * 修改密码
+	 */
+	Map<String, Object> updateUserPwd(Map<String, Object> updateUserPwdInfo);
+	/**
+	 * 用户上传头像
+	 */
+	Map<String, Object> addUserHead(Map<String, Object> addUserHeadInfo);
+	/**
+	 * 通过手机号获取用户
+	 * @throws SQLException 
+	 */
+	User queryUserByPhone(String user_phone) throws SQLException;
 }
