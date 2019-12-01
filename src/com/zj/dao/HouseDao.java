@@ -101,7 +101,7 @@ public class HouseDao implements HouseDaoImpl{
 		String sql = "select * from house where house_address LIKE '%?%'";
 		List<House> data = qr.query(conn, sql, new BeanListHandler<House>(House.class),house_address);
 		conn.close();
-		return date;
+		return data;
 	}
 	/**
 	 * 通过用户ID获取此用户旗下所有房子信息

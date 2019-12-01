@@ -27,7 +27,6 @@ import com.zj.entity.ArticleImg;
 import com.zj.entity.Comment;
 import com.zj.entity.House;
 import com.zj.entity.HouseImg;
-import com.zj.entity.HouseParticulars;
 import com.zj.entity.User;
 import com.zj.service.impl.ArticleServiceImpl;
 

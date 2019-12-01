@@ -1,17 +1,16 @@
 ﻿package com.zj.service;
 
-import java.io.IOException;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import org.json.JSONObject;
-
+import cn.com.util.CheckoutEmail;
+import cn.com.util.CheckoutIDCard;
+import cn.com.util.CheckoutPhoneNumber;
 import cn.com.util.UUIDGenerator;
 
 import com.zj.dao.UserDao;
