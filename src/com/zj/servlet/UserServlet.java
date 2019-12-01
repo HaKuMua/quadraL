@@ -14,10 +14,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONObject;
 
-import cn.com.uitl.BaseServlet;
-import cn.com.uitl.CheckoutEmail;
-import cn.com.uitl.CheckoutIDCard;
-import cn.com.uitl.CheckoutPhoneNumber;
+import cn.com.util.BaseServlet;
+import cn.com.util.CheckoutEmail;
+import cn.com.util.CheckoutIDCard;
+import cn.com.util.CheckoutPhoneNumber;
 
 import com.alibaba.fastjson.JSON;
 import com.zj.entity.User;

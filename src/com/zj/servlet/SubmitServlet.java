@@ -14,11 +14,12 @@ import org.apache.log4j.Logger;
 import org.json.JSONObject;
 
 
+
 import com.alibaba.fastjson.JSON;
 import com.zj.service.UserService;
 import com.zj.service.impl.UserServiceImpl;
 
-import cn.com.uitl.BaseServlet;
+import cn.com.util.BaseServlet;
 
 public class SubmitServlet extends BaseServlet {
 	private static final long serialVersionUID = 1L;

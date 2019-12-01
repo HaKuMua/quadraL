@@ -1,4 +1,4 @@
-package cn.com.uitl;
+package cn.com.util;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

@@ -10,7 +10,7 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
-import cn.com.uitl.UUIDGenerator;
+import cn.com.util.UUIDGenerator;
 
 import com.zj.dao.CheckInPersonDao;
 import com.zj.dao.GrogshopOrderDao;

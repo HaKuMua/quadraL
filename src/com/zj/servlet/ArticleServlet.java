@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONObject;
 
-import cn.com.uitl.BaseServlet;
+import cn.com.util.BaseServlet;
 
 import com.alibaba.fastjson.JSON;
 import com.zj.service.ArticleService;
