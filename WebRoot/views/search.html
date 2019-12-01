@@ -166,10 +166,10 @@
 				<div>京ICP备16017121号-3 京ICP证 160773号
 					<img src="https://z1.muscache.cn/airbnb/static/packages/public_security_bureau_logo.d0289dc0.png" alt="中国公安局标志">
 					<a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010502032345" target="_blank" rel="noopener noreferrer"
-					 aria-busy="false">京公网安备 11010502032345号</a>
+					 aria-busy="false">京公网安备 11111111112345号</a>
 					技术支持：卓应教育（湖南）有限公司 <a href="https://a0.muscache.com/pictures/03ec62da-f467-4e2b-bfee-6eefd052d7f5.jpg" target="_blank"
 					 rel="noopener noreferrer" aria-busy="false">营业执照</a></div>
-				<div dir="ltr">© 2019 Airbnb, Inc. All rights reserved.</div>
+				<div dir="ltr">© 2019 QuadraL, Inc. All rights reserved.</div>
 			</div>
 			<br><br><br><br><br><br>
 		</div>
@@ -476,6 +476,7 @@
 				laypage = layui.laypage,
 				carousel = layui.carousel,
 				laydate = layui.laydate;
+				
 			//日期范围
 			laydate.render({
 				elem: '#dateChoose',
@@ -532,26 +533,6 @@
 							} else{
 									alert(0)
 							}
-						}
-					});
-				},
-				setPrice: function(othis) {
-					var type = othis.data('type'),
-						text = othis.text();
-					layer.open({
-						type: 1,
-						offset: type //具体配置参考：http://www.layui.com/doc/modules/layer.html#offset
-							,
-						id: 'layerDemo' + type //防止重复弹出
-							,
-						content: '<div style="padding: 20px 100px;">' + text + '</div>',
-						btn: '关闭全部',
-						btnAlign: 'c' //按钮居中
-							,
-						shade: 0.5 //不显示遮罩
-							,
-						yes: function() {
-							layer.closeAll();
 						}
 					});
 				}
@@ -656,7 +637,6 @@
 				height: '306.6px',
 				autoplay: false
 			});
-
 		});
 	</script>
 </html>
