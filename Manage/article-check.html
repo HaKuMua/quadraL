@@ -229,32 +229,8 @@
 											</tr>
 										</thead>
 									</table>
-									<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-										<div class="modal-dialog modal-lg">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h4 class="modal-title" id="myModalLabel">
-														文章详细内容
-													</h4>
-													<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-														×
-													</button>
-
-												</div>
-												<div class="modal-body">
-													<!--文本表格-->
-													<div id="text1" style="  width:750px; height:400px;">
-														
-													</div>
-													<div class="modal-footer">
-														<button type="button" class="btn btn-default" data-dismiss="modal">
-															返回继续操作
-														</button>
-													</div>
-												</div>
-											</div>
-										</div>
-										<!-- /.modal-content -->
+									<div class="myModal">
+										
 									</div>
 									<!-- /.modal -->
 								</div>
@@ -295,18 +271,48 @@
 								'</td><td class="t5">' + article_result.list[i].article_date + '</td><td class="t6">' + article_result.list[i].article_praise +
 								'</td><td class="t7">' + article_result.list[i].article_collect +
 								'</td><td class="t8">' +
-								'<button class="btn more btn-primary btn-sm" id="'+i+'" data-toggle="modal" data-target="#myModal">查看文章详细内容</button>' +
+								'<button class="btn more btn-primary btn-sm" id="'+i+'" data-toggle="modal" data-target="#myModal'+i+'">查看文章详细内容</button>' +
 								'</td><td class="t9">' +
 								'<button class="btn delete btn-primary btn-sm" id="delete">删除</button>';
 							tdArr.appendChild(tr)
+							$(".myModal").append(
+								'<div class="modal fade" id="myModal'+i+'" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">'+
+									'<div class="modal-dialog modal-lg">'+
+										'<div class="modal-content">'+
+											'<div class="modal-header">'+
+												'<h4 class="modal-title" id="myModalLabel">'+
+													'文章详细内容'+
+												'</h4>'+
+												'<button type="button" class="close" data-dismiss="modal" aria-hidden="true">'+
+													'×'+
+												'</button>'+
+								
+											'</div>'+
+											'<div class="modal-body">'+
+												'<!--文章图片轮播图-->'+
+												
+												'<!--文本表格-->'+
+												'<div id="text'+i+'" style="  width:750px; height:400px;">'+
+												'</div>'+
+												'<div class="modal-footer">'+
+													'<button type="button" class="btn btn-default" data-dismiss="modal">'+
+														'返回继续操作'+
+													'</button>'+
+												'</div>'+
+											'</div>'+
+										'</div>'+
+									'</div>'+
+									<!-- /.modal-content -->
+								'</div>'
+							);
 						}
 					};
 				}
 			);
+			
 			$(document).on("click",".more",function(){
 				var id = $(this).attr("id");
-				var text = "&nbsp &nbsp &nbsp &nbsp &nbsp" + map.list[id].article_content;
-				document.getElementById("text1").innerHTML =  text;
+				$("#text"+i).append(map.list[id].article_content);
 			});
 			$(document).on("click",".delete",function(){
 				var id = $(this).attr("id");
