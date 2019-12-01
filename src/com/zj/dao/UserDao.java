@@ -159,7 +159,9 @@ public class UserDao implements UserDaoImpl{
 //		return qr.update(conn, sql, user.getUser_name(),user.getUser_headimg_url(),user.getUser_email(),user.getUser_phone()
 //				,user.getUser_IDcard(),user.getIs_landlord(),user.getUser_pwd(),user.getMoney(),user.getReal_name(),user.getUser_describe());
 //	}
-	
+	/**
+	 * 更新用户余额
+	 */
 	public int updateUserMoney(Double price,Integer user_id) throws SQLException {
 		String sql = "update user set money=money-? where user_id=?";
 		return qr.update(conn, sql, price,user_id);
