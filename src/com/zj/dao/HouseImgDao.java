@@ -22,27 +22,36 @@ public class HouseImgDao implements HouseImgDaoImpl{
 	 * 获取jdbc连接
 	 */
 	private QueryRunner qr = new QueryRunner();
-	private Connection conn = GetConn.getConn();
+	private Connection conn = null;
 	/**
 	 * 获取所有房子图片方法
 	 */
 	public List<HouseImg> getAllHouseImgInfo() throws SQLException {
+		conn = GetConn.getConn();
 		String sql = "select * from house_img";
-		return qr.query(conn, sql, new BeanListHandler<HouseImg>(HouseImg.class));
+		List<HouseImg> data = qr.query(conn, sql, new BeanListHandler<HouseImg>(HouseImg.class));
+		GetConn.closeConn(conn);
+		return data;
 	}
 	/**
 	 * 通过房子图片ID获取单个房子图片方法
 	 */
 	public HouseImg getHouseImgInfoByID(Integer HouseImgID) throws SQLException {
+		conn = GetConn.getConn();
 		String sql = "select * from house_img where house_img_id=?";
-		return qr.query(conn, sql, new BeanHandler<HouseImg>(HouseImg.class),HouseImgID);
+		HouseImg data = qr.query(conn, sql, new BeanHandler<HouseImg>(HouseImg.class),HouseImgID);
+		GetConn.closeConn(conn);
+		return data;
 	}
 	/**
 	 * 通过房子ID获取一组房子图片方法
 	 */
 	public List<HouseImg> getHouseImgByHouseID(Integer HouseID) throws SQLException{
+		conn = GetConn.getConn();
 		String sql = "select * from house_img where house_id=?";
-		return qr.query(conn, sql, new BeanListHandler<HouseImg>(HouseImg.class),HouseID);
+		List<HouseImg> data = qr.query(conn, sql, new BeanListHandler<HouseImg>(HouseImg.class),HouseID);
+		GetConn.closeConn(conn);
+		return data;
 	}
 	/**
 	 * 添加一个房子图片信息方法
@@ -51,8 +60,11 @@ public class HouseImgDao implements HouseImgDaoImpl{
 	 * @throws SQLException
 	 */
 	public int addHouseImgInfo(HouseImg houseImg) throws SQLException {
+		conn = GetConn.getConn();
 		String sql = "insert into house_img(house_id,house_img_url) value(?,?) ";
-		return qr.update(conn, sql, houseImg.getHouse_id(),houseImg.getHouse_img_url());
+		int data = qr.update(conn, sql, houseImg.getHouse_id(),houseImg.getHouse_img_url());
+		GetConn.closeConn(conn);
+		return data;
 	}
 	
 	

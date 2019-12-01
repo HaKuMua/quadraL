@@ -30,9 +30,9 @@ public class HouseDao implements HouseDaoImpl{
 	public List<House> getAllHouseInfo() throws SQLException {
 		conn = GetConn.getConn();
 		String sql = "select * from house";
-		List<House> date = qr.query(conn, sql, new BeanListHandler<House>(House.class));
-		conn.close();
-		return date;
+		List<House> data = qr.query(conn, sql, new BeanListHandler<House>(House.class));
+		GetConn.closeConn(conn);
+		return data;
 	}
 	/**
 	 * 通过房子ID获取单个房子信息方法
@@ -40,9 +40,9 @@ public class HouseDao implements HouseDaoImpl{
 	public House getHouseInfoByID(Integer HouseID) throws SQLException {
 		conn = GetConn.getConn();
 		String sql = "select * from house where house_id=?";
-		House date = qr.query(conn, sql, new BeanHandler<House>(House.class),HouseID);
-		conn.close();
-		return date;
+		House data = qr.query(conn, sql, new BeanHandler<House>(House.class),HouseID);
+		GetConn.closeConn(conn);
+		return data;
 	}
 	/**
 	 * 添加一个房子DAO层方法
@@ -52,12 +52,12 @@ public class HouseDao implements HouseDaoImpl{
 		String sql = "insert into house(User_id,house_name,house_intake,lease_type,may_check_in_date" +
 				",may_check_out_date,house_type,house_particulars_id,house_state,travel_information,house_price" +
 				",house_address) value(?,?,?,?,?,?,?,?,?,?,?,?)";
-		int date = qr.update(conn, sql, house.getUser_id(),house.getHouse_name(),house.getHouse_intake()
+		int data = qr.update(conn, sql, house.getUser_id(),house.getHouse_name(),house.getHouse_intake()
 				,house.getLease_type(),house.getMay_check_in_date(),house.getMay_check_out_date()
 				,house.getHouse_type(),house.getHouse_particulars_id(),house.getHouse_state(),house.getTravel_information()
 				,house.getHouse_price(),house.getHouse_address());
-		conn.close();
-		return date;
+		GetConn.closeConn(conn);
+		return data;
 	}
 	/**
 	 * 按时间和地址联合查询房间

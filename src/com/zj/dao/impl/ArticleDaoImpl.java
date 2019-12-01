@@ -19,7 +19,7 @@ public interface ArticleDaoImpl {
 	 * 添加文章
 	 * @throws SQLException 
 	 */
-	int addArticle(Integer user_id,String article_name,String article_content) throws SQLException;
+	int addArticle(Integer user_id,String article_name,String article_content,Integer house_id) throws SQLException;
 	/**
 	 * 通过id删除文章
 	 * @throws SQLException 
@@ -55,4 +55,9 @@ public interface ArticleDaoImpl {
 	 * @throws SQLException 
 	 */
 	int updateArticle_collect(Integer article_id,Integer article_collect) throws SQLException;
+	/**
+	 * 通过名字前两个字模糊查文章
+	 * @throws SQLException 
+	 */
+	List<Article> queryFuzzyQuery(String keyWord) throws SQLException;
 }

@@ -74,13 +74,45 @@ public class UserService implements UserServiceImpl{
 		}
 		return map;
 	}
+	
+	/**
+	 * 将单个用户信息包装成map返回
+	 * 用user_id查询
+	 */
+	public Map<String, Object> getUserInfoById(Integer user_id){
+		Map<String, Object> map = null;
+		try {
+			User user = userDaoImpl.getUserInfoById(user_id);
+			if(user != null){
+				map = new HashMap<String, Object>();
+				map.put("user_id", user.getUser_id());
+				map.put("user_name", user.getUser_name());
+				map.put("user_headimg_url", user.getUser_headimg_url());
+				map.put("user_email", user.getUser_email());
+				map.put("user_phone", user.getUser_phone());
+				map.put("user_IDcard", user.getUser_IDcard());
+				map.put("is_lanlord", user.getIs_landlord());
+				map.put("real_name", user.getReal_name());
+				map.put("user_describe", user.getUser_describe());
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return map;
+	}
 	/**
 	 * 添加用户
+	 * 返回user
 	 */
-	public int addUser(String user_phone) throws SQLException {
+	public User addUser(String user_phone) throws SQLException {
 		//自动生成user_name
+		User user = null;
 		String user_name = UUIDGenerator.getUUID().substring(0,8);
-		return userDaoImpl.addUser(user_name, user_phone);
+		int count = userDaoImpl.addUser(user_name, user_phone);
+		if(count != 0) {
+			user = userDaoImpl.getUserInfoByPhone(user_phone);
+		}
+		return user;
 	}
 	/**
 	 * 修改用户
@@ -94,9 +126,10 @@ public class UserService implements UserServiceImpl{
 	 * 通过id查询用户
 	 * @throws SQLException 
 	 */
-	public User queryUser(Integer user_id) throws SQLException {
-		return userDaoImpl.queryUser(user_id);
+	public User queryUserById(Integer user_id) throws SQLException {
+		return userDaoImpl.queryUserById(user_id);
 	}
+	
 	/**
 	 * 查询手机号是否存在
 	 * @throws SQLException 
@@ -132,11 +165,12 @@ public class UserService implements UserServiceImpl{
 			throws SQLException {
 		return userDaoImpl.addUserHead(user_id, user_headimg_url);
 	}
-//	/**
-//	 * 添加一个用户信息
-//	 * @param map
-//	 * @return
-//	 */
+
+	/**
+	 * 添加一个用户信息
+	 * @param map
+	 * @return
+	 */
 //	public String addUserInfo(Map<String, Object> map){
 //		User user = new User();
 //		if(!CheckoutEmail.checkEmail(map.get("user_email").toString())){
@@ -173,8 +207,26 @@ public class UserService implements UserServiceImpl{
 //		} catch (SQLException e) {
 //			e.printStackTrace();
 //		}
+//			return map;
+//		}
 //		return "插入失败";
 //	}
+	/**
+	 * 根据电话/email和密码查询用户
+	 * @throws SQLException 
+	 */
+	public User queryUserInfo(String user_phone, String user_email,
+			String user_pwd) throws SQLException {
+		User user = null;
+		if(user_phone != null && user_email == null) {
+			user_email = "";
+			user = userDaoImpl.queryUserInfo(user_phone, user_email, user_pwd);
+		} else {
+			user_phone = "";
+			user = userDaoImpl.queryUserInfo(user_phone, user_email, user_pwd);
+		}
+		return user;
+	}
 
 
 }

@@ -22,6 +22,7 @@ public class ReserveServlet extends BaseServlet {
 	
 	private ReserveServiceImpl reserveService = new ReserveService();
 	
+	
 	public String callback;
 	
 	//返回所有的预定信息 
