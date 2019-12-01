@@ -57,7 +57,7 @@ public interface UserServiceImpl {
 	 * @param map
 	 * @return
 	 */
-	String addUserInfo(Map<String, Object> map);
+//	String addUserInfo(Map<String, Object> map);
 	/**
 	 * 根据电话/email和密码查询用户
 	 * @throws SQLException 

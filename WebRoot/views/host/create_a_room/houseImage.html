@@ -31,7 +31,7 @@
 			#footBtn{
 				position:fixed;
 				top:92%;
-				left:440px;
+				left:460px;
 				z-index:999;
 			}
 		</style>
@@ -59,7 +59,7 @@
 			  <i class="layui-icon"></i>
 			  <p>点击上传，或将文件拖拽到此处</p>
 			</div>
-			<blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
+			<blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;width: 600px; ">
 			    预览图：
 			    <div class="layui-upload-list" id="look"></div>
 			 </blockquote>
@@ -70,7 +70,7 @@
 		<div id="footBtn" >
 			<button class="layui-btn site-demo-active" onclick="location.href='spaces.html'">
 				< 返回</button> 
-				<button style="margin-left: 290px; " class="layui-btn " id="btnGo">下一步
+				<button style="margin-left: 400px; " class="layui-btn " id="btnGo">下一步
 			</button>
 		</div>
 	</body>
@@ -82,23 +82,29 @@
 	  //拖拽上传
 	  upload.render({
 	    elem: '#test10'
-	    ,url: '/upload/'
 		,multiple: true
 		,before: function(obj){
 		      obj.preview(function(index, file, result){
-		        $('#look').append('<img src="'+ result +'" alt="'+ file.name +'" class="layui-upload-img">')
-		      });
+		        $('#look').append('<img width=600; height=400; src="'+ result +'" alt="'+ file.name +'" class="layui-upload-img">')
+				//img.push(result+file.name);
+				console.log(result+file.name)
+			  });
 		    }
-	    ,done: function(res){
-	      console.log(res)
-	    }
+	    
 	  });
 	  
 	});
 	</script>
 	<script>
+	img=[];
 		$('#btnGo').on('click', function() {
-			location.href = "describe.html";
+			if(img.length < 5) {
+				layer.msg("请选择至少五张图片！")
+			}else {
+				$.cookie('image',img);
+				location.href = "describe.html";
+			}
+			
 		});
 		
 		

@@ -1,7 +1,6 @@
 ﻿package com.zj.dao.impl;
 
 import java.sql.SQLException;
-import java.util.Date;
 import java.util.List;
 
 import com.zj.entity.User;
@@ -19,7 +18,11 @@ public interface UserDaoImpl {
 	/**
 	 * 通过用户手机号获取单个用户信息方法接口
 	 */
-	public User getUserInfoByPhone(String phone) throws SQLException;
+	User getUserInfoByPhone(String phone) throws SQLException;
+	/**
+	 * 通过用户id获取单个用户信息方法接口
+	 */
+	User getUserInfoById(Integer id) throws SQLException;
 	/**
 	 * 添加用户
 	 */
@@ -60,13 +63,17 @@ public interface UserDaoImpl {
 	 * @throws SQLException
 	 */
 	User getUserInfoByID(Integer user_id) throws SQLException;
+//	/**
+//	 * 添加一个用户信息方法接口
+//	 * @param user
+//	 * @return
+//	 * @throws SQLException
+//	 */
+//	int addUserInfo(User user) throws SQLException;
 	/**
-	 * 添加一个用户信息方法接口
-	 * @param user
-	 * @return
-	 * @throws SQLException
+	 * 更新用户余额
 	 */
-	int addUserInfo(User user) throws SQLException;
+	int updateUserMoney(Double price,Integer user_id) throws SQLException;
 	/**
 	 * 根据电话/email和密码查询用户
 	 * @throws SQLException 

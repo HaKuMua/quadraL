@@ -103,18 +103,18 @@
 			form.on('select(bedRoom)', function(data){
 				bedRoomNum = data.value;
 				$("#bedInfo").empty();
-				for(var i = 0;i<bedRoomNum;i++) {
-					html='<div ><h2>卧室'+(i+1)+'</h2><h3>床数量4</h3><br><h3 style="font-weight: bolder;">大号双人床</h3>'+
-						'<input value="0" style="width: 120px; height:35px; position: absolute; margin-top: -28px; margin-left: 220px;" type="number" name="bigDouble"  autocomplete="off" class="layui-input">'+
-						'<br><br><h3 style="font-weight: bolder;">标准单人床</h3>'+
-						'<input value="0" style="width: 120px; height:35px; position: absolute; margin-top: -28px; margin-left: 220px;" type="number" name="bigDouble"  autocomplete="off" class="layui-input">'+
-						'<br><br><h3 style="font-weight: bolder;">大号单人床</h3>'+
-						'<input value="0" style="width: 120px; height:35px; position: absolute; margin-top: -28px; margin-left: 220px;" type="number" name="bigDouble"  autocomplete="off" class="layui-input">'+
-						'<br><br><h3 style="font-weight: bolder;">水床</h3>'+
-						'<input value="0" style="width: 120px; height:35px; position: absolute; margin-top: -28px; margin-left: 220px;" type="number" name="bigDouble" autocomplete="off" class="layui-input">'+
-						'</div><br><hr >';
-					$("#bedInfo").append(html);
-				}
+				// for(var i = 0;i<bedRoomNum;i++) {
+				// 	html='<div ><h2>卧室'+(i+1)+'</h2><h3>床数量4</h3><br><h3 style="font-weight: bolder;">大号双人床</h3>'+
+				// 		'<input value="0" style="width: 120px; height:35px; position: absolute; margin-top: -28px; margin-left: 220px;" type="number" name="bigDouble"  autocomplete="off" class="layui-input">'+
+				// 		'<br><br><h3 style="font-weight: bolder;">标准单人床</h3>'+
+				// 		'<input value="0" style="width: 120px; height:35px; position: absolute; margin-top: -28px; margin-left: 220px;" type="number" name="bigDouble"  autocomplete="off" class="layui-input">'+
+				// 		'<br><br><h3 style="font-weight: bolder;">大号单人床</h3>'+
+				// 		'<input value="0" style="width: 120px; height:35px; position: absolute; margin-top: -28px; margin-left: 220px;" type="number" name="bigDouble"  autocomplete="off" class="layui-input">'+
+				// 		'<br><br><h3 style="font-weight: bolder;">水床</h3>'+
+				// 		'<input value="0" style="width: 120px; height:35px; position: absolute; margin-top: -28px; margin-left: 220px;" type="number" name="bigDouble" autocomplete="off" class="layui-input">'+
+				// 		'</div><br><hr >';
+				// 	$("#bedInfo").append(html);
+				// }
 			});
 		});
 	</script>
@@ -148,8 +148,11 @@
 		$('#btnGo').on('click', function() {
 			if (personNum == 'null' || bedNum == 'null') {
 				layui.msg("请填写完整");
-			} else {
+			} else if(bedNum < 0){
+				
+			}else{
 				$.cookie('personNum', personNum);
+				$.cookie('room_number', bedRoomNum);
 				$.cookie('bedNum', bedNum);
 				location.href = "bathrooms.html";
 			}

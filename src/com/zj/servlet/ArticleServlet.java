@@ -3,6 +3,7 @@
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONObject;
 
-import cn.com.uitl.BaseServlet;
+import cn.com.util.BaseServlet;
 
 import com.alibaba.fastjson.JSON;
 import com.zj.service.ArticleService;
@@ -23,8 +24,6 @@ import com.zj.service.impl.CommentServiceImpl;
  * @author ml
  *
  */
-import com.zj.service.impl.ArticleServiceImpl;
-
 public class ArticleServlet extends BaseServlet {
 	private static final long serialVersionUID = 1L;
 	private ArticleServiceImpl articleService = new ArticleService();
@@ -35,6 +34,17 @@ public class ArticleServlet extends BaseServlet {
 	Map<String, Object> myMap = (Map<String, Object>) JSON.parse(map);
 	Integer article_id = Integer.valueOf(myMap.get("article_id").toString());
 	Integer house_id = Integer.valueOf(myMap.get("house_id").toString());
+	
+	// 返回所有的文章信息
+	public void getAllArticle(HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
+		List<Map<String, Object>> list = articleService.getAllArticle();
+		System.out.println(list);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		JSONObject obj = new JSONObject(map);
+		response.getWriter().print(callback + "(" + obj + ")");
+	}
 	/**
 	 * 分页显示文章所需信息
 	 */
@@ -110,8 +120,12 @@ public class ArticleServlet extends BaseServlet {
 		Integer user_id = new Integer(request.getParameter("article_id"));
 		String article_name = request.getParameter("article_name");
 		String article_content = request.getParameter("article_content");
+		Integer house_id = new Integer(request.getParameter("house_id"));
 		try {
-			 int count = articleService.addArticle(user_id, article_name, article_content,house_id);
+			 int count = articleService.addArticle(user_id, article_name, article_content, house_id);
+			 if(count > 0){
+				 
+			 }
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

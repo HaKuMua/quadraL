@@ -1,51 +1,123 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app version="3.0"
-    xmlns="http://java.sun.com/xml/ns/javaee"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
-  <servlet>
-    <description>This is the description of my J2EE component</description>
-    <display-name>This is the display name of my J2EE component</display-name>
-    <servlet-name>TestServlet</servlet-name>
-    <servlet-class>com.zj.servlet.TestServlet</servlet-class>
-  </servlet>
-  <servlet>
-    <description>This is the description of my J2EE component</description>
-    <display-name>This is the display name of my J2EE component</display-name>
-    <servlet-name>ArticleServlet</servlet-name>
-    <servlet-class>com.zj.servlet.ArticleServlet</servlet-class>
-  </servlet>
-  <servlet>
-  	<servlet-name>SubmitServlet</servlet-name>
-    <servlet-class>com.zj.servlet.SubmitServlet</servlet-class>
-  
-  </servlet>
-  <servlet>
-    <description>This is the description of my J2EE component</description>
-    <display-name>This is the display name of my J2EE component</display-name>
-    <servlet-name>UserServlet</servlet-name>
-    <servlet-class>com.zj.servlet.UserServlet</servlet-class>
-  </servlet>
+<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+	<servlet>
+		<description>This is the description of my J2EE component</description>
+		<display-name>This is the display name of my J2EE component</display-name>
+		<servlet-name>TestServlet</servlet-name>
+		<servlet-class>com.zj.servlet.TestServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<description>This is the description of my J2EE component</description>
+		<display-name>This is the display name of my J2EE component</display-name>
+		<servlet-name>ArticleServlet</servlet-name>
+		<servlet-class>com.zj.servlet.ArticleServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>SubmitServlet</servlet-name>
+		<servlet-class>com.zj.servlet.SubmitServlet</servlet-class>
+
+	</servlet>
+	<servlet>
+		<description>This is the description of my J2EE component</description>
+		<display-name>This is the display name of my J2EE component</display-name>
+		<servlet-name>UserServlet</servlet-name>
+		<servlet-class>com.zj.servlet.UserServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<description>This is the description of my J2EE component</description>
+		<display-name>This is the display name of my J2EE component</display-name>
+		<servlet-name>HouseServlet</servlet-name>
+		<servlet-class>com.zj.servlet.HouseServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>UserInfoServlet</servlet-name>
+		<servlet-class>com.zj.servlet.UserInfoServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>HouseInfoServlet</servlet-name>
+		<servlet-class>com.zj.servlet.HouseInfoServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>OrderServlet</servlet-name>
+		<servlet-class>com.zj.servlet.OrderServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>CheckInPersonServlet</servlet-name>
+		<servlet-class>com.zj.servlet.CheckInPersonServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>CommenServlet</servlet-name>
+		<servlet-class>com.zj.servlet.CommenServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>ReserveServlet</servlet-name>
+		<servlet-class>com.zj.servlet.ReserveServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>HouseCommentServlet</servlet-name>
+		<servlet-class>com.zj.servlet.HouseCommentServlet</servlet-class>
+	</servlet>
 
 
 
-  <servlet-mapping>
-    <servlet-name>TestServlet</servlet-name>
-    <url-pattern>/a</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
 
-    <servlet-name>ArticleServlet</servlet-name>
-    <url-pattern>/article.do</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-  	<servlet-name>SubmitServlet</servlet-name>
-    <url-pattern>/submit.do</url-pattern>
 
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>UserServlet</servlet-name>
-    <url-pattern>/user.do</url-pattern>
-  </servlet-mapping>
+
+
+
+
+
+
+
+	<servlet-mapping>
+		<servlet-name>TestServlet</servlet-name>
+		<url-pattern>/a</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ArticleServlet</servlet-name>
+		<url-pattern>/article.do</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>SubmitServlet</servlet-name>
+		<url-pattern>/submit.do</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>UserServlet</servlet-name>
+		<url-pattern>/user.do</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>HouseServlet</servlet-name>
+		<url-pattern>/house.do</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>UserInfoServlet</servlet-name>
+		<url-pattern>/user-info.do</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>HouseInfoServlet</servlet-name>
+		<url-pattern>/house-info.do</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>OrderServlet</servlet-name>
+		<url-pattern>/order.do</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>CheckInPersonServlet</servlet-name>
+		<url-pattern>/check-in-person.do</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>CommenServlet</servlet-name>
+		<url-pattern>/commen.do</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ReserveServlet</servlet-name>
+		<url-pattern>/reserve.do</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>HouseCommentServlet</servlet-name>
+		<url-pattern>/house-comment.do</url-pattern>
+	</servlet-mapping>
 
 </web-app>

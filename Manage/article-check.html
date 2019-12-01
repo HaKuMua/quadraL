@@ -122,6 +122,12 @@
 								</a>
 							</li>
 							<li class="sidebar-item">
+								<a class="sidebar-link waves-effect waves-dark sidebar-link" href="reserve.html" aria-expanded="false">
+									<i class="mdi mdi-file"></i>
+									<span class="hide-menu">预定信息</span>
+								</a>
+							</li>
+							<li class="sidebar-item">
 								<a class="sidebar-link waves-effect waves-dark sidebar-link" href="user-info.html" aria-expanded="false">
 									<i class="mdi mdi-arrange-bring-forward"></i>
 									<span class="hide-menu">用户信息</span>
@@ -130,13 +136,7 @@
 							<li class="sidebar-item">
 								<a class="sidebar-link waves-effect waves-dark sidebar-link" href="checkin-person-info.html" aria-expanded="false">
 									<i class="mdi mdi-arrange-bring-forward"></i>
-									<span class="hide-menu">住户信息</span>
-								</a>
-							</li>
-							<li class="sidebar-item">
-								<a class="sidebar-link waves-effect waves-dark sidebar-link" href="landlord.html" aria-expanded="false">
-									<i class="mdi mdi-border-none"></i>
-									<span class="hide-menu">房东信息</span>
+									<span class="hide-menu">入住人信息</span>
 								</a>
 							</li>
 							<li class="sidebar-item">
@@ -154,7 +154,13 @@
 							<li class="sidebar-item">
 								<a class="sidebar-link waves-effect waves-dark sidebar-link" href="comment-check.html" aria-expanded="false">
 									<i class="mdi mdi-arrange-bring-forward"></i>
-									<span class="hide-menu">评论审核</span>
+									<span class="hide-menu">文章评论审核</span>
+								</a>
+							</li>
+							<li class="sidebar-item">
+								<a class="sidebar-link waves-effect waves-dark sidebar-link" href="hotel-commen-check.html" aria-expanded="false" id="addLandlord">
+									<i class="mdi mdi-border-none"></i>
+									<span class="hide-menu">酒店评论审核</span>
 								</a>
 							</li>
 							<li class="sidebar-item">
@@ -208,20 +214,25 @@
 										</div>
 									</div>
 									<!-- 表格 -->
-									<table class="table table-hover" id="tablebox">
+									<table class="table table-hover table-striped " style="table-layout: fixed;" id="tablebox">
 										<thead>
 											<tr>
 												<th scope="col" class="t1">文章编号</th>
-												<th scope="col" class="t2">用户编号</th>
+												<th scope="col" class="t2">用户姓名</th>
 												<th scope="col" class="t3">文章题目</th>
 												<th scope="col" class="t4">文章内容</th>
 												<th scope="col" class="t5">文章发布日期</th>
 												<th scope="col" class="t6">文章赞数</th>
 												<th scope="col" class="t7">文章收藏数</th>
 												<th scope="col" class="t8"></th>
+												<th scope="col" class="t9"></th>
 											</tr>
 										</thead>
 									</table>
+									<div class="myModal">
+										
+									</div>
+									<!-- /.modal -->
 								</div>
 							</div>
 						</div>
@@ -246,23 +257,82 @@
 		<!-- All Jquery -->
 		<!-- 后端数据交互到前端表格 -->
 		<script>
-			$.getJSON("http://localhost:80/QuadraL/a?method=getAllArticle&callback=?",
+			var map;
+			$.getJSON("http://localhost:80/QuadraL/article.do?method=getAllArticle&callback=?",
 				function(article_result) {
+					map = article_result;
 					window.onload = function() {
 						var tdArr = document.getElementById('tablebox').firstElementChild;
 						for (var i = 0; i < article_result.list.length; i++) {
 							var tr = document.createElement("tr");
-							tr.innerHTML = '<td class="t1">' + article_result.list[i].article_id + '</td><td class="t2">' + article_result.list[i].user_id +
-								'</td><td class="t3">' + article_result.list[i].article_name + '</td><td class="t4">' + article_result.list[i].article_content + 
+							tr.innerHTML = '<td class="t1">' + article_result.list[i].article_id + '</td><td class="t2">' + article_result.list[i].user_name +
+								'</td><td class="t3">' + article_result.list[i].article_name +
+								'</td><td class="t4" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' + article_result.list[i].article_content +
 								'</td><td class="t5">' + article_result.list[i].article_date + '</td><td class="t6">' + article_result.list[i].article_praise +
 								'</td><td class="t7">' + article_result.list[i].article_collect +
-								'</td><td class="t8">'+
-								'<button class="btn btn-primary btn-sm" id="delete" data-toggle="modal" data-target="#myModal">删除</button>';
+								'</td><td class="t8">' +
+								'<button class="btn more btn-primary btn-sm" id="'+i+'" data-toggle="modal" data-target="#myModal'+i+'">查看文章详细内容</button>' +
+								'</td><td class="t9">' +
+								'<button class="btn delete btn-primary btn-sm" id="delete">删除</button>';
 							tdArr.appendChild(tr)
+							$(".myModal").append(
+								'<div class="modal fade" id="myModal'+i+'" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">'+
+									'<div class="modal-dialog modal-lg">'+
+										'<div class="modal-content">'+
+											'<div class="modal-header">'+
+												'<h4 class="modal-title" id="myModalLabel">'+
+													'文章详细内容'+
+												'</h4>'+
+												'<button type="button" class="close" data-dismiss="modal" aria-hidden="true">'+
+													'×'+
+												'</button>'+
+								
+											'</div>'+
+											'<div class="modal-body">'+
+												'<!--文章图片轮播图-->'+
+												
+												'<!--文本表格-->'+
+												'<div id="text'+i+'" style="  width:750px; height:400px;">'+
+												'</div>'+
+												'<div class="modal-footer">'+
+													'<button type="button" class="btn btn-default" data-dismiss="modal">'+
+														'返回继续操作'+
+													'</button>'+
+												'</div>'+
+											'</div>'+
+										'</div>'+
+									'</div>'+
+									<!-- /.modal-content -->
+								'</div>'
+							);
 						}
 					};
 				}
 			);
+			
+			$(document).on("click",".more",function(){
+				var id = $(this).attr("id");
+				$("#text"+i).append(map.list[id].article_content);
+			});
+			$(document).on("click",".delete",function(){
+				var id = $(this).attr("id");
+				var num = $(this).parent().parent();
+				// $.mui.ajax('',{
+				// 	data:{
+						
+				// 	},
+				// 	dataType:'json',//服务器返回json格式数据
+				// 	type:'post',//HTTP请求类型
+				// 	timeout:10000,//超时时间设置为10秒；
+				// 	success:function(data){
+						
+				// 	},
+				// 	error:function(xhr,type,errorThrown){
+						
+				// 	}
+				// });
+				$(this).parent().parent().remove();
+			});
 		</script>
 		<!-- layui 实现表格内容分页-->
 		<script src="layui/layui.js" charset="utf-8"></script>
@@ -270,7 +340,7 @@
 			layui.use(['laypage', 'layer'], function() {
 				var laypage = layui.laypage,
 					layer = layui.layer;
-		
+
 				//总页数大于页码总数
 				laypage.render({
 					elem: 'demo1',
@@ -282,7 +352,7 @@
 				});
 			});
 		</script>
-		
+
 	</body>
 
 </html>

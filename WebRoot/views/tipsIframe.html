@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="../js/comment.js"></script>
+		<link rel="stylesheet" type="text/css" href="../layui/css/layui.css">
+		<script src="../js/jquery.min.js"></script>
+		<script src="../layui/layui.js"></script>
+		<style type="text/css">
+			#warpper{
+				width: 400px;
+				height: 400px;
+				text-align: center;
+			}
+			.char{
+				font-size: 20px;
+				
+			}
+			#warpper input{
+				width:350px;
+				height: 70px;
+				margin-left: 20px;
+				font-size:25px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="warpper">
+			<span style="font-size: 30px;font-weight: bolder;">
+				请您实名验证
+			</span><br><br><br>
+			     <input type="text" id="name"  placeholder="姓名"  autocomplete="off" class="layui-input">
+				<br><br><br>
+				<input type="text" id="idCard" name="idCard"  placeholder="身份证号码"  autocomplete="off" class="layui-input">
+				<br><br><br><br>
+			<button id="btn" style="width: 300px;height: 50px;" type="button" class="layui-btn">确认</button>
+		</div>
+	</body>
+	<script >
+		layui.use('layer', function(){
+			var layer = layui.layer;
+			$("#btn").on("click",function() {
+				name =$("#name").val();
+				idCard =$("#idCard").val();
+				var reg =/(^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$)|(^[1-9]\d{5}\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}$)/;
+				if(!reg.test(idCard)) {
+					layer.msg("请输入正确的身份证号码!");
+				} else {
+					
+				}
+			});
+		});
+		
+	</script>
+</html>

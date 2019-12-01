@@ -59,7 +59,7 @@ public class User implements Serializable{
 	 * 创建时间
 	 */
 	private Date inform_date;
-
+	
 	public User() {
 	}
 

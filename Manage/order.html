@@ -137,6 +137,12 @@
 								</a>
 							</li>
 							<li class="sidebar-item">
+								<a class="sidebar-link waves-effect waves-dark sidebar-link" href="reserve.html" aria-expanded="false">
+									<i class="mdi mdi-file"></i>
+									<span class="hide-menu">预定信息</span>
+								</a>
+							</li>
+							<li class="sidebar-item">
 								<a class="sidebar-link waves-effect waves-dark sidebar-link" href="user-info.html" aria-expanded="false">
 									<i class="mdi mdi-arrange-bring-forward"></i>
 									<span class="hide-menu">用户信息</span>
@@ -145,13 +151,7 @@
 							<li class="sidebar-item">
 								<a class="sidebar-link waves-effect waves-dark sidebar-link" href="checkin-person-info.html" aria-expanded="false">
 									<i class="mdi mdi-arrange-bring-forward"></i>
-									<span class="hide-menu">住户信息</span>
-								</a>
-							</li>
-							<li class="sidebar-item">
-								<a class="sidebar-link waves-effect waves-dark sidebar-link" href="landlord.html" aria-expanded="false">
-									<i class="mdi mdi-border-none"></i>
-									<span class="hide-menu">房东信息</span>
+									<span class="hide-menu">入住人信息</span>
 								</a>
 							</li>
 							<li class="sidebar-item">
@@ -169,7 +169,13 @@
 							<li class="sidebar-item">
 								<a class="sidebar-link waves-effect waves-dark sidebar-link" href="comment-check.html" aria-expanded="false">
 									<i class="mdi mdi-arrange-bring-forward"></i>
-									<span class="hide-menu">评论审核</span>
+									<span class="hide-menu">文章评论审核</span>
+								</a>
+							</li>
+							<li class="sidebar-item">
+								<a class="sidebar-link waves-effect waves-dark sidebar-link" href="hotel-commen-check.html" aria-expanded="false" id="addLandlord">
+									<i class="mdi mdi-border-none"></i>
+									<span class="hide-menu">酒店评论审核</span>
 								</a>
 							</li>
 							<li class="sidebar-item">
@@ -226,9 +232,9 @@
 										<thead>
 											<tr>
 												<th scope="col" class="t1">订单编号</th>
-												<th scope="col" class="t2">房东编号</th>
+												<th scope="col" class="t2">入住人姓名</th>
 												<th scope="col" class="t3">价格</th>
-												<th scope="col" class="t4">入住时长</th>
+												<th scope="col" class="t4">入住时间</th>
 												<th scope="col" class="t5">订单状态</th>
 												<th scope="col" class="t6">描述</th>
 												<th scope="col" class="t7">预定编号</th>
@@ -257,17 +263,18 @@
 		</div>
 		<!-- End Wrapper -->
 		<script >
-			$.getJSON("http://localhost:80/QuadraL/a?method=getAllGrogshopOrderInfo&callback=?",
+			$.getJSON("http://localhost:80/QuadraL/order.do?method=getAllGrogshopOrderInfo&callback=?",
 				function(order_result) {
 					window.onload = function() {
 						var tdArr = document.getElementById('tablebox').firstElementChild;
 						for (var i = 0; i < order_result.list.length; i++) {
 							var tr = document.createElement("tr");
-							tr.innerHTML = '<td class="t1">' + order_result.list[i].grogshop_order_id + '</td><td class="t2">' + order_result.list[i].landlord_id +
+							//后端数字数据 转 状态文字信息
+							var text = order_result.list[i].grogshop_order_state > 0 ? "已入住":"未入住";
+							tr.innerHTML = '<td class="t1">' + order_result.list[i].grogshop_order_id + '</td><td class="t2">' + order_result.list[i].user_name +
 								'</td><td class="t3">' + order_result.list[i].price + '</td><td class="t4">' + order_result.list[i].place_an_order_date +
-								'<td class="t5">' + order_result.list[i].grogshop_order_state + '</td><td class="t6">' + order_result.list[i].grogshop_order_describe +
+								'<td class="t5">' + text + '</td><td class="t6">' + order_result.list[i].grogshop_order_describe +
 								'<td class="t7">' + order_result.list[i].reserve_id ;
-		
 							tdArr.appendChild(tr)
 						}
 					};

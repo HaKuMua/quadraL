@@ -97,10 +97,15 @@
 			$("#checkBox").append(html);
 		}
 		$('#btnGo').on('click', function() {
-			console.log(myRules);
-			 $.cookie('myRules', myRules);
-			 console.log($.cookie('myRules'))
-			// location.href = "date.html";
+			if(myRules == null || myRules.length==0){
+				layer.msg("请选择至少一项!")
+			}else  {
+				$.cookie('myRules', myRules);
+				
+				console.log($.cookie('myRules'))
+				location.href = "date.html";
+			}
+			 
 		});
 		// window.onload = function() {
 		// 	if($.cookie('myRules') != null) {

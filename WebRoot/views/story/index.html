@@ -3,9 +3,9 @@
 	<head>
 		<meta charset="utf-8">
 		<title>度假屋、民宿、体验和攻略 - Airbnb爱彼迎</title>
-		<link rel="stylesheet" type="text/css" href="../layui/css/layui.css">
-		<script src="../js/jquery.min.js"></script>
-		<script src="../layui/layui.js"></script>
+		<link rel="stylesheet" type="text/css" href="../../layui/css/layui.css">
+		<script src="../../js/jquery.min.js"></script>
+		<script src="../../layui/layui.js"></script>
 		<style type="text/css">
 			#navId li a {
 				font-size: 15px;
@@ -15,18 +15,18 @@
 			#rightNav {
 				float: right;
 			}
-			
 			#main{
-				margin-top: 10px;
-				position: absolute;
-				width: 100%;
+				width: 1000px;
+				height: 1600px;
+				margin-left: 450px ;
+				margin-top: 80px;
 			}
 			
 			#main img{
 				border-radius: 10px;
 			}
 			.foot {
-				margin-top:90%;
+				margin-top: 180px;
 				width: 1090px;
 				margin-left: 550px;
 			}
@@ -37,15 +37,8 @@
 			<ul class="layui-nav layui-bg-green" id="navId">
 				<li class="layui-nav-item">
 					<a href="index.html">
-						<img src="../img/logo.jpg" class="layui-nav-img">
+						<img src="../../img/logo.jpg" class="layui-nav-img">
 					</a>
-				</li>
-				<li class="layui-nav-item ">
-					<form class="layui-form" action="">
-						<input id="topSearch" style=" width: 400px;height:48px; font-weight: bold; font-size: 20px; " name="search" 
-						placeholder="搜一搜"
-						 autocomplete="off" class="layui-input">
-					</form>
 				</li>
 				<div id="rightNav" >
 					<li class="layui-nav-item" id="china"><a href="">退出</a></li>
@@ -59,6 +52,67 @@
 			</ul>
 		</div>
 		<div id="main">
+			<div id="">
+				<div class="layui-col-xs5">
+					<span style="font-size: 40px;color: gray;font-weight:bolder;">
+						故事
+					</span>
+				</div>
+				<!-- <div class="layui-col-xs4">
+					<input style="width: 300px; height: 40px; font-size: 20px;" placeholder="故事搜索" type="text" name="" id="search" class="layui-input" />
+				</div>
+				<div class="layui-col-xs3">
+					<button type="button" class="layui-btn">搜索</button>
+				</div> -->
+			</div><br>
+			<div class="layui-tab" id="tab">
+			  <ul style="text-align: left; margin-top: 100px;" class="layui-tab-title">
+			    <li class="layui-this">精选故事</li>
+			    <li>房源故事</li>
+			  </ul>
+			  <div class="layui-tab-content"><br><br><br>
+					<div class="layui-tab-item layui-show" id="article1">
+						<div class="layui-col-xs3">
+							<a href="home.html?article_id=?">
+								<img src="../../img/story/9b678664-6ba3-48d1-bd69-66a475609ab8.jpg" width="230px" height="290px" >
+								<h3>深圳民宿 | 假装度假系列 来深圳一定要住的超美独栋泳池别墅</h3><br>
+								<img src="../../img/timg.jpg" width="30px" height="30px"  style="border-radius:50%;">
+								<i class="layui-icon layui-icon-praise" >12</i>
+								<i class="layui-icon layui-icon-reply-fill" >2</i>
+							</a>
+							<br>
+						</div>
+						<div class="layui-col-xs3">
+							<a href="">
+								<img src="../../img/story/9b678664-6ba3-48d1-bd69-66a475609ab8.jpg"  width="230px" height="290px" >
+								<h3>重庆在重庆的半山腰发现了陶渊明式的“桃花源记”</h3>
+								<h4>2019/12/21 - 12/22 · 1晚</h4>
+								<h3>订单待支付 · ￥626.24</h3>
+							</a><br>
+						</div>
+						<div class="layui-col-xs3">
+							<a href="">
+								<img src="../../img/story/9b678664-6ba3-48d1-bd69-66a475609ab8.jpg"  width="230px" height="290px" >
+								<h3>上海魔都民宿 | 人均300入住魔都小众超民国风复古民宿！</h3>
+								<h4>2019/12/21 - 12/22 · 1晚</h4>
+								<h3>订单待支付 · ￥626.24</h3>
+							</a><br>
+						</div>
+						<div class="layui-col-xs3">
+							<a href="">
+								<img src="../../img/story/e19adcd4-1c48-4eeb-b855-1987a414b951.jpg"  width="230px" height="290px" >
+								<h3>里昂里昂，某一天再会</h3>
+								<h4>2019/12/21 - 12/22 · 1晚</h4>
+								<h3>订单待支付 · ￥626.24</h3>
+							</a><br>
+						</div>
+					</div>
+					<div class="layui-tab-item">
+						<h2>无</h2>
+					</div>
+				</div>
+			</div>
+			
 		</div>
 		<div class="foot" >
 			<div >
@@ -79,76 +133,156 @@
 		var userInfo = {
 			user_id: '1000',
 			user_name:'haku',
-			user_img: '../img/timg.jpg',
+			user_img: '../../img/timg.jpg',
 			user_id:'1001',
 			islanlord:1
 		};
-		var storyInfo = [
-			[]
-			
+		var articleInfo = [
+			{
+				article_id:'1',
+				article_name:'上海魔都民宿 | 人均300入住魔都小众超民国风复古民宿！',
+				article_img:'../../img/story/e19adcd4-1c48-4eeb-b855-1987a414b951.jpg',
+				user_img:'../../img/timg.jpg',
+				article_praise:20,
+				article_collect:12
+			},
+			{
+				article_id:'1',
+				article_name:'上海魔都民宿 | 人均300入住魔都小众超民国风复古民宿！',
+				article_img:'../../img/story/9b678664-6ba3-48d1-bd69-66a475609ab8.jpg',
+				user_img:'../../img/timg.jpg',
+				article_praise:20,
+				article_collect:12
+			},
+			{
+				article_id:'1',
+				article_name:'里昂里昂，某一天再会',
+				article_img:'../../img/story/9b678664-6ba3-48d1-bd69-66a475609ab8.jpg',
+				user_img:'../../img/timg.jpg',
+				article_praise:20,
+				article_collect:12
+			},
+			{
+				article_id:'1',
+				article_name:'上海魔都民宿 | 人均300入住魔都小众超民国风复古民宿！',
+				article_img:'../../img/story/e19adcd4-1c48-4eeb-b855-1987a414b951.jpg',
+				user_img:'../../img/timg.jpg',
+				article_praise:20,
+				article_collect:12
+			},
+			{
+				article_id:'1',
+				article_name:'上海魔都民宿 | 人均300入住魔都小众超民国风复古民宿！',
+				article_img:'../../img/story/e19adcd4-1c48-4eeb-b855-1987a414b951.jpg',
+				user_img:'../../img/timg.jpg',
+				article_praise:20,
+				article_collect:12
+			},
+			{
+				article_id:'1',
+				article_name:'上海魔都民宿 | 人均300入住魔都小众超民国风复古民宿！',
+				article_img:'../../img/story/9b678664-6ba3-48d1-bd69-66a475609ab8.jpg',
+				user_img:'../../img/timg.jpg',
+				article_praise:20,
+				article_collect:12
+			},{
+				article_id:'1',
+				article_name:'上海魔都民宿 | 人均300入住魔都小众超民国风复古民宿！',
+				article_img:'../../img/story/e19adcd4-1c48-4eeb-b855-1987a414b951.jpg',
+				user_img:'../../img/timg.jpg',
+				article_praise:20,
+				article_collect:12
+			},{
+				article_id:'1',
+				article_name:'上海魔都民宿 | 人均300入住魔都小众超民国风复古民宿！',
+				article_img:'../../img/story/e19adcd4-1c48-4eeb-b855-1987a414b951.jpg',
+				user_img:'../../img/timg.jpg',
+				article_praise:20,
+				article_collect:12
+			},
+			{
+				article_id:'1',
+				article_name:'上海魔都民宿 | 人均300入住魔都小众超民国风复古民宿！',
+				article_img:'../../img/story/9b678664-6ba3-48d1-bd69-66a475609ab8.jpg',
+				user_img:'../../img/timg.jpg',
+				article_praise:20,
+				article_collect:12
+			},{
+				article_id:'1',
+				article_name:'上海魔都民宿 | 人均300入住魔都小众超民国风复古民宿！',
+				article_img:'../../img/story/e19adcd4-1c48-4eeb-b855-1987a414b951.jpg',
+				user_img:'../../img/timg.jpg',
+				article_praise:20,
+				article_collect:12
+			},{
+				article_id:'1',
+				article_name:'上海魔都民宿 | 人均300入住魔都小众超民国风复古民宿！',
+				article_img:'../../img/story/e19adcd4-1c48-4eeb-b855-1987a414b951.jpg',
+				user_img:'../../img/timg.jpg',
+				article_praise:20,
+				article_collect:12
+			},
+			{
+				article_id:'1',
+				article_name:'上海魔都民宿 | 人均300入住魔都小众超民国风复古民宿！',
+				article_img:'../../img/story/e19adcd4-1c48-4eeb-b855-1987a414b951.jpg',
+				user_img:'../../img/timg.jpg',
+				article_praise:20,
+				article_collect:12
+			}
 		]
 		
-		if (userInfo.user_id != '') {
-			var html = '<li class="layui-nav-item" id="china"><a href="">退出</a></li>' +
-				'<li class="layui-nav-item "> <a href="" >房源订单中心</a></li>' +
-				'<li class="layui-nav-item"><a href="">故事</a></li>' +
-				'<li class="layui-nav-item"><a href="../index.html">首页</a> </li>' +
-				'<li class="layui-nav-item"><a href="">帮助</a> </li>' +
-				' <li class="layui-nav-item" lay-unselect=""><a href="javascript:;"><img src="'+
-				userInfo.user_img+'" class="layui-nav-img">'+userInfo.user_name+'</a> ';
-			$("#rightNav").empty();
-			$("#rightNav").append(html);
-			if(userInfo.islanlord != 0) {
-				$("#china").after('<li class="layui-nav-item "> <a href="">查看我的房源</a></li>'+
-								'<li class="layui-nav-item "><a href="host/create_a_room/room.html">添加房源</a></li>');
-			} else  {
-				$("#china").after('<li class="layui-nav-item "> <a href="">成为房东</a></li>');
-			}
-		}
-		
-		//请求后端拿到指定房子信息
+		//请求后端拿到指定文章信息
 		// $.getJSON(basePath+"a?method=getHouseInfoByID&callback=?",{"house_id":4},function(res){
 		// 	console.log(houseInfo);
 		// 	houseInfo = res;
 		// 	console.log(houseInfo);
 		// });
-		getHouse("#hosue");
-		function getHouse(infoId) {
-			var len =houseInfo.length;
-			$(infoId).append('<div  style="height: 420px;" id="d1"></div>');
-			$(infoId).append('<div  style="height: 420px;" id="d2"></div>');
-			$(infoId).append('<div  style="height: 420px;" id="d3"></div>');
+		window.onload=function() {
+			//初始化导航栏
+			if (userInfo.user_id != '') {
+				var html = '<li class="layui-nav-item " id="china"> <a href="" >房源订单中心</a></li>' +
+					'<li class="layui-nav-item"><a href="">故事</a></li>' +
+					'<li class="layui-nav-item"><a href="">帮助</a> </li>' +
+					' <li class="layui-nav-item" lay-unselect=""><a href="javascript:;"><img src="' +
+					userInfo.user_img + '" class="layui-nav-img">' + userInfo.user_name + '</a> ' +
+					'<dl class="layui-nav-child"><dd><a href="javascript:;"  style="color: gray;">个人中心</a></dd>' +
+					' <dd><a href="javascript:;" style="color: gray;">修改信息</a></dd><dd><a href="javascript:;" style="color: gray;">退了</a></dd></dl>';
+				$("#rightNav").empty();
+				$("#rightNav").append(html);
+				if (userInfo.islanlord != 0 || userInfo.islanlord != null) {
+					$("#china").after('<li class="layui-nav-item "> <a href="">查看我的房源</a></li>' +
+						'<li class="layui-nav-item "><a href="host/create_a_room/room.html">添加房源</a></li>');
+				} else {
+					$("#china").after('<li class="layui-nav-item "> <a href="">成为房东</a></li>');
+				}
+			}
+			getArticle("#article1");
+		}  
+		function getArticle(infoId) {
+			$(infoId).empty();
+			var len =articleInfo.length;
 			for (var k = 0; k < len; k++) {
-				var html = '<div class="layui-col-xs3" ><div class="layui-carousel" id="imgCarousel'+k+'"><div carousel-item=""></div></div>' +
-					'<a href="host/landlord.html?user_id='+houseInfo[k].user_id+'">'+
-					'<div class="layui-col-xs9"><h4>'+houseInfo[k].house_type+' · '+houseInfo[k].room_number+'室'+houseInfo[k].toilet_number+'卫'+houseInfo[k].bed_number+'床</h4>' +
-					'<h3>'+houseInfo[k].house_name+'</h3><h3>'+houseInfo[k].house_price+' 每晚</h3>'+
-					'</div><div class="layui-col-xs3" >'+
-					'<img style="border-radius: 50%;" src="'+houseInfo[k].landlord_img+'" width="45px" height="45px" >'+
-					'</div></a></div>';
-				if(k<4) {
-					$("#d1").append(html);
-				}else if(k >=4 &&k<8) {
-					$("#d2").append(html);
-				}else {
-					$("#d3").append(html);
-				}
-				for(var j=0;j<houseInfo[k].house_imgs.length;j++) {	
-					imghtml='<div><a href="host/home.html?house_id='+houseInfo[k].house_id+'"><img  src="'+houseInfo[k].house_imgs[j]+'"  width="460px" ></a></div>';
-					$("#imgCarousel"+k+" div").append(imghtml);
-				}
+				var html = '<div style="margin-top:50px;" class="layui-col-xs3"><a href="home.html?article_id='+
+					articleInfo[k].article_id+'">' +
+					'<img src="'+articleInfo[k].article_img+'" width="230px" height="290px" >'+
+					'<h3 style="height:50px;">'+articleInfo[k].article_name+'</h3><br>' +
+					'<img src="'+articleInfo[k].user_img+'" width="30px" height="30px"  style="border-radius:50%;">'+
+					'&nbsp;&nbsp;&nbsp;<i class="layui-icon layui-icon-praise" >'+articleInfo[k].article_praise+'</i>'+
+					'&nbsp;&nbsp;&nbsp;<i class="layui-icon layui-icon-reply-fill" >'+articleInfo[k].article_collect+'</i>'+
+					'</a><br></div>';
+				$(infoId).append(html);
 			}
 		}
 		
 	</script>
 	<script>
-		layui.use(['form','element','layer','laypage','carousel'], function() {
-			var form = layui.form,
-				$ = layui.jquery,
+		layui.use(['element','layer','laypage','flow'], function() {
+			var $ = layui.jquery,
 				layer = layui.layer,
 				element = layui.element,
 				laypage = layui.laypage,
-				carousel=layui.carousel; 
+				flow=layui.flow; 
 		//触发事件
 		var active = {
 			tabChange: function(){
@@ -161,15 +295,25 @@
 			var othis = $(this), type = othis.data('type');
 			active[type] ? active[type].call(this, othis) : '';
 		});
-		//总页数大于页码总数
-		laypage.render({
-			elem: 'demo'
-			,limit:7
-			,count: 70 //数据总数
-			,jump: function(obj){
-			console.log(obj)
-			}
-		});
+		
+		//流加载
+		// flow.load({
+		//     elem: '#demo' //指定列表容器
+		//     ,done: function(page, next){ //到达临界点（默认滚动触发），触发下一页
+		//       var lis = [];
+		//       //以jQuery的Ajax请求为例，请求下一页数据（注意：page是从2开始返回）
+		//       $.get('/api/list?page='+page, function(res){
+		//         //假设你的列表返回在data集合中
+		//         layui.each(res.data, function(index, item){
+		//           lis.push('<li>'+ item.title +'</li>');
+		//         }); 
+		        
+		//         //执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页
+		//         //pages为Ajax返回的总页数，只有当前页小于总页数的情况下，才会继续出现加载更多
+		//         next(lis.join(''), page < res.pages);    
+		//       });
+		//     }
+		// });
 		
 	});
 	</script>

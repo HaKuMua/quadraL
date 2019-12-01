@@ -8,7 +8,7 @@ import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 
-import cn.com.uitl.GetConn;
+import cn.com.util.GetConn;
 
 import com.zj.dao.impl.ArticleImgDaoImpl;
 import com.zj.entity.ArticleImg;
@@ -19,14 +19,17 @@ import com.zj.entity.ArticleImg;
  */
 public class ArticleImgDao implements ArticleImgDaoImpl{
 	private QueryRunner qr = new QueryRunner();
-	private Connection conn = GetConn.getConn();
+	private Connection conn = null;
 	/**
 	 * 给文章添加图片
 	 * @throws SQLException 
 	 */
 	public int addArticleImg(Integer article_id, String image_url) throws SQLException {
+		conn = GetConn.getConn();
 		String sql = "insert into article_image(article_id,image_url) values(?,?)";
-		return qr.update(conn, sql,article_id,image_url );
+		int data = qr.update(conn, sql,article_id,image_url );
+		GetConn.closeConn(conn);
+		return data;
 	}
 
 	/**
@@ -34,8 +37,11 @@ public class ArticleImgDao implements ArticleImgDaoImpl{
 	 * @throws SQLException 
 	 */
 	public int deleteArticleImg(Integer image_id) throws SQLException {
+		conn = GetConn.getConn();
 		String sql = "delete from article_image where image_id = ?";
-		return qr.update(conn, sql,image_id );
+		int data = qr.update(conn, sql,image_id );
+		GetConn.closeConn(conn);
+		return data;
 	}
 
 	/**
@@ -43,8 +49,11 @@ public class ArticleImgDao implements ArticleImgDaoImpl{
 	 * @throws SQLException 
 	 */
 	public ArticleImg queryArticleImgById(Integer image_id) throws SQLException {
+		conn = GetConn.getConn();
 		String sql = "select * from article_image where image_id = ?";
-		return qr.query(conn, sql, new BeanHandler<ArticleImg>(ArticleImg.class), image_id);
+		ArticleImg data =  qr.query(conn, sql, new BeanHandler<ArticleImg>(ArticleImg.class), image_id);
+		GetConn.closeConn(conn);
+		return data;
 	}
 
 	/**
@@ -52,8 +61,11 @@ public class ArticleImgDao implements ArticleImgDaoImpl{
 	 * @throws SQLException 
 	 */
 	public List<ArticleImg> queryArticleImgByArticleId(Integer article_id) throws SQLException {
+		conn = GetConn.getConn();
 		String sql = "select * from article_image where article_id = ?";
-		return qr.query(conn, sql, new BeanListHandler<ArticleImg>(ArticleImg.class), article_id);
+		List<ArticleImg> data =  qr.query(conn, sql, new BeanListHandler<ArticleImg>(ArticleImg.class), article_id);
+		GetConn.closeConn(conn);
+		return data;
 	}
 
 	/**
@@ -61,7 +73,10 @@ public class ArticleImgDao implements ArticleImgDaoImpl{
 	 * @throws SQLException 
 	 */
 	public List<ArticleImg> queryArticleImg() throws SQLException {
+		conn = GetConn.getConn();
 		String sql = "select * from article_image";
-		return qr.query(conn, sql, new BeanListHandler<ArticleImg>(ArticleImg.class));
+		List<ArticleImg> data =  qr.query(conn, sql, new BeanListHandler<ArticleImg>(ArticleImg.class));
+		GetConn.closeConn(conn);
+		return data;
 	}
 }

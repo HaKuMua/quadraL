@@ -52,7 +52,6 @@
 				position: absolute;
 				margin-top: 490px;
 				width: 350px;
-				height: 200px;
 				border:1px solid #000000;
 			}
 			#sec{
@@ -102,34 +101,33 @@
 				<div class="layui-col-xs2">
 					<img src="../../img/tag/7.gif"  height="70px">
 				</div>
-				<div style="margin-top: 20px;" class="layui-col-xs10">
+				<div id="landlord_name" style="margin-top: 20px;" class="layui-col-xs10">
 					<h2>这是一个抢手房源。藝的房源通常很抢手。</h2>
 				</div>	
 			</div><br><br><br>	
-			<div >
+			<div  >
 				<h2>选择付款方式</h2><br><br>
 				<div class="layui-col-xs4">
-					<button type="button" class="layui-btn layui-bg-green "
+					<button type="button" class="layui-btn layui-btn-primary  chooseBtn"
 					style= "  width: 120px;height: 70px; font-size: 20px;">余额</button>
 				</div>
 				<div  class="layui-col-xs4">
-					<button type="button" class="layui-btn layui-bg-green "
+					<button type="button" class="layui-btn layui-btn-primary chooseBtn"
 					style= " width: 120px;height: 70px; font-size: 20px;">支付宝</button>
 				</div>	
 				<div  class="layui-col-xs4">
-					<button type="button" class="layui-btn layui-bg-green "
+					<button  type="button" class="layui-btn layui-btn-primary chooseBtn"
 					style= " width: 120px;height: 70px; font-size: 20px;">微信</button>
 				</div>
 				<h3 style= " margin-top:100px;" >我同意房屋守则, 取消政策,和房客退款政策，
 				我也同意支付以下所示的总金额（含服务费）。</h3>
 			</div>
 			
-			<button type="button" class="layui-btn layui-bg-red layui-btn-radius" 
+			<button id="payBtn" type="button" class="layui-btn layui-bg-red layui-btn-radius" 
 			style= " margin-top:100px; width: 160px;height: 50px; font-size: 20px;">确认并支付</button>
 		</div>
 		<div id="rightNav">
 			<div id="house">
-				
 					<br>
 					<div class="layui-col-xs7">
 						<h2><b>藝净- 复古花,太古里旁高层花园电影套房</b></h2><br>
@@ -212,36 +210,62 @@
 		layui.use(['form', 'layedit','laydate'], function(){
 			var form = layui.form
 			,layer = layui.layer
-			form.on('checkbox()', function(data){
-				if(data.elem.checked) {
-					mySpace.push(data.value);
-				} else {
-					mySpace.pop(data.value);
-				}
-				console.log(data.elem.checked); //是否被选中，true或者false
-				console.log(data.value); //复选框value值，也可以通过data.elem.value得到
-			});
 		});
 	</script>
 	<script>
-		var space=["厨房","洗衣机","干衣机","停车位","健身房","游泳池",
-					"按摩浴缸","电梯"];
-		var mySpace=[];
-		for(var i=0;i<space.length;i++) {
-			html='<input  type="checkbox" lay-filter="filter" name="space" lay-skin="primary" title="'+space[i]+'" value="'+space[i]+'"><br><br><br>'
-			$("#checkBox").append(html);
+		//获取Cookie
+		function getCookie(cname) {
+		    var name = cname + "=";
+		    var decodedCookie = decodeURIComponent(document.cookie);
+		    var ca = decodedCookie.split(';');
+		    for(var i = 0; i <ca.length; i++) {
+		        var c = ca[i];
+		        while (c.charAt(0) == ' ') {
+		            c = c.substring(1);
+		         }
+		         if (c.indexOf(name) == 0) {
+		            return c.substring(name.length, c.length);
+		         }
+		     }
+		    return "";
+		} 
+		window.onload = function() {
+			info=getCookie('personInfo');
+			personInfo = JSON.parse(info);
+			myCookie=getCookie('orderInfo');
+			orderInfo = JSON.parse(myCookie);
+			console.log(orderInfo);
+			console.log(personInfo);
+			getInfo(orderInfo);
 		}
 		$('#btnGo').on('click', function() {
 			$.cookie('mySpace', mySpace);
 			location.href = "houseImage.html";
 		});
-		
-		window.onload = function() {
-			if($.cookie('mySpace') != null) {
-				var arr = $.cookie('mySpace').split(",");
-				mySpace=arr;
-			}
-			
+		$('#payBtn').on('click',function() {
+			layer.load(2, {time: 3*1000});
+		})
+		$(".chooseBtn").on("click",function() {
+			$(".chooseBtn").attr("class","layui-btn layui-btn-primary chooseBtn");
+			$(this).attr("class","layui-btn layui-bg-green chooseBtn");
+		}) 
+		function getInfo(orderInfo) {
+			$("#landlord_name").empty();
+			$("#landlord_name").append('<h2>这是一个抢手房源。'+orderInfo.user_name+'的房源通常很抢手。</h2>');
+			$("#house").empty();
+			html='<br><div class="layui-col-xs7"><h2><b>'+orderInfo.house_name+'</b></h2><br><h3>'+orderInfo.house_type+'/'+orderInfo.lease_type+'</h3>'+
+				'</div><div class="layui-col-xs3"><img src="'+orderInfo.allHouseImg+'" width="100px" >'+
+				'</div><hr ><br><div ><h2>地址：'+orderInfo.house_address+'</h2><br><h2>人数：'+orderInfo.house_intake+'人</h2><br><h2>时间：'+orderInfo.date+' </h2>'+
+				'<hr ><br><br></div><div class="layui-col-xs6"><h2>￥'+orderInfo.house_price+' x'+orderInfo.dayNumber+'晚</h2></div>'+
+				'<div class="layui-col-xs3"><h2>￥'+orderInfo.house_price*orderInfo.dayNumber+'</h2></div><hr ><br><div class="layui-col-xs6"><h2><b>总价	</b></h2>'+
+				'</div><div class="layui-col-xs3"><h2>￥'+orderInfo.house_price*orderInfo.dayNumber+'</h2></div>';
+			$("#house").append(html);
+			$("#notice").empty();
+			$("#notice").append('<br><h2 style="margin-left: 20px;"><b>入住须知</b></h2><br><div id="t1"></div>');
+			for(let i=0;i<orderInfo.building_name.length;i++) {
+				html='<h2>'+orderInfo.building_name[i]+'</h2><br>';
+				$("#t1").append(html);
+			}	
 		}
 	</script>
 </html>

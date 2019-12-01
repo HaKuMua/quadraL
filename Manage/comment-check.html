@@ -138,6 +138,12 @@
 								</a>
 							</li>
 							<li class="sidebar-item">
+								<a class="sidebar-link waves-effect waves-dark sidebar-link" href="reserve.html" aria-expanded="false">
+									<i class="mdi mdi-file"></i>
+									<span class="hide-menu">预定信息</span>
+								</a>
+							</li>
+							<li class="sidebar-item">
 								<a class="sidebar-link waves-effect waves-dark sidebar-link" href="user-info.html" aria-expanded="false">
 									<i class="mdi mdi-arrange-bring-forward"></i>
 									<span class="hide-menu">用户信息</span>
@@ -146,13 +152,7 @@
 							<li class="sidebar-item">
 								<a class="sidebar-link waves-effect waves-dark sidebar-link" href="checkin-person-info.html" aria-expanded="false">
 									<i class="mdi mdi-arrange-bring-forward"></i>
-									<span class="hide-menu">住户信息</span>
-								</a>
-							</li>
-							<li class="sidebar-item">
-								<a class="sidebar-link waves-effect waves-dark sidebar-link" href="landlord.html" aria-expanded="false">
-									<i class="mdi mdi-border-none"></i>
-									<span class="hide-menu">房东信息</span>
+									<span class="hide-menu">入住人信息</span>
 								</a>
 							</li>
 							<li class="sidebar-item">
@@ -170,7 +170,13 @@
 							<li class="sidebar-item">
 								<a class="sidebar-link waves-effect waves-dark sidebar-link" href="comment-check.html" aria-expanded="false">
 									<i class="mdi mdi-arrange-bring-forward"></i>
-									<span class="hide-menu">评论审核</span>
+									<span class="hide-menu">文章评论审核</span>
+								</a>
+							</li>
+							<li class="sidebar-item">
+								<a class="sidebar-link waves-effect waves-dark sidebar-link" href="hotel-commen-check.html" aria-expanded="false" id="addLandlord">
+									<i class="mdi mdi-border-none"></i>
+									<span class="hide-menu">酒店评论审核</span>
 								</a>
 							</li>
 							<li class="sidebar-item">
@@ -192,7 +198,7 @@
 				<div class="page-breadcrumb">
 					<div class="row">
 						<div class="col-5 align-self-center">
-							<h4 class="page-title">评论审核</h4>
+							<h4 class="page-title">文章评论审核</h4>
 						</div>
 						<div class="col-7 align-self-center">
 							<div class="d-flex align-items-center justify-content-end">
@@ -201,7 +207,7 @@
 										<li class="breadcrumb-item">
 											<a href="#">主页</a>
 										</li>
-										<li class="breadcrumb-item active" aria-current="page">评论审核</li>
+										<li class="breadcrumb-item active" aria-current="page">文章评论审核</li>
 									</ol>
 								</nav>
 							</div>
@@ -219,24 +225,53 @@
 									<div class="col-12">
 										<div class="card">
 											<div class="card-body">
-												<h4 class="card-title">评论审核</h4>
+												<h4 class="card-title">文章评论审核</h4>
 											</div>
 										</div>
 									</div>
-									<table class="table table-hover" id="tablebox">
+									<table class="table table-hover table-striped" id="tablebox" style="table-layout: fixed;">
 										<thead>
 											<tr>
 												<th scope="col" class="t1">评论编号</th>
-												<th scope="col" class="t2">文章编号</th>
-												<th scope="col" class="t3">用户编号</th>
+												<th scope="col" class="t2">文章名</th>
+												<th scope="col" class="t3">用户名</th>
 												<th scope="col" class="t4">评论内容</th>
-												<th scope="col" class="t5">回复人编号</th>
+												<th scope="col" class="t5">回复人</th>
 												<th scope="col" class="t6">评论时间</th>
 												<th scope="col" class="t7">赞的数量</th>
 												<th scope="col" class="t8"></th>
+												<th scope="col" class="t9"></th>
 											</tr>
 										</thead>
 									</table>
+									<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+										<div class="modal-dialog modal-lg">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h4 class="modal-title" id="myModalLabel">
+														文章评论详细内容
+													</h4>
+													<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+														×
+													</button>
+									
+												</div>
+												<div class="modal-body">
+													<!--文本表格-->
+													<div id="text1" style="  width:750px; height:400px;">
+														
+													</div>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-default" data-dismiss="modal">
+															返回继续操作
+														</button>
+													</div>
+												</div>
+											</div>
+										</div>
+										<!-- /.modal-content -->
+									</div>
+									<!-- /.modal -->
 								</div>
 							</div>
 						</div>
@@ -260,30 +295,58 @@
 		</div>
 		<!-- End Wrapper -->
 		<script>
-			$.getJSON("http://localhost:80/QuadraL/a?method=getAllComment&callback=?",
+			var count=0;
+			var map;
+			$.getJSON("http://localhost:80/QuadraL/commen.do?method=getAllComment&callback=?",
 				function(comment_result) {
+					map = comment_result;
 					window.onload = function() {
 						var tdArr = document.getElementById('tablebox').firstElementChild;
 						for (var i = 0; i < comment_result.list.length; i++) {
 							var tr = document.createElement("tr");
-							tr.innerHTML = '<td class="t1">' + comment_result.list[i].comment_id + '</td><td class="t2">' + comment_result.list[i].article_id +
-								'</td><td class="t3">' + comment_result.list[i].user_id + '</td><td class="t4">' + comment_result.list[i].comment_content + 
+							tr.innerHTML = '<td class="t1">' + comment_result.list[i].comment_id + '</td><td class="t2">' + comment_result.list[i].article_name +
+								'</td><td class="t3">' + comment_result.list[i].user_name + '</td><td class="t4" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' + comment_result.list[i].comment_content + 
 								'</td><td class="t5">' + comment_result.list[i].replier_id + '</td><td class="t6">' + comment_result.list[i].comment_date +
 								'</td><td class="t7">' + comment_result.list[i].comment_praise +
-								'</td><td class="t8">'+
-								'<button class="btn btn-primary btn-sm" id="delete" data-toggle="modal" data-target="#myModal">删除</button>';
+								'</td><td class="t8">' +
+								'<button class="btn more btn-primary btn-sm" id="'+i+'" data-toggle="modal" data-target="#myModal">查看文章评论详细内容</button>' +
+								'</td><td class="t9">'+
+								'<button class="btn btn-primary delete btn-sm" id=" '+i+'" >删除</button>';
 							tdArr.appendChild(tr)
+							count++;
+							
 						}
 					};
 				}
 			);
+			$(document).on("click",".more",function(){
+				var id = $(this).attr("id");
+				var text = "&nbsp &nbsp &nbsp &nbsp &nbsp" + map.list[id].comment_content;
+				document.getElementById("text1").innerHTML =  text;
+			});
+			$(document).on("click",".delete",function(){
+				var id = $(this).attr("id");
+				var num = $(this).parent().parent();
+				// $.mui.ajax('',{
+				// 	data:{
+						
+				// 	},
+				// 	dataType:'json',//服务器返回json格式数据
+				// 	type:'post',//HTTP请求类型
+				// 	timeout:10000,//超时时间设置为10秒；
+				// 	success:function(data){
+						
+				// 	},
+				// 	error:function(xhr,type,errorThrown){
+						
+				// 	}
+				// });
+				$(this).parent().parent().remove();
+			});
+			
+			
 		</script>
 		<!--删除按钮-->
-		<script>
-				$("#delete").on("click",function(){
-					$(this).parents().parent().remove();
-				});
-		</script>
 		<script src="layui/layui.js" charset="utf-8"></script>
 		<script>
 			layui.use(['laypage', 'layer'], function() {

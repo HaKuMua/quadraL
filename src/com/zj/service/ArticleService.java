@@ -7,7 +7,8 @@ import java.util.List;
 import java.util.Map;
 
 
-import cn.com.uitl.PageUtil;
+
+import cn.com.util.PageUtil;
 
 import com.zj.dao.ArticleDao;
 import com.zj.dao.ArticleImgDao;
@@ -48,13 +49,21 @@ public class ArticleService implements ArticleServiceImpl{
 	public List<Map<String, Object>> getAllArticle(){
 		List<Map<String, Object>> list = null;
 		try {
+			
 			List<Article> articleList = articleDaoImpl.getAllArticle();
 			if(articleList != null){
 				list = new ArrayList<Map<String,Object>>();
 				for(Article article : articleList){
 					Map<String, Object> map = new HashMap<String, Object>();
 					map.put("article_id", article.getArticle_id());
+					//获取对应的文章图片
+					Integer article_id = article.getArticle_id();
+					List<ArticleImg> articleImg = articleImgDaoImpl.queryArticleImgByArticleId(article_id);
+					map.put("article_img", articleImg);
 					map.put("user_id", article.getUser_id());
+					Integer user_id = article.getUser_id();
+					User user = userDaoImpl.getUserInfoById(user_id);
+					map.put("user_name", user.getUser_name());
 					map.put("article_name", article.getArticle_name());
 					map.put("article_content", article.getArticle_content());
 					map.put("article_date", article.getArticle_date());
@@ -76,6 +85,8 @@ public class ArticleService implements ArticleServiceImpl{
 	 */
 	public List<Map<String, Object>> getPageArticleInfo(Integer articlePresentPage) throws SQLException{
 		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+		//查询文章所有图片
+		
 		//文章分页
 		Long articleCount = articleDaoImpl.queryCountArticle();
 		PageUtil<Article> pu = new PageUtil<Article>();
@@ -178,12 +189,12 @@ public class ArticleService implements ArticleServiceImpl{
 				//获得相关文章文章的第一张图片
 				Integer relatedArticleArticle_id = relatedArticle.getArticle_id();
 				List<ArticleImg> relatedArticleCurrenArticleImg = articleImgDaoImpl.queryArticleImgByArticleId(relatedArticleArticle_id);
-				ArticleImg relatedArticleFirstImg  = currenArticleImg.get(0);
+				ArticleImg relatedArticleFirstImg  = relatedArticleCurrenArticleImg.get(0);
 				map.put("relatedArticleImage_id", relatedArticleFirstImg.getImage_id());
 				map.put("relatedArticleImage_url", relatedArticleFirstImg.getImage_url());
 				//获取相关文章文章评论数量
 				Long relatedArticleCommCount = commentDaoImpl.queryCommCount(relatedArticleArticle_id);
-				map.put("relatedArticleCommCount", commCount);
+				map.put("relatedArticleCommCount", relatedArticleCommCount);
 				//获得相关文章用户头像
 				Integer relatedArticleUser_id = relatedArticle.getUser_id();
 				User relatedArticleUser = userDaoImpl.queryUserById(relatedArticleUser_id);

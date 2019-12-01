@@ -6,11 +6,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import cn.com.uitl.PageUtil;
+import cn.com.util.PageUtil;
 
+import com.zj.dao.ArticleDao;
 import com.zj.dao.CommentDao;
+import com.zj.dao.UserDao;
+import com.zj.dao.impl.ArticleDaoImpl;
 import com.zj.dao.impl.CommentDaoImpl;
+import com.zj.dao.impl.UserDaoImpl;
+import com.zj.entity.Article;
 import com.zj.entity.Comment;
+import com.zj.entity.User;
 import com.zj.service.impl.CommentServiceImpl;
 /**
  * 
@@ -20,6 +26,8 @@ import com.zj.service.impl.CommentServiceImpl;
 public class CommentService implements CommentServiceImpl{
 
 	private CommentDaoImpl commenDaoImpl = new CommentDao();
+	private ArticleDaoImpl articleDaoImpl = new ArticleDao();
+	private UserDaoImpl  userDaoImpl = new UserDao(); 
 	/**
 	 * 将所有的评论打包成list返回
 	 */
@@ -33,7 +41,15 @@ public class CommentService implements CommentServiceImpl{
 					Map<String, Object> map = new HashMap<String, Object>();
 					map.put("comment_id", comment.getComment_id());
 					map.put("article_id", comment.getArticle_id());
+					//获取文章名
+					Integer article_id = comment.getArticle_id();
+					Article article = articleDaoImpl.queryArticleById(article_id);
+					map.put("article_name", article.getArticle_name());
 					map.put("user_id", comment.getUser_id());
+					//获取用户名
+					Integer user_id = comment.getUser_id();
+					User user = userDaoImpl.getUserInfoById(user_id);
+					map.put("user_name", user.getUser_name());
 					map.put("comment_content", comment.getComment_content());
 					map.put("replier_id", comment.getReplier_id());
 					map.put("comment_date", comment.getComment_date());

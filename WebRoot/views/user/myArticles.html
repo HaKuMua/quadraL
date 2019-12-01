@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>度假屋、民宿、体验和攻略 - Airbnb爱彼迎</title>
+		<link rel="stylesheet" type="text/css" href="../../layui/css/layui.css">
+		<script src="../../js/jquery.min.js"></script>
+		<script src="../../layui/layui.js"></script>
+		<style type="text/css">
+			#navId li a {
+				font-size: 15px;
+				color: white;
+				font-weight: bold;
+			}
+
+			#rightNav {
+				float: right;
+			}
+
+			#main {
+				width: 700px;
+				height: 100%;
+				margin-left: 590px;
+				margin-top: 40px;
+			}
+
+			#main img {
+				border-radius: 10px;
+			}
+
+			#foot {
+				margin-top: 300px;
+				width: 1090px;
+				margin-left: 550px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="top">
+			<ul class="layui-nav layui-bg-green" id="navId">
+				<li class="layui-nav-item">
+					<a href="index.html">
+						<img src="../../img/logo.jpg" class="layui-nav-img">
+					</a>
+				</li>
+				<div id="rightNav">
+					<li class="layui-nav-item" id="china"><a href="">退出</a></li>
+					<li class="layui-nav-item "> <a href="">房源订单中心</a></li>
+					<li class="layui-nav-item"><a href="">故事</a></li>
+					<li class="layui-nav-item"><a href="../index.html">首页</a> </li>
+					<li class="layui-nav-item"><a href="">帮助</a> </li>
+					<li class="layui-nav-item" lay-unselect=""><a href="javascript:;">
+						<img src="'+userInfo.user_img+'" class="layui-nav-img"></a>
+				</div>
+			</ul>
+		</div>
+		<div id="main">
+			<div id="">
+				<div class="layui-col-xs4">
+					<span style="font-size: 40px;color: gray;font-weight:bolder;">
+						发布故事
+					</span>
+				</div>
+			</div><br><br>
+			<div style=" margin-top: 50px;width: 700px;height: 80px;" id="edit">
+				<input  style="height:60px; font-size: 20px;" placeholder="故事标题" autocomplete="off" type="text" name="title" id="title"
+				 class="layui-input" />
+			</div>
+
+			<div style=" margin-top: 20px;" id="img">
+				<h2>上传故事图片</h2>
+				<blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;width: 665px; ">
+					预览图：
+					<div class="layui-upload-list" id="look"></div>
+				</blockquote>
+				<div class="layui-upload-drag " id="uploadImg">
+					<i class="layui-icon"></i>
+					<p>点击上传，或将图片拖拽到此处</p>
+				</div>
+			</div>
+			<div style=" margin-top: 30px;width: 665px; " id="content">
+				<h2>故事内容</h2><br>
+				<div class="layui-form-item layui-form-text">
+					<textarea class="layui-textarea layui-hide" name="content" lay-verify="content" id="LAY_editor"></textarea>
+				</div>
+			</div><br>
+			<button id="add" class="layui-btn">添加我的故事</button>
+		</div>
+
+		<div id="foot">
+			<div>
+				<div>京ICP备16017121号-3 京ICP证 160773号
+					<img src="https://z1.muscache.cn/airbnb/static/packages/public_security_bureau_logo.d0289dc0.png" alt="中国公安局标志">
+					<a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010502032345" target="_blank" rel="noopener noreferrer"
+					 aria-busy="false">京公网安备 11010502032345号</a>
+					技术支持：卓应教育（湖南）有限公司 <a href="https://a0.muscache.com/pictures/03ec62da-f467-4e2b-bfee-6eefd052d7f5.jpg" target="_blank"
+					 rel="noopener noreferrer" aria-busy="false">营业执照</a></div>
+				<div dir="ltr">© 2019 Airbnb, Inc. All rights reserved.</div>
+			</div>
+			<br><br><br><br><br><br>
+		</div>
+	</body>
+	<script>
+		layui.use(['form', 'element', 'layer', 'upload', 'layedit'], function() {
+			var form = layui.form,
+				layer = layui.layer,
+				element = layui.element,
+				layedit = layui.layedit,
+				upload = layui.upload;
+	
+			//创建一个编辑器
+			var editIndex = layedit.build('LAY_editor', {
+				height: 480, //设置编辑器高度
+				tool: [
+					'strong' //加粗
+					, 'italic' //斜体
+					, 'underline' //下划线
+					, 'del' //删除线
+					, '|' //分割线
+					, 'left' //左对齐
+					, 'center' //居中对齐
+					, 'right' //右对齐
+					, 'face' //表情
+				]
+			});
+			console.log(layedit.getContent(editIndex));
+			$("#add").on("click",function() {
+				title=$("#title").val();
+				content=layedit.getContent(editIndex);
+				console.log(content);
+				if(title != '' && content != '') {
+					alert("去发布！")
+				}else {
+					layer.msg("请填写完整！")
+				}
+			});
+			upload.render({
+				elem: '#uploadImg',
+				multiple: true,
+				before: function(obj) {
+					obj.preview(function(index, file, result) {
+						$('#look').append('<img width=665; height=450; src="' + result + '" alt="' + file.name +
+							'" class="layui-upload-img">')
+						//img.push(result+file.name);
+						console.log(result + file.name)
+					});
+				}
+			});
+		});
+		
+	</script>
+	<script type="text/javascript">
+		//利用Cookie拿到信息
+		// var userInfo=$.Cookie('userInfo');
+		var userInfo = {
+			user_id: '1000',
+			user_name: 'haku',
+			user_img: '../../img/timg.jpg',
+			islanlord: 1
+		};
+		var article = {
+			article_id: '1',
+			article_name: '上海魔都民宿 | 人均300入住魔都小众超民国风复古民宿！',
+			article_img: ['../../img/story/e19adcd4-1c48-4eeb-b855-1987a414b951.jpg',
+				'../../img/story/9b678664-6ba3-48d1-bd69-66a475609ab8.jpg',
+				'../../img/story/e19adcd4-1c48-4eeb-b855-1987a414b951.jpg',
+				'../../img/story/e19adcd4-1c48-4eeb-b855-1987a414b951.jpg'
+			],
+			user_img: '../../img/timg.jpg',
+			user_name: 'HaKu',
+			article_content: '最近深圳天气真的太好啦 忍不住打卡深圳超美的独栋泳池别墅拍了一组泳装照～在这里可以拍出假装在国外度假的大片！拍照圣地本地了!' +
+				'民宿地址：不知处龙华区梅花山庄 周围很繁华宵夜可以尽情的点定的是ins风白色北欧房 大概500左右民宿整体是超ins度假风的装修风格 房间一共有四个 每个房间都是不同的装修主题哦' +
+				'最值得拍照的点就是别墅的透明玻璃泳池了 真的非常非常好出片！拍泳衣装的最佳地点！随随便便都能拍出国外小清新度假的feel建议穿颜色比较鲜艳的裙子或泳衣拍' +
+				'深圳最近的天气其实穿泳衣拍不会太冷 下午两三点拍的时候阳光正好！个人推荐入住的房型就是北欧全白房 浴缸拍照超美！' +
+				'民宿其他地点也很好拍的 老板布置的真的超有心 三楼最近还装了新的小木屋 有兴趣的仙女可以赶在年前入住体验一次啦～',
+			article_praise: 20,
+			article_collect: 12,
+			house: {
+				house_id: '1',
+				house_name: '美式田园风一室/东门老街/万象城/莫兰迪色/罗湖口岸/京基100/落地窗观景',
+				house_img: '../../img/story/e19adcd4-1c48-4eeb-b855-1987a414b951.jpg',
+				house_price: '999',
+				house_type: '整套公寓'
+			}
+
+		}
+
+		window.onload = function() {
+			//初始化导航栏
+			if (userInfo.user_id != '') {
+				var html = '<li class="layui-nav-item " id="china"> <a href="" >房源订单中心</a></li>' +
+					'<li class="layui-nav-item"><a href="">故事</a></li>' +
+					'<li class="layui-nav-item"><a href="">帮助</a> </li>' +
+					' <li class="layui-nav-item" lay-unselect=""><a href="javascript:;"><img src="' +
+					userInfo.user_img + '" class="layui-nav-img">' + userInfo.user_name + '</a> ' +
+					'<dl class="layui-nav-child"><dd><a href="javascript:;"  style="color: gray;">个人中心</a></dd>' +
+					' <dd><a href="javascript:;" style="color: gray;">修改信息</a></dd><dd><a href="javascript:;" style="color: gray;">退了</a></dd></dl>';
+				$("#rightNav").empty();
+				$("#rightNav").append(html);
+				if (userInfo.islanlord != 0) {
+					$("#china").after('<li class="layui-nav-item "> <a href="">查看我的房源</a></li>' +
+						'<li class="layui-nav-item "><a href="host/create_a_room/room.html">添加房源</a></li>');
+				} else {
+					$("#china").after('<li class="layui-nav-item "> <a href="">成为房东</a></li>');
+				}
+			}
+		}
+		
+	</script>
+</html>

@@ -134,6 +134,12 @@
 									</a>
 								</li>
 								<li class="sidebar-item">
+									<a class="sidebar-link waves-effect waves-dark sidebar-link" href="reserve.html" aria-expanded="false">
+										<i class="mdi mdi-file"></i>
+										<span class="hide-menu">预定信息</span>
+									</a>
+								</li>
+								<li class="sidebar-item">
 									<a class="sidebar-link waves-effect waves-dark sidebar-link" href="user-info.html" aria-expanded="false">
 										<i class="mdi mdi-arrange-bring-forward"></i>
 										<span class="hide-menu">用户信息</span>
@@ -142,13 +148,7 @@
 								<li class="sidebar-item">
 									<a class="sidebar-link waves-effect waves-dark sidebar-link" href="checkin-person-info.html" aria-expanded="false">
 										<i class="mdi mdi-arrange-bring-forward"></i>
-										<span class="hide-menu">住户信息</span>
-									</a>
-								</li>
-								<li class="sidebar-item">
-									<a class="sidebar-link waves-effect waves-dark sidebar-link" href="landlord.html" aria-expanded="false">
-										<i class="mdi mdi-border-none"></i>
-										<span class="hide-menu">房东信息</span>
+										<span class="hide-menu">入住人信息</span>
 									</a>
 								</li>
 								<li class="sidebar-item">
@@ -166,7 +166,13 @@
 								<li class="sidebar-item">
 									<a class="sidebar-link waves-effect waves-dark sidebar-link" href="comment-check.html" aria-expanded="false">
 										<i class="mdi mdi-arrange-bring-forward"></i>
-										<span class="hide-menu">评论审核</span>
+										<span class="hide-menu">文章评论审核</span>
+									</a>
+								</li>
+								<li class="sidebar-item">
+									<a class="sidebar-link waves-effect waves-dark sidebar-link" href="hotel-commen-check.html" aria-expanded="false" id="addLandlord">
+										<i class="mdi mdi-border-none"></i>
+										<span class="hide-menu">酒店评论审核</span>
 									</a>
 								</li>
 								<li class="sidebar-item">
@@ -255,7 +261,7 @@
 			</div>
 			
 			<script>
-				$.getJSON("http://localhost:80/QuadraL/a?method=getAllUserInfo&callback=?",
+				$.getJSON("http://localhost:80/QuadraL/user-info.do?method=getAllUserInfo&callback=?",
 					function(user_result) {
 						window.onload = function() {
 							var tdArr = document.getElementById('tablebox').firstElementChild;
