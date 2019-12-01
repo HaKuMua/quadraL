@@ -16,80 +16,54 @@ public interface UserServiceImpl {
 	 */
 	List<Map<String, Object>> getAllUserInfo();
 	/**
-	 * 将单个用户信息包装成map返回
-	 * 用user_phone查询
+	 * 根据用户电话查询并返回其信息
+	 * 
 	 */
 	Map<String, Object> getUserInfoByPhone(String user_phone);
+	
+	
+	
 	/**
-	 * 添加用户
-	 */
-	int addUser(String user_phone) throws SQLException;
-	/**
-	 * 修改用户
-	 */
-	int updateUser(Integer user_id,String user_name,String user_email,String user_phone,String real_name,String user_describe,String user_IDcard) throws SQLException;
-	/**
-	 * 通过id查询用户
+	 * 修改用户基本信息
 	 * @throws SQLException 
 	 */
-	User queryUserById(Integer user_id) throws SQLException;
-	/**
-	 * 查询手机号是否存在
-	 * @throws SQLException 
-	 */
-	boolean queryPhoneExit(String user_phone) throws SQLException;
-	/**
-	 * 用户设置密码
-	 * @throws SQLException 
-	 */
-	int setUserPwd(Integer user_id,String user_pwd) throws SQLException;
-	/**
-	 * 用户修改密码
-	 * @throws SQLException 
-	 */
-	int updateUserPwd(Integer user_id,String user_pwd) throws SQLException;
-	/**
-	 * 用户上传头像
-	 * @throws SQLException 
-	 */
-	int addUserHead(Integer user_id,String user_headimg_url) throws SQLException;
-	/** 添加一个用户方法接口
-	 * @param map
-	 * @return
-	 */
-//	String addUserInfo(Map<String, Object> map);
-	/**
-	 * 根据电话/email和密码查询用户
-	 * @throws SQLException 
-	 */
-	User queryUserInfo(String user_phone,String user_email,String user_pwd) throws SQLException;
+	Map<String, Object> updateBasicInfo(Map<String, Object> userInfo);
+	
+	
 	/**
 	 * 手机号/邮箱和密码登录
-	 */
-	Map<String, Object> login(Map<String, Object> loginInfo);
-	/**
-	 * 手机号登录，若手机号存在则用户注册
-	 */
-	Map<String, Object> phoneLogin(Map<String, Object> phoneLoginInfo);
-	/**
-	 * 用户设置密码
-	 */
-	Map<String, Object> setUserPwd(Map<String, Object> setUserPwdInfo);
-	/**
-	 * 修改基本信息
-	 */
-	Map<String, Object> updateBasicInfo(Map<String, Object> setUserInfo);
-	/**
-	 * 修改密码
-	 */
-	Map<String, Object> updateUserPwd(Map<String, Object> updateUserPwdInfo);
-	/**
-	 * 用户上传头像
-	 */
-	Map<String, Object> addUserHead(Map<String, Object> addUserHeadInfo);
-	/**
-	 * 通过手机号获取用户
 	 * @throws SQLException 
 	 */
-	User queryUserByPhone(String user_phone) throws SQLException;
+	Map<String, Object> loginByCode(Map<String, Object> userInfo);
+	
+	/**
+	 * 手机号登录
+	 */
+	Map<String, Object> loginByPhone(String user_phone);
+	
+	/**
+	 * 用户实名认证
+	 * @throws SQLException 
+	 */
+	Map<String, Object> setRealName(Map<String, Object> userInfo) ;
+	
+	/**
+	 * 设置密码
+	 * @throws SQLException 
+	 */
+	Map<String, Object> setUserPwd(Map<String, Object> userInfo);
+	
+	/**
+	 * 修改密码
+	 * @throws SQLException 
+	 */
+	Map<String, Object> updateUserPwd(Map<String, Object> userInfo);
+	
+	/**
+	 * 用户上传头像
+	 * @throws SQLException 
+	 */
+	Map<String, Object> addUserHead(Map<String, Object> userInfo);
+	
+	
 }

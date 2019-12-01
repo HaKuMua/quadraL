@@ -115,7 +115,7 @@ public class ArticleService implements ArticleServiceImpl{
 				map.put("commCount", commCount);
 				//获得用户头像
 				Integer user_id = article.getUser_id();
-				User user = userDaoImpl.queryUserById(user_id);
+				User user = userDaoImpl.getUserInfoById(user_id);
 				String userHeadUrl = user.getUser_headimg_url();
 				map.put("user_headimg_url", userHeadUrl);
 				list.add(map);
@@ -159,7 +159,7 @@ public class ArticleService implements ArticleServiceImpl{
 //			}
 			//获得用户头像与昵称
 			Integer user_id = oneArticle.getUser_id();
-			User user = userDaoImpl.queryUserById(user_id);
+			User user = userDaoImpl.getUserInfoById(user_id);
 			String userHeadUrl = user.getUser_headimg_url();
 			String user_name = user.getUser_name();
 			map.put("user_headimg_url", userHeadUrl);
@@ -197,7 +197,7 @@ public class ArticleService implements ArticleServiceImpl{
 				map.put("relatedArticleCommCount", relatedArticleCommCount);
 				//获得相关文章用户头像
 				Integer relatedArticleUser_id = relatedArticle.getUser_id();
-				User relatedArticleUser = userDaoImpl.queryUserById(relatedArticleUser_id);
+				User relatedArticleUser = userDaoImpl.getUserInfoById(relatedArticleUser_id);
 				String relatedArticleUserHeadUrl = relatedArticleUser.getUser_headimg_url();
 				map.put("relatedArticleUser_headimg_url", relatedArticleUserHeadUrl);
 			}

@@ -48,9 +48,9 @@
 			<h4 style="margin-left: 30px; ">没有账号 ?</h4>
 			<a style="margin-left: 105px; margin-top: -19px; position: absolute; color: green;" href="loginByTel.html">立即注册</a><br><br>
 				<input id="userId" type="text" name="phone" lay-verify="phoneEmail" autocomplete="off" 
-				placeholder="邮箱地址/手机号码" class="layui-input" value="15973091401"><br><br>
+				placeholder="邮箱地址/手机号码" class="layui-input" value="15173595627"><br><br>
 				<input type="password" name="password" lay-verify="pass|required" id="pwdId"
-				 value="1112356" placeholder="密码" autocomplete="off" class="layui-input"><br><br><br>
+				 value="324" placeholder="密码" autocomplete="off" class="layui-input"><br><br><br>
 				<button class="layui-btn btn" lay-filter="loginBtn" id="myBtn">立即登录</button>
 			<br><br>
 			<a  style="margin-left: 460px; margin-top: -110px; font-weight: bolder;  
@@ -80,18 +80,33 @@
 		</script>
 		<script type="text/javascript">
 			$("#myBtn").on("click",function() {
-				alert()
-				var userId =$("#userId").val();
-				var pwd = $("#pwdId").val();
-				map='"userId":'+userId+',"user_pwd":'+pwd;
+				var user_code =$("#userId").val();
+				var user_pwd = $("#pwdId").val();
+				map='{"user_code":'+user_code+',"user_pwd":'+user_pwd+'}';
 				//后端验证并获得userInfoCookie
-				$.getJSON(basePath+"user.do?method=login&callback=?",
+				$.getJSON(basePath+"user.do?method=loginByCode&callback=?",
 				{"map":map},function(result){
-					//layer.close(layer.index);
-					userInfo=reult.obj;
-					console.log(userInfo)
+					userInfo=result.userInfo;
+					console.log(result)
+					if(userInfo != null) {
+						layer.msg(result.msg);
+						objString = JSON.stringify(userInfo);
+						setCookie("userInfo", objString, 1);
+						window.setTimeout (function() {
+							layer.close(layer.index);
+							parent.location.reload();
+						},1200);
+						json=getCookie("userInfo");
+						console.log(json)
+						jsonInfo = JSON.parse(json);
+						console.log(jsonInfo)
+						
+					}else {
+						layer.msg(result.msg);
+					}
+					
 				});
-				//parent.location.reload();
+				
 			})
 			
 			//设置cookie

@@ -227,13 +227,9 @@
 					</form>
 				</li>
 				<div id="rightNav">
-					<li class="layui-nav-item" id="china"><a href="">退出</a></li>
-					<li class="layui-nav-item "> <a href="">房源订单中心</a></li>
 					<li class="layui-nav-item"><a href="">故事</a></li>
-					<li class="layui-nav-item"><a href="../index.html">首页</a> </li>
-					<li class="layui-nav-item"><a href="">帮助</a> </li>
-					<li class="layui-nav-item" lay-unselect=""><a href="javascript:;">
-							<img src="'+userInfo.user_img+'" class="layui-nav-img"></a>
+					<li class="layui-nav-item" style="cursor: pointer;"><a class="NavA" data-method="login">注册</a></li>
+					<li class="layui-nav-item" style="cursor: pointer;"><a class="NavA" data-method="login">登录</a></li>
 				</div>
 			</ul>
 		</div>
@@ -812,7 +808,6 @@
 		//按钮监听
 		$("#payBtn").on("click",function(){
 			// $.cookie('orderInfo', 1);
-			
 			// var objString = JSON.stringify(obj); //JSON 数据转化成字符串
 			// setCookie('orderInfo',objString, 1);
 			// myCookie=getCookie('orderInfo')
@@ -821,7 +816,7 @@
 			if(day < 0 ){
 				layer.msg("请选择时间！");
 			}else if(personNum > houseInfo.house_intake) {
-				layer.msg("房客过多！");
+				layer.msg("房客过多，请重新选择！");
 			}else{
 				let orderInfo={
 					user_id:userInfo.user_id,

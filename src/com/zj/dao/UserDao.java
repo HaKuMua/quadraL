@@ -36,6 +36,7 @@ public class UserDao implements UserDaoImpl{
 		GetConn.closeConn(conn);
 		return data;
 	}
+	
 	/**
 	 * 通过用户手机号获取单个用户信息方法
 	 */
@@ -46,15 +47,29 @@ public class UserDao implements UserDaoImpl{
 		GetConn.closeConn(conn);
 		return data;
 	}
-
-	/*
-	 * 通过用户id获取单个用户信息方法接口
+	
+	/**
+	 * 通过用户手机号和姓名获取单个用户信息方法
 	 */
-	@Override
-	public User getUserInfoById(Integer id) throws SQLException {
+	public User getUserInfoByPhoneAndName(String name, String phone)
+			throws SQLException {
+		conn = GetConn.getConn();
+		String sql = "select * from user where user_phone=? and user_name =?";
+		User data = qr.query(conn, sql, new BeanHandler<User>(User.class),phone,name);
+		GetConn.closeConn(conn);
+		return data;
+	}
+	
+	/**
+	 * 通过用户id获取单个用户信息方法
+	 * @param user_id
+	 * @return
+	 * @throws SQLException
+	 */
+	public User getUserInfoById(Integer user_id) throws SQLException {
 		conn = GetConn.getConn();
 		String sql = "select * from user where user_id=?";
-		User data =  qr.query(conn, sql, new BeanHandler<User>(User.class),id);
+		User data = qr.query(conn, sql, new BeanHandler<User>(User.class), user_id);
 		GetConn.closeConn(conn);
 		return data;
 	}
@@ -62,116 +77,112 @@ public class UserDao implements UserDaoImpl{
 	/**
 	 * 添加用户
 	 */
-	public int addUser(String user_name, String user_phone) throws SQLException {
+	public Integer addUser(String user_name, String user_phone) throws SQLException {
 		conn = GetConn.getConn();
-		String sql = "insert into user(user_name,user_phone,inform_date) values(?,?,?)";
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		int data = qr.update(conn, sql, user_name,user_phone,format.format(new Date()));
+		String sql = "insert into user(user_name,user_phone) values(?,?,?)";
+		int data = qr.update(conn, sql, user_name,user_phone);
 		GetConn.closeConn(conn);
 		return data;
 	}
+	
 	/**
-	 * 修改用户
+	 * 修改用户基本信息
 	 */
-	public int updateUser(Integer user_id,String user_name,
-			String user_email, String user_phone,
-			String real_name,String user_describe,String user_IDcard) throws SQLException {
+	public Integer updateBasicInfo(Integer user_id,String user_name,String user_email,String user_describe) throws SQLException {
 		conn = GetConn.getConn();
-		String sql = "update user set user_name = ?, user_email = ?, user_phone = ?, real_name = ?, user_describe = ?, user_IDcard = ? where user_id = ?";
-		int data = qr.update(conn, sql, user_name,user_email, user_phone,real_name,user_describe,user_IDcard,user_id);
+		String sql = "update user set user_name = ?, user_email = ?,  user_describe = ? where user_id = ?";
+		int data = qr.update(conn, sql, user_name,user_email,user_describe,user_id);
 		GetConn.closeConn(conn);
 		return data;
 	}
-	/**
-	 * 通过id查询用户
-	 * @throws SQLException 
-	 */
-	public User queryUserById(Integer user_id) throws SQLException {
-		conn = GetConn.getConn();
-		String sql = "select * from user where user_id = ?";
-		User data = qr.query(conn, sql, new BeanHandler<User>(User.class), user_id);
-		GetConn.closeConn(conn);
-		return data;
-	}
+	
 	/**
 	 * 查询手机号是否存在
 	 * @throws SQLException 
 	 */
 	public Integer queryPhoneExit(String user_phone) throws SQLException {
 		conn = GetConn.getConn();
-		String sql = "select * from user where user_phone = ?";
+		String sql = "select count(*) from user where user_phone = ?";
 		Integer data = qr.query(conn, sql, new ScalarHandler<Integer>(), user_phone);
 		GetConn.closeConn(conn);
 		return data;
 	}
 	/**
-	 * 用户设置密码
+	 * 用户更新密码
 	 * @throws SQLException 
 	 */
-	public int setUserPwd(Integer user_id, String user_pwd) throws SQLException {
+	public Integer updateUserPwd(Integer user_id, String user_pwd) throws SQLException {
 		conn = GetConn.getConn();
 		String sql = "update user set user_pwd = ? where user_id = ?";
-		int data = qr.update(conn, sql, user_pwd,user_id);
+		Integer data = qr.update(conn, sql,new ScalarHandler<Integer>(), user_pwd,user_id);
 		GetConn.closeConn(conn);
 		return data;
 	}
-	/**
-	 * 用户修改密码
-	 * @throws SQLException 
-	 */
-	public int updateUserPwd(Integer user_id, String user_pwd) throws SQLException {
-		conn = GetConn.getConn();
-		String sql = "update user set user_pwd = ? where user_id = ?";
-		int data = qr.update(conn, sql, user_pwd,user_id);
-		GetConn.closeConn(conn);
-		return data;
-	}
+	
 	/**
 	 * 用户上传头像
 	 * @throws SQLException 
 	 */
-	public int addUserHead(Integer user_id, String user_headimg_url) throws SQLException {
+	public Integer addUserHead(Integer user_id, String user_headimg_url) throws SQLException {
 		conn = GetConn.getConn();
 		String sql = "update user set user_headimg_url = ? where user_id = ?";
-		int data = qr.update(conn, sql, user_headimg_url,user_id);
+		Integer data = qr.update(conn, sql,new ScalarHandler<Integer>(), user_headimg_url,user_id);
 		GetConn.closeConn(conn);
 		return data;
 	}
-	/**
-	 * 通过用户id获取单个用户信息方法
-	 * @param user_id
-	 * @return
-	 * @throws SQLException
-	 */
-	public User getUserInfoByID(Integer user_id) throws SQLException {
-		conn = GetConn.getConn();
-		String sql = "select * from user where user_id=?";
-		User data = qr.query(conn, sql, new BeanHandler<User>(User.class), user_id);
-		GetConn.closeConn(conn);
-		return data;
-	}
-//	/**
-//	 * 添加一个用户信息
-//	 */
-//	public int addUserInfo(User user) throws SQLException {
-//		String sql = "insert into user(user_name,user_headimg_url,user_email,user_phone,user_IDcard,is_landlord" +
-//				",user_pwd,money,real_name,user_describe) value(?,?,?,?,?,?,?,?,?,?)";
-//		return qr.update(conn, sql, user.getUser_name(),user.getUser_headimg_url(),user.getUser_email(),user.getUser_phone()
-//				,user.getUser_IDcard(),user.getIs_landlord(),user.getUser_pwd(),user.getMoney(),user.getReal_name(),user.getUser_describe());
-//	}
+	
+	
 	/**
 	 * 更新用户余额
 	 */
-	public int updateUserMoney(Double price,Integer user_id) throws SQLException {
+	public Integer updateUserMoney(Double price,Integer user_id) throws SQLException {
+		conn = GetConn.getConn();
 		String sql = "update user set money=money-? where user_id=?";
-		return qr.update(conn, sql, price,user_id);
+		Integer num = qr.update(conn, sql, price,user_id);
+		GetConn.closeConn(conn);
+		return num;
 	}
+	
 	/**
 	 * 根据电话/email和密码查询用户
 	 * @throws SQLException 
 	 */
-	public User queryUserInfo(String user_phone,String user_email, String user_pwd) throws SQLException {
-		String sql = "select * from user where((user_phone = ? and user_pwd = ?) or (user_email = ? and user_pwd = ?))";
-		return qr.query(conn, sql, new BeanHandler<User>(User.class), user_phone,user_pwd,user_email,user_pwd);
+	public User queryUserInfo(String user_code ,String user_pwd) throws SQLException {
+		conn = GetConn.getConn();
+		String sql = "select * from user where((user_phone = ? or user_email = ?) and user_pwd = ?)";
+		User data = qr.query(conn, sql, new BeanHandler<User>(User.class), user_code,user_code,user_pwd);
+		GetConn.closeConn(conn);
+		return data;
 	}
+	
+	/**
+	 * 修改用户电话
+	 */
+	@Override
+	public Integer updateUserPhone(Integer user_id, String user_phone)
+			throws SQLException {
+		conn = GetConn.getConn();
+		String sql = "update user set user_phone = ? where user_id = ?";
+		Integer data = qr.update(conn, sql,new ScalarHandler<Integer>(), user_phone,user_id);
+		GetConn.closeConn(conn);
+		return data;
+	}
+	
+	/**
+	 * 实名认证
+	 */
+	@Override
+	public Integer setRealName(Integer user_id, String real_name,
+			String user_IDcard) throws SQLException {
+		// TODO Auto-generated method stub
+		conn = GetConn.getConn();
+		String sql = "update user set real_name = ?,user_IDcard = ? where user_id = ?";
+		Integer data = qr.update(conn, sql,new ScalarHandler<Integer>(),real_name, user_IDcard,user_id);
+		GetConn.closeConn(conn);
+		return data;
+	}
+
+	
+	
+	
 }

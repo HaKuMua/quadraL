@@ -13,12 +13,15 @@ import java.util.regex.Pattern;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.log4j.Logger;
 import org.json.JSONObject;
 
 import cn.com.util.BaseServlet;
 import cn.com.util.CheckoutEmail;
 import cn.com.util.CheckoutIDCard;
 import cn.com.util.CheckoutPhoneNumber;
+import cn.com.util.FileLoadServletUtil;
 
 import com.alibaba.fastjson.JSON;
 import com.zj.entity.User;
@@ -34,37 +37,45 @@ public class UserServlet extends BaseServlet {
 	private UserServiceImpl userServiceImpl = new UserService();
 	public String map;
 	public String callback;
+//	private Logger log = new 
 	/**
 	 * 邮箱/电话密码登录
 	 */
-	public void login(HttpServletRequest request,HttpServletResponse response) {
+	public void loginByCode(HttpServletRequest request,HttpServletResponse response) {
+		System.out.println(map);
 		@SuppressWarnings("unchecked")
 		Map<String, Object> myMap = (Map<String, Object>) JSON.parse(map);
 		Map<String, Object> sendMap = new HashMap<String, Object>();
-		sendMap = userServiceImpl.login(myMap);
-		JSONObject obj = new JSONObject(sendMap);
 		try {
+			sendMap = userServiceImpl.loginByCode(myMap);
+			JSONObject obj = new JSONObject(sendMap);
 			response.getWriter().print(callback + "(" + obj + ")");
-		} catch (IOException e) {
+		} catch (Exception e1) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			e1.printStackTrace();
 		}
+		
 	}
+	
 	/**
 	 * 手机号登录，若手机号存在则用户注册
 	 */
-	public void phoneLogin(HttpServletRequest request,HttpServletResponse response) {
+	public void loginByPhone(HttpServletRequest request,HttpServletResponse response) {
 		@SuppressWarnings("unchecked")
 		Map<String, Object> myMap = (Map<String, Object>) JSON.parse(map);
 		Map<String, Object> sendMap = new HashMap<String, Object>();
-		sendMap = userServiceImpl.phoneLogin(myMap);
+		Map<String, Object> map = new HashMap<String, Object>();
+		String user_phone=myMap.get("user_phone").toString();
+		sendMap = userServiceImpl.loginByPhone(user_phone);
 		try {
-			JSONObject obj = new JSONObject(sendMap);
+			map.put("userInfo",sendMap);
+			JSONObject obj = new JSONObject(map);
 			response.getWriter().print(callback+"("+obj+")");
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
+	
 	/**
 	 * 用户设置密码
 	 */
@@ -80,6 +91,7 @@ public class UserServlet extends BaseServlet {
 			e.printStackTrace();
 		}	
 	}
+	
 	/**
 	 * 信息基本修改
 	 */
@@ -112,6 +124,32 @@ public class UserServlet extends BaseServlet {
 			e.printStackTrace();
 		}
 	}
+	
+	public void uploadImg(HttpServletRequest request,HttpServletResponse response) {
+		String file;
+		try {
+			
+			//图片上传并且返回保存的路径
+			String url = FileLoadServletUtil.upload(request, response);
+			HashMap<String,Object> map = new HashMap<String,Object>();
+			map.put("code", "0");
+			map.put("msg", url);
+			HashMap<String,Object> data = new HashMap<String,Object>();
+			data.put("src", url);
+			map.put("data", data);
+			JSONObject obj = new JSONObject(map);
+			//如果上传成功返回1
+			response.getWriter().print(obj);
+			//response.getWriter().print(callback+"("+obj+")");
+		} catch (FileUploadException e) {
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
 	/**
 	 * 用户上传头像
 	 */
