@@ -15,7 +15,7 @@ import org.json.JSONObject;
 import com.zj.service.HouseCommentService;
 import com.zj.service.impl.HouseCommentServiceImpl;
 
-import cn.com.uitl.BaseServlet;
+import cn.com.util.BaseServlet;
 
 public class HouseCommentServlet extends BaseServlet {
 	private static final long serialVersionUID = 1L;

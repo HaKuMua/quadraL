@@ -1,32 +1,40 @@
 package com.zj.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 
  * @author lijia
- *须知实体类
+ *通知实体类
  */
 public class Notice implements Serializable{
 	private static final long serialVersionUID = 1L;
 	/*
-	 * 须知ID
+	 * 通知ID
 	 */
 	private Integer notice_id;
 	/*
-	 * 房子ID
+	 * 用户ID
 	 */
-	private Integer house_id;
+	private Integer user_id;
 	/*
-	 * 须知名称
+	 * 通知内容
 	 */
-	private String notice_name;
-	/*
-	 * 须知内容
+	private String notice_content;
+	
+	/**
+	 * 通知时间
 	 */
-	private String notice_describe;
+	private Date notice_date;
+	
+	/**
+	 * 通知状态
+	 */
+	private Integer notice_status;
 	
 	public Notice() {
+	
 	}
 
 	public Integer getNotice_id() {
@@ -37,34 +45,44 @@ public class Notice implements Serializable{
 		this.notice_id = notice_id;
 	}
 
-	public Integer getHouse_id() {
-		return house_id;
+	public Integer getUser_id() {
+		return user_id;
 	}
 
-	public void setHouse_id(Integer house_id) {
-		this.house_id = house_id;
+	public void setUser_id(Integer user_id) {
+		this.user_id = user_id;
 	}
 
-	public String getNotice_name() {
-		return notice_name;
+	public String getNotice_content() {
+		return notice_content;
 	}
 
-	public void setNotice_name(String notice_name) {
-		this.notice_name = notice_name;
+	public void setNotice_content(String notice_content) {
+		this.notice_content = notice_content;
 	}
 
-	public String getNotice_describe() {
-		return notice_describe;
+	public Date getNotice_date() {
+		return notice_date;
 	}
 
-	public void setNotice_describe(String notice_describe) {
-		this.notice_describe = notice_describe;
+	public void setNotice_date(Date notice_date) {
+		this.notice_date = notice_date;
 	}
 
+	public Integer getNotice_status() {
+		return notice_status;
+	}
+
+	public void setNotice_status(Integer notice_status) {
+		this.notice_status = notice_status;
+	}
+
+	@Override
 	public String toString() {
-		return "Notice [notice_id=" + notice_id + ", house_id=" + house_id
-				+ ", notice_name=" + notice_name + ", notice_describe="
-				+ notice_describe + "]";
+		return "Notice [notice_id=" + notice_id + ", user_id=" + user_id
+				+ ", notice_content=" + notice_content + ", notice_date="
+				+ notice_date + ", notice_status=" + notice_status + "]";
 	}
+
 	
 }

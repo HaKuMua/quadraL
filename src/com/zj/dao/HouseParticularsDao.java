@@ -11,7 +11,7 @@ import org.apache.commons.dbutils.handlers.BeanListHandler;
 import com.zj.dao.impl.HouseParticularsDaoImpl;
 import com.zj.entity.HouseParticulars;
 
-import cn.com.uitl.GetConn;
+import cn.com.util.GetConn;
 
 /**
  * 

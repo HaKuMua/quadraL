@@ -11,7 +11,7 @@ import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
 
-import cn.com.uitl.GetConn;
+import cn.com.util.GetConn;
 
 import com.zj.dao.impl.UserDaoImpl;
 import com.zj.entity.User;

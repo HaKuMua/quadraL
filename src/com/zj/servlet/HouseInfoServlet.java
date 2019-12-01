@@ -16,7 +16,7 @@ import org.json.JSONObject;
 import com.zj.service.HouseService;
 import com.zj.service.impl.HouseServiceImpl;
 
-import cn.com.uitl.BaseServlet;
+import cn.com.util.BaseServlet;
 
 public class HouseInfoServlet extends BaseServlet {
 	private static final long serialVersionUID = 1L;

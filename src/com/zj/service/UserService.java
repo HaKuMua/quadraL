@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import cn.com.uitl.UUIDGenerator;
+import cn.com.util.UUIDGenerator;
 
 import com.zj.dao.UserDao;
 import com.zj.dao.impl.UserDaoImpl;
