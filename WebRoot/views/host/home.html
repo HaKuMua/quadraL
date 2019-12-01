@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="utf-8">
@@ -632,17 +632,18 @@
 			'2019-11-30': '已预订',
 			'2019-12-10': '已预订'
 			}
+		//初始化导航栏
 		if (userInfo.user_id != '') {
-			var html = '<li class="layui-nav-item" id="china"><a href="">退出</a></li>' +
-				'<li class="layui-nav-item "> <a href="" >房源订单中心</a></li>' +
+			var html = '<li class="layui-nav-item " id="china"> <a href="" >房源订单中心</a></li>' +
 				'<li class="layui-nav-item"><a href="">故事</a></li>' +
-				'<li class="layui-nav-item"><a href="../index.html">首页</a> </li>' +
 				'<li class="layui-nav-item"><a href="">帮助</a> </li>' +
 				' <li class="layui-nav-item" lay-unselect=""><a href="javascript:;"><img src="' +
-				userInfo.user_img + '" class="layui-nav-img">' + userInfo.user_name + '</a> ';
+				userInfo.user_img + '" class="layui-nav-img">' + userInfo.user_name + '</a> ' +
+				'<dl class="layui-nav-child"><dd><a href="javascript:;"  style="color: gray;">个人中心</a></dd>' +
+				' <dd><a href="javascript:;" style="color: gray;">修改信息</a></dd><dd><a href="javascript:;" style="color: gray;">退了</a></dd></dl>';
 			$("#rightNav").empty();
 			$("#rightNav").append(html);
-			if (userInfo.islanlord != 0) {
+			if (userInfo.islanlord != 0 || userInfo.islanlord != null) {
 				$("#china").after('<li class="layui-nav-item "> <a href="">查看我的房源</a></li>' +
 					'<li class="layui-nav-item "><a href="host/create_a_room/room.html">添加房源</a></li>');
 			} else {
@@ -836,7 +837,9 @@
 					may_check_in_date: houseInfo.may_check_in_date,
 					may_check_out_date: houseInfo.may_check_in_date,
 					building_name: houseInfo.building_name,
-					date:checkDate
+					date:checkDate,
+					user_name: houseInfo.user_name,
+					dayNumber:day
 				}
 				var objString = JSON.stringify(orderInfo); 
 				setCookie("orderInfo", objString, 1);

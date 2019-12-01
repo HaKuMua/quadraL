@@ -12,15 +12,14 @@
 				color: white;
 				font-weight: bold;
 			}
+			
 			#rightNav {
 				float: right;
 			}
 			
 			#article{
-				margin-top: 10px;
-				position: absolute;
 				width: 660px;
-				height: 1000px;
+				height: 100%;
 				margin-left: 650px ;
 				margin-top: 40px;
 			}
@@ -28,8 +27,8 @@
 			#article img{
 				border-radius: 10px;
 			}
-			.foot {
-				margin-top:290%;
+			#foot {
+				margin-top:590px;
 				width: 1090px;
 				margin-left: 550px;
 			}
@@ -154,10 +153,11 @@
 			</div>
 			<div style="border:1px solid grey; margin-top: 20px;width: 600px;height: 100px;"id="edit">
 				<div class="layui-form-item layui-form-text">
-					  <textarea placeholder="请输入评论内容" class="layui-textarea"></textarea>
+					  <textarea id="myComment" placeholder="请输入评论内容" class="layui-textarea"></textarea><br>
+					  <button id="myCommentBtn" type="button" class="layui-btn">评论</button>
 				</div>
 			 </div>
-			<h2 style="margin-top: 50px;" style="margin-top: 50px;"><b>相关故事</b></h2>
+			<h2  style="margin-top: 150px;"><b>相关故事</b></h2>
 			<div style="margin-top: 50px;" id="likeArticle">
 				<div class="layui-col-xs4">
 					<a href="">
@@ -184,8 +184,10 @@
 					</a><br>
 				</div>
 			</div>
+			
 		</div>
-		<div class="foot" >
+			
+		<div id="foot" >
 			<div >
 				<div>京ICP备16017121号-3 京ICP证 160773号 
 				<img src="https://z1.muscache.cn/airbnb/static/packages/public_security_bureau_logo.d0289dc0.png"
@@ -211,7 +213,9 @@
 			article_id:'1',
 			article_name:'上海魔都民宿 | 人均300入住魔都小众超民国风复古民宿！',
 			article_img:['../../img/story/e19adcd4-1c48-4eeb-b855-1987a414b951.jpg',
-						'../../img/story/9b678664-6ba3-48d1-bd69-66a475609ab8.jpg'],
+						'../../img/story/9b678664-6ba3-48d1-bd69-66a475609ab8.jpg',
+						'../../img/story/e19adcd4-1c48-4eeb-b855-1987a414b951.jpg',
+						'../../img/story/e19adcd4-1c48-4eeb-b855-1987a414b951.jpg'],
 			user_img:'../../img/timg.jpg',
 			user_name:'HaKu',
 			article_content:'最近深圳天气真的太好啦 忍不住打卡深圳超美的独栋泳池别墅拍了一组泳装照～在这里可以拍出假装在国外度假的大片！拍照圣地本地了!'+
@@ -265,19 +269,21 @@
 		// 	console.log(houseInfo);
 		// });
 		window.onload=function() {
+			//初始化导航栏
 			if (userInfo.user_id != '') {
 				var html = '<li class="layui-nav-item " id="china"> <a href="" >房源订单中心</a></li>' +
 					'<li class="layui-nav-item"><a href="">故事</a></li>' +
-					'<li class="layui-nav-item"><a href="../index.html">首页</a> </li>' +
 					'<li class="layui-nav-item"><a href="">帮助</a> </li>' +
-					' <li class="layui-nav-item" lay-unselect=""><a href="javascript:;"><img src="'+
-					userInfo.user_img+'" class="layui-nav-img">'+userInfo.user_name+'</a> ';
+					' <li class="layui-nav-item" lay-unselect=""><a href="javascript:;"><img src="' +
+					userInfo.user_img + '" class="layui-nav-img">' + userInfo.user_name + '</a> ' +
+					'<dl class="layui-nav-child"><dd><a href="javascript:;"  style="color: gray;">个人中心</a></dd>' +
+					' <dd><a href="javascript:;" style="color: gray;">修改信息</a></dd><dd><a href="javascript:;" style="color: gray;">退了</a></dd></dl>';
 				$("#rightNav").empty();
 				$("#rightNav").append(html);
-				if(userInfo.islanlord !=0) {
-					$("#china").after('<li class="layui-nav-item "> <a href="">查看我的房源</a></li>'+
-									'<li class="layui-nav-item "><a href="host/create_a_room/room.html">添加房源</a></li>');
-				} else  {
+				if (userInfo.islanlord != 0 || userInfo.islanlord != null) {
+					$("#china").after('<li class="layui-nav-item "> <a href="">查看我的房源</a></li>' +
+						'<li class="layui-nav-item "><a href="host/create_a_room/room.html">添加房源</a></li>');
+				} else {
 					$("#china").after('<li class="layui-nav-item "> <a href="">成为房东</a></li>');
 				}
 			}
@@ -337,9 +343,26 @@
 				$(infoId).append(html);
 			}
 		}
+		
+		//回复
 		$("body").on("click",".replyBtn",function() {
 			alert(11);
 		});
+		
+		//评论
+		$("body").on("click","#myCommentBtn",function() {
+			comment=$("#myComment").val();
+			alert(comment)
+			// $.getJSON(basePath + "a?method=getHouseInfoByID&callback=?", {
+			// 	"map":map
+			// }, function(res) {
+			// 	houseInfo = res;
+			// 	console.log(houseInfo);
+			// 	get();
+			// });
+			//刷新
+		});
+		//点赞
 		bool=true;
 		$("body").on("click","#praiseBtn",function() {
 			if(bool) {
