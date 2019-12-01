@@ -130,4 +130,21 @@ public class UserServlet extends BaseServlet {
 			e.printStackTrace();
 		}
 	}
+	/**
+	 * 用户实名
+	 * @throws SQLException 
+	 */
+	public void realNameInfo(HttpServletRequest request,HttpServletResponse response) throws SQLException {
+		@SuppressWarnings("unchecked")
+		Map<String, Object> myMap = (Map<String, Object>) JSON.parse(map);
+		Map<String, Object> sendMap = new HashMap<String, Object>();
+		sendMap = userServiceImpl.realNameInfo(myMap);
+		try {
+			JSONObject obj = new JSONObject(sendMap);
+			response.getWriter().print(callback+"("+obj+")");
+		} catch (IOException e) {
+
+			e.printStackTrace();
+		}
+	}
 }

@@ -27,7 +27,7 @@ public interface UserServiceImpl {
 	/**
 	 * 修改用户
 	 */
-	int updateUser(Integer user_id,String user_name,String user_email,String user_phone,String real_name,String user_describe,String user_IDcard) throws SQLException;
+	int updateUser(Integer user_id,String user_name,String user_email,String user_phone,String user_describe) throws SQLException;
 	/**
 	 * 通过id查询用户
 	 * @throws SQLException 
@@ -92,4 +92,9 @@ public interface UserServiceImpl {
 	 * @throws SQLException 
 	 */
 	User queryUserByPhone(String user_phone) throws SQLException;
+	/**
+	 *上传身份证和真实姓名
+	 * @throws SQLException 
+	 */
+	Map<String, Object> realNameInfo(Map<String, Object> realNameInfo) throws SQLException;
 }

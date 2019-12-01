@@ -27,7 +27,7 @@ public interface UserDaoImpl {
 	/**
 	 * 修改用户
 	 */
-	int updateUser(Integer user_id,String user_name,String user_email,String user_phone,String real_name,String user_describe,String user_IDcard) throws SQLException;
+	int updateUser(Integer user_id,String user_name,String user_email,String user_phone,String user_describe ) throws SQLException;
 	/**
 	 * 通过id查询用户
 	 * @throws SQLException 
@@ -72,4 +72,10 @@ public interface UserDaoImpl {
 	 * @throws SQLException 
 	 */
 	User queryUserInfo(String user_phone,String user_email,String user_pwd) throws SQLException;
+	/**
+	 *上传身份证和真实姓名
+	 * @throws SQLException 
+	 */
+	int realNameInfo(String user_IDcard,Integer user_id,String real_name) throws SQLException;
+	
 }

@@ -102,8 +102,8 @@ public class UserService implements UserServiceImpl{
 	 */
 	public int updateUser(Integer user_id, String user_name,
 			String user_email, String user_phone,
-			String real_name,String user_describe,String user_IDcard) throws SQLException {
-		return userDaoImpl.updateUser(user_id, user_name, user_email, user_phone, real_name, user_describe, user_IDcard);
+			String user_describe) throws SQLException {
+		return userDaoImpl.updateUser(user_id, user_name, user_email, user_phone, user_describe);
 	}
 	/**
 	 * 通过id查询用户
@@ -245,6 +245,7 @@ public class UserService implements UserServiceImpl{
 				map.put("msg", "密码错误");
 			}
 		} catch (SQLException e) {
+			map.put("msg", "数据查询异常");
 			e.printStackTrace();
 		}
 		return map;
@@ -271,8 +272,8 @@ public class UserService implements UserServiceImpl{
 			 			//手机号不存在，直接注册
 			 			int count = this.addUser(user_phone);
 			 			if(count != 0) {
-			 				User userInfo = this.queryUserByPhone(user_phone);
 			 				//注册成功
+			 				User userInfo = this.queryUserByPhone(user_phone);
 							map.put("msg", "注册成功");
 							map.put("user_id", userInfo.getUser_id());
 							map.put("user_name", userInfo.getUser_name());
@@ -292,6 +293,7 @@ public class UserService implements UserServiceImpl{
 			 			}
 			 		} 
 			 	} catch (SQLException e) {
+			 		map.put("msg", "数据查询异常");
 			 		e.printStackTrace();
 			 	} 
 		   } else {
@@ -322,7 +324,7 @@ public class UserService implements UserServiceImpl{
 		String regPwd = "^(\\w){6,20}$";
 		if(new_user_pwd1 == null || new_user_pwd1.isEmpty() || new_user_pwd2 == null || new_user_pwd2.isEmpty()) {
 			//密码为空
-			map.put("msg", "密码为空");
+			map.put("msg", "密码不能为空");
 		} else {
 			//判断两个密码
 			if(new_user_pwd1.equals(new_user_pwd2)){
@@ -340,12 +342,12 @@ public class UserService implements UserServiceImpl{
 							map.put("msg", "密码设置失败");
 						}
 					} catch (SQLException e) {
-						map.put("msg", "sql异常");
+						map.put("msg", "数据查询异常");
 						e.printStackTrace();
 					}
 				  } else {
 					  //密码正则错误
-				 	   	map.put("msg", "密码正则错误");
+					  map.put("msg", "信息输入有误");
 				  }
 				} else {
 					//两次密码输入不一致
@@ -361,20 +363,14 @@ public class UserService implements UserServiceImpl{
 		Map<String, Object> map = new HashMap<String, Object>();
 		//获取所有基本信息
 		String user_name = null;
-		String real_name = null;
 		String user_email = null;
-		String user_IDcard = null;
 		String user_phone = null;
 		Integer user_id = null;
 		String user_describe = null;
 		if(setUserInfo.get("user_name") != null)
 			user_name = setUserInfo.get("user_name").toString();
-		if(setUserInfo.get("real_name") != null)
-			real_name = setUserInfo.get("real_name").toString();
 		if(setUserInfo.get("user_email") != null)
 			user_email = setUserInfo.get("user_email").toString();
-		if(setUserInfo.get("user_IDcard") != null)
-			user_IDcard = setUserInfo.get("user_IDcard").toString();
 		if(setUserInfo.get("user_phone") != null)
 			user_phone = setUserInfo.get("user_phone").toString();
 		if(setUserInfo.get("user_id") != null)
@@ -383,34 +379,22 @@ public class UserService implements UserServiceImpl{
 			user_describe = setUserInfo.get("user_describe").toString();
 		//正则表达式
 	    String regName = "^([\\u4e00-\\u9fa5]){2,12}$";
-	    String regRealName = "^([\\u4e00-\\u9fa5]){2,12}$";
 	    //
-	    System.out.println(setUserInfo);
-	    if(user_name == null || user_name.isEmpty() || real_name == null || real_name.isEmpty() ||
-	    	user_email == null || user_email.isEmpty() || user_IDcard == null || user_IDcard.isEmpty() ||
+	    if(user_name == null || user_name.isEmpty() || user_email == null || user_email.isEmpty() ||
 	    	user_phone == null || user_phone.isEmpty()) {
 	    	//属性存在空值
-	    	map.put("msg", "属性存在空值");
+	    	map.put("msg", "不能存在空值");
 	    } else {
 	    	//判断信息是否符合正则表达式
 	    	Pattern pRegName = Pattern.compile(regName);
 	 	    Matcher mRegName = pRegName.matcher(user_name);
-	
-		    Pattern pRegRealName = Pattern.compile(regRealName);
-		    Matcher mRegRealName = pRegRealName.matcher(real_name);
 		    
 		    boolean RegEmail = CheckoutEmail.checkEmail(user_email);
-		    boolean RegIDcard = false;
-			try {
-				RegIDcard = CheckoutIDCard.IDCardValidate(user_IDcard);
-			} catch (ParseException e1) {
-				e1.printStackTrace();
-			}
 		    boolean RegPhone = CheckoutPhoneNumber.isPhoneNumberValid(user_phone);
-		    if(mRegName.matches() && mRegRealName.matches() && RegEmail && RegIDcard && RegPhone) {
+		    if(mRegName.matches() && RegEmail && RegPhone) {
 		    	//符合正则
 		    	try {
-		 			int count = this.updateUser(user_id,user_name, user_email, user_phone, real_name,user_describe,user_IDcard);
+		 			int count = this.updateUser(user_id,user_name, user_email, user_phone,user_describe);
 		 			if(count != 0) {
 		 				//用户信息修改成功
 		 				map.put("msg", "用户信息修改成功");
@@ -419,12 +403,12 @@ public class UserService implements UserServiceImpl{
 		 				map.put("msg", "用户信息修改失败");
 		 			}
 		    	} catch (SQLException e) {
-		    		map.put("msg", "sql异常");
+		    		map.put("msg", "数据查询异常");
 		 			e.printStackTrace();
 		 		}
 		    } else {
 		    	//存在属性不符合正则
-		    	map.put("msg", "存在属性不符合正则");
+		    	map.put("msg", "信息输入有误");
 		    }
 	    } 
 		return map;
@@ -460,7 +444,7 @@ public class UserService implements UserServiceImpl{
 				String regPwd = "^(\\w){6,20}$";
 				if(new_user_pwd1 == null || new_user_pwd1.isEmpty() || new_user_pwd2 == null || new_user_pwd2.isEmpty()) {
 					//密码为空
-					map.put("msg", "密码为空");
+					map.put("msg", "密码不能为空");
 				} else {
 					//判断两个密码是否一致
 					if(new_user_pwd1.equals(new_user_pwd2)){
@@ -482,7 +466,7 @@ public class UserService implements UserServiceImpl{
 							}
 				 	    } else {
 				 	    	//密码正则错误
-				 	    	map.put("msg", "密码正则错误");
+				 	    	map.put("msg", "信息输入有误,密码为6-20位");
 				 	    }
 					} else {
 						//两次密码输入不一致
@@ -494,7 +478,7 @@ public class UserService implements UserServiceImpl{
 				map.put("msg", "原密码输入有误");
 			}
 		} catch (SQLException e) {
-			map.put("msg", "sql异常");
+			map.put("msg", "数据查询异常");
 			e.printStackTrace();
 		}
 		return map;
@@ -521,7 +505,7 @@ public class UserService implements UserServiceImpl{
 				map.put("msg", "头像上传失败");
 			}
 		} catch (SQLException e) {
-			map.put("msg", "sql异常");
+			map.put("msg", "数据查询异常");
 			e.printStackTrace();
 		}
 		return map;
@@ -532,5 +516,53 @@ public class UserService implements UserServiceImpl{
 	 */
 	public User queryUserByPhone(String user_phone) throws SQLException {
 		return userDaoImpl.getUserInfoByPhone(user_phone);
+	}
+	/**
+	 *上传身份证和真实姓名
+	 * @throws SQLException 
+	 */
+	public Map<String, Object> realNameInfo(Map<String, Object> realNameInfo) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		//获取实名认证所需信息
+		Integer user_id = null;
+		if(realNameInfo.get("user_id") != null)
+			user_id = Integer.valueOf(realNameInfo.get("user_id").toString());
+		String user_IDcard = null;
+		if(realNameInfo.get("user_IDcard") != null)
+			user_IDcard = realNameInfo.get("user_IDcard").toString();
+		String real_name = null;
+		if(realNameInfo.get("real_name") != null)
+			real_name = realNameInfo.get("real_name").toString();
+		//正则验证
+		String regReal_name = "^([\\u4e00-\\u9fa5]){2,12}$";
+		Pattern pReal_name = Pattern.compile(regReal_name);
+ 	    Matcher mReal_name = pReal_name.matcher(real_name);
+		boolean bool = false;
+		try {
+			bool = CheckoutIDCard.IDCardValidate(user_IDcard);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if(bool && mReal_name.matches()) {
+			int count;
+			try {
+				count = userDaoImpl.realNameInfo(user_IDcard, user_id, real_name);
+				if(count != 0) {
+					//实名认证成功
+					map.put("msg", "实名认证成功");
+				} else {
+					//实名认证失败
+					map.put("msg", "实名认证失败");
+				}
+			} catch (SQLException e) {
+				map.put("msg", "数据插入异常");
+				e.printStackTrace();
+			}
+		} else {
+			//正则失败
+			map.put("msg", "信息输入有误");
+		}
+		return map;
 	}
 }
