@@ -149,7 +149,7 @@ public class ArticleService implements ArticleServiceImpl{
 				Integer user_id = article.getUser_id();
 				User user = null;
 				try {
-					user = userDaoImpl.queryUserById(user_id);
+					user = userDaoImpl.getUserInfoById(user_id);
 				} catch (SQLException e) {
 					map.put("msg", "查询错误");
 					e.printStackTrace();
@@ -214,7 +214,7 @@ public class ArticleService implements ArticleServiceImpl{
 			Integer user_id = oneArticle.getUser_id();
 			User user = null;
 			try {
-				user = userDaoImpl.queryUserById(user_id);
+				user = userDaoImpl.getUserInfoById(user_id);
 			} catch (SQLException e) {
 				map.put("msg", "查询错误");
 				e.printStackTrace();
@@ -297,7 +297,7 @@ public class ArticleService implements ArticleServiceImpl{
 					Integer relatedArticleUser_id = relatedArticle.getUser_id();
 					User relatedArticleUser = null;
 					try {
-						relatedArticleUser = userDaoImpl.queryUserById(relatedArticleUser_id);
+						relatedArticleUser = userDaoImpl.getUserInfoById(relatedArticleUser_id);
 					} catch (SQLException e) {
 						map.put("msg", "查询错误");
 						e.printStackTrace();
