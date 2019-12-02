@@ -114,18 +114,6 @@ public class ArticleServlet extends BaseServlet {
 	 * 添加文章图片
 	 */
 	public void login(HttpServletRequest request,HttpServletResponse response) {
-		@SuppressWarnings("unchecked")
-		Map<String, Object> article = (Map<String, Object>) JSON.parse(map);
-		@SuppressWarnings("unchecked")
-		List<Map<String, Object>> articleImg = (List<Map<String, Object>>) JSON.parse(articleImgMap);
-//		log.info(article);
-//		log.info(articleImg);
-		String houseStr = houseService.addHouseInfo(house);
-		String houseImgStr = houseService.addHouseImg(houseImg);
-		Map<String, String> hint = new HashMap<String, String>();
-		hint.put("houseHint", houseStr);
-		hint.put("houseImgHint", houseImgStr);
-		JSONObject json = new JSONObject(hint);
-		response.getWriter().print(callback+"("+json+")");
+		
 	}
 }
