@@ -175,7 +175,7 @@
 			}else if(user_pwd1 != user_pwd2) {
 				layer.msg("两次密码不正确！")
 			} else {
-				map = '{ "user_id":3,"user_pwd":' + user_pwd + ',"user_pwd1":' + user_pwd1 + ',"user_pwd2":' + user_pwd2 + '}'
+				map = '{ "user_id":3,"user_pwd":"' + user_pwd + '","user_pwd1":"' + user_pwd1 + '","user_pwd2":"' + user_pwd2 + '"}'
 				$.getJSON(basePath + "user.do?method=updateUserPwd&callback=?", {
 					"map": map
 				}, function(result) {

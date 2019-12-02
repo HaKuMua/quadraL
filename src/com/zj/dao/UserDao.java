@@ -114,7 +114,7 @@ public class UserDao implements UserDaoImpl{
 	public Integer updateUserPwd(Integer user_id, String user_pwd) throws SQLException {
 		conn = GetConn.getConn();
 		String sql = "update user set user_pwd = ? where user_id = ?";
-		Integer data = qr.update(conn, sql,new ScalarHandler<Integer>(), user_pwd,user_id);
+		Integer data = qr.update(conn, sql, user_pwd,user_id);
 		GetConn.closeConn(conn);
 		return data;
 	}
@@ -126,7 +126,7 @@ public class UserDao implements UserDaoImpl{
 	public Integer addUserHead(Integer user_id, String user_headimg_url) throws SQLException {
 		conn = GetConn.getConn();
 		String sql = "update user set user_headimg_url = ? where user_id = ?";
-		Integer data = qr.update(conn, sql,new ScalarHandler<Integer>(), user_headimg_url,user_id);
+		Integer data = qr.update(conn, sql, user_headimg_url,user_id);
 		GetConn.closeConn(conn);
 		return data;
 	}

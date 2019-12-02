@@ -415,13 +415,12 @@ public class UserService implements UserServiceImpl {
 	 * 
 	 * @throws SQLException
 	 */
-	public Map<String, Object> addUserHead(Map<String, Object> info) {
+	public Map<String, Object> addUserHead(Integer user_id,String user_headimg_url) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		Integer user_id = Integer.valueOf(info.get("user_id").toString());
-		String user_headimg_url = info.get("user_headimg_url").toString();
 		int count;
 		try {
 			count = userDaoImpl.addUserHead(user_id, user_headimg_url);
+			System.out.println(count);
 			if (count > 0) {
 				// 上传成功
 				map.put("msg", "头像上传成功");
@@ -442,10 +441,11 @@ public class UserService implements UserServiceImpl {
 				map.put("userInfo", userMap);
 			} else {
 				// 上传失败
-				map.put("msg", "头像上传失败");
+				map.put("msg", "头像上传失败!");
 			}
-		} catch (Exception e) {
-			map.put("msg", "头像上传失败");
+		} catch (SQLException e) {
+			e.printStackTrace();
+			map.put("msg", "未知原因，头像上传失败!");
 			return map;
 		}
 		return map;

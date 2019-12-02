@@ -11,12 +11,14 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.fileupload.FileUploadException;
 import org.json.JSONObject;
 
 import com.zj.service.HouseService;
 import com.zj.service.impl.HouseServiceImpl;
 
 import cn.com.util.BaseServlet;
+import cn.com.util.FileLoadServletUtil;
 
 public class HouseInfoServlet extends BaseServlet {
 	private static final long serialVersionUID = 1L;
@@ -46,4 +48,5 @@ public class HouseInfoServlet extends BaseServlet {
 		JSONObject obj = new JSONObject(map);
 		response.getWriter().print(callback + "(" + obj + ")");
 	}
+	
 }

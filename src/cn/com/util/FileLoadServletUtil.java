@@ -29,17 +29,18 @@ public class FileLoadServletUtil extends BaseServlet {
 	 * @throws FileUploadException
 	 * @throws IOException
 	 */
-	public static String upload(HttpServletRequest req, HttpServletResponse res)
-			throws FileUploadException, IOException {
+	public static String upload(HttpServletRequest req, HttpServletResponse res,String src){
 		DiskFileItemFactory factory = new DiskFileItemFactory();
 		ServletFileUpload upload = new ServletFileUpload(factory);
-		List<FileItem> list = upload.parseRequest(req);
-		for (FileItem item : list) {
+		List<FileItem> list;
+		try {
+			list = upload.parseRequest(req);
+			for (FileItem item : list) {
 				String name = item.getName();
 				InputStream input = item.getInputStream();
 				SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd/");
 				String dateStr= format.format(new Date());
-				String basePath = "D:/upload/"+dateStr ;
+				String basePath = src+dateStr ;
 				File f = new File(basePath);
 				if (!f.exists()) {
 					f.mkdirs();
@@ -55,6 +56,10 @@ public class FileLoadServletUtil extends BaseServlet {
 				input.close();
 				return basePath+newFileName;
 		}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		return "";
 	}
 

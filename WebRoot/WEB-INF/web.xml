@@ -93,11 +93,11 @@
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>UserInfoServlet</servlet-name>
-		<url-pattern>/user-info.do</url-pattern>
+		<url-pattern>/user_info.do</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>HouseInfoServlet</servlet-name>
-		<url-pattern>/house-info.do</url-pattern>
+		<url-pattern>/house_info.do</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>OrderServlet</servlet-name>
@@ -105,7 +105,7 @@
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>CheckInPersonServlet</servlet-name>
-		<url-pattern>/check-in-person.do</url-pattern>
+		<url-pattern>/check_in_person.do</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>CommenServlet</servlet-name>
@@ -117,7 +117,16 @@
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>HouseCommentServlet</servlet-name>
-		<url-pattern>/house-comment.do</url-pattern>
+		<url-pattern>/house_comment.do</url-pattern>
 	</servlet-mapping>
+
+<filter>
+  	<filter-name>CorsFilter</filter-name>
+  	<filter-class>com.zj.filter.CorsFilter</filter-class>
+  </filter>
+  <filter-mapping>
+  	<filter-name>CorsFilter</filter-name>
+  	<url-pattern>/*</url-pattern>
+  </filter-mapping>
 
 </web-app>

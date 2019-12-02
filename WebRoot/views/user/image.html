@@ -82,14 +82,14 @@
 					<h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;个人头像</h3>
 				</div><br><br>
 				<div class="layui-col-xs4" >
-					<img  id="myImg" src="" width="180px" height="180px" style="border-radius: 50%;">
+					<img  id="myImg" src=""  width="180px" height="180px" style="border-radius: 50%;margin-left:20px;">
 				</div>
 				<div class="layui-col-xs8">
 					<h3>提供显示您正脸的个人头像，可以让其他房东/体验达人和房客/参与者对您有个大致印象。<br> 爱彼迎要求所有房东/体验达人提供个人头像。
 						<br>爱彼迎不要求房客/参与者提供个人头像，但房东/体验达人可以提出这一要求。<br>
 						如果您是房客/参与者，房东/体验达人即便要求您提供个人头像，也只会在您的预订确认之后才能看到。</h3>
 					<br><br>
-					<button id="submit" type="button" class="layui-btn layui-btn-primary " style="width: 380px; ">从您的计算机上传照片</button>
+					<button id="submit" type="button" class="layui-btn layui-btn-primary " style="width: 380px; "> <i class="layui-icon">&#xe67c;</i>从您的计算机上传照片</button>
 				</div>
 			</div><br>
 		</div>
@@ -129,6 +129,8 @@
 					userInfo = jsonInfo;
 				}
 			}
+			
+			$('#myImg').attr('src', userInfo.user_headimg_url);
 			//初始化导航栏
 			if (userInfo.user_id != '') {
 				var html = '<li class="layui-nav-item " id="china"> <a href="" >房源订单中心</a></li>' +
@@ -231,7 +233,7 @@
 			//普通图片上传
 			var uploadInst = upload.render({
 				elem: '#submit',
-				url: basePath+'user.do?method=uploadImg',
+				url: basePath+'user.do?method=uploadImg&user_id=3',
 				headers: {"withCredentials": 'true'},
 				before: function(obj) {
 					//预读本地文件示例，不支持ie8
@@ -241,10 +243,11 @@
 				},
 				done: function(res) {
 					//如果上传失败
+					console.log(res.data.userInfo);
 					if (res.code > 0) {
-						return layer.msg('上传失败');
+						return layer.msg('修改失败');
 					}else{
-						return layer.msg('上传成功');
+						return layer.msg('修改成功');
 					}
 				},
 				error: function() {

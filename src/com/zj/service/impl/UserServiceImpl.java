@@ -63,7 +63,7 @@ public interface UserServiceImpl {
 	 * 用户上传头像
 	 * @throws SQLException 
 	 */
-	Map<String, Object> addUserHead(Map<String, Object> userInfo);
+	Map<String, Object> addUserHead(Integer user_id,String url);
 	
 	
 }

@@ -35,135 +35,97 @@ import com.zj.service.impl.UserServiceImpl;
 public class UserServlet extends BaseServlet {
 	private static final long serialVersionUID = 1L;
 	private UserServiceImpl userServiceImpl = new UserService();
-	public String map;
-	public String callback;
+	private String map;
+	private String callback;
+	private Integer user_id;
 //	private Logger log = new 
 	/**
 	 * 邮箱/电话密码登录
+	 * @throws IOException 
 	 */
-	public void loginByCode(HttpServletRequest request,HttpServletResponse response) {
+	public void loginByCode(HttpServletRequest request,HttpServletResponse response) throws IOException {
 		System.out.println(map);
 		@SuppressWarnings("unchecked")
 		Map<String, Object> myMap = (Map<String, Object>) JSON.parse(map);
 		Map<String, Object> sendMap = new HashMap<String, Object>();
-		try {
-			sendMap = userServiceImpl.loginByCode(myMap);
-			JSONObject obj = new JSONObject(sendMap);
-			response.getWriter().print(callback + "(" + obj + ")");
-		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		sendMap = userServiceImpl.loginByCode(myMap);
+		JSONObject obj = new JSONObject(sendMap);
+		response.getWriter().print(callback + "(" + obj + ")");
+		
 		
 	}
 	
 	/**
 	 * 手机号登录，若手机号存在则用户注册
+	 * @throws IOException 
 	 */
-	public void loginByPhone(HttpServletRequest request,HttpServletResponse response) {
+	public void loginByPhone(HttpServletRequest request,HttpServletResponse response) throws IOException {
 		@SuppressWarnings("unchecked")
 		Map<String, Object> myMap = (Map<String, Object>) JSON.parse(map);
 		Map<String, Object> sendMap = new HashMap<String, Object>();
 		Map<String, Object> map = new HashMap<String, Object>();
 		String user_phone=myMap.get("user_phone").toString();
 		sendMap = userServiceImpl.loginByPhone(user_phone);
-		try {
-			map.put("userInfo",sendMap);
-			JSONObject obj = new JSONObject(map);
-			response.getWriter().print(callback+"("+obj+")");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		map.put("userInfo",sendMap);
+		JSONObject obj = new JSONObject(map);
+		response.getWriter().print(callback+"("+obj+")");
 	}
 	
 	/**
 	 * 用户设置密码
+	 * @throws IOException 
 	 */
-	public void setUserPwd(HttpServletRequest request,HttpServletResponse response) {
+	public void setUserPwd(HttpServletRequest request,HttpServletResponse response) throws IOException {
 		@SuppressWarnings("unchecked")
 		Map<String, Object> myMap = (Map<String, Object>) JSON.parse(map);
 		Map<String, Object> sendMap = new HashMap<String, Object>();
 		sendMap = userServiceImpl.setUserPwd(myMap);
-		try {
-			JSONObject obj = new JSONObject(sendMap);
-			response.getWriter().print(callback+"("+obj+")");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}	
-	}
+		JSONObject obj = new JSONObject(sendMap);
+		response.getWriter().print(callback+"("+obj+")");
+}
 	
 	/**
 	 * 信息基本修改
+	 * @throws IOException 
 	 */
-	public void updateBasicInfo(HttpServletRequest request,HttpServletResponse response) {
+	public void updateBasicInfo(HttpServletRequest request,HttpServletResponse response) throws IOException {
 		@SuppressWarnings("unchecked")
 		Map<String, Object> myMap = (Map<String, Object>) JSON.parse(map);
 		Map<String, Object> sendMap = new HashMap<String, Object>();
 		sendMap = userServiceImpl.updateBasicInfo(myMap);
-	    try {
-			JSONObject obj = new JSONObject(sendMap);
-			response.getWriter().print(callback+"("+obj+")");
-		} catch (IOException e) {
-
-			e.printStackTrace();
-		}
+		JSONObject obj = new JSONObject(sendMap);
+		response.getWriter().print(callback+"("+obj+")");
 	}
+	
 	/**
 	 * 用户修改密码
+	 * @throws IOException 
 	 */
-	public void updateUserPwd(HttpServletRequest request,HttpServletResponse response) {
+	public void updateUserPwd(HttpServletRequest request,HttpServletResponse response) throws IOException {
+		System.out.println(map);
 		@SuppressWarnings("unchecked")
 		Map<String, Object> myMap = (Map<String, Object>) JSON.parse(map);
 		Map<String, Object> sendMap = new HashMap<String, Object>();
 		sendMap = userServiceImpl.updateUserPwd(myMap);
-		try {
-			JSONObject obj = new JSONObject(sendMap);
-			response.getWriter().print(callback+"("+obj+")");
-		} catch (IOException e) {
-
-			e.printStackTrace();
-		}
+		JSONObject obj = new JSONObject(sendMap);
+		response.getWriter().print(callback+"("+obj+")");
 	}
 	
-	public void uploadImg(HttpServletRequest request,HttpServletResponse response) {
-		String file;
-		try {
-			
-			//图片上传并且返回保存的路径
-			String url = FileLoadServletUtil.upload(request, response);
-			HashMap<String,Object> map = new HashMap<String,Object>();
-			map.put("code", "0");
-			map.put("msg", url);
-			HashMap<String,Object> data = new HashMap<String,Object>();
-			data.put("src", url);
-			map.put("data", data);
-			JSONObject obj = new JSONObject(map);
-			//如果上传成功返回1
-			response.getWriter().print(obj);
-			//response.getWriter().print(callback+"("+obj+")");
-		} catch (FileUploadException e) {
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+	//上传头像并修改头像
+	public void uploadImg(HttpServletRequest request,HttpServletResponse response) throws FileUploadException, IOException {
+		// 图片上传并且返回保存的路径
+		String url = FileLoadServletUtil.upload(request, response,
+				"D:/quadraL/userImg/");
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("code", "0");
+		HashMap<String, Object> data = new HashMap<String, Object>();
+		data.put("src", url);
+		data.put("userInfo", userServiceImpl.addUserHead(user_id, url));
+		map.put("data", data);
+		JSONObject obj = new JSONObject(map);
+		// 如果上传成功返回1
+		response.getWriter().print(obj);
+		//response.getWriter().print(callback+"("+obj+")");
 	}
 	
-	/**
-	 * 用户上传头像
-	 */
-	public void addUserHead(HttpServletRequest request,HttpServletResponse response) {
-		@SuppressWarnings("unchecked")
-		Map<String, Object> myMap = (Map<String, Object>) JSON.parse(map);
-		Map<String, Object> sendMap = new HashMap<String, Object>();
-		sendMap = userServiceImpl.addUserHead(myMap);
-		try {
-			JSONObject obj = new JSONObject(sendMap);
-			response.getWriter().print(callback+"("+obj+")");
-		} catch (IOException e) {
-
-			e.printStackTrace();
-		}
-	}
 }

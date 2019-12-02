@@ -222,7 +222,7 @@
 			if(user_name == '' || user_email == '' || user_describe=='') {
 				layer.msg("必填项不能为空！")
 			}else {
-				map='{"user_id":3,"user_name":'+user_name+',"user_email":'+user_email+',"user_describe":'+user_describe+'}'
+				map='{"user_id":"3","user_name":"'+user_name+'","user_email":"'+user_email+'","user_describe":"'+user_describe+'"}'
 				$.getJSON(basePath+"user.do?method=updateBasicInfo&callback=?",
 				{"map":map},function(result){
 					userInfo=result.userInfo;
