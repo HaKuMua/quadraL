@@ -8,6 +8,8 @@ import java.util.Map;
 
 
 
+
+
 import cn.com.util.PageUtil;
 
 import com.zj.dao.ArticleDao;
@@ -42,6 +44,7 @@ public class ArticleService implements ArticleServiceImpl{
 	private UserDaoImpl userDaoImpl = new UserDao();
 	private HouseDaoImpl houseDaoImpl = new HouseDao();
 	private HouseImgDaoImpl houseImgDaoImpl = new HouseImgDao();
+	
 	/**
 	 * 获得所有文章
 	 * @return
@@ -49,7 +52,6 @@ public class ArticleService implements ArticleServiceImpl{
 	public List<Map<String, Object>> getAllArticle(){
 		List<Map<String, Object>> list = null;
 		try {
-			
 			List<Article> articleList = articleDaoImpl.getAllArticle();
 			if(articleList != null){
 				list = new ArrayList<Map<String,Object>>();
@@ -85,8 +87,6 @@ public class ArticleService implements ArticleServiceImpl{
 	 */
 	public List<Map<String, Object>> getPageArticleInfo(Integer articlePresentPage) throws SQLException{
 		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
-		//查询文章所有图片
-		
 		//文章分页
 		Long articleCount = articleDaoImpl.queryCountArticle();
 		PageUtil<Article> pu = new PageUtil<Article>();
@@ -130,6 +130,7 @@ public class ArticleService implements ArticleServiceImpl{
 	 */
 	public List<Map<String, Object>> getOneArticleInfo(Integer article_id) throws SQLException {
 		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+		//获得该文章
 		Article oneArticle = articleDaoImpl.queryArticleById(article_id);
 		if(oneArticle != null) {
 			Map<String, Object> map = new HashMap<String, Object>();
@@ -141,22 +142,24 @@ public class ArticleService implements ArticleServiceImpl{
 			map.put("article_collect", oneArticle.getArticle_collect());
 			map.put("article_praise", oneArticle.getArticle_praise());
 			map.put("house_id",oneArticle.getHouse_id());
+			Map<String, Object> imgMap = new HashMap<String, Object>();
 			//获得该文章所有图片
 			List<ArticleImg> currenArticleImg = articleImgDaoImpl.queryArticleImgByArticleId(article_id);
 			for(ArticleImg articleImg : currenArticleImg) {
-				map.put("image_id", articleImg.getImage_id());
-				map.put("image_url", articleImg.getImage_url());
+				imgMap.put("image_id", articleImg.getImage_id());
+				imgMap.put("image_url", articleImg.getImage_url());
 			}
+			map.put("article_images", imgMap);
 			//获得该文章评论数量
 			Long commCount = commentDaoImpl.queryCommCount(article_id);
-			map.put("commCount", commCount);
-//			//获得该文章所有评论
-//			List<Comment> currenComment = commentDaoImpl.queryAllComment(article_id);
-//			for(Comment comment : currenComment) {
-//				map.put("comment_id", comment.getComment_id());
-//				map.put("comment_content", comment.getComment_content());
-//				map.put("replier_id", comment.getReplier_id());
-//			}
+			map.put("commNum", commCount);
+			//获得该文章所有评论
+			List<Comment> currenComment = commentDaoImpl.queryPageComment(article_id,1,5);
+			for(Comment comment : currenComment) {
+				map.put("comment_id", comment.getComment_id());
+				map.put("comment_content", comment.getComment_content());
+				map.put("replier_id", comment.getReplier_id());
+			}
 			//获得用户头像与昵称
 			Integer user_id = oneArticle.getUser_id();
 			User user = userDaoImpl.getUserInfoById(user_id);
@@ -164,117 +167,50 @@ public class ArticleService implements ArticleServiceImpl{
 			String user_name = user.getUser_name();
 			map.put("user_headimg_url", userHeadUrl);
 			map.put("user_name", user_name);
+			Map<String, Object> houseMap = new HashMap<String, Object>();
 			//获取房子图片标题房子类型(house_type)
 			Integer house_id = oneArticle.getHouse_id();
 			House house= houseDaoImpl.getHouseInfoByID(house_id);
-			map.put("house_name", house.getHouse_name());
-			map.put("house_type", house.getHouse_type());
+			houseMap.put("house_name", house.getHouse_name());
+			houseMap.put("house_type", house.getHouse_type());
 			//第一张图片
 			List<HouseImg> currenHouseImg = houseImgDaoImpl.getHouseImgByHouseID(house_id);
 			HouseImg firstImg  = currenHouseImg.get(0);
-			map.put("house_image_id", firstImg.getHouse_img_id());
-			map.put("house_image_url", firstImg.getHouse_img_url());
+			houseMap.put("house_image_id", firstImg.getHouse_img_id());
+			houseMap.put("house_image_url", firstImg.getHouse_img_url());
+			map.put("house", houseMap);
 			//获取相关文章
 			String keyWord = oneArticle.getArticle_name().substring(0,2);
 			List<Article> relatedArticles = articleDaoImpl.queryFuzzyQuery(keyWord);
+			List<Map<String, Object>> articleInfo =  new ArrayList<Map<String,Object>>();
+			Map<String, Object> article = new HashMap<String, Object>();
 			for(Article relatedArticle : relatedArticles) {
 				//一篇相关文章
-				map.put("relatedArticleArticle_id", relatedArticle.getArticle_id());
-				map.put("relatedArticleUser_id", relatedArticle.getUser_id());
-				map.put("relatedArticleArticle_name", relatedArticle.getArticle_name());
-				map.put("relatedArticlerticle_content", relatedArticle.getArticle_content());
-				map.put("relatedArticleArticle_collect", relatedArticle.getArticle_collect());
-				map.put("relatedArticleArticle_praise", relatedArticle.getArticle_praise());
-				
+				article.put("article_id", relatedArticle.getArticle_id());
+				article.put("article_name", relatedArticle.getArticle_name());
+				article.put("article_praise", relatedArticle.getArticle_praise());
 				//获得相关文章文章的第一张图片
 				Integer relatedArticleArticle_id = relatedArticle.getArticle_id();
 				List<ArticleImg> relatedArticleCurrenArticleImg = articleImgDaoImpl.queryArticleImgByArticleId(relatedArticleArticle_id);
 				ArticleImg relatedArticleFirstImg  = relatedArticleCurrenArticleImg.get(0);
-				map.put("relatedArticleImage_id", relatedArticleFirstImg.getImage_id());
-				map.put("relatedArticleImage_url", relatedArticleFirstImg.getImage_url());
+				article.put("article_img", relatedArticleFirstImg.getImage_url());
 				//获取相关文章文章评论数量
 				Long relatedArticleCommCount = commentDaoImpl.queryCommCount(relatedArticleArticle_id);
-				map.put("relatedArticleCommCount", relatedArticleCommCount);
+				article.put("article_collect", relatedArticleCommCount);
 				//获得相关文章用户头像
 				Integer relatedArticleUser_id = relatedArticle.getUser_id();
 				User relatedArticleUser = userDaoImpl.getUserInfoById(relatedArticleUser_id);
 				String relatedArticleUserHeadUrl = relatedArticleUser.getUser_headimg_url();
-				map.put("relatedArticleUser_headimg_url", relatedArticleUserHeadUrl);
+				article.put("user_img", relatedArticleUserHeadUrl);
 			}
+			articleInfo.add(article);
+			map.put("articleInfo", articleInfo);
 			list.add(map);
 			return list;
 		}
 		return null;
 	}
 	
-	/**
-	 * 添加文章
-	 * @throws SQLException 
-	 */
-	public int addArticle(Integer user_id, String article_name,
-			String article_content,Integer house_id) throws SQLException {
-		return articleDaoImpl.addArticle(user_id, article_name, article_content,house_id);
-	}
-
-	/**
-	 * 通过id删除文章
-	 * @throws SQLException 
-	 */
-	public int deleteArticleById(Integer article_id) throws SQLException {
-		return articleDaoImpl.deleteArticleById(article_id);
-	}
-
-	/**
-	 * 修改文章
-	 * @throws SQLException 
-	 */
-	public int updateArticle(Integer article_id, String article_name,
-			String article_content) throws SQLException {
-		return articleDaoImpl.updateArticle(article_id, article_name, article_content);
-	}
-
-	/**
-	 * 通过id查询文章
-	 * @throws SQLException 
-	 */
-	public Article queryArticleById(Integer article_id) throws SQLException {
-		return articleDaoImpl.queryArticleById(article_id);
-	}
-
-	/**
-	 * 分页查询所有文章
-	 * @throws SQLException 
-	 */
-	public List<Article> queryPageArticle(int startRow, int pageSize)
-			throws SQLException {
-		return articleDaoImpl.queryPageArticle(startRow, pageSize);
-	}
-
-	/**
-	 * 查询所有文章数量
-	 * @throws SQLException 
-	 */
-	public Long queryCountArticle() throws SQLException {
-		return articleDaoImpl.queryCountArticle();
-	}
-
-	/**
-	 * 更新赞数量
-	 * @throws SQLException 
-	 */
-	public int updateArticle_praiset(Integer article_praise, Integer article_id)
-			throws SQLException {
-		return articleDaoImpl.updateArticle_praiset(article_praise, article_id);
-	}
-
-	/**
-	 * 更新收藏数量
-	 * @throws SQLException 
-	 */
-	public int updateArticle_collect(Integer article_id, Integer article_collect)
-			throws SQLException {
-		return articleDaoImpl.updateArticle_collect(article_id, article_collect);
-	}
 	/**
 	 * 分页显示评论
 	 */
@@ -308,5 +244,19 @@ public class ArticleService implements ArticleServiceImpl{
 		}
 		return list;
 	}
+
+	@Override
+	public int addArticle(Integer user_id, String article_name,
+			String article_content, Integer house_id) throws SQLException {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int deleteArticleById(Integer article_id) throws SQLException {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 
 }
