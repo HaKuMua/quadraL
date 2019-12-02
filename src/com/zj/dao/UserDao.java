@@ -75,10 +75,10 @@ public class UserDao implements UserDaoImpl{
 	 */
 	public int updateUser(Integer user_id,String user_name,
 			String user_email, String user_phone,
-			String real_name,String user_describe,String user_IDcard) throws SQLException {
+			String user_describe) throws SQLException {
 		conn = GetConn.getConn();
-		String sql = "update user set user_name = ?, user_email = ?, user_phone = ?, real_name = ?, user_describe = ?, user_IDcard = ? where user_id = ?";
-		int data = qr.update(conn, sql, user_name,user_email, user_phone,real_name,user_describe,user_IDcard,user_id);
+		String sql = "update user set user_name = ?, user_email = ?, user_phone = ?, user_describe = ? where user_id = ?";
+		int data = qr.update(conn, sql, user_name,user_email, user_phone,user_describe,user_id);
 		GetConn.closeConn(conn);
 		return data;
 	}
@@ -163,16 +163,23 @@ public class UserDao implements UserDaoImpl{
 	 * 更新用户余额
 	 */
 	public int updateUserMoney(Double price,Integer user_id) throws SQLException {
+		conn = GetConn.getConn();
 		String sql = "update user set money=money-? where user_id=?";
-		return qr.update(conn, sql, price,user_id);
+		int count = qr.update(conn, sql, price,user_id);
+		GetConn.closeConn(conn);
+		return count;
 	}
 	/**
 	 * 根据电话/email和密码查询用户
 	 * @throws SQLException 
 	 */
 	public User queryUserInfo(String user_phone,String user_email, String user_pwd) throws SQLException {
+		conn = GetConn.getConn();
+		User user = null;
 		String sql = "select * from user where((user_phone = ? and user_pwd = ?) or (user_email = ? and user_pwd = ?))";
-		return qr.query(conn, sql, new BeanHandler<User>(User.class), user_phone,user_pwd,user_email,user_pwd);
+		user = qr.query(conn, sql, new BeanHandler<User>(User.class), user_phone,user_pwd,user_email,user_pwd);
+		GetConn.closeConn(conn);
+		return user;
 	}
 	/**
 	 *上传身份证和真实姓名
@@ -180,6 +187,7 @@ public class UserDao implements UserDaoImpl{
 	 */
 	public int realNameInfo(String user_IDcard, Integer user_id,
 			String real_name) throws SQLException {
+		conn = GetConn.getConn();
 		String sql = "update user set user_IDcard = ?,real_name = ? where user_id = ?";
 		int count = qr.update(conn, sql, user_IDcard,real_name,user_id);
 		GetConn.closeConn(conn);
