@@ -3,11 +3,10 @@
 	<head>
 		<meta charset="utf-8">
 		<title>编辑你的房源</title>
+		<script src="../../../js/comment.js"></script>
 		<script src="../../../js/jquery.min.js"></script>
 		<link rel="stylesheet" type="text/css" href="../../../layui/css/layui.css">
-		<script src="../../../js/jquery.min.js"></script>
 		<script type="text/javascript" src="../../../js/jquery.cookie.js"></script>
-		<script src="../../../layui/layui.all.js"></script>
 		<script src="../../../layui/layui.js"></script>]
 		<style type="text/css">
 			#warpper {
@@ -118,11 +117,19 @@
 			});
 			form.on('select(may_check_out_date)', function(data){
 					may_check_out_date=data.value;
-					console.log(data.elem.checked); //是否被选中，true或者false
+					console.log(data.value); //是否被选中，true或者false
 			});
 		});
 	</script>
 	<script>
+		//设置cookie
+		function setCookie(cname, cvalue, exdays) {
+		    var d = new Date();
+		    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+		    var expires = "expires="+ d.toUTCString();
+		    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+		} 
+		
 		//验证字符串是否是数字
 		function checkNumber(theObj) {
 		    var reg = /^[0-9]+.?[0-9]*$/;
@@ -141,35 +148,53 @@
 			    layer.msg("请输入正确价格！")
 			    return false;
 			 }else {
-				 var houseInfo = {
-				 	house_name: $.cookie('house_name'),
-				 	allHouseImg:$.cookie('image'),
-				 	house_price:myPrice,
-				 	lease_type: $.cookie('rent'),
-				 	house_type: $.cookie('house'),
-				 	house_intake: $.cookie('personNum'), //房子容纳量
-				 	travel_information: $.cookie('travel_information'), //出行信息
-				 	house_address: $.cookie('location'), //地址
-				 	house_addrId: $.cookie('locationId'),//详细地址
-				 	room_number: $.cookie('room_number'),
-				 	address_describe: $.cookie('address_describe'),
-				 	house_describe: $.cookie('house_describe'),
-				 	toilet_number: $.cookie('bathRoomNum'),
-				 	bed_number: $.cookie('bedNum'),
-				 	may_check_in_date: may_check_in_date,
-				 	may_check_out_date: may_check_out_date,
+					house_name=JSON.parse($.cookie('house_name')) 
+				 	allHouseImg= JSON.parse($.cookie('image'))
+				 	lease_type= $.cookie('rent')
+				 	house_type= $.cookie('house')
+				 	house_intake=JSON.parse( $.cookie('personNum')) //房子容纳量
+				 	travel_information= JSON.parse( $.cookie('travel_information')),//出行信息
+				 	house_address= $.cookie('location') //地址
+				 	house_addrId= $.cookie('locationId')//详细地址
+				 	room_number=JSON.parse($.cookie('room_number'))
+				 	address_describe= $.cookie('address_describe')
+				 	house_describe= $.cookie('house_describe')
+				 	toilet_number=JSON.parse( $.cookie('bathRoomNum'))
+				 	bed_number=JSON.parse( $.cookie('bedNum'))
 				 	//守则
-				 	building_name: $.cookie('myRules'),
+					building_name=$.cookie('myRules');
 				 	//设施
-				 	facilities_name: $.cookie('mySpace'),
+					facilities_name=$.cookie('mySpace');
 				 	//房东信息
-				 	user_id: $.cookie('userInfo').user_id
-				 }
-				 
-				 //请求后端添加
-				 layer.load(2, {time: 3*1000});
-				//跳转界面
-				location.href = "finish.html";
+				 	user_id=JSON.parse($.cookie('userInfo')).user_id
+					console.log(allHouseImg)
+				 map='{"house_name":"'+house_name+'","allHouseImg":"'+allHouseImg+'","lease_type":"'+lease_type+
+				 '+","house_type":"'+house_type+'","house_intake":"'+house_type+
+				 '","house_intake":"'+house_intake+'","travel_information":"'+travel_information+
+				 '","house_address":"'+house_address+'","house_addrId":"'+house_addrId+
+				 '","room_number":"'+room_number+'","address_describe":"'+address_describe+
+				 '","house_describe":"'+house_describe+'","toilet_number":"'+toilet_number+
+				 '","bed_number":"'+bed_number+'","may_check_in_date":"'+may_check_in_date+
+				 '","building_name":"'+building_name+'","may_check_out_date":"'+may_check_out_date+
+				 '","facilities_name":"'+facilities_name+'","user_id":"'+user_id+'"}';
+				 console.log(map);
+				 $.getJSON(basePath+"house.do?method=addHouseInfo&callback=?",
+				 {"houseMap":map},function(result){
+				 	console.log(result)
+				 	if(result.code > 0) {
+						//请求后端添加
+						var index=layer.load(2);
+						layer.msg(result.msg);
+				 		window.setTimeout (function() {
+							layer.close(index);
+				 			//跳转界面
+				 			location.href = "../../index.html";
+				 		},1200);
+				 		
+				 	}else {
+				 		layer.msg("发布失败！");
+				 	}
+				 });
 			 }
 		});
 		

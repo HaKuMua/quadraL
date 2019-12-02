@@ -110,7 +110,6 @@
 				</li>
 				<div id="rightNav">
 					<li class="layui-nav-item"><a href="">故事</a></li>
-					<li class="layui-nav-item"><a href="">帮助</a> </li>
 					<li class="layui-nav-item" style="cursor: pointer;"><a class="NavA" data-method="login">注册</a></li>
 					<li class="layui-nav-item" style="cursor: pointer;"><a class="NavA" data-method="login">登录</a></li>
 				</div>
@@ -365,12 +364,12 @@
 	</script>
 	<script>
 		userInfo = {
-			user_id: '',
+			user_id: '111',
 			user_name: '',
 			user_img: '',
 			islanlord: ''
 		};
-
+		
 		var listHouse1 = [{
 				house_name: '下榻日式风格的房源去畅玩太古里',
 				house_id: '1001',
@@ -478,14 +477,17 @@
 				bed_number: '1'
 			}
 		]
-
 		window.onload = function() {
+			// jsonInfo = JSON.parse(getCookie('userInfo'));
+			// if(jsonInfo != null) {
+			// 	userInfo=jsonInfo;
+			// }
 			console.log(userInfo.user_id == '')
 			//初始化导航栏
 			if (userInfo.user_id != '') {
 				var html = '<li class="layui-nav-item " id="china"> <a href="" >房源订单中心</a></li>' +
 					'<li class="layui-nav-item"><a href="">故事</a></li>' +
-					'<li class="layui-nav-item"><a href="">帮助</a> </li>' +
+					'<li class="layui-nav-item"><a href="">信息<span class="layui-badge-dot"></a> </li>' +
 					' <li class="layui-nav-item" lay-unselect=""><a href="javascript:;"><img src="' +
 					userInfo.user_img + '" class="layui-nav-img">' + userInfo.user_name + '</a> ' +
 					'<dl class="layui-nav-child"><dd><a href="javascript:;"  style="color: gray;">个人中心</a></dd>' +
@@ -507,7 +509,30 @@
 			var arr2 = document.getElementById("addressBtn2").getElementsByTagName('button');
 			getGuest(arr2, "#info2", listHouse2);
 		}
-
+		//设置cookie
+		function setCookie(cname, cvalue, exdays) {
+		    var d = new Date();
+		    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+		    var expires = "expires="+ d.toUTCString();
+		    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+		} 
+		
+		//获取Cookie
+		function getCookie(cname) {
+		    var name = cname + "=";
+		    var decodedCookie = decodeURIComponent(document.cookie);
+		    var ca = decodedCookie.split(';');
+		    for(var i = 0; i <ca.length; i++) {
+		        var c = ca[i];
+		        while (c.charAt(0) == ' ') {
+		            c = c.substring(1);
+		         }
+		         if (c.indexOf(name) == 0) {
+		            return c.substring(name.length, c.length);
+		         }
+		     }
+		    return "";
+		} 
 		function getGuest(btn, infoId, listHouse) {
 			$(infoId).empty();
 			$(infoId).append('<div class="layui-row guestInfo" id="guestInfo1"></div>');

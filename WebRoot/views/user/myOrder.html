@@ -21,7 +21,6 @@
 
 			#main{
 				margin-top: 80px;
-				position: absolute;
 				width: 1000px;
 				margin-left: 500px;
 			}
@@ -50,13 +49,10 @@
 						 autocomplete="off" class="layui-input">
 					</form>
 				</li>
-				<div id="rightNav" >
-					<li class="layui-nav-item "> <a href="" >房源订单中心</a></li>
+				<div id="rightNav">
 					<li class="layui-nav-item"><a href="">故事</a></li>
-					<li class="layui-nav-item"><a href="../index.html">首页</a> </li>
-					<li class="layui-nav-item"><a href="">帮助</a> </li>
-					<li class="layui-nav-item" lay-unselect=""><a href="javascript:;">
-					<img src="'+userInfo.user_img+'" class="layui-nav-img"></a> 
+					<li class="layui-nav-item" style="cursor: pointer;"><a class="NavA" data-method="login">注册</a></li>
+					<li class="layui-nav-item" style="cursor: pointer;"><a class="NavA" data-method="login">登录</a></li>
 				</div>
 			</ul>
 		</div>
@@ -70,35 +66,66 @@
 			    <li>待支付订单</li>
 			  </ul>
 			  <div class="layui-tab-content"><br><br><br>
-			    <div class="layui-tab-item layui-show">
-					<div class="layui-col-xs4">
-						<a href="">
-							<img src="../../img/room/65e00580-6a91-4ee7-bc11-d05f259814ad.jpg" width="290px" height="216px" >
-							<h3>藝净- 复古花,太古里旁高层花园电影套房</h3>
-							<h4>2019/12/21 - 12/22 · 1晚</h4>
-							<h3><b>订单待支付</b> · ￥626.24</h3>
-						</a><br>
-						<button class="layui-btn" style="width: 290px;">查看是否可订</button>
+			    <div class="layui-tab-item layui-show" id="allOrder">
+					<div style="height: 420px;">
+						<div class="layui-col-xs4">
+							<a href="">
+								<img src="../../img/room/65e00580-6a91-4ee7-bc11-d05f259814ad.jpg" width="290px" height="216px" >
+								<h3>藝净- 复古花,太古里旁高层花园电影套房</h3>
+								<h4>2019/12/21 - 12/22 · 1晚</h4>
+								<h3><b>订单待支付</b> · ￥626.24</h3>
+							</a><br>
+							<button class="layui-btn" style="width: 290px;">查看是否可订</button>
+						</div>
+						<div class="layui-col-xs4">
+							<a href="">
+								<img src="../../img/room/ac356f32-0ba7-4dd8-9796-94d085e711fa.jpg"  width="290px" height="216px" >
+								<h3>藝净- 复古花,太古里旁高层花园电影套房</h3>
+								<h4>2019/12/21 - 12/22 · 1晚</h4>
+								<h3>订单待支付 · ￥626.24</h3>
+							</a><br>
+							<button class="layui-btn" style="width: 290px;">查看是否可订</button>
+						</div>
+						<div class="layui-col-xs4">
+							<a href="">
+								<img src="../../img/room/ac356f32-0ba7-4dd8-9796-94d085e711fa.jpg"  width="290px" height="216px" >
+								<h3>藝净- 复古花,太古里旁高层花园电影套房</h3>
+								<h4>2019/12/21 - 12/22 · 1晚</h4>
+								<h3>订单待支付 · ￥626.24</h3>
+							</a><br>
+							<button class="layui-btn" style="width: 290px;">查看是否可订</button>
+						</div>
 					</div>
-					<div class="layui-col-xs4">
-						<a href="">
-							<img src="../../img/room/ac356f32-0ba7-4dd8-9796-94d085e711fa.jpg"  width="290px" height="216px" >
-							<h3>藝净- 复古花,太古里旁高层花园电影套房</h3>
-							<h4>2019/12/21 - 12/22 · 1晚</h4>
-							<h3>订单待支付 · ￥626.24</h3>
-						</a><br>
-						<button class="layui-btn" style="width: 290px;">查看是否可订</button>
+						<div style="height: 320px;">
+							<div class="layui-col-xs4">
+								<a href="">
+									<img src="../../img/room/65e00580-6a91-4ee7-bc11-d05f259814ad.jpg" width="290px" height="216px" >
+									<h3>藝净- 复古花,太古里旁高层花园电影套房</h3>
+									<h4>2019/12/21 - 12/22 · 1晚</h4>
+									<h3><b>订单待支付</b> · ￥626.24</h3>
+								</a><br>
+								<button class="layui-btn" style="width: 290px;">查看是否可订</button>
+							</div>
+							<div class="layui-col-xs4">
+								<a href="">
+									<img src="../../img/room/ac356f32-0ba7-4dd8-9796-94d085e711fa.jpg"  width="290px" height="216px" >
+									<h3>藝净- 复古花,太古里旁高层花园电影套房</h3>
+									<h4>2019/12/21 - 12/22 · 1晚</h4>
+									<h3>订单待支付 · ￥626.24</h3>
+								</a><br>
+								<button class="layui-btn" style="width: 290px;">查看是否可订</button>
+							</div>
+							<div class="layui-col-xs4">
+								<a href="">
+									<img src="../../img/room/ac356f32-0ba7-4dd8-9796-94d085e711fa.jpg"  width="290px" height="216px" >
+									<h3>藝净- 复古花,太古里旁高层花园电影套房</h3>
+									<h4>2019/12/21 - 12/22 · 1晚</h4>
+									<h3>订单待支付 · ￥626.24</h3>
+								</a><br>
+								<button class="layui-btn" style="width: 290px;">查看是否可订</button>
+							</div>
+						</div>
 					</div>
-					<div class="layui-col-xs4">
-						<a href="">
-							<img src="../../img/room/ac356f32-0ba7-4dd8-9796-94d085e711fa.jpg"  width="290px" height="216px" >
-							<h3>藝净- 复古花,太古里旁高层花园电影套房</h3>
-							<h4>2019/12/21 - 12/22 · 1晚</h4>
-							<h3>订单待支付 · ￥626.24</h3>
-						</a><br>
-						<button class="layui-btn" style="width: 290px;">查看是否可订</button>
-					</div>
-			    </div>
 			    <div class="layui-tab-item">
 					<h2>您当前没有「已支付订单」，去首页探索下一段奇妙旅程吧</h2>
 				</div>
@@ -130,23 +157,56 @@
 			user_img: '../../img/timg.jpg',
 			islanlord:1
 		};
-		// var houseInfo = {
-		// 	house_name: '下榻日式风格的房源去畅玩太古里',
-		// 	house_id: 4,
-		// 	house_price: 289.5,
-		// 	house_type: '独立房间',
-		// 	houseImg:['1','2'],
-		// 	house_intake:'',//房子容纳量
-		// 	travel_information:'',//出行信息
-		// 	house_address:'',//地址
-		// 	room_number:'',
-		// 	toilet_number:1,
-		// 	bed_number: 1,
-		// 	//房东信息
-		// 	user_id:'',
-		// 	user_name:'',
-		// 	user_img:''
-		// }
+		var orderInfo = [
+			{
+				house_name: '下榻日式风格的房源去畅玩太古里',
+				house_id: 4,
+				house_price: 999.5,
+				houseImg:'../../img/room/ac356f32-0ba7-4dd8-9796-94d085e711fa.jpg',
+				dayNum:2,
+				date:'2019-12-21--2019-12-23'
+			},
+			{
+				house_name: '下榻日式风格的房源去畅玩太古里',
+				house_id: 4,
+				house_price: 999.5,
+				houseImg:'../../img/room/ac356f32-0ba7-4dd8-9796-94d085e711fa.jpg',
+				dayNum:2,
+				date:'2019-12-21--2019-12-23'
+			},
+			{
+				house_name: '下榻日式风格的房源去畅玩太古里',
+				house_id: 4,
+				house_price: 999.5,
+				houseImg:'../../img/room/ac356f32-0ba7-4dd8-9796-94d085e711fa.jpg',
+				dayNum:2,
+				date:'2019-12-21--2019-12-23'
+			},
+			{
+				house_name: '下榻日式风格的房源去畅玩太古里',
+				house_id: 4,
+				house_price: 999.5,
+				houseImg:'../../img/room/ac356f32-0ba7-4dd8-9796-94d085e711fa.jpg',
+				dayNum:2,
+				date:'2019-12-21--2019-12-23'
+			},
+			{
+				house_name: '下榻日式风格的房源去畅玩太古里',
+				house_id: 4,
+				house_price: 999.5,
+				houseImg:'../../img/room/ac356f32-0ba7-4dd8-9796-94d085e711fa.jpg',
+				dayNum:2,
+				date:'2019-12-21--2019-12-23'
+			},
+			{
+				house_name: '下榻日式风格的房源去畅玩太古里',
+				house_id: 4,
+				house_price: 999.5,
+				houseImg:'../../img/room/ac356f32-0ba7-4dd8-9796-94d085e711fa.jpg',
+				dayNum:2,
+				date:'2019-12-21--2019-12-23'
+			}
+		]
 		//初始化导航栏
 		if (userInfo.user_id != '') {
 			var html = '<li class="layui-nav-item " id="china"> <a href="" >房源订单中心</a></li>' +
@@ -165,7 +225,24 @@
 				$("#china").after('<li class="layui-nav-item "> <a href="">成为房东</a></li>');
 			}
 		}
-		
+		getOrder("#allOrder");
+		function getOrder(infoId) {
+			$(infoId).empty();
+			$(infoId).append('<div style="height: 420px;" id="d1"></div>');
+			id="d1";
+			for(let i=0;i<orderInfo.length;i++) {
+				html='<div class="layui-col-xs4"><a href="../host/home.html?house_id=?'+orderInfo[i].house_id+'">'+
+					'<img src="'+orderInfo[i].houseImg+'"  width="290px" height="216px" >'+
+					'<h3>'+orderInfo[i].house_name+'</h3><h4>'+orderInfo[i].date+' · '+orderInfo[i].day+'晚</h4>'+
+					'<h3>订单待支付 · ￥'+orderInfo[i].house_price+'</h3></a><br>'+
+					'<a href="../host/home.html?house_id=?'+orderInfo[i].house_id+'" class="layui-btn" style="width: 290px;" >查看是否可订</a></div>';
+				if(i % 3 ==0 && i != 0) {
+					id="d"+(i+1);
+					$(infoId).append('<div style="height: 420px;" id="'+id+'"></div>');
+				}
+				$("#"+id).append(html);
+			}
+		}
 		//请求后端拿到订单信息
 		// $.getJSON(basePath+"a?method=getHouseInfoByID&callback=?",{"house_id":4},function(res){
 		// 	console.log(houseInfo);

@@ -58,4 +58,11 @@ public interface HouseDaoImpl {
 	 * @throws SQLException
 	 */
 	List<House> getHouseByID(Integer user_id) throws SQLException;
+	/**
+	 * 通过房子名字获得id
+	 * @param house_name 房子名字
+	 * @return id
+	 * @throws SQLException
+	 */
+	Integer getHouseByName(String house_name) throws SQLException;
 }

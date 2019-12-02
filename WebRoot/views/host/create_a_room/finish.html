@@ -51,35 +51,24 @@
 			
 		</div>
 		<div style="position: fixed; top: 10%; left: 60%;">
-			<img src="../../../img/ReleaseRoom/2.png" height="50%">
+			<img src="../../../img/ReleaseRoom/9.png" height="50%">
 		</div>
 		<div id="footBtn" >
-			<button class="layui-btn site-demo-active" onclick="location.href='date.html'">
+			<button class="layui-btn site-demo-active" onclick="location.href='date_setting.html'">
 				< 返回</button> 
-				<button style="margin-left: 290px; " class="layui-btn " id="btnGo">完成，跳转首页
-			</button>
+				<button style="margin-left: 290px; " class="layui-btn " id="btnGo">完成</button>
 		</div>
 	</body>
 	<script>
 		layui.use('form', function(){
 			var form = layui.form
 			,layer = layui.layer
-			
-			
 		});
 	</script>
 	<script>
+			
 		$('#btnGo').on('click', function() {
-			myPrice=$("#price").val();
-			 if (!checkNumber(myPrice)) {
-			    layer.msg("请输入正确价格！")
-			    return false;
-			 }else {
-				$.cookie('may_check_in_date',may_check_in_date);
-				$.cookie('may_check_out_date',may_check_out_date);
-				$.cookie('myPrice',myPrice);
-				location.href = "finish.html";
-			 }
+			
 		});
 		
 	</script>

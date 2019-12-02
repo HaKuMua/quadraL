@@ -8,6 +8,7 @@ import java.util.List;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
+import org.apache.commons.dbutils.handlers.ScalarHandler;
 
 import cn.com.util.GetConn;
 
@@ -113,6 +114,20 @@ public class HouseDao implements HouseDaoImpl{
 		conn = GetConn.getConn();
 		String sql = "select * from house where user_id=?";
 		List<House> data = qr.query(conn, sql, new BeanListHandler<House>(House.class), user_id);
+		conn.close();
+		return data;
+	}
+	
+	/**
+	 * 通过房子名字获得id
+	 * @param house_name 房子名字
+	 * @return id
+	 * @throws SQLException
+	 */
+	public Integer getHouseByName(String house_name) throws SQLException {
+		conn = GetConn.getConn();
+		String sql = "select house_id from house where house_name=?";
+		Integer data = qr.query(conn, sql, new ScalarHandler(),house_name);
 		conn.close();
 		return data;
 	}

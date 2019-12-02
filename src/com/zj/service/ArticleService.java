@@ -307,6 +307,7 @@ public class ArticleService implements ArticleServiceImpl{
 						map.put("relatedArticleUser_headimg_url", relatedArticleUserHeadUrl);
 					}
 				}
+
 			}
 		}
 		list.add(map);

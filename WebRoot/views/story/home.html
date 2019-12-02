@@ -42,23 +42,22 @@
 						<img src="../../img/logo.jpg" class="layui-nav-img">
 					</a>
 				</li>
-				<div id="rightNav" >
-					<li class="layui-nav-item" id="china"><a href="">退出</a></li>
-					<li class="layui-nav-item "> <a href="" >房源订单中心</a></li>
+				<div id="rightNav">
 					<li class="layui-nav-item"><a href="">故事</a></li>
-					<li class="layui-nav-item"><a href="../index.html">首页</a> </li>
-					<li class="layui-nav-item"><a href="">帮助</a> </li>
-					<li class="layui-nav-item" lay-unselect=""><a href="javascript:;">
-					<img src="'+userInfo.user_img+'" class="layui-nav-img"></a> 
+					<li class="layui-nav-item" style="cursor: pointer;"><a class="NavA" data-method="login">注册</a></li>
+					<li class="layui-nav-item" style="cursor: pointer;"><a class="NavA" data-method="login">登录</a></li>
 				</div>
 			</ul>
 		</div>
 		<div id="article">
-			<div class="layui-col-xs12">
+			<div class="layui-col-xs10">
 				<a href="">
 					<img src="../../img/ReleaseRoom/1.jpg" style="border-radius: 50%;" width="50px" height="50px">
 					<h2>Haku</h2>
 				</a>
+			</div>
+			<div id="myBtn" class="layui-col-xs2">
+				<button style="margin-top:15px;" type="button" class="layui-btn">删除</button>
 			</div><br>
 			<div style="margin-top: 30px;" class="layui-col-xs12">
 				<img src="../../img/story/e19adcd4-1c48-4eeb-b855-1987a414b951.jpg"  width="660px" height="880px">
@@ -204,7 +203,7 @@
 		//利用Cookie拿到信息
 		// var userInfo=$.Cookie('userInfo');
 		var userInfo = {
-			user_id: '1000',
+			user_id: '1002',
 			user_name:'haku',
 			user_img: '../../img/timg.jpg',
 			islanlord:1
@@ -218,6 +217,7 @@
 						'../../img/story/e19adcd4-1c48-4eeb-b855-1987a414b951.jpg'],
 			user_img:'../../img/timg.jpg',
 			user_name:'HaKu',
+			user_id:'1001',
 			article_content:'最近深圳天气真的太好啦 忍不住打卡深圳超美的独栋泳池别墅拍了一组泳装照～在这里可以拍出假装在国外度假的大片！拍照圣地本地了!'+
 			'民宿地址：不知处龙华区梅花山庄 周围很繁华宵夜可以尽情的点定的是ins风白色北欧房 大概500左右民宿整体是超ins度假风的装修风格 房间一共有四个 每个房间都是不同的装修主题哦'+
 			'最值得拍照的点就是别墅的透明玻璃泳池了 真的非常非常好出片！拍泳衣装的最佳地点！随随便便都能拍出国外小清新度假的feel建议穿颜色比较鲜艳的裙子或泳衣拍'+
@@ -286,15 +286,20 @@
 					$("#china").after('<li class="layui-nav-item "> <a href="">成为房东</a></li>');
 				}
 			}
-			//getArticle("#article");
+			getArticle("#article");
 		}  
 		function getArticle(infoId) {
 			$('title').text(article.article_name);
 			$(infoId).empty();
-			html='<div class="layui-col-xs12"><a href="">'+
+			
+			html='<div class="layui-col-xs10"><a href="">'+
 				'<img src="'+article.user_img+'" style="border-radius: 50%;" width="50px" height="50px">'+
-				'<h2>'+article.user_name+'</h2></a></div><br>';
+				'<h2>'+article.user_name+'</h2></a></div><div id="myBtn" class="layui-col-xs2"></div><br>';
 				$(infoId).append(html);
+			$("#myBtn").empty();
+			if(userInfo.user_id == article.user_id) {
+				$("#myBtn").append('<button style="margin-top:15px;" type="button" class="layui-btn">删除</button>');
+			}
 			for(var j=0;j<article.article_img.length;j++) {
 				html='<div style="margin-top: 30px;" class="layui-col-xs12">'+
 				'<img src="'+article.article_img[j]+'"  width="660px" height="880px"></div>';

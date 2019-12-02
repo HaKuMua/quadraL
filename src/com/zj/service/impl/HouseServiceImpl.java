@@ -25,11 +25,11 @@ public interface HouseServiceImpl {
 	 * @return
 	 * @throws SQLException
 	 */
-	String addHouseInfo(Map<String, Object> houseInfo);
+	Integer addHouseInfo(Map<String, Object> houseInfo);
 	/**
 	 * 添加一组图片方法
 	 */
-	String addHouseImg(List<Map<String, Object>> houseImgList);
+	Integer addHouseImg(String house_name,String houseImgList);
 	/**
 	 * 通过用户ID获取此用户旗下所有房子信息
 	 * @param user_id
