@@ -18,10 +18,8 @@ import com.zj.service.impl.ReserveServiceImpl;
 
 public class ReserveService implements ReserveServiceImpl{
 	private ReserveDaoImpl reserveDaoImpl = new ReserveDao();
-	private UserDaoImpl  userDaoImpl = new UserDao(); 
-	
-	
 	private Logger log = Logger.getLogger(ReserveService.class);
+	private UserDaoImpl  userDaoImpl = new UserDao(); 
 	@Override
 	public List<Map<String, Object>> getAllReserve() {
 		List<Map<String, Object>> list = null;
@@ -45,7 +43,7 @@ public class ReserveService implements ReserveServiceImpl{
 				}
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			log.error("数据库异常");
 		}
 		return list;
 	}

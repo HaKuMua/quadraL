@@ -1,4 +1,4 @@
-package cn.com.uitl;
+package cn.com.util;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -24,7 +24,6 @@ public class GetConn {
 			try {
 				conn.close();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

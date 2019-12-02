@@ -28,11 +28,11 @@ public class House implements Serializable{
 	/**
 	 * 可入住时间
 	 */
-	private Time may_check_in_date;
+	private String may_check_in_date;
 	/**
 	 * 可退房时间
 	 */
-	private Time may_check_out_date;
+	private String may_check_out_date;
 	/**
 	 * 房子类型
 	 */
@@ -101,19 +101,19 @@ public class House implements Serializable{
 		this.lease_type = lease_type;
 	}
 
-	public Time getMay_check_in_date() {
+	public String getMay_check_in_date() {
 		return may_check_in_date;
 	}
 
-	public void setMay_check_in_date(Time may_check_in_date) {
+	public void setMay_check_in_date(String may_check_in_date) {
 		this.may_check_in_date = may_check_in_date;
 	}
 
-	public Time getMay_check_out_date() {
+	public String getMay_check_out_date() {
 		return may_check_out_date;
 	}
 
-	public void setMay_check_out_date(Time may_check_out_date) {
+	public void setMay_check_out_date(String may_check_out_date) {
 		this.may_check_out_date = may_check_out_date;
 	}
 

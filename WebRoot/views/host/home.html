@@ -1,13 +1,13 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="utf-8">
 		<title>度假屋、民宿、体验和攻略 - Airbnb爱彼迎</title>
 		<script src="../../js/comment.js"></script>
+		<script src="../../js/jquery.min.js"></script>
+		<script type="text/javascript" src="../../js/jquery.cookie.js"></script>
 		<link rel="stylesheet" type="text/css" href="../../layui/css/layui.css">
 		<link rel="stylesheet" href="../../css/jquery.cxcalendar.css">
-		<script src="../../js/jquery.min.js"></script>
-		<script src="../../layui/layui.all.js"></script>
 		<script src="../../layui/layui.js"></script>
 		<style type="text/css">
 			#navId li a {
@@ -174,7 +174,7 @@
 				margin-left: 30px;
 			}
 
-			#reId a {
+			#reId button{
 				width: 360px;
 				height: 60px;
 				font-size: 20px;
@@ -227,13 +227,9 @@
 					</form>
 				</li>
 				<div id="rightNav">
-					<li class="layui-nav-item" id="china"><a href="">退出</a></li>
-					<li class="layui-nav-item "> <a href="">房源订单中心</a></li>
 					<li class="layui-nav-item"><a href="">故事</a></li>
-					<li class="layui-nav-item"><a href="../index.html">首页</a> </li>
-					<li class="layui-nav-item"><a href="">帮助</a> </li>
-					<li class="layui-nav-item" lay-unselect=""><a href="javascript:;">
-							<img src="'+userInfo.user_img+'" class="layui-nav-img"></a>
+					<li class="layui-nav-item" style="cursor: pointer;"><a class="NavA" data-method="login">注册</a></li>
+					<li class="layui-nav-item" style="cursor: pointer;"><a class="NavA" data-method="login">登录</a></li>
 				</div>
 			</ul>
 		</div>
@@ -278,7 +274,6 @@
 				--
 			</span>
 			<input style="width: 145px;height: 45px;" id="date_last" name="mydate" type="text" readonly><br><br>
-			<!-- <input   type="text" class="layui-input checkDate" id="reDate" placeholder="入住日期-退房日期"><br> -->
 			<h3>人数</h3><br>
 			<form class="layui-form" id="formSe" action="">
 				<select name="modules" lay-verify="required" lay-filter="person" lay-search="">
@@ -289,7 +284,7 @@
 					<option value="5">5人</option>
 				</select>
 			</form>
-			<a href="" class="layui-btn layui-bg-red">马上预定</a><br><br>
+			<button id="payBtn" class="layui-btn layui-bg-red">马上预定</button><br><br>
 			<h4 style="text-align: center;">您现在预定不会收费</h43><br><br>
 				<div>
 					<div class="layui-col-xs9">
@@ -348,78 +343,7 @@
 			<hr><br><br><br><br>
 			<h1><b>评价</b></h1>
 			<div id="comment">
-				<br><br><a href="">
-					<img style="border-radius: 50%;" width="60px" height="60px" src="../../img/timg.jpg">
-					<h2 style="margin-left: 80px; margin-top: -50px;">haku</h2>
-					<h3 style="margin-left: 80px; margin-top: 0px;">2019年10月</h3><br>
-				</a>
-				<h3>地理位置：很好，步行5-10分钟太古里，
-					小区公共区域特别是楼道感觉不太好，很杂乱的感觉，
-					但是有门禁有电梯卡，应该是安全的。
-					房间设施：还是不错的，有投影仪，有大面积窗户，只是中央空调坏了，不过房东也积极解决了，给了我们补偿。
-					总体还是愉快的，虽然有点小插曲，但是房东尽量给我们解决了，希望下次能在客人入住前检查好设备，
-					毕竟房东离的挺远的，来回一趟一小时也很不容易，
-					大家时间也都很宝贵，还是非常感谢房东，有缘再见。</h3>
-				<br>
-				<hr>
-				<br><br><a href="">
-					<img style="border-radius: 50%;" width="60px" height="60px" src="../../img/timg.jpg">
-					<h2 style="margin-left: 80px; margin-top: -50px;">haku</h2>
-					<h3 style="margin-left: 80px; margin-top: 0px;">2019年10月</h3><br>
-				</a>
-				<h3>地理位置：很好，步行5-10分钟太古里，
-					小区公共区域特别是楼道感觉不太好，很杂乱的感觉，
-					但是有门禁有电梯卡，应该是安全的。
-					房间设施：还是不错的，有投影仪，有大面积窗户，只是中央空调坏了，不过房东也积极解决了，给了我们补偿。
-					总体还是愉快的，虽然有点小插曲，但是房东尽量给我们解决了，希望下次能在客人入住前检查好设备，
-					毕竟房东离的挺远的，来回一趟一小时也很不容易，
-					大家时间也都很宝贵，还是非常感谢房东，有缘再见。</h3>
-				<br>
-				<hr>
-				<br><br><a href="">
-					<img style="border-radius: 50%;" width="60px" height="60px" src="../../img/timg.jpg">
-					<h2 style="margin-left: 80px; margin-top: -50px;">haku</h2>
-					<h3 style="margin-left: 80px; margin-top: 0px;">2019年10月</h3><br>
-				</a>
-				<h3>地理位置：很好，步行5-10分钟太古里，
-					小区公共区域特别是楼道感觉不太好，很杂乱的感觉，
-					但是有门禁有电梯卡，应该是安全的。
-					房间设施：还是不错的，有投影仪，有大面积窗户，只是中央空调坏了，不过房东也积极解决了，给了我们补偿。
-					总体还是愉快的，虽然有点小插曲，但是房东尽量给我们解决了，希望下次能在客人入住前检查好设备，
-					毕竟房东离的挺远的，来回一趟一小时也很不容易，
-					大家时间也都很宝贵，还是非常感谢房东，有缘再见。</h3>
-				<br>
-				<hr>
-				<br><br><a href="">
-					<img style="border-radius: 50%;" width="60px" height="60px" src="../../img/timg.jpg">
-					<h2 style="margin-left: 80px; margin-top: -50px;">haku</h2>
-					<h3 style="margin-left: 80px; margin-top: 0px;">2019年10月</h3><br>
-				</a>
-				<h3>地理位置：很好，步行5-10分钟太古里，
-					小区公共区域特别是楼道感觉不太好，很杂乱的感觉，
-					但是有门禁有电梯卡，应该是安全的。
-					房间设施：还是不错的，有投影仪，有大面积窗户，只是中央空调坏了，不过房东也积极解决了，给了我们补偿。
-					总体还是愉快的，虽然有点小插曲，但是房东尽量给我们解决了，希望下次能在客人入住前检查好设备，
-					毕竟房东离的挺远的，来回一趟一小时也很不容易，
-					大家时间也都很宝贵，还是非常感谢房东，有缘再见。</h3>
-				<br>
-				<hr>
-				<div>
-					<br><br><a href="">
-						<img style="border-radius: 50%;" width="55px" height="55px" src="../../img/timg.jpg">
-						<h2 style="margin-left: 80px; margin-top: -50px;">haku</h2>
-						<h3 style="margin-left: 80px; margin-top: 0px;">2019年10月</h3><br>
-					</a>
-					<h3>地理位置：很好，步行5-10分钟太古里，
-						小区公共区域特别是楼道感觉不太好，很杂乱的感觉，
-						但是有门禁有电梯卡，应该是安全的。
-						房间设施：还是不错的，有投影仪，有大面积窗户，只是中央空调坏了，不过房东也积极解决了，给了我们补偿。
-						总体还是愉快的，虽然有点小插曲，但是房东尽量给我们解决了，希望下次能在客人入住前检查好设备，
-						毕竟房东离的挺远的，来回一趟一小时也很不容易，
-						大家时间也都很宝贵，还是非常感谢房东，有缘再见。</h3>
-					<br>
-					<hr>
-				</div>
+				
 			</div><br>
 			<div id="demo"></div>
 
@@ -534,6 +458,7 @@
 		</div>
 
 	</body>
+	<script src="../../js/jquery.cookie.js"></script>
 	<script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.15&key=58436f5656c3bd85a8001b6cce31c890&plugin=AMap.Autocomplete"></script>
 	<script type="text/javascript" src="https://cache.amap.com/lbs/static/addToolbar.js"></script>
 	<script type="text/javascript">
@@ -625,22 +550,25 @@
 			user_name: 'HaKu',
 			user_img: '../../img/timg.jpg',
 			user_describe: '你好,我是一个重庆90后伪文青,喜欢电影､电视､追星,享受平凡而不平淡的生活,机缘巧合下和朋友合作做起了民宿,每一套房型都是经过精心挑选,亲力亲为布置､装扮,都是身处绝美夜景的江景房,希望朋友们来我家做客,带你领略别样的重庆风光｡',
-			checked: {
-				'2019-11-30': '已预订',
-				'2019-12-10': '已预订'
-			}
+			
 		}
+		personNum=1;
+		var checked={
+			'2019-11-30': '已预订',
+			'2019-12-10': '已预订'
+			}
+		//初始化导航栏
 		if (userInfo.user_id != '') {
-			var html = '<li class="layui-nav-item" id="china"><a href="">退出</a></li>' +
-				'<li class="layui-nav-item "> <a href="" >房源订单中心</a></li>' +
+			var html = '<li class="layui-nav-item " id="china"> <a href="" >房源订单中心</a></li>' +
 				'<li class="layui-nav-item"><a href="">故事</a></li>' +
-				'<li class="layui-nav-item"><a href="../index.html">首页</a> </li>' +
 				'<li class="layui-nav-item"><a href="">帮助</a> </li>' +
 				' <li class="layui-nav-item" lay-unselect=""><a href="javascript:;"><img src="' +
-				userInfo.user_img + '" class="layui-nav-img">' + userInfo.user_name + '</a> ';
+				userInfo.user_img + '" class="layui-nav-img">' + userInfo.user_name + '</a> ' +
+				'<dl class="layui-nav-child"><dd><a href="javascript:;"  style="color: gray;">个人中心</a></dd>' +
+				' <dd><a href="javascript:;" style="color: gray;">修改信息</a></dd><dd><a href="javascript:;" style="color: gray;">退了</a></dd></dl>';
 			$("#rightNav").empty();
 			$("#rightNav").append(html);
-			if (userInfo.islanlord != 0) {
+			if (userInfo.islanlord != 0 || userInfo.islanlord != null) {
 				$("#china").after('<li class="layui-nav-item "> <a href="">查看我的房源</a></li>' +
 					'<li class="layui-nav-item "><a href="host/create_a_room/room.html">添加房源</a></li>');
 			} else {
@@ -655,16 +583,16 @@
 		if (url.indexOf("?") != -1) {
 			var house_id = url.substr(url.indexOf("=") + 1);
 		}
+		map='{"house_id": 4}';
 		//请求后端拿到房子信息
-		$.getJSON(basePath + "a?method=getHouseInfoByID&callback=?", {
-			"house_id": 4
-		}, function(res) {
-			houseInfo = res;
-			console.log(houseInfo);
-			get();
-		});
+		// $.getJSON(basePath + "a?method=getHouseInfoByID&callback=?", {
+		// 	"map":map
+		// }, function(res) {
+		// 	houseInfo = res;
+		// 	console.log(houseInfo);
+		// 	get();
+		// });
 		window.onload = get();
-
 		function get() {
 			$('title').text(houseInfo.house_name);
 			$("#houseImgDiv").empty();
@@ -767,16 +695,10 @@
 		}
 		//计算两个日期的天数
 		function getDateNumber(dateStart, dateEnd) {
-			var start = dateStart.replace('年', '-');
-			start = start.replace('月', '-');
-			start = start.replace('日', '');
-			var end = dateEnd.replace('年', '-');
-			end = end.replace('月', '-');
-			end = end.replace('日', '');
-			var date1Str = start.split("-"); //将日期字符串分隔为数组,数组元素分别为年.月.日
+			var date1Str = dateStart.split("-"); //将日期字符串分隔为数组,数组元素分别为年.月.日
 			//根据年 . 月 . 日的值创建Date对象
 			var date1Obj = new Date(date1Str[0], (date1Str[1] - 1), date1Str[2]);
-			var date2Str = end.split("-");
+			var date2Str = dateEnd.split("-");
 			var date2Obj = new Date(date2Str[0], (date2Str[1] - 1), date2Str[2]);
 			var t1 = date1Obj.getTime();
 			var t2 = date2Obj.getTime();
@@ -785,35 +707,80 @@
 			var days = Math.abs(minusDays); //取绝对值
 			return days;
 		}
+		//设置cookie
+		function setCookie(cname, cvalue, exdays) {
+		    var d = new Date();
+		    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+		    var expires = "expires="+ d.toUTCString();
+		    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+		} 
+		
+		//获取Cookie
+		function getCookie(cname) {
+		    var name = cname + "=";
+		    var decodedCookie = decodeURIComponent(document.cookie);
+		    var ca = decodedCookie.split(';');
+		    for(var i = 0; i <ca.length; i++) {
+		        var c = ca[i];
+		        while (c.charAt(0) == ' ') {
+		            c = c.substring(1);
+		         }
+		         if (c.indexOf(name) == 0) {
+		            return c.substring(name.length, c.length);
+		         }
+		     }
+		    return "";
+		} 
+		
 		var date = new Date().Format("yyyy-MM-dd");
+		day =-1
+		//按钮监听
+		$("#payBtn").on("click",function(){
+			// $.cookie('orderInfo', 1);
+			// var objString = JSON.stringify(obj); //JSON 数据转化成字符串
+			// setCookie('orderInfo',objString, 1);
+			// myCookie=getCookie('orderInfo')
+			// var newObject = JSON.parse(myCookie);
+			//  console.log(newObject)//字符串转化成JSON数据
+			if(day < 0 ){
+				layer.msg("请选择时间！");
+			}else if(personNum > houseInfo.house_intake) {
+				layer.msg("房客过多，请重新选择！");
+			}else{
+				let orderInfo={
+					user_id:userInfo.user_id,
+					house_id: houseInfo.house_id,
+					house_name: houseInfo.house_name,
+					allHouseImg: houseInfo.allHouseImg[0],
+					house_price: houseInfo.house_price,
+					price: houseInfo.house_price*day,
+					lease_type: houseInfo.lease_type,
+					house_type: houseInfo.house_type,
+					house_intake: personNum, //房子容纳量
+					house_address: houseInfo.house_address, //地址
+					may_check_in_date: houseInfo.may_check_in_date,
+					may_check_out_date: houseInfo.may_check_in_date,
+					building_name: houseInfo.building_name,
+					date:checkDate,
+					user_name: houseInfo.user_name,
+					dayNumber:day
+				}
+				var objString = JSON.stringify(orderInfo); 
+				setCookie("orderInfo", objString, 1);
+				window.location.href="../create_order/payments.html";
+			}
+		});
 	</script>
 	<script>
 		layui.use(['carousel', 'form', 'element', 'layer', 'laydate', 'laypage'], function() {
 			var carousel = layui.carousel,
 				form = layui.form,
 				laydate = layui.laydate;
-			$ = layui.jquery,
+				$ = layui.jquery,
 				layer = layui.layer,
 				element = layui.element,
 				laypage = layui.laypage;
-			laydate.render({
-				elem: '#reDate', //指定元素
-				format: 'yyyy年MM月dd日',
-				min: date,
-				range: true,
-				done: function(value, date) { //监听日期被切换
-					$("#ttt").remove();
-					var startDate = value.split('-')[0];
-					var endDate = value.split('-')[1];
-					var day = getDateNumber(startDate, endDate);
-					$("#reDate").val(value)
-					html = '<div id="ttt"><br><hr ><div class="layui-col-xs7">' +
-						'<h3>￥' + houseInfo.house_price + '×' + day + '晚</h3></div>	<div class="layui-col-xs5">' +
-						'<h3>总价：￥' + (day * houseInfo.house_price) + '</h3>	</div></div>';
-					$("#reId").style = "height:500px; width:300px; border: 1px solid red;";
-					$("#reId a").before(html);
-				},
-			});
+			
 			laydate.render({
 				elem: '#canDate', //指定元素
 				position: 'static',
@@ -870,8 +837,7 @@
 			laypage.render({
 				elem: 'demo',
 				limit: 7,
-				count: 70 //数据总数
-					,
+				count: 70,
 				jump: function(obj) {
 					console.log(obj)
 				}
@@ -899,7 +865,7 @@
 					'2019-11-20',
 					'2019-12-30'
 				],
-				startDate: new Date("YYYY-MM-DD")
+				startDate: new Date()
 			}, function(api) {
 				dateFirstApi = api;
 			});
@@ -920,17 +886,21 @@
 					dateLastApi.clearDate();
 				};
 				dateLastApi.setOptions({
-					startDate: firstTime
+					startDate: firstTime+86400000,
+					
 				});
 				dateLastApi.gotoDate(firstTime);
 				dateLastApi.show();
 			});
 			dateLast.on('change', function() {
-				var firstTime = parseInt(dateFirstApi.getDate('TIME'), 10);
-				var lastTime = parseInt(dateLastApi.getDate('TIME'), 10);
-				console.log(firstTime);
-				console.log(lastTime);
-				console.log(firstTime - lastTime)
+				$("#ttt").remove();
+				checkDate=dateFirstApi.getDate()+'--'+dateLastApi.getDate();
+				day = getDateNumber(dateFirstApi.getDate(), dateLastApi.getDate());
+				console.log(dateLastApi.getDate('TIME')-dateFirstApi.getDate('TIME'))
+				html = '<div id="ttt"><br><hr ><div class="layui-col-xs7">' +
+					'<h3>￥' + houseInfo.house_price + '×' + day + '晚</h3></div>	<div class="layui-col-xs5">' +
+					'<h3>总价：￥' + (day * houseInfo.house_price) + '</h3>	</div></div>';
+				$("#payBtn").before(html);
 			});
 		})();
 	</script>

@@ -5,12 +5,11 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.apache.commons.dbutils.QueryRunner;
-
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
 
-import cn.com.uitl.GetConn;
+import cn.com.util.GetConn;
 
 import com.zj.dao.impl.CommentDaoImpl;
 import com.zj.entity.Comment;
@@ -64,8 +63,8 @@ public class CommentDao implements CommentDaoImpl{
 	 * 分页查询一篇文章评论
 	 * @throws SQLException 
 	 */
-	public List<Comment> queryPageComment(Integer article_id, int startRow,
-			int pageSize) throws SQLException {
+	public List<Comment> queryPageComment(Integer article_id, Integer startRow,
+			Integer pageSize) throws SQLException {
 		conn = GetConn.getConn();
 		String sql = "(select * from comment where article_id = ?) limit ?,?";
 		List<Comment> data =  qr.query(conn, sql, new BeanListHandler<Comment>(Comment.class),article_id, startRow,pageSize);

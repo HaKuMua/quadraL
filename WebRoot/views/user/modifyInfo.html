@@ -3,6 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<title>编辑个人信息</title>
+		<script src="../../js/comment.js"></script>
 		<link rel="stylesheet" type="text/css" href="../../layui/css/layui.css">
 		<script src="../../js/jquery.min.js"></script>
 		<script src="../../layui/layui.js"></script>
@@ -17,7 +18,7 @@
 			}
 			
 			#leftDiv{
-				margin-top: 20px;
+				margin-top: 90px;
 				position: absolute;
 				width:250px;
 				height: 300px;
@@ -54,33 +55,29 @@
 						 autocomplete="off" class="layui-input">
 					</form>
 				</li>
-				<div id="rightNav" >
-					<li class="layui-nav-item" id="china"><a href="">退出</a></li>
-					<li class="layui-nav-item "> <a href="" >房源订单中心</a></li>
+				<div id="rightNav">
 					<li class="layui-nav-item"><a href="">故事</a></li>
-					<li class="layui-nav-item"><a href="../index.html">首页</a> </li>
-					<li class="layui-nav-item"><a href="">帮助</a> </li>
-					<li class="layui-nav-item" lay-unselect=""><a href="javascript:;">
-					<img src="'+userInfo.user_img+'" class="layui-nav-img"></a> 
+					<li class="layui-nav-item" style="cursor: pointer;"><a class="NavA" data-method="login">注册</a></li>
+					<li class="layui-nav-item" style="cursor: pointer;"><a class="NavA" data-method="login">登录</a></li>
 				</div>
 			</ul>
 		</div>
 		<div id="leftDiv" >
-			<br><br><a href=""><h2><b>编辑个人资料</b></h2></a><br><br>
-			<a href="image.html"><h2>安全</h2></a><br><br>
+			<br><br><a href="modifyInfo.html"><h2><b>编辑个人资料</b></h2></a><br><br>
+			<a href="findPwd.html"><h2>安全</h2></a><br><br>
 			<a href="image.html"><h2>照片</h2></a><br><br>
-			<a href=""><h2>我的评论</h2></a><br><br>
+			<a href="comment.html"><h2>我的评论</h2></a><br><br>
 			<a href=""  class="layui-btn layui-btn-primary">查看我的个人资料</a>
 		</div>
 		<div id="main">
 			<div style="border: 1px solid grey;" >
-				<div id=""style="height: 40px;background-color: #F2F4F5; line-height: 40px;">
+				<div style="height: 40px;background-color: #F2F4F5; line-height: 40px;">
 					<h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;必填</h3>
 				</div><br><br><br>
 				<form class="layui-form" action="" >
 					<label class="layui-form-label">姓名</label>
 				    <div class="layui-input-inline">
-				      <input style="" type="text" name="title" lay-verify="title" autocomplete="off" placeholder="您的姓名" class="layui-input">
+				      <input id="user_name"  type="text" name="title" lay-verify="title" autocomplete="off" placeholder="您的姓名" class="layui-input">
 						<h4>您的公开个人资料将仅显示您的名字。申请预订时，房东会看到您的名字和姓氏。</h4>
 					</div>
 					<br><br><br>
@@ -100,21 +97,9 @@
 						<h4>您必须年满 18 周岁才能使用QuadraL的网站和服务。</h4>
 					</div>
 					<br><br><br>
-					<label class="layui-form-label">真实姓名</label>
-					  <div class="layui-input-inline">
-						<input type="text" name="email" lay-verify="email" autocomplete="off" placeholder="您的真实姓名" class="layui-input">
-						<h4>请正确填写您的真实姓名，以保证实名认证的通过。</h4>
-					</div>
-					<br><br><br>
-					<label class="layui-form-label">身份证号码</label>
-					  <div class="layui-input-inline">
-						<input type="text" name="email" lay-verify="email" autocomplete="off" placeholder="您的身份证号码" class="layui-input">
-						<h4>请正确填写您的真实身份证，以保证实名认证的通过。</h4>
-					</div>
-					<br><br><br>
 					<label class="layui-form-label">电子邮件</label>
 					<div id="emailDiv" class="layui-input-inline">
-						<input type="text" name="email" lay-verify="email" autocomplete="off" placeholder="您的电子邮箱" class="layui-input">
+						<input id="user_email" type="text" name="email" lay-verify="email" autocomplete="off" placeholder="您的电子邮箱" class="layui-input">
 						<h4>我们不会向其他QuadraL用户透露您的个人邮箱地址。</h4>
 					</div><br><br><br>
 					<label class="layui-form-label">电话号码</label>
@@ -130,16 +115,15 @@
 					</div><br><br><br>
 					    <label class="layui-form-label">自我介绍</label>
 					    <div class="layui-input-inline">
-					      <textarea placeholder="请输入内容" class="layui-textarea"></textarea>
+					    <textarea id="user_area" placeholder="请输入内容" class="layui-textarea"></textarea>
 						<h4>QuadraL以相互信任为基础，请帮助其他人了解您。</h4><br>
 						<h4>告诉他们您喜欢什么，您离开了哪几样东西就不能活？<br>分享您最喜爱的旅游目的地、书籍、电影、电视节目、音乐以及美食。</h4>
 						<br><h4>告诉他们您会是个什么样的房东或房客.	<br>您旅游的风格是怎样的，您作为QuadraL房东的风格又如何。</h4>
 						<br><h4>您也可以向大家介绍一下自己的人生格言。</h4>
 					  </div><br><br><br><br><br><br>
-					  
 				</form>
 			</div><br>
-			<button class="layui-btn layui-bg-red" style="width: 100px; height: 45px;">保存</button>
+			<button id="submit" class="layui-btn layui-bg-red" style="width: 100px; height: 45px;">保存</button>
 		</div>
 		<div class="foot" >
 			<div >
@@ -166,31 +150,101 @@
 			user_pwd:'',
 			money:'',
 			user_phone:'',
-			real_name:''
+			real_name:'',
+			islanlord:1,
+			user_describe:''
 		};
-		if(userInfo.user_id != '') {
-			var html = '<li class="layui-nav-item" id="china"><a href="">退出</a></li>' +
-				'<li class="layui-nav-item "> <a href="" >房源订单中心</a></li>' +
-				'<li class="layui-nav-item"><a href="">故事</a></li>' +
-				'<li class="layui-nav-item"><a href="../index.html">首页</a> </li>' +
-				'<li class="layui-nav-item"><a href="">帮助</a> </li>' +
-				' <li class="layui-nav-item" lay-unselect=""><a href="javascript:;"><img src="'+
-				userInfo.user_headimg_url+'" class="layui-nav-img">'+userInfo.user_name+'</a> ';
-			$("#rightNav").empty();
-			$("#rightNav").append(html);
-			if(userInfo.isLanlord != '' || userInfo.isLanlord !=null) {
-				$("#china").after('<li class="layui-nav-item "> <a href="">查看我的房源</a></li>'+
-								'<li class="layui-nav-item "><a href="host/create_a_room/room.html">添加房源</a></li>');
-			} else  {
-				$("#china").after('<li class="layui-nav-item "> <a href="">成为房东</a></li>');
+		window.onload=function() {
+			json = getCookie('userInfo');
+			if (json != '' || json == null) {
+				jsonInfo = JSON.parse(json);
+				if (jsonInfo != null) {
+					userInfo = jsonInfo;
+				}
+			}
+			
+			$("#user_name").val(userInfo.user_name);
+			user_email=$("#emailDiv").val(userInfo.user_email);
+			user_describe=$("#user_area").val(userInfo.user_describe);
+			//初始化导航栏
+			if (userInfo.user_id != '') {
+				var html = '<li class="layui-nav-item " id="china"> <a href="" >房源订单中心</a></li>' +
+					'<li class="layui-nav-item"><a href="">故事</a></li>' +
+					'<li class="layui-nav-item"><a href="">帮助</a> </li>' +
+					' <li class="layui-nav-item" lay-unselect=""><a href="javascript:;"><img src="' +
+					userInfo.user_img + '" class="layui-nav-img">' + userInfo.user_name + '</a> ' +
+					'<dl class="layui-nav-child"><dd><a href="javascript:;"  style="color: gray;">个人中心</a></dd>' +
+					' <dd><a href="javascript:;" style="color: gray;">修改信息</a></dd><dd><a href="javascript:;" style="color: gray;">退了</a></dd></dl>';
+				$("#rightNav").empty();
+				$("#rightNav").append(html);
+				if (userInfo.islanlord != 0 || userInfo.islanlord != null) {
+					$("#china").after('<li class="layui-nav-item "> <a href="">查看我的房源</a></li>' +
+						'<li class="layui-nav-item "><a href="host/create_a_room/room.html">添加房源</a></li>');
+				} else {
+					$("#china").after('<li class="layui-nav-item "> <a href="">成为房东</a></li>');
+				}
 			}
 		}
+		
 		
 		$("#editTel").on("click",function() {
 			$("#telDiv").empty();
 			html='';
 		});
+		//设置cookie
+		function setCookie(cname, cvalue, exdays) {
+		    var d = new Date();
+		    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+		    var expires = "expires="+ d.toUTCString();
+		    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+		} 
 		
+		//获取Cookie
+		function getCookie(cname) {
+		    var name = cname + "=";
+		    var decodedCookie = decodeURIComponent(document.cookie);
+		    var ca = decodedCookie.split(';');
+		    for(var i = 0; i <ca.length; i++) {
+		        var c = ca[i];
+		        while (c.charAt(0) == ' ') {
+		            c = c.substring(1);
+		         }
+		         if (c.indexOf(name) == 0) {
+		            return c.substring(name.length, c.length);
+		         }
+		     }
+		    return "";
+		} 
+		$("#submit").on("click",function() {
+			user_name =$("#user_name").val();
+			user_email=$("#user_email").val();
+			user_describe=$("#user_area").val();
+			if(user_name == '' || user_email == '' || user_describe=='') {
+				layer.msg("必填项不能为空！")
+			}else {
+				map='{"user_id":"3","user_name":"'+user_name+'","user_email":"'+user_email+'","user_describe":"'+user_describe+'"}'
+				$.getJSON(basePath+"user.do?method=updateBasicInfo&callback=?",
+				{"map":map},function(result){
+					userInfo=result.userInfo;
+					console.log(result)
+					if(userInfo != null) {
+						layer.msg(result.msg);
+						objString = JSON.stringify(userInfo);
+						setCookie("userInfo", objString, 1);
+						window.setTimeout (function() {
+							layer.close(layer.index);
+							parent.location.reload();
+						},1200);
+						json=getCookie("userInfo");
+						console.log(json)
+						jsonInfo = JSON.parse(json);
+						console.log(jsonInfo)
+					}else {
+						layer.msg("保存失败！");
+					}
+				});
+			}
+		});
 	</script>
 	<script>
 		layui.use(['form','element','layer','laydate'], function() {

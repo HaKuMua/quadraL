@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>编辑个人信息</title>
+		<script src="../../js/comment.js"></script>
+		<link rel="stylesheet" type="text/css" href="../../layui/css/layui.css">
+		<script src="../../js/jquery.min.js"></script>
+		<script src="../../layui/layui.js"></script>
+		<style type="text/css">
+			#navId li a {
+				font-size: 15px;
+				color: white;
+				font-weight: bold;
+			}
+			#rightNav {
+				float: right;
+			}
+			
+			#leftDiv{
+				margin-top: 90px;
+				position: absolute;
+				width:250px;
+				height: 300px;
+				margin-left: 350px;
+				text-align: center;
+			}
+			
+			#main{
+				margin-top: 90px;
+				position: absolute;
+				width:700px;
+				margin-left: 700px;
+			}
+			
+			.foot {
+				margin-top:30%;
+				width: 1090px;
+				margin-left: 550px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="top">
+			<ul class="layui-nav layui-bg-green" id="navId">
+				<li class="layui-nav-item">
+					<a href="index.html">
+						<img src="../../img/logo.jpg" class="layui-nav-img">
+					</a>
+				</li>
+				<li class="layui-nav-item ">
+					<form class="layui-form" action="">
+						<input id="topSearch" style=" width: 400px;height:48px; font-weight: bold; font-size: 20px; " name="search" 
+						placeholder="搜一搜"
+						 autocomplete="off" class="layui-input">
+					</form>
+				</li>
+				<div id="rightNav">
+					<li class="layui-nav-item"><a href="">故事</a></li>
+					<li class="layui-nav-item" style="cursor: pointer;"><a class="NavA" data-method="login">注册</a></li>
+					<li class="layui-nav-item" style="cursor: pointer;"><a class="NavA" data-method="login">登录</a></li>
+				</div>
+			</ul>
+		</div>
+		<div id="leftDiv" >
+			<br><br><a href="modifyInfo.html"><h2>编辑个人资料</h2></a><br><br>
+			<a href="findPwd.html"><b><h2>安全</b></h2></a><br><br>
+			<a href="image.html"><h2>照片</h2></a><br><br>
+			<a href="comment.html"><h2>我的评论</h2></a><br><br>
+			<a href=""  class="layui-btn layui-btn-primary">查看我的个人资料</a>
+		</div>
+		<div id="main">
+			<div style="border: 1px solid grey; height: 300px;" >
+				<div id=""style="height: 40px;background-color: #F2F4F5; line-height: 40px;">
+					<h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;找回密码</h3>
+				</div>
+				<div class="layui-col-xs8">
+					<input type="password" name="pwd" id="user_pwd" class="layui-input" placeholder="您的旧密码"/>
+					 <br><br>
+					 <input type="password" name="pwd" id="user_pwd1" class="layui-input" placeholder="您的新密码"/>
+					  <br><br>
+					  <input type="password" name="pwd" id="user_pwd2" class="layui-input" placeholder="确认您的新密码"/>
+					   <br><br>
+					 <button id="submit" type="button" class="layui-btn layui-btn-green " style="width: 280px; ">确认</button>
+				</div>
+			</div><br>
+		</div>
+		<div class="foot" >
+			<div >
+				<div>京ICP备16017121号-3 京ICP证 160773号 
+				<img src="https://z1.muscache.cn/airbnb/static/packages/public_security_bureau_logo.d0289dc0.png"
+					 alt="中国公安局标志"> <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010502032345" target="_blank"
+					 rel="noopener noreferrer"  aria-busy="false">京公网安备 11010502032345号</a>
+					技术支持：卓应教育（湖南）有限公司 <a href="https://a0.muscache.com/pictures/03ec62da-f467-4e2b-bfee-6eefd052d7f5.jpg" target="_blank"
+					 rel="noopener noreferrer"  aria-busy="false">营业执照</a></div>
+				<div dir="ltr" >© 2019 Airbnb, Inc. All rights reserved.</div>
+			</div>
+			<br><br><br><br><br><br>
+		</div>
+	</body>
+	<script type="text/javascript">
+		//利用Cookie拿到信息
+		// var userInfo=$.Cookie('userInfo');
+		var userInfo = {
+			user_id: '1000',
+			user_name:'haku',
+			user_headimg_url: '../../img/timg.jpg',
+			user_email:'',
+			user_IDcard:'',
+			user_pwd:'',
+			money:'',
+			user_phone:'',
+			real_name:'',
+			islanlord:1
+		};
+		window.onload=function() {
+			json = getCookie('userInfo');
+			if (json != '' || json == null) {
+				jsonInfo = JSON.parse(json);
+				if (jsonInfo != null) {
+					userInfo = jsonInfo;
+				}
+			}
+			
+			//初始化导航栏
+			if (userInfo.user_id != '') {
+				var html = '<li class="layui-nav-item " id="china"> <a href="" >房源订单中心</a></li>' +
+					'<li class="layui-nav-item"><a href="">故事</a></li>' +
+					'<li class="layui-nav-item"><a href="">帮助</a> </li>' +
+					' <li class="layui-nav-item" lay-unselect=""><a href="javascript:;"><img src="' +
+					userInfo.user_img + '" class="layui-nav-img">' + userInfo.user_name + '</a> ' +
+					'<dl class="layui-nav-child"><dd><a href="javascript:;"  style="color: gray;">个人中心</a></dd>' +
+					' <dd><a href="javascript:;" style="color: gray;">修改信息</a></dd><dd><a href="javascript:;" style="color: gray;">退了</a></dd></dl>';
+				$("#rightNav").empty();
+				$("#rightNav").append(html);
+				if (userInfo.islanlord != 0 || userInfo.islanlord != null) {
+					$("#china").after('<li class="layui-nav-item "> <a href="">查看我的房源</a></li>' +
+						'<li class="layui-nav-item "><a href="host/create_a_room/room.html">添加房源</a></li>');
+				} else {
+					$("#china").after('<li class="layui-nav-item "> <a href="">成为房东</a></li>');
+				}
+			}
+		}
+		//设置cookie
+		function setCookie(cname, cvalue, exdays) {
+			var d = new Date();
+			d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+			var expires = "expires=" + d.toUTCString();
+			document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+		}
+		
+		//获取Cookie
+		function getCookie(cname) {
+			var name = cname + "=";
+			var decodedCookie = decodeURIComponent(document.cookie);
+			var ca = decodedCookie.split(';');
+			for (var i = 0; i < ca.length; i++) {
+				var c = ca[i];
+				while (c.charAt(0) == ' ') {
+					c = c.substring(1);
+				}
+				if (c.indexOf(name) == 0) {
+					return c.substring(name.length, c.length);
+				}
+			}
+			return "";
+		}
+		
+		$("#submit").on("click", function() {
+			user_pwd = $("#user_pwd").val();
+			user_pwd1 = $("#user_pwd1").val();
+			user_pwd2 = $("#user_pwd2").val();
+			if (user_pwd == '' || user_pwd1 == '' || user_pwd2 == '' ) {
+				layer.msg("必填项不能为空！")
+			}else if(user_pwd1 != user_pwd2) {
+				layer.msg("两次密码不正确！")
+			} else {
+				map = '{ "user_id":3,"user_pwd":"' + user_pwd + '","user_pwd1":"' + user_pwd1 + '","user_pwd2":"' + user_pwd2 + '"}'
+				$.getJSON(basePath + "user.do?method=updateUserPwd&callback=?", {
+					"map": map
+				}, function(result) {
+					userInfo = result.userInfo;
+					console.log(result)
+					if (userInfo != null) {
+						layer.msg(result.msg);
+						objString = JSON.stringify(userInfo);
+						setCookie("userInfo", objString, 1);
+						window.setTimeout(function() {
+							layer.close(layer.index);
+							parent.location.reload();
+						}, 1200);
+						json = getCookie("userInfo");
+						console.log(json)
+						jsonInfo = JSON.parse(json);
+						console.log(jsonInfo)
+					} else {
+						layer.msg(result.msg);
+					}
+				});
+			}
+		});
+		
+	</script>
+	<script>
+		layui.use(['form','element','layer','laypage','carousel'], function() {
+			var form = layui.form,
+				$ = layui.jquery,
+				layer = layui.layer,
+				element = layui.element,
+				laypage = layui.laypage,
+				carousel=layui.carousel; 
+		
+	});
+	</script>
+</html>

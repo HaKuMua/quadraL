@@ -8,8 +8,9 @@ import java.util.List;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
+import org.apache.commons.dbutils.handlers.ScalarHandler;
 
-import cn.com.uitl.GetConn;
+import cn.com.util.GetConn;
 
 import com.zj.dao.impl.HouseDaoImpl;
 import com.zj.entity.House;
@@ -101,6 +102,33 @@ public class HouseDao implements HouseDaoImpl{
 		conn = GetConn.getConn();
 		String sql = "select * from house where house_address LIKE '%?%'";
 		List<House> data = qr.query(conn, sql, new BeanListHandler<House>(House.class),house_address);
+		conn.close();
+		return data;
+	}
+	/**
+	 * 通过用户ID获取此用户旗下所有房子信息
+	 * @param user_id
+	 * @return
+	 * @throws SQLException
+	 */
+	public List<House> getHouseByID(Integer user_id) throws SQLException {
+		conn = GetConn.getConn();
+		String sql = "select * from house where user_id=?";
+		List<House> data = qr.query(conn, sql, new BeanListHandler<House>(House.class), user_id);
+		conn.close();
+		return data;
+	}
+	
+	/**
+	 * 通过房子名字获得id
+	 * @param house_name 房子名字
+	 * @return id
+	 * @throws SQLException
+	 */
+	public Integer getHouseByName(String house_name) throws SQLException {
+		conn = GetConn.getConn();
+		String sql = "select house_id from house where house_name=?";
+		Integer data = qr.query(conn, sql, new ScalarHandler(),house_name);
 		conn.close();
 		return data;
 	}

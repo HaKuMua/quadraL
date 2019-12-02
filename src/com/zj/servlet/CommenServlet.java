@@ -15,7 +15,7 @@ import org.json.JSONObject;
 import com.zj.service.CommentService;
 import com.zj.service.impl.CommentServiceImpl;
 
-import cn.com.uitl.BaseServlet;
+import cn.com.util.BaseServlet;
 /**
  * 文章评论信息审核 servlet
  * @author LanceEdward

@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
+
 /**
  * 
  * @author lijia
@@ -24,9 +25,20 @@ public interface HouseServiceImpl {
 	 * @return
 	 * @throws SQLException
 	 */
-	String addHouseInfo(Map<String, Object> houseInfo);
+	Integer addHouseInfo(Map<String, Object> houseInfo);
 	/**
 	 * 添加一组图片方法
 	 */
-	String addHouseImg(List<Map<String, Object>> houseImgList);
+	Integer addHouseImg(String house_name,String houseImgList);
+	/**
+	 * 通过用户ID获取此用户旗下所有房子信息
+	 * @param user_id
+	 * @return
+	 */
+	List<Map<String, Object>> getHouseByID(Integer user_id);
+	/**
+	 * 通过筛选返回指定房子信息
+	 * @return
+	 */
+	List<Map<String, Object>> getHouseByDateOrAddress(String reserve_date ,String check_out_date,String house_address);
 }

@@ -2,18 +2,14 @@ package com.zj.dao;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 
-import cn.com.uitl.GetConn;
+import cn.com.util.GetConn;
 
 import com.zj.dao.impl.ReserveDaoImpl;
-import com.zj.entity.House;
 import com.zj.entity.Reserve;
 
 /**

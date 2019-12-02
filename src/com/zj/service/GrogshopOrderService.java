@@ -10,7 +10,7 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
-import cn.com.uitl.UUIDGenerator;
+import cn.com.util.UUIDGenerator;
 
 import com.zj.dao.CheckInPersonDao;
 import com.zj.dao.GrogshopOrderDao;
@@ -102,7 +102,7 @@ public class GrogshopOrderService implements GrogshopOrderServiceImpl{
 			//下单先扣钱
 			Integer user_id = Integer.valueOf(grogshopOrderInfo.get("user_id").toString());
 			Double price = Double.valueOf(grogshopOrderInfo.get("price").toString());
-			User user = userDaoImpl.getUserInfoByID(user_id);
+			User user = userDaoImpl.getUserInfoById(user_id);
 			if(price>user.getMoney())
 				return "余额不足下单失败";
 			if(userDaoImpl.updateUserMoney(price, user_id) > 0)

@@ -35,7 +35,7 @@ public interface CommentDaoImpl {
 	 * 分页查询一篇文章评论
 	 * @throws SQLException 
 	 */
-	List<Comment> queryPageComment(Integer article_id,int startRow,int pageSize) throws SQLException;
+	List<Comment> queryPageComment(Integer article_id,Integer startRow,Integer pageSize) throws SQLException;
 	/**
 	 * 不分页查询一篇文章所有评论
 	 * @throws SQLException 

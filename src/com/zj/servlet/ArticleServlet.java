@@ -12,8 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONObject;
 
-import cn.com.uitl.BaseServlet;
+import cn.com.util.BaseServlet;
 
+import com.alibaba.fastjson.JSON;
 import com.zj.service.ArticleService;
 import com.zj.service.CommentService;
 import com.zj.service.impl.ArticleServiceImpl;
@@ -28,6 +29,11 @@ public class ArticleServlet extends BaseServlet {
 	private ArticleServiceImpl articleService = new ArticleService();
 	private CommentServiceImpl commentServiceImpl = new CommentService();
 	public String callback;
+	public String map;
+	@SuppressWarnings("unchecked")
+	Map<String, Object> myMap = (Map<String, Object>) JSON.parse(map);
+	Integer article_id = Integer.valueOf(myMap.get("article_id").toString());
+	Integer house_id = Integer.valueOf(myMap.get("house_id").toString());
 	
 	// 返回所有的文章信息
 	public void getAllArticle(HttpServletRequest request,
@@ -45,7 +51,6 @@ public class ArticleServlet extends BaseServlet {
 	public void getPageArticleInfo(HttpServletRequest request,HttpServletResponse response) {
 		//获取用户设置的当前页
 		String articleCurrentPage  = request.getParameter("articleCurrentPage");
-		System.out.println(articleCurrentPage);
 		Integer articlePresentPage = 1;
 		try{
 			articlePresentPage = new Integer(articleCurrentPage);
@@ -57,7 +62,6 @@ public class ArticleServlet extends BaseServlet {
 			List<Map<String, Object>> list = articleService.getPageArticleInfo(articlePresentPage);
 			JSONObject obj = new JSONObject(list);
 			response.getWriter().print(callback+"("+obj+")");
-			System.out.println(list);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch(IOException e) {
@@ -67,14 +71,15 @@ public class ArticleServlet extends BaseServlet {
 	
 	/**
 	 * 一篇文章所有信息
-	 * 
+	 * 需要article_id
 	 */
 	public void getOneArticleInfo(HttpServletRequest request,HttpServletResponse response) {
-		Integer article_id = new Integer(request.getParameter("article_id"));
+		Integer article_id = 1;
 		try {
 			List<Map<String, Object>> list = articleService.getOneArticleInfo(article_id);
 			JSONObject obj = new JSONObject(list);
 			response.getWriter().print(callback+"("+obj+")");
+			System.out.println("list---"+list);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -86,7 +91,6 @@ public class ArticleServlet extends BaseServlet {
 	 * 分页显示评论
 	 */
 	public void getPageCommInfo(HttpServletRequest request,HttpServletResponse response) {
-		Integer article_id = new Integer(request.getParameter("article_id"));
 		
 		String commCurrentPage  = request.getParameter("commCurrentPage");
 		Integer commPresentPage = 1;
@@ -116,8 +120,9 @@ public class ArticleServlet extends BaseServlet {
 		Integer user_id = new Integer(request.getParameter("article_id"));
 		String article_name = request.getParameter("article_name");
 		String article_content = request.getParameter("article_content");
+		Integer house_id = new Integer(request.getParameter("house_id"));
 		try {
-			 int count = articleService.addArticle(user_id, article_name, article_content);
+			 int count = articleService.addArticle(user_id, article_name, article_content, house_id);
 			 if(count > 0){
 				 
 			 }

@@ -3,10 +3,10 @@
 	<head>
 		<meta charset="utf-8">
 		<title></title>
+		<script src="../js/comment.js"></script>
 		<script src="../js/jquery.min.js"></script>
 		<link rel="stylesheet" type="text/css" href="../layui/css/layui.css">
 		<script src="../js/jquery.min.js"></script>
-		<script src="../layui/layui.all.js"></script>
 		<script src="../layui/layui.js"></script>
 		<style type="text/css">
 			.login {
@@ -34,18 +34,16 @@
 	</head>
 	<body>
 		<div class="login"><br><br><br>
-			<span style="margin-left: 30px;  
+			<span style="margin-left: 30px; 
 			font-weight: bold;font-size: 25px; color: #777777;">登录QuadraL</span><br>
 			<h4 style="margin-left: 30px; ">未注册的手机号验证后将自动创建新账号</h4><br>
-			<form class="layui-form " action="" lay-filter="example">
 				<input id="telId" type="tel" name="phone" lay-verify="phone" 
 				autocomplete="off" placeholder="手机号"
 				 class="layui-input"><br><br><br>
-				<input type="text" name="code" lay-verify="code|required" placeholder="验证码" autocomplete="off" 
+				<input type="text" id="code" name="code" lay-verify="code|required" placeholder="验证码" autocomplete="off" 
 				class="layui-input"><br><br><br>
 				<button class="layui-btn btn" lay-submit lay-filter="loginBtn" id="myBtn">立即登录</button>
-			</form><br>
-			<hr><br><br>
+			<br><hr><br><br>
 			<button class="layui-btn layui-bg-gray btn"  id="loginByPwd" onclick=loginByPwd() >账号密码登录</button>
 		</div>
 		<script>
@@ -60,10 +58,10 @@
 						}
 					}
 				});
-				form.on('submit(loginBtn)', function(data) {
-					console.log(data.form) //被执行提交的form对象，一般在存在form标签时才会返回
-					console.log(data.field) //当前容器的全部表单字段，名值对形式：{name: value}
-				});
+				// form.on('submit(loginBtn)', function(data) {
+				// 	console.log(data.form) //被执行提交的form对象，一般在存在form标签时才会返回
+				// 	console.log(data.field) //当前容器的全部表单字段，名值对形式：{name: value}
+				// });
 			});
 			var code = 1129;
 			function loginByPwd() {
@@ -83,5 +81,64 @@
 			function getCode() {
 				alert(code)
 			}
+			
+			//设置cookie
+			function setCookie(cname, cvalue, exdays) {
+			    var d = new Date();
+			    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+			    var expires = "expires="+ d.toUTCString();
+			    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+			} 
+			
+			//获取Cookie
+			function getCookie(cname) {
+			    var name = cname + "=";
+			    var decodedCookie = decodeURIComponent(document.cookie);
+			    var ca = decodedCookie.split(';');
+			    for(var i = 0; i <ca.length; i++) {
+			        var c = ca[i];
+			        while (c.charAt(0) == ' ') {
+			            c = c.substring(1);
+			         }
+			         if (c.indexOf(name) == 0) {
+			            return c.substring(name.length, c.length);
+			         }
+			     }
+			    return "";
+			} 
+			
+			var num =1;
+			$("#myBtn").on("click",function() {
+				if(getCookie("login") == "false") {
+					$("#myBtn").attr("class","layui-btn btn  layui-btn-disabled");
+				}
+				if(num >= 10) {
+					alert(num)
+					setCookie("login", "false", 1);
+					layer.msg("今天不能登录！");
+					return;
+				}
+				var telId =$("#telId").val();
+				var code = $("#code").val();
+				map='"telId":'+telId+',"code":'+code;
+				//后端验证并获得userInfoCookie
+				// $.getJSON(basePath+"user.do?method=phoneLogin&callback=?",
+				// 	{"map":map},function(res){
+				// 	//userInfo=res.obj.userInfo;
+				// 	//console.log(userInfo)
+				// 	if(userInfo != null) {
+				// 		//var objString = JSON.stringify(userInfo);
+				// 		//setCookie("userInfo", userInfo, 1);
+				// 		//关闭自己并跳转
+				// 		//layer.close(layer.index);
+				// 		//parent.location.reload();
+				// 	}else {
+				// 		layer.msg(res.obj.msg)
+				// 	}
+					
+				// });
+				num++;
+			});
+				
 		</script>
 </html>

@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import cn.com.uitl.PageUtil;
+import cn.com.util.PageUtil;
 
 import com.zj.dao.ArticleDao;
 import com.zj.dao.CommentDao;

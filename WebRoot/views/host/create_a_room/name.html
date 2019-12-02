@@ -55,7 +55,7 @@
 			<br>
 			<h3>为房源起一个能突出其独特之处的标题，吸引更多房客。</h3>
 			<br><br><br>
-			 <input type="text" class="layui-input" name="houseName" placeholder="请输入房源名称" style="height: 60px;"/><br><br>
+			 <input id="nameText" type="text" class="layui-input" name="houseName" placeholder="请输入房源名称" style="height: 60px;"/><br><br>
 			<h2>好的房源标题可以增加房客的点击率，房屋名称可包含地标、位置、附近交通、房屋特色等信息。</h2>
 			<br><br><br><br><br><br><br><br>
 		</div>
@@ -70,15 +70,21 @@
 		</div>
 	</body>
 	<script>
-		text=$("#textarea1").text();
+		
 		$('#btnGo').on('click', function() {
-			$.cookie('text', text);
-			location.href = "rules.html";
+			text=document.getElementById("nameText").value;
+			if(text == null || text == '') {
+				layer.msg("请输入房源名称！")
+			}else {
+				$.cookie('house_name', text);
+				location.href = "rules.html";
+			}
+			
 		});
 		
 		window.onload = function() {
-			if($.cookie('text') != null) {
-				text=$.cookie('text');
+			if($.cookie('house_name') != null) {
+				text=$.cookie('house_name');
 			}
 			
 		}

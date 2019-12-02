@@ -23,23 +23,20 @@
 			#checkIn{
 				margin-top: 30px;
 			}
-			.formSe div{
-				width: 400px;
-			}
 			
-			.formSe input,#typeId input{
-				height: 60px;
-				font-size: 16px;
+			#personNum{
+				text-align: center;
+				font-size: 25px; 
+				width: 150px;
+				height: 60px; 
+				border: 1px solid grey;
+				line-height: 60px;
 			}
-			#typeId div{
-				width: 140px;
-			}
-			
 			
 			#rightNav{
 				position: relative;
 				margin-left: 1150px;
-				margin-top: -940px;
+				margin-top: 40px;
 				
 			}
 			#house{
@@ -52,7 +49,6 @@
 				position: absolute;
 				margin-top: 490px;
 				width: 350px;
-				height: 200px;
 				border:1px solid #000000;
 			}
 			#sec{
@@ -80,7 +76,7 @@
 				margin-left: 20px;
 			}
 			.foot {
-				margin-top:1300px;
+				margin-top:500px;
 				width: 1090px;
 				margin-left: 550px;
 			}
@@ -93,83 +89,18 @@
 				</a>
 				<h3 style="position: absolute; margin-top: -30px; margin-left: 60px;"><b>1 预订您的行程</b> &nbsp;2 确认并支付</h3>
 		</div>	
-		<div id="warpper">
-		<span style="font-weight: bolder; font-size: 35px; color: gray;">
-			预订您的行程
-		</span><br><br>
-			<div id="tip">
-				<div class="layui-col-xs2">
-					<img src="../../img/tag/6.gif"  height="70px">
-				</div><br><br>
-				<div class="layui-col-xs10">
-					<h2>这是一个抢手房源。藝的房源通常很抢手。</h2>
-				</div>	
-			</div><br><br><br>	
-			<div >
-				
-				<h2><b>预订中国房源</b></h2><br>
-				<h3>根据有关部门规定，所有在中国预定住宿的旅客都必须提供以下信息。
-					作为中国居民，您的信息将由爱彼迎中国存储并处理。完成本次预订，您同意爱彼迎中国向中国政府披露您的信息而不向您提供进一步通知
-				<br><br>您所填的信息将不会与房东分享。房客信息将由爱彼迎中国妥善保管，以便下次预订时使用。</h3>
-			</div>
-			<div id="checkIn">
-				<h2><b>房客</b></h2><br>
-				<form class="layui-form formSe"  action="">
-					<select  name="modules" lay-verify="required" lay-filter="person"  lay-search="">
-						<option value="1">1人</option>
-						<option value="2">2人</option>
-						<option value="3">3人</option>
-						<option value="4">4人</option>
-						<option value="5">5人</option>
-					</select>
-				</form><br><br>
-				<h2><b>您的信息</b></h2><br>
-				<form class="layui-form formSe"  action="">
-					<select  name="modules" lay-verify="required" lay-filter="person"  lay-search="">
-						<option value="1">请添加</option>
-					</select>
-				</form><br><br>
-				<div class="layui-col-xs4">
-					<h3><b>身份证件类型</b></h3>
-				</div>
-				<div class="layui-col-xs8">
-					<h3><b>身份证件号码</b></h3>
-				</div><br><br>
-				<div class="layui-col-xs4">
-					<form class="layui-form " id="typeId" action="">
-						<select  name="modules" lay-verify="required" lay-filter="person"  lay-search="">
-							<option value="1">身份证</option>
-							<option value="2">护照</option>
-						</select>
-					</form>
-				</div>
-				<div class="layui-col-xs8">
-					<input id="idCard" style=" width: 400px;height:60px; font-weight: bold; font-size: 20px; " name="search"
-					 autocomplete="off" class="layui-input">
-				</div><br><br><br><br><br><br>
-				<div class="layui-col-xs12">
-					<h3><b>姓名</b></h3><br>
-				</div>
-				<input id="idCard" style=" width: 500px;height:60px; font-weight: bold; font-size: 20px; " name="search"
-				 autocomplete="off" class="layui-input">
-			</div>
-			
-			<button type="button" class="layui-btn layui-bg-red layui-btn-radius" 
-			style= " margin-top:50px; width: 110px;height: 50px; font-size: 20px;">继续</button>
-		</div>
 		<div id="rightNav">
 			<div id="house">
-				
-					<br>
-					<div class="layui-col-xs7">
+					<br><div class="layui-col-xs7">
 						<h2><b>藝净- 复古花,太古里旁高层花园电影套房</b></h2><br>
 						<h3>成都的整套公寓</h3>
 					</div>
 					<div class="layui-col-xs3">
 						<img src="../../img/room/997b02ab-9522-4500-a0de-6e67a94bbe9b.jpg" width="100px" >
 					</div>
-					<hr ><br><br>
+					<hr ><br>
 					<div >
+					<h2>地址：中国衡阳</h2><br>
 					<h2>人数：1人</h2><br>
 					<h2>时间：2019年12月7日 - 2019年12月8日</h2>
 					<hr ><br><br>
@@ -187,17 +118,14 @@
 					<div class="layui-col-xs3">
 						<h2>￥1110.00</h2>
 					</div>
-				
 			</div>
 			<div id="notice">
+				<br><h2 style="margin-left: 20px;"><b>入住须知</b></h2><br>
 				<div >
-					<br>
-					<h2><b>入住须知</b></h2><br>
-					<h2>不允许携带宠物<br>	
-						不允许举办派对和活动<br>
-						14:00后可以随时入住<br>
-						12:00前退房
-					</h2>
+					<h2>不允许携带宠物</h2><br>
+					<h2>不允许举办派对和活动</h2><br>
+					<h2>14:00后可以随时入住</h2><br>
+					<h2>12:00前退房</h2>
 				</div>
 			</div>
 			<div id="sec">
@@ -224,6 +152,52 @@
 					<h4>若需要开具房费发票，请您与房东协商</h4>
 				</div>
 			</div>
+		</div>
+		<div id="warpper">
+			<span style="font-weight: bolder; font-size: 35px; color: gray;">
+				预订您的行程
+			</span><br><br>
+			<div id="tip">
+				<div class="layui-col-xs2">
+					<img src="../../img/tag/6.gif"  height="70px">
+				</div><br><br>
+				<div id="landlord_name" class="layui-col-xs10">
+					<h2>这是一个抢手房源。藝的房源通常很抢手。</h2>
+				</div>	
+			</div><br><br><br>	
+			<div >
+				<h2><b>预订中国房源</b></h2><br>
+				<h3>根据有关部门规定，所有在中国预定住宿的旅客都必须提供以下信息。
+					作为中国居民，您的信息将由爱彼迎中国存储并处理。完成本次预订，您同意爱彼迎中国向中国政府披露您的信息而不向您提供进一步通知
+				<br><br>您所填的信息将不会与房东分享。房客信息将由爱彼迎中国妥善保管，以便下次预订时使用。</h3>
+			</div>
+			<div id="checkIn">
+				<h2><b>房客人数</b></h2><br>
+				<div id="personNum" >
+					2人
+				</div>
+				<br><br>
+				<h2><b>房客信息</b></h2><br>
+				<br><br>
+				<div id="personInfo">
+					<div class="layui-col-xs4">
+						<h3><b>姓名</b></h3>
+					</div>
+					<div class="layui-col-xs8">
+						<h3><b>身份证件号码</b></h3>
+					</div><br><br>
+					<div class="layui-col-xs4">
+						<input  style=" width: 150px;height:60px; font-weight: bold; font-size: 20px; " name="search"
+						 autocomplete="off" class="layui-input">
+					</div>
+					<div class="layui-col-xs8">
+						<input  style=" width: 400px;height:60px; font-weight: bold; font-size: 20px; " name="search"
+						 autocomplete="off" class="layui-input">
+					</div><br><br><br><br><br>
+				</div>
+			</div>
+			<button type="button" class="layui-btn layui-bg-red layui-btn-radius"  id="go"
+			style= " margin-top:50px; width: 110px;height: 50px; font-size: 20px;" >继续</button>
 		</div>
 		<div class="foot" >
 			<div >
@@ -254,24 +228,102 @@
 		});
 	</script>
 	<script>
-		var space=["厨房","洗衣机","干衣机","停车位","健身房","游泳池",
-					"按摩浴缸","电梯"];
-		var mySpace=[];
-		for(var i=0;i<space.length;i++) {
-			html='<input  type="checkbox" lay-filter="filter" name="space" lay-skin="primary" title="'+space[i]+'" value="'+space[i]+'"><br><br><br>'
-			$("#checkBox").append(html);
-		}
-		$('#btnGo').on('click', function() {
-			$.cookie('mySpace', mySpace);
-			location.href = "houseImage.html";
-		});
-		
 		window.onload = function() {
-			if($.cookie('mySpace') != null) {
-				var arr = $.cookie('mySpace').split(",");
-				mySpace=arr;
+			myCookie=getCookie('orderInfo')
+			orderInfo = JSON.parse(myCookie);
+			console.log(orderInfo)
+			getInfo(orderInfo)
+			info=getCookie('personInfo');
+			if(info != '') {
+				personInfo = JSON.parse(info);
+				for(let i=0;i<orderInfo.house_intake;i++) {
+					$("#name"+i).val(personInfo[i].name);
+					$("#idCard"+i).val(personInfo[i].idCard);
+				}
 			}
 			
+			var reg =/(^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$)|(^[1-9]\d{5}\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}$)/;
+			personInfo=[]
+			$("#go").on("click",function() {
+				for(let i=0;i<orderInfo.house_intake;i++) {
+					name = $("#name"+i).val();
+					idCard = $("#idCard"+i).val();
+					if(name == null || idCard == null ||name == '' ||idCard == '' ) {
+						layer.msg("请填写完整！");
+						return false;
+					}
+					if(!reg.test(idCard)) {
+						layer.msg("请输入正确的身份证号码!");
+						return false;
+					}
+				}
+				for(let i=0;i<orderInfo.house_intake;i++) {
+					name = $("#name"+i).val();
+					idCard = $("#idCard"+i).val();
+					info={'name':name,'idCard':idCard};
+					personInfo.push(info);
+				}
+				var objString = JSON.stringify(personInfo);
+				setCookie("personInfo", objString, 1);
+				location.href="pay.html";
+			})
 		}
+		
+		//设置cookie
+		function setCookie(cname, cvalue, exdays) {
+		    var d = new Date();
+		    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+		    var expires = "expires="+ d.toUTCString();
+		    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+		} 
+		//获取Cookie
+		function getCookie(cname) {
+		    var name = cname + "=";
+		    var decodedCookie = decodeURIComponent(document.cookie);
+		    var ca = decodedCookie.split(';');
+		    for(var i = 0; i <ca.length; i++) {
+		        var c = ca[i];
+		        while (c.charAt(0) == ' ') {
+		            c = c.substring(1);
+		         }
+		         if (c.indexOf(name) == 0) {
+		            return c.substring(name.length, c.length);
+		         }
+		     }
+		    return "";
+		} 
+		
+		function getInfo(orderInfo) {
+			$("#house").empty();
+			html='<br><div class="layui-col-xs7"><h2><b>'+orderInfo.house_name+'</b></h2><br><h3>'+orderInfo.house_type+'/'+orderInfo.lease_type+'</h3>'+
+				'</div><div class="layui-col-xs3"><img src="'+orderInfo.allHouseImg+'" width="100px" >'+
+				'</div><hr ><br><div ><h2>地址：'+orderInfo.house_address+'</h2><br><h2>人数：'+orderInfo.house_intake+'人</h2><br><h2>时间：'+orderInfo.date+' </h2>'+
+				'<hr ><br><br></div><div class="layui-col-xs6"><h2>￥'+orderInfo.house_price+' x'+orderInfo.dayNumber+'晚</h2></div>'+
+				'<div class="layui-col-xs3"><h2>￥'+orderInfo.house_price*orderInfo.dayNumber+'</h2></div><hr ><br><div class="layui-col-xs6"><h2><b>总价	</b></h2>'+
+				'</div><div class="layui-col-xs3"><h2>￥'+orderInfo.house_price*orderInfo.dayNumber+'</h2></div>';
+			$("#house").append(html);
+			$("#notice").empty();
+			$("#notice").append('<br><h2 style="margin-left: 20px;"><b>入住须知</b></h2><br><div id="t1"></div>');
+			for(let i=0;i<orderInfo.building_name.length;i++) {
+				html='<h2>'+orderInfo.building_name[i]+'</h2><br>';
+				$("#t1").append(html);
+			}	
+			$("#landlord_name").empty();
+			$("#landlord_name").append('<h2>这是一个抢手房源。'+orderInfo.user_name+'的房源通常很抢手。</h2>');
+			$("#personNum").empty();
+			$("#personNum").append('<span>'+orderInfo.house_intake+'人</span>');
+			$("#personInfo").empty();
+			for(let i=0;i<orderInfo.house_intake;i++) {
+				html='<div  class="layui-col-xs4"><h3><b>姓名</b></h3></div><div class="layui-col-xs8"><h3><b>身份证件号码</b></h3>'+
+					'</div><br><br><div class="layui-col-xs4">'+
+					'<input id="name'+i+'" style=" width: 150px;height:60px; font-weight: bold; font-size: 20px; " name="search"'+
+					'autocomplete="off" class="layui-input">'+
+					'</div><div class="layui-col-xs8"><input id="idCard'+i+'"'+
+					' style=" width: 400px;height:60px; font-weight: bold; font-size: 20px; " name="search" autocomplete="off" class="layui-input">'+
+					'</div><br><br><br><br><br>';
+				$("#personInfo").append(html);
+			}
+		}
+		
 	</script>
 </html>

@@ -18,7 +18,7 @@ import com.alibaba.fastjson.JSON;
 import com.zj.service.GrogshopOrderService;
 import com.zj.service.impl.GrogshopOrderServiceImpl;
 
-import cn.com.uitl.BaseServlet;
+import cn.com.util.BaseServlet;
 
 public class OrderServlet extends BaseServlet {
 	private static final long serialVersionUID = 1L;

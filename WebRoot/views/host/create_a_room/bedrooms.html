@@ -148,8 +148,11 @@
 		$('#btnGo').on('click', function() {
 			if (personNum == 'null' || bedNum == 'null') {
 				layui.msg("请填写完整");
-			} else {
+			} else if(bedNum < 0){
+				
+			}else{
 				$.cookie('personNum', personNum);
+				$.cookie('room_number', bedRoomNum);
 				$.cookie('bedNum', bedNum);
 				location.href = "bathrooms.html";
 			}

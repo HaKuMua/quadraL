@@ -3,11 +3,10 @@
 	<head>
 		<meta charset="utf-8">
 		<title>编辑你的房源</title>
+		<script src="../../../js/comment.js"></script>
 		<script src="../../../js/jquery.min.js"></script>
 		<link rel="stylesheet" type="text/css" href="../../../layui/css/layui.css">
-		<script src="../../../js/jquery.min.js"></script>
 		<script type="text/javascript" src="../../../js/jquery.cookie.js"></script>
-		<script src="../../../layui/layui.all.js"></script>
 		<script src="../../../layui/layui.js"></script>]
 		<style type="text/css">
 			#warpper {
@@ -49,12 +48,13 @@
 		<br><br><br><br><br><br><br>
 		<div id="warpper">
 			<h1 style="font-weight: bolder;">为房源定价</h1><br><br>
-			<input id="price" class="layui-input" style="width: 400px; height: 60px; font-size: 30px;" name="" id="" value="" />
+			<input id="price" class="layui-input"
+			 style="width: 400px; height: 60px; font-size: 30px;"  placeholder="￥" />
 			<br><br><br>
 			<h2 style="font-weight: bolder;">在房客抵达前，您需要提前多久收到通知？</h2><br><br>
 			<form  id="form" class="layui-form" action="" style="width: 400px;font-weight: bolder;">
-				<select  name="modules" lay-verify="required" lay-filter="bedRoom"  lay-search="">
-					<option value="">0天</option>
+				<select  name="modules" lay-verify="required" lay-filter="day"  lay-search="">
+					<option value="0">0天</option>
 					<option value="1">1天</option>
 					<option value="2">3天</option>
 					<option value="3">5天</option>
@@ -69,22 +69,22 @@
 			<br><br>
 			<h3>从:</h3><br>
 			<form  id="form" class="layui-form" action="" style="width: 200px;font-weight: bolder;">
-				<select  name="modules" lay-verify="required" lay-filter="bedRoom"  lay-search="">
-					<option value="">随意</option>
-					<option value="1">10:00</option>
-					<option value="2">12:00</option>
-					<option value="3">14:00</option>
-					<option value="4">16:00</option>
+				<select  name="modules" lay-verify="required" lay-filter="may_check_in_date"  lay-search="">
+					<option value="随意">随意</option>
+					<option value="10:00">10:00</option>
+					<option value="12:00">12:00</option>
+					<option value="14:00">14:00</option>
+					<option value="16:00">16:00</option>
 				</select>
 			</form>
 			<form  id="form" class="layui-form" action="" style=" margin-top: -96px; margin-left: 300px; width: 200px;font-weight: bolder;">
 				<h3>到:</h3><br>
-				<select  name="modules" lay-verify="required" lay-filter="bedRoom"  lay-search="">
-					<option value="">随意</option>
-					<option value="1">10:00</option>
-					<option value="2">12:00</option>
-					<option value="3">14:00</option>
-					<option value="4">16:00</option>
+				<select  name="modules" lay-verify="required" lay-filter="may_check_out_date"  lay-search="">
+					<option value="随意">随意</option>
+					<option value="10:00">10:00</option>
+					<option value="12:00">12:00</option>
+					<option value="14:00">14:00</option>
+					<option value="16:00">16:00</option>
 				</select>
 			</form>
 		</div>
@@ -92,9 +92,9 @@
 			<img src="../../../img/ReleaseRoom/2.png" height="50%">
 		</div>
 		<div id="footBtn" >
-			<button class="layui-btn site-demo-active" onclick="location.href='rules.html'">
+			<button class="layui-btn site-demo-active" onclick="location.href='date.html'">
 				< 返回</button> 
-				<button style="margin-left: 290px; " class="layui-btn " id="btnGo">下一步
+				<button style="margin-left: 290px; " class="layui-btn " id="btnGo">发布
 			</button>
 		</div>
 	</body>
@@ -102,20 +102,100 @@
 		layui.use('form', function(){
 			var form = layui.form
 			,layer = layui.layer
-			form.on('checkbox()', function(data){
+			form.on('checkbox(day)', function(data){
 				if(data.elem.checked) {
-					myRules.push(data.value);
+					day=data.value;
 				} else {
-					myRules.pop(data.value);
+					day=0;
 				}
 				console.log(data.elem.checked); //是否被选中，true或者false
 				console.log(data.value); //复选框value值，也可以通过data.elem.value得到
 			});
+			form.on('select(may_check_in_date)', function(data){
+					may_check_in_date=data.value;
+					console.log(data.value); //复选框value值，也可以通过data.elem.value得到
+			});
+			form.on('select(may_check_out_date)', function(data){
+					may_check_out_date=data.value;
+					console.log(data.value); //是否被选中，true或者false
+			});
 		});
 	</script>
 	<script>
+		//设置cookie
+		function setCookie(cname, cvalue, exdays) {
+		    var d = new Date();
+		    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+		    var expires = "expires="+ d.toUTCString();
+		    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+		} 
+		
+		//验证字符串是否是数字
+		function checkNumber(theObj) {
+		    var reg = /^[0-9]+.?[0-9]*$/;
+		    if (reg.test(theObj)) {
+		        return true;
+		    }
+		    return false;
+		}
+		day=0;
+		may_check_in_date='随意';
+		may_check_out_date='随意';
+		myPrice=0.0;
 		$('#btnGo').on('click', function() {
-			location.href = "houseImage.html";
+			myPrice=$("#price").val();
+			 if (!checkNumber(myPrice)) {
+			    layer.msg("请输入正确价格！")
+			    return false;
+			 }else {
+					house_name=JSON.parse($.cookie('house_name')) 
+				 	allHouseImg= JSON.parse($.cookie('image'))
+				 	lease_type= $.cookie('rent')
+				 	house_type= $.cookie('house')
+				 	house_intake=JSON.parse( $.cookie('personNum')) //房子容纳量
+				 	travel_information= JSON.parse( $.cookie('travel_information')),//出行信息
+				 	house_address= $.cookie('location') //地址
+				 	house_addrId= $.cookie('locationId')//详细地址
+				 	room_number=JSON.parse($.cookie('room_number'))
+				 	address_describe= $.cookie('address_describe')
+				 	house_describe= $.cookie('house_describe')
+				 	toilet_number=JSON.parse( $.cookie('bathRoomNum'))
+				 	bed_number=JSON.parse( $.cookie('bedNum'))
+				 	//守则
+					building_name=$.cookie('myRules');
+				 	//设施
+					facilities_name=$.cookie('mySpace');
+				 	//房东信息
+				 	user_id=JSON.parse($.cookie('userInfo')).user_id
+					console.log(allHouseImg)
+				 map='{"house_name":"'+house_name+'","allHouseImg":"'+allHouseImg+'","lease_type":"'+lease_type+
+				 '+","house_type":"'+house_type+'","house_intake":"'+house_type+
+				 '","house_intake":"'+house_intake+'","travel_information":"'+travel_information+
+				 '","house_address":"'+house_address+'","house_addrId":"'+house_addrId+
+				 '","room_number":"'+room_number+'","address_describe":"'+address_describe+
+				 '","house_describe":"'+house_describe+'","toilet_number":"'+toilet_number+
+				 '","bed_number":"'+bed_number+'","may_check_in_date":"'+may_check_in_date+
+				 '","building_name":"'+building_name+'","may_check_out_date":"'+may_check_out_date+
+				 '","facilities_name":"'+facilities_name+'","user_id":"'+user_id+'"}';
+				 console.log(map);
+				 $.getJSON(basePath+"house.do?method=addHouseInfo&callback=?",
+				 {"houseMap":map},function(result){
+				 	console.log(result)
+				 	if(result.code > 0) {
+						//请求后端添加
+						var index=layer.load(2);
+						layer.msg(result.msg+"去我的房源看看吧！");
+				 		window.setTimeout (function() {
+							layer.close(index);
+				 			//跳转界面
+				 			location.href = "../../index.html";
+				 		},1200);
+				 		
+				 	}else {
+				 		layer.msg("发布失败！");
+				 	}
+				 });
+			 }
 		});
 		
 	</script>

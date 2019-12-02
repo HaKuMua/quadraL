@@ -16,7 +16,7 @@ import org.json.JSONObject;
 import com.zj.service.CheckInPersonService;
 import com.zj.service.impl.CheckInPersonServiceImpl;
 
-import cn.com.uitl.BaseServlet;
+import cn.com.util.BaseServlet;
 
 public class CheckInPersonServlet extends BaseServlet {
 	private static final long serialVersionUID = 1L;
