@@ -33,7 +33,7 @@ public interface ArticleServiceImpl {
 	 * 添加文章
 	 * @throws SQLException 
 	 */
-	int addArticle(Integer user_id,String article_name,String article_content,Integer house_id) throws SQLException;
+	Map<String, Object> addArticle(Map<String, Object> addArticleInfo) throws SQLException;
 	/**
 	 * 通过id删除文章
 	 * @throws SQLException 
@@ -49,11 +49,6 @@ public interface ArticleServiceImpl {
 	 * @throws SQLException 
 	 */
 	Article queryArticleById(Integer article_id) throws SQLException;
-	/**
-	 * 分页查询所有文章
-	 * @throws SQLException 
-	 */
-	List<Article> queryPageArticle(int startRow,int pageSize) throws SQLException;
 	/**
 	 * 查询所有文章数量
 	 * @throws SQLException 
@@ -77,4 +72,8 @@ public interface ArticleServiceImpl {
 	 * @throws SQLException
 	 */
 	List<Map<String, Object>> getPageCommInfo(Integer commPresentPage,Integer article_id) throws SQLException;
+	/**
+	 * 添加文章图片
+	 */
+	Map<String, Object> addArticleImgById(Map<String, Object> addArticleInfo) throws SQLException;
 }
