@@ -27,7 +27,7 @@
 				margin-left: 400px;
 			}
 
-			#searchForm button {
+			#submit {
 				position: absolute;
 				width: 100px;
 				height: 70px;
@@ -92,7 +92,6 @@
 				float: right;
 			}
 		</style>
-		</style>
 	</head>
 	<body>
 		<div id="top" lay-filter="filter">
@@ -103,10 +102,8 @@
 					</a>
 				</li>
 				<li class="layui-nav-item ">
-					<form class="layui-form" action="">
-						<input id="topSearch" style=" width: 400px;height:48px; font-weight: bold; font-size: 20px; " name="search"
+						<input id="topSearch" style="width: 400px;height:48px; font-weight: bold; font-size: 20px; " name="search"
 						 placeholder="搜一搜" autocomplete="off" class="layui-input">
-					</form>
 				</li>
 				<div id="rightNav">
 					<li class="layui-nav-item"><a href="">故事</a></li>
@@ -145,12 +142,12 @@
 					<div style=" width: 80px;height: 69px; margin-top:-100px;margin-left:400px;line-height:70px;text-align:center;
 					font-size:21px;background-color: white;color: #8D8D8D; position: absolute; font-weight:bolder;">房源</div>
 				</label>
-				<form class="layui-form " action="" id="searchForm">
-					<input id="search" class="layui-input " name="searchAll" placeholder="输入目的地、城市或景点" autocomplete="off">
-					<!-- <div id="check" style=" line-height: 38px; cursor: pointer; border-bottom: 1px solid #e2e2e2;"class="checkDate" ></div> -->
-					<input type="text" class="layui-input checkDate" id="check" placeholder="入住日期-退房日期">
-					<button type="submit" class="layui-btn" lay-submit lay-filter="searchAllBtn">搜索</button>
-				</form>
+					<div >
+						<input id="search" class="layui-input " name="searchAll" placeholder="输入目的地、城市或景点" autocomplete="off">
+						<!-- <div id="check" style=" line-height: 38px; cursor: pointer; border-bottom: 1px solid #e2e2e2;"class="checkDate" ></div> -->
+						<input type="text" class="layui-input checkDate" id="check" placeholder="入住日期-退房日期">
+						<button id="submit" type="button" class="layui-btn" lay-submit lay-filter="searchAllBtn">搜索</button>
+					</div>
 			</div>
 		</div>
 		<div id="main">
@@ -205,13 +202,13 @@
 						</a>
 					</div>
 					<div class="layui-col-xs4">
-						<a href=" " style="width=100px;">
+						<a href=" " style="width:100px;">
 							<img src="../img/tag/2.svg">
 							<h3><b>专业中文客服</b> (86)400-841-8888、(86)010-8783-3463，24小时服务</h3>
 						</a>
 					</div>
 					<div class="layui-col-xs4">
-						<a href=" " style="width=100px;">
+						<a href=" " style="width:100px;">
 							<img src="../img/tag/3.svg">
 							<h3><b>旅行安全保障</b> 多重风险控制设计，全方位保障您的行程安全</h3>
 						</a>
@@ -364,12 +361,12 @@
 	</script>
 	<script>
 		userInfo = {
-			user_id: '111',
-			user_name: '',
-			user_img: '',
-			islanlord: ''
+			user_id: null,
+			user_name: null,
+			user_img: '/image/userImg/timg.jpg',
+			islanlord: null,
+			Idcard:null
 		};
-		
 		var listHouse1 = [{
 				house_name: '下榻日式风格的房源去畅玩太古里',
 				house_id: '1001',
@@ -478,13 +475,21 @@
 			}
 		]
 		window.onload = function() {
-			// jsonInfo = JSON.parse(getCookie('userInfo'));
-			// if(jsonInfo != null) {
-			// 	userInfo=jsonInfo;
-			// }
-			console.log(userInfo.user_id == '')
+			json = getCookie('userInfo');
+			if (json != '' || json == null) {
+				jsonInfo = JSON.parse(json);
+				if (jsonInfo != null) {
+					userInfo = jsonInfo;
+					if(userInfo.Idcard ==null) {
+						alert(11)
+						IDcardVa();
+					}
+				}
+			}
+			
+			console.log(userInfo.user_id == null)
 			//初始化导航栏
-			if (userInfo.user_id != '') {
+			if (userInfo.user_id != null) {
 				var html = '<li class="layui-nav-item " id="china"> <a href="" >房源订单中心</a></li>' +
 					'<li class="layui-nav-item"><a href="">故事</a></li>' +
 					'<li class="layui-nav-item"><a href="">信息<span class="layui-badge-dot"></a> </li>' +
@@ -601,7 +606,6 @@
 			var end = dateEnd.replace('年', '-');
 			end = end.replace('月', '-');
 			end = end.replace('日', '');
-			alert(end)
 			var date1Str = start.split("-"); //将日期字符串分隔为数组,数组元素分别为年.月.日
 			//根据年 . 月 . 日的值创建Date对象
 			var date1Obj = new Date(date1Str[0], (date1Str[1] - 1), date1Str[2]);
@@ -614,7 +618,6 @@
 			var days = Math.abs(minusDays); //取绝对值
 			return days;
 		}
-		var date = new Date().Format("yyyy-MM-dd");
 		/**
 		 * 时间格式化
 		 * @param {Date} dateVal 
@@ -659,6 +662,40 @@
 			timeArr.push(formatDate(startTime))
 			return timeArr
 		}
+		//搜索框监听
+		$(document).ready(function(){
+		  $("#topSearch").keyup(function(event){
+			   switch(event.keyCode) {
+				 	 case 13:
+						url="search.html?addr="+$("#topSearch").val()
+					   location.href = encodeURI(url) ;
+				 	  return;
+				 	 }
+		  
+		  });
+		});
+		//搜索按钮监听
+		$("#submit").on("click",function() {
+			var date= $("#check").val();
+			var addr =$("#search").val()
+			alert(date)
+			alert(addr)
+			url="search.html?addr="+addr+"&date="+date;
+			location.href = encodeURI(url) ;
+		});
+		
+		//实名验证
+		function IDcardVa(){
+				var index = layer.open({
+					type: 2,
+					title: false,
+					closeBtn: false,
+					area: ['400px', '400px'],
+					offset: 'auto',
+					shade: 0.6,
+					content: ['tipsIframe.html', 'no']
+				});
+			}
 	</script>
 	<script>
 		layui.use(['carousel', 'form', 'element', 'layer', 'laydate'], function() {
@@ -670,15 +707,9 @@
 				element = layui.element; //导航的hover效果、二级菜单等功能，需要依赖element模块
 			laydate.render({
 				elem: '#check', //指定元素
-				format: 'yyyy年MM月dd日',
-				min: date,
-				range: true,
-				done: function(value, date, endDate) {
-					dateArr = generateFun(new Date(formatTime(date.year, date.month, date.date)), new Date(formatTime(endDate.year,
-						endDate.month, endDate.date)));
-					console.log(dateArr)
-					DateNum = dateArr.length - 1;
-				}
+				format: 'yyyy-MM-dd',
+				min: new Date().Format("yyyy-MM-dd"),
+				range: true
 			});
 			//监听导航点击
 			element.on('nav(demo)', function(elem) {
@@ -688,7 +719,6 @@
 			element.on('nav(filter)', function(elem) {
 				console.log(elem); //得到当前点击的DOM对象
 			});
-			var html = '';
 			var active = {
 				login: function() {
 					//示范一个公告层
@@ -713,10 +743,7 @@
 			form.on('submit(searchAllBtn)', function(data) {
 				console.log(data.form) //被执行提交的form对象，一般在存在form标签时才会返回
 				console.log(data.field) //当前容器的全部表单字段，名值对形式：{name: value}
-				var startDate = $("#check").val().split('-')[0];
-				var endDate = $("#check").val().split('-')[1];
-				var day = getDateNumber(startDate, endDate);
-				alert(day)
+				
 				return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
 			});
 			//图片轮播

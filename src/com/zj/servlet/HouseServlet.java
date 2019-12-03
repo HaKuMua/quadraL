@@ -111,7 +111,9 @@ public class HouseServlet extends BaseServlet {
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			map.put("code", "0");
 			HashMap<String, Object> data = new HashMap<String, Object>();
-			data.put("src", url);
+			//将图片地址存到数据库(因为浏览器不能直接访问本地路径，会报错)；
+			String dataBaseUrl="/image"+url.substring(10);
+			data.put("src", dataBaseUrl);
 			map.put("data", data);
 			JSONObject obj = new JSONObject(map);
 			// 如果上传成功返回1
