@@ -21,7 +21,9 @@ import cn.com.util.BaseServlet;
 import cn.com.util.CheckoutEmail;
 import cn.com.util.CheckoutIDCard;
 import cn.com.util.CheckoutPhoneNumber;
+import cn.com.util.CloudInfDemo;
 import cn.com.util.FileLoadServletUtil;
+import cn.com.util.NumberUtil;
 
 import com.alibaba.fastjson.JSON;
 import com.zj.entity.User;
@@ -37,7 +39,8 @@ public class UserServlet extends BaseServlet {
 	private UserServiceImpl userServiceImpl = new UserService();
 	private String map;
 	private String callback;
-	private Integer user_id;
+	private String user_id;
+	private String user_phone;
 //	private Logger log = new 
 	/**
 	 * 邮箱/电话密码登录
@@ -65,7 +68,7 @@ public class UserServlet extends BaseServlet {
 		Map<String, Object> sendMap = new HashMap<String, Object>();
 		Map<String, Object> map = new HashMap<String, Object>();
 		String user_phone=myMap.get("user_phone").toString();
-		Integer code=new Integer(myMap.get("user_phone").toString());
+		Integer code=new Integer(request.getSession().getAttribute("code").toString());
 		sendMap = userServiceImpl.loginByPhone(user_phone,code);
 		map.put("userInfo",sendMap);
 		JSONObject obj = new JSONObject(map);
@@ -129,4 +132,27 @@ public class UserServlet extends BaseServlet {
 		// 如果上传成功返回1
 		response.getWriter().print(obj);
 	}
+
+	/**
+	 * 获取手机验证码
+	 * @param request
+	 * @param response
+	 * @throws FileUploadException
+	 * @throws IOException
+	 */
+	public void getPhoneCode(HttpServletRequest request,HttpServletResponse response) throws FileUploadException, IOException {
+		String code = NumberUtil.newCode();
+		Map<String, Object> hintMap = new HashMap<String, Object>();
+		//检验手机号是否正确
+		if(CheckoutPhoneNumber.isPhoneNumberValid(user_phone)){
+			hintMap.put("hint", "发送成功！");
+			CloudInfDemo.sendSmsCode(user_phone, code);
+			request.getSession().setAttribute("code", code);
+		}else{
+			hintMap.put("hint", "发送失败！");
+		}
+		JSONObject obj = new JSONObject(hintMap);
+		response.getWriter().print(callback+"("+obj+")");
+	}
+	
 }
