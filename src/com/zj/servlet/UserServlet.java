@@ -126,13 +126,16 @@ public class UserServlet extends BaseServlet {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("code", "0");
 		HashMap<String, Object> data = new HashMap<String, Object>();
-		data.put("src", url);
-		data.put("userInfo", userServiceImpl.addUserHead(Integer.valueOf(user_id), url));
+		//将图片地址存到数据库(因为浏览器不能直接访问本地路径，会报错)；
+		String dataBaseUrl="/image"+url.substring(10);
+		data.put("src", dataBaseUrl);
+		data.put("userInfo", userServiceImpl.addUserHead(user_id, dataBaseUrl));
 		map.put("data", data);
 		JSONObject obj = new JSONObject(map);
 		// 如果上传成功返回1
 		response.getWriter().print(obj);
 	}
+
 	/**
 	 * 获取手机验证码
 	 * @param request
