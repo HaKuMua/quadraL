@@ -39,7 +39,7 @@ public interface UserServiceImpl {
 	/**
 	 * 手机号登录
 	 */
-	Map<String, Object> loginByPhone(String user_phone,Integer code);
+	Map<String, Object> loginByPhone(String user_phone,Integer code,Integer myCode);
 	
 	/**
 	 * 用户实名认证

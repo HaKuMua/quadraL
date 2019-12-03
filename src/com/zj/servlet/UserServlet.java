@@ -54,8 +54,6 @@ public class UserServlet extends BaseServlet {
 		sendMap = userServiceImpl.loginByCode(myMap);
 		JSONObject obj = new JSONObject(sendMap);
 		response.getWriter().print(callback + "(" + obj + ")");
-		
-		
 	}
 	
 	/**
@@ -66,12 +64,11 @@ public class UserServlet extends BaseServlet {
 		@SuppressWarnings("unchecked")
 		Map<String, Object> myMap = (Map<String, Object>) JSON.parse(map);
 		Map<String, Object> sendMap = new HashMap<String, Object>();
-		Map<String, Object> map = new HashMap<String, Object>();
 		String user_phone=myMap.get("user_phone").toString();
 		Integer code=new Integer(request.getSession().getAttribute("code").toString());
-		sendMap = userServiceImpl.loginByPhone(user_phone,code);
-		map.put("userInfo",sendMap);
-		JSONObject obj = new JSONObject(map);
+		Integer myCode =new Integer( myMap.get("code").toString());
+		sendMap = userServiceImpl.loginByPhone(user_phone,myCode,code);
+		JSONObject obj = new JSONObject(sendMap);
 		response.getWriter().print(callback+"("+obj+")");
 	}
 	
@@ -115,7 +112,13 @@ public class UserServlet extends BaseServlet {
 		response.getWriter().print(callback+"("+obj+")");
 	}
 	
-	//上传头像并修改头像
+	/**
+	 * 上传头像并修改头像
+	 * @param request
+	 * @param response
+	 * @throws FileUploadException
+	 * @throws IOException
+	 */
 	public void uploadImg(HttpServletRequest request,HttpServletResponse response) throws FileUploadException, IOException {
 		// 图片上传并且返回保存的路径
 		String url = FileLoadServletUtil.upload(request, response,
@@ -126,7 +129,7 @@ public class UserServlet extends BaseServlet {
 		//将图片地址存到数据库(因为浏览器不能直接访问本地路径，会报错)；
 		String dataBaseUrl="/image"+url.substring(10);
 		data.put("src", dataBaseUrl);
-		data.put("userInfo", userServiceImpl.addUserHead(user_id, dataBaseUrl));
+		data.put("userInfo", userServiceImpl.addUserHead(new Integer(user_id), dataBaseUrl));
 		map.put("data", data);
 		JSONObject obj = new JSONObject(map);
 		// 如果上传成功返回1
@@ -152,6 +155,22 @@ public class UserServlet extends BaseServlet {
 			hintMap.put("hint", "发送失败！");
 		}
 		JSONObject obj = new JSONObject(hintMap);
+		response.getWriter().print(callback+"("+obj+")");
+	}
+	
+	/**
+	 * 实名认证
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 */
+	public void IdCardVal(HttpServletRequest request,HttpServletResponse response) throws IOException {
+		System.out.println(map);
+		@SuppressWarnings("unchecked")
+		Map<String, Object> myMap = (Map<String, Object>) JSON.parse(map);
+		Map<String, Object> sendMap = new HashMap<String, Object>();
+		sendMap = userServiceImpl.setRealName(myMap);
+		JSONObject obj = new JSONObject(sendMap);
 		response.getWriter().print(callback+"("+obj+")");
 	}
 	

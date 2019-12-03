@@ -148,12 +148,12 @@
 			    layer.msg("请输入正确价格！")
 			    return false;
 			 }else {
-					house_name=JSON.parse($.cookie('house_name')) 
+					house_name=$.cookie('house_name') 
 				 	allHouseImg= JSON.parse($.cookie('image'))
 				 	lease_type= $.cookie('rent')
 				 	house_type= $.cookie('house')
 				 	house_intake=JSON.parse( $.cookie('personNum')) //房子容纳量
-				 	travel_information= JSON.parse( $.cookie('travel_information')),//出行信息
+				 	travel_information= $.cookie('travel_information'),//出行信息
 				 	house_address= $.cookie('location') //地址
 				 	house_addrId= $.cookie('locationId')//详细地址
 				 	room_number=JSON.parse($.cookie('room_number'))
@@ -171,7 +171,7 @@
 				 map='{"house_name":"'+house_name+'","allHouseImg":"'+allHouseImg+'","lease_type":"'+lease_type+
 				 '+","house_type":"'+house_type+'","house_intake":"'+house_type+
 				 '","house_intake":"'+house_intake+'","travel_information":"'+travel_information+
-				 '","house_address":"'+house_address+'","house_addrId":"'+house_addrId+
+				 '","house_address":"'+house_address+'","location_id":"'+house_addrId+
 				 '","room_number":"'+room_number+'","address_describe":"'+address_describe+
 				 '","house_describe":"'+house_describe+'","toilet_number":"'+toilet_number+
 				 '","bed_number":"'+bed_number+'","may_check_in_date":"'+may_check_in_date+

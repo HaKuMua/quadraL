@@ -480,13 +480,12 @@
 				jsonInfo = JSON.parse(json);
 				if (jsonInfo != null) {
 					userInfo = jsonInfo;
-					if(userInfo.Idcard ==null) {
-						alert(11)
+					console.log(userInfo);
+					if(userInfo.user_IDcard == null) {
 						IDcardVa();
 					}
 				}
 			}
-			
 			console.log(userInfo.user_id == null)
 			//初始化导航栏
 			if (userInfo.user_id != null) {
@@ -564,7 +563,6 @@
 					}
 					$(this).attr("class", "layui-btn layui-bg-green")
 					var addr = $(this).text();
-					alert(addr) //后台去请求房子信息
 					for (var k = 0; k < listHouse.length; k++) {
 						var html = '<div class="layui-col-xs4"><a href="host/home.html?houseId=' + listHouse[k].house_id + '">' +
 							'<img src="' + listHouse[k].house_img + '" ><br><span>' + listHouse[k].house_type + '·' +
@@ -678,8 +676,6 @@
 		$("#submit").on("click",function() {
 			var date= $("#check").val();
 			var addr =$("#search").val()
-			alert(date)
-			alert(addr)
 			url="search.html?addr="+addr+"&date="+date;
 			location.href = encodeURI(url) ;
 		});
@@ -690,7 +686,7 @@
 					type: 2,
 					title: false,
 					closeBtn: false,
-					area: ['400px', '400px'],
+					area: ['550px', '600px'],
 					offset: 'auto',
 					shade: 0.6,
 					content: ['tipsIframe.html', 'no']

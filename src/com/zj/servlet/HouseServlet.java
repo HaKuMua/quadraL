@@ -74,9 +74,11 @@ public class HouseServlet extends BaseServlet {
 		Integer userID = Integer.valueOf(JSON.parse(user_id).toString());
 		List<Map<String, Object>> list = houseService.getHouseByID(userID);
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("houseList", list);
+		map.put("status",0);
+		map.put("msg", "查询成功");
+		map.put("data", list);
 		JSONObject json = new JSONObject(map);
-		response.getWriter().print(callback + "(" + json + ")");
+		response.getWriter().print(json);
 	}
 
 	/**

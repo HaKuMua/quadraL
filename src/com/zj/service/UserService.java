@@ -153,7 +153,7 @@ public class UserService implements UserServiceImpl {
 	 * 
 	 * @throws SQLException
 	 */
-	public Map<String, Object> loginByPhone(String user_phone, Integer code) {
+	public Map<String, Object> loginByPhone(String user_phone, Integer code,Integer myCode) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		boolean bool = CheckoutPhoneNumber.isPhoneNumberValid(user_phone);
 		if (bool) {// 手机号格式正确
@@ -161,10 +161,9 @@ public class UserService implements UserServiceImpl {
 			try {
 				count = userDaoImpl.queryPhoneExit(user_phone);
 				User userInfo = null;
-				if (count > 0) {
-					// 手机号已存在，验证码登录
-					Integer myCode = 1234;// 真实验证码
-					if (code != myCode) {
+				System.out.println(code+"----"+myCode);
+				if (count > 0) {// 手机号已存在，验证码登录
+					if ( !code.equals(myCode)) {
 						map.put("msg", "验证码不正确，登录失败！");
 						return map;
 					} else {
@@ -200,6 +199,7 @@ public class UserService implements UserServiceImpl {
 				userMap.put("inform_date", userInfo.getInform_date());
 				map.put("userInfo", userMap);
 			} catch (Exception e) {
+				e.printStackTrace();
 				map.put("msg", "注册失败！");
 				return map;
 			}
@@ -474,9 +474,11 @@ public class UserService implements UserServiceImpl {
 		Integer count = -1;
 		try {
 			count = userDaoImpl.setRealName(user_id, real_name, user_IDcard);
+			System.out.println("count::"+count);
 		} catch (Exception e) {
+			e.printStackTrace();
 			// 认证失败
-			map.put("msg", "认证失败！");
+			map.put("msg", "没有此人，认证失败！");
 			return map;
 		}
 		if (count > 0) {
@@ -501,7 +503,7 @@ public class UserService implements UserServiceImpl {
 				map.put("msg", "认证成功！");
 			} catch (SQLException e) {
 				// 认证失败
-				map.put("msg", "认证失败！");
+				map.put("msg", "未知原因，认证失败！");
 				return map;
 			}
 		} else {
