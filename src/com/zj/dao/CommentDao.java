@@ -63,8 +63,8 @@ public class CommentDao implements CommentDaoImpl{
 	 * 分页查询一篇文章评论
 	 * @throws SQLException 
 	 */
-	public List<Comment> queryPageComment(Integer article_id, int startRow,
-			int pageSize) throws SQLException {
+	public List<Comment> queryPageComment(Integer article_id, Integer startRow,
+			Integer pageSize) throws SQLException {
 		conn = GetConn.getConn();
 		String sql = "(select * from comment where article_id = ?) limit ?,?";
 		List<Comment> data =  qr.query(conn, sql, new BeanListHandler<Comment>(Comment.class),article_id, startRow,pageSize);

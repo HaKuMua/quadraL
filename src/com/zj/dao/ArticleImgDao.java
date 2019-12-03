@@ -12,6 +12,7 @@ import cn.com.util.GetConn;
 
 import com.zj.dao.impl.ArticleImgDaoImpl;
 import com.zj.entity.ArticleImg;
+
 /**
  * 
  * @author liyifeng
@@ -20,6 +21,7 @@ import com.zj.entity.ArticleImg;
 public class ArticleImgDao implements ArticleImgDaoImpl{
 	private QueryRunner qr = new QueryRunner();
 	private Connection conn = null;
+	
 	/**
 	 * 给文章添加图片
 	 * @throws SQLException 

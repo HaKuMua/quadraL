@@ -154,44 +154,52 @@ public class UserService implements UserServiceImpl {
 	 * 
 	 * @throws SQLException
 	 */
-	public Map<String, Object> loginByPhone(String user_phone) {
+	public Map<String, Object> loginByPhone(String user_phone, Integer code) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		boolean bool = CheckoutPhoneNumber.isPhoneNumberValid(user_phone);
 		if (bool) {// 手机号格式正确
 			Integer count;
 			try {
 				count = userDaoImpl.queryPhoneExit(user_phone);
+				User userInfo = null;
 				if (count > 0) {
 					// 手机号已存在，验证码登录
+					Integer myCode = 1234;// 真实验证码
+					if (code != myCode) {
+						map.put("msg", "验证码不正确，登录失败！");
+						return map;
+					} else {
+						map.put("msg", "登录成功！");
+						userInfo = userDaoImpl.getUserInfoByPhone(user_phone);
+					}
 				} else {
 					// 手机号不存在，直接注册
 					String user_name = UUIDGenerator.getUUID().substring(0, 7);
 					count = userDaoImpl.addUser(user_name, user_phone);
-					if (count > 0) {// 注册成功
-						User userInfo = userDaoImpl.getUserInfoByPhoneAndName(
-								user_name, user_phone);
-						Map<String, Object> userMap = new HashMap<String, Object>();
-						userMap.put("user_id", userInfo.getUser_id());
-						userMap.put("user_name", userInfo.getUser_name());
-						userMap.put("user_headimg_url",
-								userInfo.getUser_headimg_url());
-						userMap.put("user_email", userInfo.getUser_email());
-						userMap.put("user_phone", userInfo.getUser_phone());
-						userMap.put("user_IDcard", userInfo.getUser_IDcard());
-						userMap.put("is_landlord", userInfo.getIs_landlord());
-						userMap.put("user_pwd", userInfo.getUser_pwd());
-						userMap.put("money", userInfo.getMoney());
-						userMap.put("real_name", userInfo.getReal_name());
-						userMap.put("user_describe",
-								userInfo.getUser_describe());
-						userMap.put("inform_date", userInfo.getInform_date());
-						map.put("userInfo", userMap);
-						map.put("msg", "注册成功！");
-					} else {
+					if (count < 0) {// 注册成功
 						// 注册失败
 						map.put("msg", "注册失败！");
+						return map;
+					} else {
+						map.put("msg", "注册成功！");
+						userInfo = userDaoImpl.getUserInfoByPhoneAndName(
+								user_name, user_phone);
 					}
 				}
+				Map<String, Object> userMap = new HashMap<String, Object>();
+				userMap.put("user_id", userInfo.getUser_id());
+				userMap.put("user_name", userInfo.getUser_name());
+				userMap.put("user_headimg_url", userInfo.getUser_headimg_url());
+				userMap.put("user_email", userInfo.getUser_email());
+				userMap.put("user_phone", userInfo.getUser_phone());
+				userMap.put("user_IDcard", userInfo.getUser_IDcard());
+				userMap.put("is_landlord", userInfo.getIs_landlord());
+				userMap.put("user_pwd", userInfo.getUser_pwd());
+				userMap.put("money", userInfo.getMoney());
+				userMap.put("real_name", userInfo.getReal_name());
+				userMap.put("user_describe", userInfo.getUser_describe());
+				userMap.put("inform_date", userInfo.getInform_date());
+				map.put("userInfo", userMap);
 			} catch (Exception e) {
 				map.put("msg", "注册失败！");
 				return map;
@@ -421,7 +429,8 @@ public class UserService implements UserServiceImpl {
 	 * 
 	 * @throws SQLException
 	 */
-	public Map<String, Object> addUserHead(Integer user_id,String user_headimg_url) {
+	public Map<String, Object> addUserHead(Integer user_id,
+			String user_headimg_url) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		int count;
 		try {

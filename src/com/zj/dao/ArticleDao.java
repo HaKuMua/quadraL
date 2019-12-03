@@ -21,6 +21,7 @@ import com.zj.entity.Article;
 public class ArticleDao implements ArticleDaoImpl{
 	private QueryRunner qr = new QueryRunner();
 	private Connection conn = null;
+	
 	/**
 	 * 添加文章
 	 * @throws SQLException 
@@ -28,9 +29,8 @@ public class ArticleDao implements ArticleDaoImpl{
 	public int addArticle(Integer user_id, String article_name,
 			String article_content,Integer house_id) throws SQLException {
 		conn = GetConn.getConn();
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-		String sql = "update article(article_name,article_content,article_date,house_id) values(?,?,?) where user_id = ?";
-		int data = qr.update(conn, sql, article_name,article_content,format.format(new Date()),house_id,user_id);
+		String sql = "insert into article(user_id,article_name,article_content,house_id) values(?,?,?,?)";
+		int data = qr.update(conn, sql,user_id, article_name,article_content,house_id);
 		GetConn.closeConn(conn);
 		return data;
 	}
@@ -119,6 +119,7 @@ public class ArticleDao implements ArticleDaoImpl{
 		GetConn.closeConn(conn);
 		return data;
 	}
+	
 	/**
 	 * 获取所有的文章信息
 	 */

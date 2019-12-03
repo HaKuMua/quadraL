@@ -65,7 +65,8 @@ public class UserServlet extends BaseServlet {
 		Map<String, Object> sendMap = new HashMap<String, Object>();
 		Map<String, Object> map = new HashMap<String, Object>();
 		String user_phone=myMap.get("user_phone").toString();
-		sendMap = userServiceImpl.loginByPhone(user_phone);
+		Integer code=new Integer(myMap.get("user_phone").toString());
+		sendMap = userServiceImpl.loginByPhone(user_phone,code);
 		map.put("userInfo",sendMap);
 		JSONObject obj = new JSONObject(map);
 		response.getWriter().print(callback+"("+obj+")");
@@ -125,7 +126,6 @@ public class UserServlet extends BaseServlet {
 		JSONObject obj = new JSONObject(map);
 		// 如果上传成功返回1
 		response.getWriter().print(obj);
-		//response.getWriter().print(callback+"("+obj+")");
 	}
 
 
