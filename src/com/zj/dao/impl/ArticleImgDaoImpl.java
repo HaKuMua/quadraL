@@ -15,7 +15,7 @@ public interface ArticleImgDaoImpl {
 	 * 给文章添加图片
 	 * @throws SQLException 
 	 */
-	int addArticleImg(Integer article_id,String image_url) throws SQLException;
+	int addArticleImg(ArticleImg articleImgInfo) throws SQLException;
 	/**
 	 * 通过id删除文章图片
 	 * @throws SQLException 
@@ -36,4 +36,9 @@ public interface ArticleImgDaoImpl {
 	 * @throws SQLException 
 	 */
 	List<ArticleImg> queryArticleImg() throws SQLException;
+	/**
+	 * 通过文章id删除一篇文章所有图片
+	 * @throws SQLException 
+	 */
+	Integer deleteImgByArticleId(Integer article_id) throws SQLException;
 }

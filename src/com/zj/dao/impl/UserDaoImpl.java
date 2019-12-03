@@ -40,6 +40,7 @@ public interface UserDaoImpl {
 	/**
 	 * 修改用户基础信息
 	 */
+
 	Integer updateBasicInfo(Integer user_id,String user_name,String user_email,String user_describe) throws SQLException;
 	
 	/**
@@ -81,6 +82,7 @@ public interface UserDaoImpl {
 	 * 根据电话/email和密码查询用户
 	 * @throws SQLException 
 	 */
+
 	User queryUserInfo(String user_code,String user_pwd) throws SQLException;
 
 }

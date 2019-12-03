@@ -1,4 +1,4 @@
-package com.zj.servlet;
+﻿package com.zj.servlet;
 
 
 import java.io.IOException;
@@ -179,4 +179,5 @@ public class UserServlet extends BaseServlet {
 		JSONObject json = new JSONObject(noticeMap);
 		response.getWriter().print(json);
 	}
+
 }

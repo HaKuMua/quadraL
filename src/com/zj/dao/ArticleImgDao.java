@@ -26,10 +26,10 @@ public class ArticleImgDao implements ArticleImgDaoImpl{
 	 * 给文章添加图片
 	 * @throws SQLException 
 	 */
-	public int addArticleImg(Integer article_id, String image_url) throws SQLException {
+	public int addArticleImg(ArticleImg articleImgInfo) throws SQLException {
 		conn = GetConn.getConn();
 		String sql = "insert into article_image(article_id,image_url) values(?,?)";
-		int data = qr.update(conn, sql,article_id,image_url );
+		int data = qr.update(conn, sql,articleImgInfo.getArticle_id(),articleImgInfo.getImage_url());
 		GetConn.closeConn(conn);
 		return data;
 	}
@@ -81,4 +81,16 @@ public class ArticleImgDao implements ArticleImgDaoImpl{
 		GetConn.closeConn(conn);
 		return data;
 	}
+	/**
+	 * 通过文章id删除一篇文章所有图片
+	 * @throws SQLException 
+	 */
+	public Integer deleteImgByArticleId(Integer article_id) throws SQLException {
+		conn = GetConn.getConn();
+		String sql = "delete from article_image where article_id = ?";
+		Integer data = qr.update(conn, sql, article_id);
+		GetConn.closeConn(conn);
+		return data;
+	}
+	
 }

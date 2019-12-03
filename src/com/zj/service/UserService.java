@@ -141,6 +141,7 @@ public class UserService implements UserServiceImpl {
 				map.put("msg", "账号或密码错误，登录失败！");
 			}
 		} catch (SQLException e) {
+
 			// 登录失败
 			map.put("msg", "登录失败！");
 			return map;
@@ -222,6 +223,7 @@ public class UserService implements UserServiceImpl {
 		String user_pwdVal = info.get("new_user_pwd2").toString();
 		// 密码正则判断
 		String regPwd = "^(\\w){6,20}$";
+
 		if (user_pwd.equals(user_pwdVal) && user_pwd != null) {// 判断两个密码是否相等
 			Pattern pRegPwd = Pattern.compile(regPwd);
 			Matcher mRegPwd = pRegPwd.matcher(user_pwd);
@@ -277,6 +279,7 @@ public class UserService implements UserServiceImpl {
 	 */
 	public Map<String, Object> updateBasicInfo(Map<String, Object> info) {
 		Map<String, Object> map = new HashMap<String, Object>();
+
 		// 获取所有基本信息
 		Integer user_id = new Integer(info.get("user_id").toString());
 		String user_name = info.get("user_name").toString();
@@ -355,6 +358,7 @@ public class UserService implements UserServiceImpl {
 			if (user_pwd.equals(userInfo.getUser_pwd())) {// 原密码正确
 				// 新密码正则判断
 				String regPwd = "^(\\w){6,20}$";
+
 				if (user_pwd1 == null || user_pwd1.isEmpty()
 						|| user_pwd2 == null || user_pwd2.isEmpty()) {// 密码为空
 					map.put("msg", "密码为空");
@@ -397,6 +401,7 @@ public class UserService implements UserServiceImpl {
 								// 密码设置失败
 								map.put("msg", "密码修改失败");
 							}
+
 						} else {
 							// 密码正则错误
 							map.put("msg", "正则错误，密码修改失败");
@@ -411,6 +416,7 @@ public class UserService implements UserServiceImpl {
 				map.put("msg", "原密码输入有误，修改失败");
 			}
 		} catch (SQLException e) {
+
 			map.put("msg", "修改失败");
 			return map;
 		}
@@ -453,6 +459,7 @@ public class UserService implements UserServiceImpl {
 				map.put("msg", "头像上传失败!");
 			}
 		} catch (SQLException e) {
+
 			e.printStackTrace();
 			map.put("msg", "未知原因，头像上传失败!");
 			return map;
