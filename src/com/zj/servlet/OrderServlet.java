@@ -28,6 +28,7 @@ public class OrderServlet extends BaseServlet {
 	public String grogshop_order_id;
 	public String grogshopOrderInfo;
 	public String checkInPersonInfo;
+	public String user_id;
 	
 	// 返回订单所有信息
 	public void getAllGrogshopOrderInfo(HttpServletRequest request,
@@ -49,7 +50,13 @@ public class OrderServlet extends BaseServlet {
 		JSONObject obj = new JSONObject(map);
 		response.getWriter().print(callback + "(" + obj + ")");
 	}
-	
+	/**
+	 * 添加订单信息
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	public void addOrderInfo(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		@SuppressWarnings("unchecked")
@@ -67,5 +74,35 @@ public class OrderServlet extends BaseServlet {
 			response.getWriter().print(callback+"(信息有误或余额不足)");
 		else
 			response.getWriter().print(callback+"("+json+")");
+	}
+	/**
+	 * 通过用户ID获得此用户的所有订单信息
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
+	public void getOrderInfoByUserID(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		List<Map<String, Object>> list = orderService.getGrogshopOrderInfoByUserID(Integer.valueOf(user_id));
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		JSONObject json = new JSONObject(map);
+		response.getWriter().print(callback+"("+json+")");
+	}
+	/**
+	 * 通过房东ID获得所有在此房东的房子下单的用户信息
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
+	public void getUserInfoByLandlordID(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		List<Map<String, Object>> list = orderService.getGrogshopOrderInfoByLandlordID(Integer.valueOf(user_id));
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		JSONObject json = new JSONObject(map);
+		response.getWriter().print(callback+"("+json+")");
 	}
 }
