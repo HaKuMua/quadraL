@@ -24,4 +24,11 @@ public interface ReserveDaoImpl {
 	 * @throws SQLException
 	 */
 	int addReserve(Reserve reserve) throws SQLException;
+	/**
+	 * 通过房子ID获得一组此房子的预定信息
+	 * @param house_id 房子ID
+	 * @return
+	 * @throws SQLException
+	 */
+	List<Reserve> getReserveByHouseID(Integer house_id) throws SQLException;
 }

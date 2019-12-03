@@ -46,4 +46,18 @@ public class ReserveDao implements ReserveDaoImpl{
 		GetConn.closeConn(conn);
 		return data;
 	}
+	/**
+	 * 通过房子ID获得一组此房子的预定信息
+	 * @param house_id 房子ID
+	 * @return
+	 * @throws SQLException
+	 */
+	public List<Reserve> getReserveByHouseID(Integer house_id)
+			throws SQLException {
+		conn = GetConn.getConn();
+		String sql = "select * from reserve where house_id=?";
+		List<Reserve> data = qr.query(conn, sql, new BeanListHandler<Reserve>(Reserve.class), house_id);
+		GetConn.closeConn(conn);
+		return data;
+	}
 }

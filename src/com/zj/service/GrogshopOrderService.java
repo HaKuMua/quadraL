@@ -14,10 +14,12 @@ import cn.com.util.UUIDGenerator;
 
 import com.zj.dao.CheckInPersonDao;
 import com.zj.dao.GrogshopOrderDao;
+import com.zj.dao.NoticeDao;
 import com.zj.dao.ReserveDao;
 import com.zj.dao.UserDao;
 import com.zj.dao.impl.CheckInPersonDaoImpl;
 import com.zj.dao.impl.GrogshopOrderDaoImpl;
+import com.zj.dao.impl.NoticeDaoImpl;
 import com.zj.dao.impl.ReserveDaoImpl;
 import com.zj.dao.impl.UserDaoImpl;
 import com.zj.entity.CheckInPerson;
@@ -36,6 +38,7 @@ public class GrogshopOrderService implements GrogshopOrderServiceImpl{
 	private ReserveDaoImpl reserveDaoImpl = new ReserveDao();
 	private CheckInPersonDaoImpl checkInPersonDaoImpl = new CheckInPersonDao();
 	private UserDaoImpl userDaoImpl = new UserDao();
+	private NoticeDaoImpl noticeDaoImpl = new NoticeDao();
 	private Logger log = Logger.getLogger(GrogshopOrderService.class);
 	/**
 	 * 将所有订单信息包装成一个list<map>返回 
@@ -137,6 +140,8 @@ public class GrogshopOrderService implements GrogshopOrderServiceImpl{
 				log.debug("订单信息插入失败");
 				return null;
 			}
+			//插入通知
+			noticeDaoImpl.addNotice("用户"+user_id+"在您这预定了房子", user_id);
 			//插入入住人表
 			for(Map<String, Object> checkInPersonMap : checkInPersonInfoMap){
 				CheckInPerson checkInPerson = new CheckInPerson();

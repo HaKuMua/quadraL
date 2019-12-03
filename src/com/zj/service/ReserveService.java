@@ -20,11 +20,12 @@ public class ReserveService implements ReserveServiceImpl{
 	private ReserveDaoImpl reserveDaoImpl = new ReserveDao();
 	private Logger log = Logger.getLogger(ReserveService.class);
 	private UserDaoImpl  userDaoImpl = new UserDao(); 
-	@Override
+	/**
+	 * 获得所有预订表信息
+	 */
 	public List<Map<String, Object>> getAllReserve() {
 		List<Map<String, Object>> list = null;
 		try {
-			
 			List<Reserve> reserveList = reserveDaoImpl.getAllReserve();
 			if(reserveList != null){
 				list = new ArrayList<Map<String,Object>>();
@@ -47,6 +48,24 @@ public class ReserveService implements ReserveServiceImpl{
 		}
 		return list;
 	}
+	/**
+	 * 获得所有已预订时间
+	 * @return
+	 */
+	public List<String> getReserveDate(Integer house_id) {
+		List<String> dateList = new ArrayList<String>();
+		try {
+			List<Reserve> list = reserveDaoImpl.getReserveByHouseID(house_id);
+			for(Reserve reserve : list){
+				String date = reserve.getReserve_date()+"and"+reserve.getCheck_out_date();
+				dateList.add(date);
+			}
+		} catch (SQLException e) {
+			log.error("数据库操作异常");
+		}
+		return dateList;
+	}
+	
 //	/**
 //	 * 添加一个订单预定信息方法
 //	 * @param reserve

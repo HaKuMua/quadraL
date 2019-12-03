@@ -27,7 +27,9 @@ import cn.com.util.NumberUtil;
 
 import com.alibaba.fastjson.JSON;
 import com.zj.entity.User;
+import com.zj.service.NoticeService;
 import com.zj.service.UserService;
+import com.zj.service.impl.NoticeServiceImpl;
 import com.zj.service.impl.UserServiceImpl;
 /**
  * 用户
@@ -37,6 +39,7 @@ import com.zj.service.impl.UserServiceImpl;
 public class UserServlet extends BaseServlet {
 	private static final long serialVersionUID = 1L;
 	private UserServiceImpl userServiceImpl = new UserService();
+	private NoticeServiceImpl noticeServiceImpl = new NoticeService();
 	private String map;
 	private String callback;
 	private String user_id;
@@ -151,5 +154,14 @@ public class UserServlet extends BaseServlet {
 		JSONObject obj = new JSONObject(hintMap);
 		response.getWriter().print(callback+"("+obj+")");
 	}
-	
+	/**
+	 * 通过用户ID获得一组通知信息
+	 */
+	public void getNoticeByUserID(HttpServletRequest request,HttpServletResponse response) throws FileUploadException, IOException {
+		List<Map<String, Object>> list = noticeServiceImpl.getNoticeInfoByUserID(Integer.valueOf(user_id));
+		Map<String, Object> noticeMap = new HashMap<String, Object>();
+		noticeMap.put("list", list);
+		JSONObject json = new JSONObject(noticeMap);
+		response.getWriter().print(json);
+	}
 }
