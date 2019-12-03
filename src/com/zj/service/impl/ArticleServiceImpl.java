@@ -31,37 +31,6 @@ public interface ArticleServiceImpl {
 	 * @throws SQLException 
 	 */
 	List<Map<String, Object>> getOneArticleInfo(Integer article_id) throws SQLException;
-	
-	/**
-	 * 添加文章
-	 * @throws SQLException 
-	 */
-	Map<String, Object> addArticle(Map<String, Object> addArticleInfo) throws SQLException;
-	/**
-	 * 通过id删除文章
-	 * @throws SQLException 
-	 */
-	int deleteArticleById(Integer article_id) throws SQLException;
-	/**
-	 * 通过id查询文章
-	 * @throws SQLException 
-	 */
-	Article queryArticleById(Integer article_id) throws SQLException;
-	/**
-	 * 查询所有文章数量
-	 * @throws SQLException 
-	 */
-	Long queryCountArticle() throws SQLException;
-	/**
-	 * 更新赞数量
-	 * @throws SQLException 
-	 */
-	int updateArticle_praiset(Integer article_praise,Integer article_id) throws SQLException;
-	/**
-	 * 更新收藏数量
-	 * @throws SQLException 
-	 */
-	int updateArticle_collect(Integer article_id,Integer article_collect) throws SQLException;
 	/**
 	* 分页显示评论方法接口
 	 * @param commPresentPage
@@ -71,7 +40,11 @@ public interface ArticleServiceImpl {
 	 */
 	List<Map<String, Object>> getPageCommInfo(Integer commPresentPage,Integer article_id) throws SQLException;
 	/**
-	 * 添加文章图片
+	 * 添加文章
 	 */
-	Map<String, Object> addArticleImgById(Map<String, Object> addArticleInfo) throws SQLException;
+	Integer addArticleInfo(Map<String, Object> addArticleInfo);
+	/**
+	 * 删除文章
+	 */
+	Integer deleteArticleInfo(Integer article_id);
 }

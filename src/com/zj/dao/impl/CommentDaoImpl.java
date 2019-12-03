@@ -55,4 +55,9 @@ public interface CommentDaoImpl {
 	 * @throws SQLException 
 	 */
 	Long queryPraiseCount(Integer comment_id) throws SQLException;
+	/**
+	 * 通过文章id删除一篇文章的所有评论
+	 * @throws SQLException 
+	 */
+	Integer deleteCommByArticleId(Integer article_id) throws SQLException;
 }

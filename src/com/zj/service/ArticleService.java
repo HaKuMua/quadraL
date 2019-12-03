@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 
 
 
@@ -44,7 +46,7 @@ public class ArticleService implements ArticleServiceImpl{
 	private UserDaoImpl userDaoImpl = new UserDao();
 	private HouseDaoImpl houseDaoImpl = new HouseDao();
 	private HouseImgDaoImpl houseImgDaoImpl = new HouseImgDao();
-	
+	private Logger log = Logger.getLogger(HouseService.class);
 	/**
 	 * 获得所有文章
 	 * @return
@@ -87,6 +89,7 @@ public class ArticleService implements ArticleServiceImpl{
 	 */
 	public List<Map<String, Object>> getPageArticleInfo(Integer presentPage) {
 		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+		Map<String, Object> map = new HashMap<String, Object>();
 		//文章分页
 		Long articleCount = 1l;
 		try {
@@ -97,7 +100,7 @@ public class ArticleService implements ArticleServiceImpl{
 		}
 		PageUtil<Article> pu = new PageUtil<Article>();
 		pu.setCountRow(articleCount.intValue());
-		pu.setCurrentPage(articlePresentPage);
+		pu.setCurrentPage(presentPage);
 		int articleStartRow = pu.getStartRow();
 		int articlePageSize = pu.getPageSize();
 		List<Article> pageArticle = null;
@@ -161,11 +164,17 @@ public class ArticleService implements ArticleServiceImpl{
 	 * 一篇文章所有信息
 	 * @throws SQLException 
 	 */
-	public List<Map<String, Object>> getOneArticleInfo(Integer article_id) {
+	public List<Map<String, Object>> getOneArticleInfo(Integer article_id) throws SQLException {
 		Map<String, Object> map = new HashMap<String, Object>();
 		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
 		//获得该文章
-		Article oneArticle = articleDaoImpl.queryArticleById(article_id);
+		Article oneArticle = null;
+		try {
+			oneArticle = articleDaoImpl.queryArticleById(article_id);
+		} catch (SQLException e) {
+			map.put("msg", "查询错误");
+			e.printStackTrace();
+		}
 		if(oneArticle != null) {
 			map.put("article_id", oneArticle.getArticle_id());
 			map.put("user_id", oneArticle.getUser_id());
@@ -186,7 +195,7 @@ public class ArticleService implements ArticleServiceImpl{
 			//获得该文章评论数量
 			Long commCount = commentDaoImpl.queryCommCount(article_id);
 			map.put("commNum", commCount);
-			//获得该文章所有评论
+			//获得该文章4条评论
 			List<Comment> currenComment = commentDaoImpl.queryPageComment(article_id,1,5);
 			for(Comment comment : currenComment) {
 				map.put("comment_id", comment.getComment_id());
@@ -244,41 +253,8 @@ public class ArticleService implements ArticleServiceImpl{
 		list.add(map);
 		return list;
 	}
-	
 	/**
-	 * 添加文章内容
-	 * @throws SQLException
-	 */
-	public Map<String, Object> addArticle(Map<String, Object> addArticleInfo) {
-		Map<String, Object> map = new HashMap<String, Object>();
-		//获得添加文章所需信息
-		Integer user_id = null;
-		String article_name = null;		
-		String article_content = null;	
-		Integer house_id =	 null;
-		if(addArticleInfo.get("user_id") != null)
-			user_id = Integer.valueOf(addArticleInfo.get("user_id").toString());
-		if(addArticleInfo.get("article_name") != null)
-			article_name = addArticleInfo.get("article_name").toString();
-		if(addArticleInfo.get("article_content") != null)
-			article_content = addArticleInfo.get("article_content").toString();
-		if(addArticleInfo.get("house_id") != null)
-			house_id = Integer.valueOf(addArticleInfo.get("house_id").toString());
-		try {
-			int count = articleDaoImpl.addArticle(user_id, article_name, article_content, house_id);
-			if(count != 0) {
-				//文章插入成功
-				map.put("msg", "文章插入成功");
-			} else {
-				map.put("msg", "文章插入失败");
-			}
-		} catch (SQLException e) {
-			map.put("msg", "查询错误");
-			e.printStackTrace();
-		}
-		return map;
-	}
-	 * 分页显示评论
+	* 分页显示评论
 	 */
 	public List<Map<String, Object>> getPageCommInfo(Integer commPresentPage,Integer article_id){
 		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
@@ -334,16 +310,81 @@ public class ArticleService implements ArticleServiceImpl{
 		list.add(map);
 		return list;
 	}
-	@Override
-	public int addArticle(Integer user_id, String article_name,
-			String article_content, Integer house_id) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
+
+	/**
+	 * 添加文章
+	 */
+	public Integer addArticleInfo(Map<String, Object> addArticleInfo) {
+		Article article = new Article();
+		//给文章实体类set值进去
+		if(addArticleInfo.get("user_id") != null)
+			article.setUser_id(Integer.valueOf(addArticleInfo.get("user_id").toString()));
+		if(addArticleInfo.get("article_name") != null)
+			article.setArticle_name(addArticleInfo.get("article_name").toString());
+		if(addArticleInfo.get("article_content") != null)
+			article.setArticle_content(addArticleInfo.get("article_content").toString());
+		if(addArticleInfo.get("house_id") != null)
+			article.setHouse_id(Integer.valueOf(addArticleInfo.get("house_id").toString()));
+		String articleImgList = null;
+		if(addArticleInfo.get("allArticleImg") != null)
+			articleImgList = addArticleInfo.get("allArticleImg").toString();
+		//添加文章内容
+		try {
+			if (articleDaoImpl.addArticle(article) > 0)
+				log.info("文章内容插入成功！");
+				//给文章添加一组图片
+				Integer article_id = articleDaoImpl.queryIdByArticleName(article.getArticle_name());
+				System.out.println(article);
+				String[] images = articleImgList.split(",");
+				for (int i = 0; i < images.length; i++) {
+					ArticleImg articleImg = new ArticleImg();
+					try {
+						articleImg.setArticle_id(article_id);
+						articleImg.setImage_url(images[i]);
+						if (articleImgDaoImpl.addArticleImg(articleImg) > 0) {
+							log.info("图片插入成功！");
+						}
+					} catch (Exception e) {
+						log.error("图片插入异常！");
+						return -1;
+					}
+				}
+		} catch (SQLException e) {
+			log.error("文章内容插入异常！");
+		}
+		return 1;		
 	}
 
-	@Override
-	public int deleteArticleById(Integer article_id) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
+	/**
+	 * 删除文章
+	 */
+	public Integer deleteArticleInfo(Integer article_id) {
+		//删除文章内容、图片、所有评论
+		try {
+			//判断是否有评论
+			Integer articleCommCount = 1;
+			Long commCount = commentDaoImpl.queryCommCount(article_id);
+			if(commCount > 0) {
+				articleCommCount = commentDaoImpl.deleteCommByArticleId(article_id);
+			}
+			//判断是否有图片
+			Integer articleImgCount = 1;
+			List<ArticleImg> ImgCount = articleImgDaoImpl.queryArticleImgByArticleId(article_id);
+			if(ImgCount != null) {
+				articleImgCount = articleImgDaoImpl.deleteImgByArticleId(article_id);
+			}
+			Integer articleInfoCount = articleDaoImpl.deleteArticleById(article_id);
+			if(articleInfoCount != 0 && articleImgCount != 0 &&articleCommCount != 0) {
+				//文章删除成功
+				log.info("文章删除成功！");
+			} else {
+				log.info("文章删除失败！");
+				return -1;
+			}
+		} catch (SQLException e) {
+			log.error("文章删除异常！");
+			return -1;
+		}
+		return 1;
 	}
 }

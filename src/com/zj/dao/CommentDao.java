@@ -128,4 +128,16 @@ public class CommentDao implements CommentDaoImpl{
 		GetConn.closeConn(conn);
 		return data;
 	}
+
+	/**
+	 * 通过文章id删除一篇文章的所有评论
+	 * @throws SQLException 
+	 */
+	public Integer deleteCommByArticleId(Integer article_id) throws SQLException {
+		conn = GetConn.getConn();
+		String sql = "delete from comment where article_id = ?";
+		Integer data = qr.update(conn, sql, article_id);
+		GetConn.closeConn(conn);
+		return data;
+	}
 }

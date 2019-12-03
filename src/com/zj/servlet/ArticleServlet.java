@@ -7,12 +7,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.log4j.Logger;
 import org.json.JSONObject;
 
 import cn.com.util.BaseServlet;
+import cn.com.util.FileLoadServletUtil;
 
 import com.alibaba.fastjson.JSON;
 import com.zj.service.ArticleService;
@@ -28,17 +32,12 @@ public class ArticleServlet extends BaseServlet {
 	private static final long serialVersionUID = 1L;
 	private ArticleServiceImpl articleService = new ArticleService();
 	private CommentServiceImpl commentServiceImpl = new CommentService();
+	private Logger log = Logger.getLogger(HouseServlet.class);
 	public String callback;
-	public String map;
+	public String articleMap;
 	public Integer articlePresentPage;
 	public Integer article_id;
 	public Integer commPresentPage;
-	public String articleImgMap;
-	@SuppressWarnings("unchecked")
-	Map<String, Object> myMap = (Map<String, Object>) JSON.parse(map);
-//	Integer article_id = Integer.valueOf(myMap.get("article_id").toString());
-//	Integer house_id = Integer.valueOf(myMap.get("house_id").toString());
-	
 	// 返回所有的文章信息
 	public void getAllArticle(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
@@ -96,24 +95,56 @@ public class ArticleServlet extends BaseServlet {
 	 * @param request
 	 * @param response
 	 * @throws SQLException 
+	 * @throws IOException 
 	 */
-	public void addArticle(HttpServletRequest request,HttpServletResponse response) throws SQLException {
+	public void addArticleInfo(HttpServletRequest request,HttpServletResponse response) throws SQLException, IOException {
+		System.out.println(articleMap);
 		@SuppressWarnings("unchecked")
-		Map<String, Object> myMap = (Map<String, Object>) JSON.parse(map);
-		Map<String, Object> sendMap = new HashMap<String, Object>();
-		sendMap = articleService.addArticle(myMap);
-		JSONObject obj = new JSONObject(sendMap);
-		try {
-			response.getWriter().print(callback + "(" + obj + ")");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		Map<String, Object> articleInfo = (Map<String, Object>) JSON.parse(articleMap);
+		log.info(articleInfo);
+		Map<String, Object> hint = new HashMap<String, Object>();
+		Integer articleNum = articleService.addArticleInfo(articleInfo);
+		if(articleNum> 0) {
+			hint.put("msg", "发布成功！");
+			hint.put("code", 1);
+		}else {
+			hint.put("msg", "发布失败！");
+			hint.put("code", -1);
 		}
+		JSONObject json = new JSONObject(hint);
+		response.getWriter().print(callback + "(" + json + ")");
+	}
+	// 上传文章图片到本地并返回路径
+	public void uploadImg(HttpServletRequest request,
+		HttpServletResponse response) throws ServletException, IOException, FileUploadException {
+		// 图片上传并且返回保存的路径
+		String url = FileLoadServletUtil.upload(request, response,"D:/quadraL/articleImg/");
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("code", "0");
+		HashMap<String, Object> data = new HashMap<String, Object>();
+		data.put("src", url);
+		map.put("data", data);
+		JSONObject obj = new JSONObject(map);
+		// 如果上传成功返回1
+		response.getWriter().print(obj);
 	}
 	/**
-	 * 添加文章图片
+	 * 删除一篇文章内容
 	 */
-	public void login(HttpServletRequest request,HttpServletResponse response) {
-		
+	public void deleteArticleInfo(HttpServletRequest request,HttpServletResponse response) throws IOException {
+		@SuppressWarnings("unchecked")
+		Map<String, Object> articleInfo = (Map<String, Object>) JSON.parse(articleMap);
+		Integer article_id = Integer.valueOf(articleInfo.get("article_id").toString());
+		Integer num = articleService.deleteArticleInfo(article_id);
+		Map<String, Object> hint = new HashMap<String, Object>();
+		if(num > 0) {
+			hint.put("msg", "文章删除成功");
+			hint.put("code", 1);
+		} else {
+			hint.put("msg", "文章删除失败");
+			hint.put("code", -1);
+		}
+		JSONObject json = new JSONObject(hint);
+		response.getWriter().print(callback + "(" + json + ")");
 	}
 }
