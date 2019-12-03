@@ -131,4 +131,5 @@ public class HouseDao implements HouseDaoImpl{
 		conn.close();
 		return data;
 	}
+	
 }

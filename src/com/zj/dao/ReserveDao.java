@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 
 import cn.com.util.GetConn;
@@ -57,6 +58,19 @@ public class ReserveDao implements ReserveDaoImpl{
 		conn = GetConn.getConn();
 		String sql = "select * from reserve where house_id=?";
 		List<Reserve> data = qr.query(conn, sql, new BeanListHandler<Reserve>(Reserve.class), house_id);
+		GetConn.closeConn(conn);
+		return data;
+	}
+	/**
+	 * 通过预订表ID获取单个预定信息
+	 * @param reserve_id
+	 * @return
+	 * @throws SQLException
+	 */
+	public Reserve getReserveInfoByID(Integer reserve_id) throws SQLException {
+		conn = GetConn.getConn();
+		String sql = "select * from reserve where reserve_id=?";
+		Reserve data = qr.query(conn, sql, new BeanHandler<Reserve>(Reserve.class), reserve_id);
 		GetConn.closeConn(conn);
 		return data;
 	}

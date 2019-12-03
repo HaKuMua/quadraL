@@ -2,31 +2,23 @@ package com.zj.servlet;
 
 
 import java.io.IOException;
-import java.sql.SQLException;
-import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.fileupload.FileUploadException;
-import org.apache.log4j.Logger;
 import org.json.JSONObject;
 
 import cn.com.util.BaseServlet;
-import cn.com.util.CheckoutEmail;
-import cn.com.util.CheckoutIDCard;
 import cn.com.util.CheckoutPhoneNumber;
 import cn.com.util.CloudInfDemo;
 import cn.com.util.FileLoadServletUtil;
 import cn.com.util.NumberUtil;
 
 import com.alibaba.fastjson.JSON;
-import com.zj.entity.User;
 import com.zj.service.NoticeService;
 import com.zj.service.UserService;
 import com.zj.service.impl.NoticeServiceImpl;
@@ -129,7 +121,7 @@ public class UserServlet extends BaseServlet {
 		//将图片地址存到数据库(因为浏览器不能直接访问本地路径，会报错)；
 		String dataBaseUrl="/image"+url.substring(10);
 		data.put("src", dataBaseUrl);
-		data.put("userInfo", userServiceImpl.addUserHead(user_id, dataBaseUrl));
+		data.put("userInfo", userServiceImpl.addUserHead(Integer.valueOf(user_id), dataBaseUrl));
 		map.put("data", data);
 		JSONObject obj = new JSONObject(map);
 		// 如果上传成功返回1
