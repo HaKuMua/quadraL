@@ -20,9 +20,7 @@ import cn.com.util.FileLoadServletUtil;
 
 import com.alibaba.fastjson.JSON;
 import com.zj.service.ArticleService;
-import com.zj.service.CommentService;
 import com.zj.service.impl.ArticleServiceImpl;
-import com.zj.service.impl.CommentServiceImpl;
 /**
  * 文章
  * @author ml
@@ -31,13 +29,11 @@ import com.zj.service.impl.CommentServiceImpl;
 public class ArticleServlet extends BaseServlet {
 	private static final long serialVersionUID = 1L;
 	private ArticleServiceImpl articleService = new ArticleService();
-	private CommentServiceImpl commentServiceImpl = new CommentService();
 	private Logger log = Logger.getLogger(HouseServlet.class);
 	public String callback;
 	public String articleMap;
 	public Integer articlePresentPage;
 	public Integer article_id;
-	public Integer commPresentPage;
 	// 返回所有的文章信息
 	public void getAllArticle(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
@@ -73,20 +69,6 @@ public class ArticleServlet extends BaseServlet {
 		List<Map<String, Object>> list = articleService.getOneArticleInfo(article_id);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("oneArticleInfo", list);
-		JSONObject json = new JSONObject(map);
-		response.getWriter().print(callback+"("+json+")");
-	}
-	/**
-	 * 分页显示评论
-	 * @throws SQLException 
-	 * @throws IOException 
-	 */
-	public void getPageCommInfo(HttpServletRequest request,HttpServletResponse response) throws SQLException, IOException {
-		Integer article_id = Integer.valueOf(JSON.parse("article_id").toString());
-		Integer commPresentPage = Integer.valueOf(JSON.parse("commPresentPage").toString());
-		List<Map<String, Object>> list = articleService.getPageCommInfo(commPresentPage, article_id);
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("pageCommentInfo", list);
 		JSONObject json = new JSONObject(map);
 		response.getWriter().print(callback+"("+json+")");
 	}

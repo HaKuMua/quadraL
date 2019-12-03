@@ -28,7 +28,7 @@ public class Comment implements Serializable{
 	/*
 	 * 回复ID
 	 */
-	private String replier_id;
+	private Integer replier_id;
 	/*
 	 * 评论时间
 	 */
@@ -90,11 +90,11 @@ public class Comment implements Serializable{
 		this.comment_content = comment_content;
 	}
 
-	public String getReplier_id() {
+	public Integer getReplier_id() {
 		return replier_id;
 	}
 
-	public void setReplier_id(String replier_id) {
+	public void setReplier_id(Integer replier_id) {
 		this.replier_id = replier_id;
 	}
 
@@ -106,6 +106,4 @@ public class Comment implements Serializable{
 				+ ", comment_date=" + comment_date + ", comment_praise="
 				+ comment_praise + "]";
 	}
-
-	
 }

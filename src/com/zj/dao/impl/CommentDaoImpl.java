@@ -19,7 +19,7 @@ public interface CommentDaoImpl {
 	 * 给文章添加评论
 	 * @throws SQLException 
 	 */
-	int addComment(Integer article_id,Integer user_id,String comment_content,String replier_id) throws SQLException;
+	int addComment(Comment commInfo) throws SQLException;
 	/**
 	 * 通过id删除文章评论
 	 * @throws SQLException 
