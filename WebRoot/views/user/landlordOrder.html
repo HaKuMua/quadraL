@@ -100,7 +100,7 @@
 				table.render({
 					elem: '#test',
 					size: 'lg',
-					url: basePath + "house.do?method=getHouseInfoByUserID",
+					url: basePath + "order.do?method=getUserInfoByLandlordID",
 					where: {
 						user_id: 3,
 					},
@@ -112,43 +112,43 @@
 							type: 'checkbox',
 							fixed: 'left'
 						}, {
-							field: 'house_name',
-							title: '房源名称',
+							field: 'user_phone',
+							title: '房客电话',
 							width: 130,
 							sort: true
 						}, {
-							field: 'house_address',
-							title: '房源详细地址',
+							field: 'real_name	',
+							title: '房客真实姓名',
 							width: 375,
 							sort: true
 						}, {
-							field: 'lease_type',
-							title: '出租类型',
+							field: 'user_name',
+							title: '房客姓名',
 							width: 120,
 							edit: 'text'
 						}, {
-							field: 'house_intake',
-							title: '房子容纳量',
+							field: 'grogshop_order_state',
+							title: '订单状态',
 							width: 120,
 							sort: true
 						}, {
-							field: 'may_check_in_date',
+							field: 'reserve_date',
 							edit: 'text',
-							title: ' 可入住时间',
+							title: ' 入住时间',
 							width: 110
 						}, {
-							field: 'may_check_out_date',
+							field: 'check_out_date',
 							edit: 'text',
-							title: '可退房时间',
+							title: '退房时间',
 							width: 110
 						}, {
-							field: 'house_type',
-							title: '房子类型',
+							field: 'reserve_day_number',
+							title: '天数',
 							width: 120,
 							sort: true
 						}, {
-							field: 'house_price',
-							title: '房子价格',
+							field: 'price',
+							title: '价格',
 							width: 120,
 							edit: 'text',
 							sort: true
@@ -204,55 +204,55 @@
 			user_id: '1001',
 			islanlord: 1
 		};
-		json = getCookie('userInfo');
-		if (json != '' || json == null) {
-			jsonInfo = JSON.parse(json);
-			if (jsonInfo != null) {
-				userInfo = jsonInfo;
-				console.log(userInfo);
-			}
-		}
-		//初始化导航栏
-		if (userInfo.user_id != null) {
-			var html = '<li class="layui-nav-item " id="china"> <a href="../user/myOrder.html" >房源订单中心</a></li>' +
-				'<li class="layui-nav-item"><a href="../story/index.html">故事</a></li>' +
-				'<li class="layui-nav-item"><a href="#" id="notice">消息<span id="dot" class="layui-badge-dot"></a> </li>' +
-				' <li class="layui-nav-item" lay-unselect=""><a href="javascript:;"><img src="' +
-				userInfo.user_img + '" class="layui-nav-img">' + userInfo.user_name + '</a> ' +
-				'<dl class="layui-nav-child"><dd><a href="landlord.html"  style="color: gray;">个人中心</a></dd>' +
-				' <dd><a href="../user/modifyInfo.html" style="color: gray;">修改信息</a></dd><dd><a href="javascript:;" id="quit" style="color: gray;">退了</a></dd></dl>';
-			$("#rightNav").empty();
-			$("#rightNav").append(html);
-			if (userInfo.islanlord != 1) {
-				$("#china").after('<li class="layui-nav-item "> <a href="javascript:;">我的房源</a>' +
-					'<dl class="layui-nav-child"><dd><a href="../user/landlordOrder.html"  style="color: gray;">订单信息</a></dd>' +
-					' <dd><a href="../user/myHouse.html" style="color: gray;">房源信息</a></dd></dl>' + '</li>' +
-					'<li class="layui-nav-item "><a href="create_a_room/room.html">添加房源</a></li>');
-			} else {
-				$("#china").after('<li class="layui-nav-item "> <a href="">成为房东</a></li>');
-			}
-		
-		}
-		//退出按钮监听
-		$("body").on("click", "#quit", function() {
-			setCookie("userInfo", null, 0.1);
-			location.href = "../index.html";
-		});
-		//获取Cookie
-		function getCookie(cname) {
-			var name = cname + "=";
-			var decodedCookie = decodeURIComponent(document.cookie);
-			var ca = decodedCookie.split(';');
-			for (var i = 0; i < ca.length; i++) {
-				var c = ca[i];
-				while (c.charAt(0) == ' ') {
-					c = c.substring(1);
-				}
-				if (c.indexOf(name) == 0) {
-					return c.substring(name.length, c.length);
+			json = getCookie('userInfo');
+			if (json != '' || json == null) {
+				jsonInfo = JSON.parse(json);
+				if (jsonInfo != null) {
+					userInfo = jsonInfo;
+					console.log(userInfo);
 				}
 			}
-			return "";
-		}
+			//初始化导航栏
+			if (userInfo.user_id != null) {
+				var html = '<li class="layui-nav-item " id="china"> <a href="../user/myOrder.html" >房源订单中心</a></li>' +
+					'<li class="layui-nav-item"><a href="../story/index.html">故事</a></li>' +
+					'<li class="layui-nav-item"><a href="#" id="notice">消息<span id="dot" class="layui-badge-dot"></a> </li>' +
+					' <li class="layui-nav-item" lay-unselect=""><a href="javascript:;"><img src="' +
+					userInfo.user_img + '" class="layui-nav-img">' + userInfo.user_name + '</a> ' +
+					'<dl class="layui-nav-child"><dd><a href="landlord.html"  style="color: gray;">个人中心</a></dd>' +
+					' <dd><a href="../user/modifyInfo.html" style="color: gray;">修改信息</a></dd><dd><a href="javascript:;" id="quit" style="color: gray;">退了</a></dd></dl>';
+				$("#rightNav").empty();
+				$("#rightNav").append(html);
+				if (userInfo.islanlord != 1) {
+					$("#china").after('<li class="layui-nav-item "> <a href="javascript:;">我的房源</a>' +
+						'<dl class="layui-nav-child"><dd><a href="../user/landlordOrder.html"  style="color: gray;">订单信息</a></dd>' +
+						' <dd><a href="../user/myHouse.html" style="color: gray;">房源信息</a></dd></dl>' + '</li>' +
+						'<li class="layui-nav-item "><a href="create_a_room/room.html">添加房源</a></li>');
+				} else {
+					$("#china").after('<li class="layui-nav-item "> <a href="">成为房东</a></li>');
+				}
+			
+			}
+			//退出按钮监听
+			$("body").on("click", "#quit", function() {
+				setCookie("userInfo", null, 0.1);
+				location.href = "../index.html";
+			});
+			//获取Cookie
+			function getCookie(cname) {
+				var name = cname + "=";
+				var decodedCookie = decodeURIComponent(document.cookie);
+				var ca = decodedCookie.split(';');
+				for (var i = 0; i < ca.length; i++) {
+					var c = ca[i];
+					while (c.charAt(0) == ' ') {
+						c = c.substring(1);
+					}
+					if (c.indexOf(name) == 0) {
+						return c.substring(name.length, c.length);
+					}
+				}
+				return "";
+			}
 	</script>
 </html>

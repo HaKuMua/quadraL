@@ -114,7 +114,14 @@ public class ArticleServlet extends BaseServlet {
 		JSONObject json = new JSONObject(hint);
 		response.getWriter().print(callback + "(" + json + ")");
 	}
-	// 上传文章图片到本地并返回路径
+	/**
+	 * 上传文章图片到本地并返回路径
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 * @throws FileUploadException
+	 */
 	public void uploadImg(HttpServletRequest request,
 		HttpServletResponse response) throws ServletException, IOException, FileUploadException {
 		// 图片上传并且返回保存的路径
@@ -122,7 +129,8 @@ public class ArticleServlet extends BaseServlet {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("code", "0");
 		HashMap<String, Object> data = new HashMap<String, Object>();
-		data.put("src", url);
+		String dataBaseUrl="/image"+url.substring(10);
+		data.put("src", dataBaseUrl);
 		map.put("data", data);
 		JSONObject obj = new JSONObject(map);
 		// 如果上传成功返回1

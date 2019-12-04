@@ -175,7 +175,7 @@ public class UserServlet extends BaseServlet {
 	public void getNoticeByUserID(HttpServletRequest request,HttpServletResponse response) throws FileUploadException, IOException {
 		List<Map<String, Object>> list = noticeServiceImpl.getNoticeInfoByUserID(Integer.valueOf(user_id));
 		Map<String, Object> noticeMap = new HashMap<String, Object>();
-		noticeMap.put("list", list);
+		noticeMap.put("noticeInfo", list);
 		JSONObject json = new JSONObject(noticeMap);
 		response.getWriter().print(json);
 	}

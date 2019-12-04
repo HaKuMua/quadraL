@@ -105,7 +105,14 @@ public class HouseServlet extends BaseServlet {
 		response.getWriter().print(callback + "(" + json + ")");
 	}
 
-	// 上传图片到本地并返回路径
+	/**
+	 * 上传图片到本地并返回路径
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 * @throws FileUploadException
+	 */
 	public void uploadImg(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException, FileUploadException {
 			// 图片上传并且返回保存的路径

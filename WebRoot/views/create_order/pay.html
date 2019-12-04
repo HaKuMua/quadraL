@@ -108,7 +108,7 @@
 			<div  >
 				<h2>选择付款方式</h2><br><br>
 				<div class="layui-col-xs4">
-					<button type="button" class="layui-btn layui-btn-primary  chooseBtn"
+					<button type="button" class="layui-btn layui-bg-green chooseBtn"
 					style= "  width: 120px;height: 70px; font-size: 20px;">余额</button>
 				</div>
 				<div  class="layui-col-xs4">
@@ -207,7 +207,7 @@
 		</div>
 	</body>
 	<script>
-		layui.use(['form', 'layedit','laydate'], function(){
+		layui.use(['form', 'layedit','layer'], function(){
 			var form = layui.form
 			,layer = layui.layer
 		});
@@ -229,22 +229,59 @@
 		     }
 		    return "";
 		} 
-		window.onload = function() {
-			info=getCookie('personInfo');
-			personInfo = JSON.parse(info);
-			myCookie=getCookie('orderInfo');
-			orderInfo = JSON.parse(myCookie);
-			console.log(orderInfo);
-			console.log(personInfo);
-			getInfo(orderInfo);
-		}
+		info=getCookie('personInfo');
+		personInfo = JSON.parse(info);
+		myCookie=getCookie('orderInfo');
+		orderInfo = JSON.parse(myCookie);
+		console.log(orderInfo);
+		console.log(personInfo);
+		getInfo(orderInfo);
 		$('#btnGo').on('click', function() {
 			$.cookie('mySpace', mySpace);
 			location.href = "houseImage.html";
 		});
 		$('#payBtn').on('click',function() {
-			layer.load(2, {time: 3*1000});
+			mpa='{"user_id":"'+orderInfo.user_id+'","price":"'+orderInfo.price+
+			'","reserve_date":"'+orderInfo.+'","reserve_day_number":"'+orderInfo.+
+			'","check_out_date":"'+orderInfo.+'","house_id":"'+orderInfo.+
+			'","grogshop_order_describe":"牛批","personInfo":"'+personInfo+'"}';
+			$.getJSON(basePath + "order.do?method=addOrderInfo&callback=?", {
+				"map": map
+			}, function(result) {
+				layer.msg(msg+"去我的订单界面看看吧！");
+				if(result.code < 0) {
+					html='<div style="width: 500px;height: 420px;">'+
+						'<div style="text-align: center;"><br><br><h1>QUADRAL币</h1><h2>充值人：'+userInfo.user_name+'</h2><br><hr ></div>'+
+						'<div ><h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;充值金额：</h4><br><div class="layui-col-xs12">'+
+						'&nbsp;&nbsp;&nbsp;<button style="width: 110px;height: 50px;" type="button" class="layui-btn layui-bg-green moneyBtn">￥500</button>'+
+						'<button  style="width: 110px;height: 50px;" type="button" class="layui-btn layui-btn-primary  moneyBtn">￥1000</button>'+
+						'<button style="width: 110px;height: 50px;" type="button" class="layui-btn layui-btn-primary  moneyBtn">￥1000</button>'+
+						'<button style="width: 110px;height: 50px;" type="button" class="layui-btn layui-btn-primary  moneyBtn">￥2000</button>'+
+						'</div><div  style="text-align: center;"><h3>请用支付宝扫码：</h3><br><img src="../../img/pay.jpg"  width="180px"></div></div></div>';
+					recharge(html);
+				}
+			});
 		})
+		
+		function recharge(html) {
+			var index = layer.open({
+				type: 1,
+				title: false,
+				closeBtn: true,
+				area:[ '500px','440px'],
+				offset: 'auto',
+				shade: 0.1,
+				content: html,
+				shadeClose: true
+			});
+		}
+		$("body").on("click",".moneyBtn",function() {
+			$(".moneyBtn").attr("class","layui-btn layui-btn-primary moneyBtn");
+			$(this).attr("class","layui-btn layui-bg-green moneyBtn");
+			var money=$(this).text().toString().substring(1);
+			alert(money)
+		}); 
+		
 		$(".chooseBtn").on("click",function() {
 			$(".chooseBtn").attr("class","layui-btn layui-btn-primary chooseBtn");
 			$(this).attr("class","layui-btn layui-bg-green chooseBtn");
