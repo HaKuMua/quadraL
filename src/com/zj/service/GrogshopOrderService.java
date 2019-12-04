@@ -107,7 +107,7 @@ public class GrogshopOrderService implements GrogshopOrderServiceImpl{
 	 * @param grogshopOrder
 	 * @return
 	 */
-	public String addGrogshopOrderInfo(Map<String, Object> grogshopOrderInfo,
+	public Integer addGrogshopOrderInfo(Map<String, Object> grogshopOrderInfo,
 			List<Map<String, Object>> checkInPersonInfoMap) {
 		try {
 			//下单先扣钱
@@ -115,7 +115,7 @@ public class GrogshopOrderService implements GrogshopOrderServiceImpl{
 			Double price = Double.valueOf(grogshopOrderInfo.get("price").toString());
 			User user = userDaoImpl.getUserInfoById(user_id);
 			if(price>user.getMoney())
-				return "余额不足下单失败";
+				return -1;
 			if(userDaoImpl.updateUserMoney(price, user_id) > 0)
 				log.debug("扣钱成功");
 			//插入预定表
@@ -129,7 +129,7 @@ public class GrogshopOrderService implements GrogshopOrderServiceImpl{
 				log.debug("插入信息成功");
 			}else{
 				log.debug("插入信息失败");
-				return null;
+				return -2;
 			}
 			//插入订单表
 			GrogshopOrder grogshopOrder = new GrogshopOrder();
@@ -137,16 +137,16 @@ public class GrogshopOrderService implements GrogshopOrderServiceImpl{
 			grogshopOrder.setGrogshop_order_id(uuID);
 			grogshopOrder.setUser_id(Integer.valueOf(grogshopOrderInfo.get("user_id").toString()));
 			grogshopOrder.setPrice(price);
-			grogshopOrder.setGrogshop_order_state(grogshopOrderInfo.get("grogshop_order_state").toString());
 			if(grogshopOrderInfo.get("grogshop_order_describe") !=null)
 				grogshopOrder.setGrogshop_order_describe(grogshopOrderInfo.get("grogshop_order_describe").toString());
-			grogshopOrder.setReserve_id(Integer.valueOf(grogshopOrderInfo.get("reserve_id").toString()));
+			Integer reserve_id = reserveDaoImpl.getReserveID(reserve);
+			grogshopOrder.setReserve_id(reserve_id);
 			log.debug(grogshopOrder);
 			if(orderDaoImpl.addGrogshopOrderInfo(grogshopOrder) > 0){
 				log.debug("订单信息插入成功");
 			}else{
 				log.debug("订单信息插入失败");
-				return null;
+				return -2;
 			}
 			//插入通知
 			noticeDaoImpl.addNotice("用户"+user_id+"在您这预定了房子", user_id);
@@ -154,23 +154,24 @@ public class GrogshopOrderService implements GrogshopOrderServiceImpl{
 			for(Map<String, Object> checkInPersonMap : checkInPersonInfoMap){
 				CheckInPerson checkInPerson = new CheckInPerson();
 				checkInPerson.setGrogshop_order_id(uuID);
-				checkInPerson.setCheck_in_person_name(checkInPersonMap.get("check_in_person_name").toString());
-				checkInPerson.setCheck_in_person_ID_card(checkInPersonMap.get("check_in_person_ID_card").toString());
+				checkInPerson.setCheck_in_person_name(checkInPersonMap.get("name").toString());
+				checkInPerson.setCheck_in_person_ID_card(checkInPersonMap.get("idCard").toString());
 				if(checkInPersonDaoImpl.addCheckInPerson(checkInPerson)>0){
 					log.debug("插入入住人信息成功");
 				}else{
 					log.debug("插入入住人信息失败");
-					return null;
+					return -2;
 				}
 			}
 		} catch (SQLException e1) {
+			e1.printStackTrace();
 			log.error("数据库操作异常");
-			return null;
+			return -2;
 		} catch (ParseException e) {
 			log.error("Date型转换异常");
-			return null;
+			return -2;
 		}
-		return "订单支付成功";
+		return 1;
 	}
 	/**
 	 * 通过用户ID获取此用户的所有订单信息

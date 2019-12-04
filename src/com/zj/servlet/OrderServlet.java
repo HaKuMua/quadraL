@@ -59,22 +59,22 @@ public class OrderServlet extends BaseServlet {
 	 */
 	public void addOrderInfo(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		System.out.println(grogshopOrderInfo);
 		@SuppressWarnings("unchecked")
 		Map<String, Object> grogshopOrder = (Map<String, Object>) JSON.parse(grogshopOrderInfo);
+		System.out.println(checkInPersonInfo);
 		@SuppressWarnings("unchecked")
 		List<Map<String, Object>> checkInPerson = (List<Map<String, Object>>) JSON.parse(checkInPersonInfo);
 		log.info(grogshopOrder);
 		log.info(checkInPerson);
-		String str = orderService.addGrogshopOrderInfo(grogshopOrder, checkInPerson);
-		log.debug(str);
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("hint", str);
+		Integer count = orderService.addGrogshopOrderInfo(grogshopOrder, checkInPerson);
+		log.debug(count);
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("hint", count);
 		JSONObject json = new JSONObject(map);
-		if(str == null)
-			response.getWriter().print(callback+"(信息有误或余额不足)");
-		else
-			response.getWriter().print(callback+"("+json+")");
+		response.getWriter().print(callback+"("+json+")");
 	}
+	
 	/**
 	 * 通过用户ID获得此用户的所有订单信息
 	 * @param request

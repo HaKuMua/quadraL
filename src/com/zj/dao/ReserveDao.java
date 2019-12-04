@@ -7,6 +7,7 @@ import java.util.List;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
+import org.apache.commons.dbutils.handlers.ScalarHandler;
 
 import cn.com.util.GetConn;
 
@@ -41,7 +42,8 @@ public class ReserveDao implements ReserveDaoImpl{
 	 */
 	public int addReserve(Reserve reserve) throws SQLException {
 		conn = GetConn.getConn();
-		String sql = "insert into reserve(reserve_date,reserve_day_number,check_out_date,user_id,house_id)";
+		String sql = "insert into reserve(reserve_date,reserve_day_number,check_out_date,user_id,house_id) values("
+				+ "?,?,?,?,?)";
 		int data = qr.update(conn, sql, reserve.getReserve_date(),reserve.getReserve_day_number(),reserve.getCheck_out_date()
 				,reserve.getUser_id(),reserve.getHouse_id());
 		GetConn.closeConn(conn);
@@ -71,6 +73,21 @@ public class ReserveDao implements ReserveDaoImpl{
 		conn = GetConn.getConn();
 		String sql = "select * from reserve where reserve_id=?";
 		Reserve data = qr.query(conn, sql, new BeanHandler<Reserve>(Reserve.class), reserve_id);
+		GetConn.closeConn(conn);
+		return data;
+	}
+	/**
+	 * 获得预订表ID
+	 * @param reserve
+	 * @return
+	 * @throws SQLException
+	 */
+	public Integer getReserveID(Reserve reserve) throws SQLException {
+		
+		conn = GetConn.getConn();
+		String sql = "select reserve_id from reserve where reserve_date=? and reserve_day_number = ? and check_out_date =? and user_id =? and house_id =?";
+		Integer data = qr.query(conn, sql, new ScalarHandler<Integer>(),reserve.getReserve_date(),reserve.getReserve_day_number(),reserve.getCheck_out_date()
+				,reserve.getUser_id(),reserve.getHouse_id());
 		GetConn.closeConn(conn);
 		return data;
 	}

@@ -25,5 +25,6 @@ public interface HouseParticularsDaoImpl {
 	 * @return
 	 * @throws SQLException
 	 */
-	int addHouseParticularsInfo(HouseParticulars houseParticulars) throws SQLException;
+	Integer addHouseParticularsInfo(HouseParticulars houseParticulars) throws SQLException;
+	Integer getHouseParticularsIdByInfo(HouseParticulars houseParticulars)throws SQLException;
 }

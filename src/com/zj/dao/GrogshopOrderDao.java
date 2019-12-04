@@ -63,9 +63,9 @@ public class GrogshopOrderDao implements GrogshopOrderDaoImpl {
 	public int addGrogshopOrderInfo(GrogshopOrder grogshopOrder)
 			throws SQLException {
 		conn = GetConn.getConn();
-		String sql = "insert into grogshop_order(user_id,price,grogshop_order_state" +
-				",grogshop_order_describe,reserve_id) value(?,?,?,?,?,?)";
-		int data = qr.update(conn, sql, grogshopOrder.getUser_id(),grogshopOrder.getPrice(),grogshopOrder.getGrogshop_order_state()
+		String sql = "insert into grogshop_order(grogshop_order_id,user_id,price" +
+				",grogshop_order_describe,reserve_id) value(?,?,?,?,?)";
+		int data = qr.update(conn, sql,grogshopOrder.getGrogshop_order_id() ,grogshopOrder.getUser_id(),grogshopOrder.getPrice()
 				,grogshopOrder.getGrogshop_order_describe(),grogshopOrder.getReserve_id());
 		GetConn.closeConn(conn);
 		return data;

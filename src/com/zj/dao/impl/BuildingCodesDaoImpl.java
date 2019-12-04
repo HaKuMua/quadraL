@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.zj.entity.BuildingCodes;
+import com.zj.entity.Facilities;
 
 /**
  * 
@@ -15,7 +16,12 @@ public interface BuildingCodesDaoImpl {
 	 * 添加房屋守则
 	 * @throws SQLException 
 	 */
-	int addBuildingCodes(Integer house_id,String building_name) throws SQLException;
+	Integer addBuildingCodes(Integer house_id,String building_name) throws SQLException;
+	/**
+	 * 添加房屋设施
+	 * @throws SQLException 
+	 */
+	Integer addFacilities(Integer house_id, String facilities_name) throws SQLException;
 	/**
 	 * 删除房屋守则
 	 * @throws SQLException 
@@ -41,5 +47,9 @@ public interface BuildingCodesDaoImpl {
 	 * @throws SQLException 
 	 */
 	List<BuildingCodes> queryOneHouseBuildingCodes(Integer house_id) throws SQLException;
-	
+	/**
+	 * 查询一个房子的所有房子设施
+	 * @throws SQLException 
+	 */
+	List<Facilities> queryFacilities(Integer house_id) throws SQLException;
 }
