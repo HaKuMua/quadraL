@@ -19,7 +19,10 @@ public interface CommentServiceImpl {
 	 */
 	List<Map<String, Object>> getPageCommInfo(Integer commPresentPage,Integer article_id) throws SQLException;
 	/**
-	 * 添加评论
+	 * 增加一条评论
+	 * @param info
+	 * @return
 	 */
-	Integer addComm(Map<String, Object> addCommInfo);
+	Map<String, Object> addComment(Map<String, Object> info);
+
 }

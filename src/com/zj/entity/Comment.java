@@ -1,6 +1,7 @@
 package com.zj.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 
@@ -32,7 +33,7 @@ public class Comment implements Serializable{
 	/*
 	 * 评论时间
 	 */
-	private Integer comment_date;
+	private Date comment_date;
 	/*
 	 * 赞数量
 	 */
@@ -42,11 +43,11 @@ public class Comment implements Serializable{
 	public Comment() {
 	}
 
-	public Integer getComment_date() {
+	public Date getComment_date() {
 		return comment_date;
 	}
 
-	public void setComment_date(Integer comment_date) {
+	public void setComment_date(Date comment_date) {
 		this.comment_date = comment_date;
 	}
 

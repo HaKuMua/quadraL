@@ -65,4 +65,5 @@ public interface HouseDaoImpl {
 	 * @throws SQLException
 	 */
 	Integer getHouseByName(String house_name) throws SQLException;
+	
 }

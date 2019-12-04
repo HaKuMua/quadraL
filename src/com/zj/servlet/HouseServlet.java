@@ -74,9 +74,11 @@ public class HouseServlet extends BaseServlet {
 		Integer userID = Integer.valueOf(JSON.parse(user_id).toString());
 		List<Map<String, Object>> list = houseService.getHouseByID(userID);
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("houseList", list);
+		map.put("status",0);
+		map.put("msg", "查询成功");
+		map.put("data", list);
 		JSONObject json = new JSONObject(map);
-		response.getWriter().print(callback + "(" + json + ")");
+		response.getWriter().print(json);
 	}
 
 	/**
@@ -103,7 +105,14 @@ public class HouseServlet extends BaseServlet {
 		response.getWriter().print(callback + "(" + json + ")");
 	}
 
-	// 上传图片到本地并返回路径
+	/**
+	 * 上传图片到本地并返回路径
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 * @throws FileUploadException
+	 */
 	public void uploadImg(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException, FileUploadException {
 			// 图片上传并且返回保存的路径
@@ -111,7 +120,9 @@ public class HouseServlet extends BaseServlet {
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			map.put("code", "0");
 			HashMap<String, Object> data = new HashMap<String, Object>();
-			data.put("src", url);
+			//将图片地址存到数据库(因为浏览器不能直接访问本地路径，会报错)；
+			String dataBaseUrl="/image"+url.substring(10);
+			data.put("src", dataBaseUrl);
 			map.put("data", data);
 			JSONObject obj = new JSONObject(map);
 			// 如果上传成功返回1

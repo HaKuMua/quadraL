@@ -336,81 +336,94 @@
 				bed_number: '1',
 				user_img: '../img/timg.jpg',
 				room_number: 1,
-				toilet_number: 1
+				toilet_number: 1,
 			}
 		]
-		
-		window.onload = function() {
-			userInfo=null;
-			json=getCookie('userInfo');
-			if(json != '') {
-				jsonInfo = JSON.parse();
-				if(jsonInfo != null) {
-					userInfo=jsonInfo;
-				}
-			}
-			
-			//初始化导航栏
-			if (userInfo != null) {
-				var html = '<li class="layui-nav-item " id="china"> <a href="" >房源订单中心</a></li>' +
-					'<li class="layui-nav-item"><a href="">故事</a></li>' +
-					'<li class="layui-nav-item"><a href="">帮助</a> </li>' +
-					' <li class="layui-nav-item" lay-unselect=""><a href="javascript:;"><img src="' +
-					userInfo.user_img + '" class="layui-nav-img">' + userInfo.user_name + '</a> ' +
-					'<dl class="layui-nav-child"><dd><a href="javascript:;"  style="color: gray;">个人中心</a></dd>' +
-					' <dd><a href="javascript:;" style="color: gray;">修改信息</a></dd><dd><a href="javascript:;" style="color: gray;">退了</a></dd></dl>';
-				$("#rightNav").empty();
-				$("#rightNav").append(html);
-				if (userInfo.islanlord != 0 || userInfo.islanlord != null) {
-					$("#china").after('<li class="layui-nav-item "> <a href="">查看我的房源</a></li>' +
-						'<li class="layui-nav-item "><a href="host/create_a_room/room.html">添加房源</a></li>');
-				} else {
-					$("#china").after('<li class="layui-nav-item "> <a href="">成为房东</a></li>');
-				}
-			}
-			//请求后端拿到指定房子信息
-			// $.getJSON(basePath+"a?method=getHouseInfoByID&callback=?",{"house_id":4},function(res){
-			// 	console.log(houseInfo);
-			// 	houseInfo = res;
-			// 	console.log(houseInfo);
-			// });
-			//从后端拿到房子数量
-			var sum = 100;
-			$("#t1").empty();
-			$("#t1").append('<b>' + sum + '多处住宿</b>');
-		}
-		getHouse("#hosue");
-		function getHouse(infoId) {
-			var len = houseInfo.length;
-			$(infoId).empty();
-			$(infoId).append('<div  style="height: 420px;" id="d1"></div>');
-			$(infoId).append('<div  style="height: 420px;" id="d2"></div>');
-			$(infoId).append('<div  style="height: 420px;" id="d3"></div>');
-			for (var k = 0; k < len; k++) {
-				var html = '<div class="layui-col-xs3" ><div class="layui-carousel" id="imgCarousel' + k +
-					'"><div carousel-item=""></div></div>' +
-					'<a href="host/user.html?user_id=' + houseInfo[k].user_id + '">' +
-					'<div class="layui-col-xs9"><h4>' + houseInfo[k].house_type + ' · ' + houseInfo[k].room_number + '室' + houseInfo[k]
-					.toilet_number + '卫' + houseInfo[k].bed_number + '床</h4>' +
-					'<h3>' + houseInfo[k].house_name + '</h3><h3>￥' + houseInfo[k].house_price + ' 每晚</h3>' +
-					'</div><div class="layui-col-xs3" >' +
-					'<img style="border-radius: 50%;" src="' + houseInfo[k].user_img + '" width="45px" height="45px" >' +
-					'</div></a></div>';
-				if (k < 4) {
-					$("#d1").append(html);
-				} else if (k >= 4 && k < 8) {
-					$("#d2").append(html);
-				} else {
-					$("#d3").append(html);
-				}
-				for (var j = 0; j < houseInfo[k].house_imgs.length; j++) {
-					imghtml = '<div><a href="host/home.html?house_id=' + houseInfo[k].house_id + '"><img  src="' + houseInfo[k].house_imgs[
-						j] + '"  width="460px" ></a></div>';
-					$("#imgCarousel" + k + " div").append(imghtml);
-				}
+		var hosueSum=0;
+		var date='';
+		var addr ='';
+		var dateStart='';
+		var dateEnd='';
+		var minPrice=0;
+		var maxPrice=0;
+		userInfo=null;
+		json=getCookie('userInfo');
+		if(json != '') {
+			jsonInfo = JSON.parse();
+			if(jsonInfo != null) {
+				userInfo=jsonInfo;
 			}
 		}
-
+		var url=decodeURIComponent(window.location.search).substring(1); //获取url中"?"符后的字串
+		if(url.indexOf("&")!=-1) {
+			var arr=url.split("&");
+			addr =arr[0].substr(url.indexOf("=")+1)
+			date = arr[1].substr(url.indexOf("=")+1);
+			dateStart=date.split("- ")[0];
+			dateEnd=date.split("-")[1];
+			$("#topSearch").val(addr);
+	    }else if(url.indexOf("=")!=-1){
+			addr =url.substr(url.indexOf("=")+1)
+		}
+		//请求后台返回数据
+		//getHouseInfo(dateStart,dateEnd,addr,minPrice,maxPrice);
+		//初始化导航栏
+		if (userInfo != null) {
+			var html = '<li class="layui-nav-item " id="china"> <a href="" >房源订单中心</a></li>' +
+				'<li class="layui-nav-item"><a href="">故事</a></li>' +
+				'<li class="layui-nav-item"><a href="">帮助</a> </li>' +
+				' <li class="layui-nav-item" lay-unselect=""><a href="javascript:;"><img src="' +
+				userInfo.user_img + '" class="layui-nav-img">' + userInfo.user_name + '</a> ' +
+				'<dl class="layui-nav-child"><dd><a href="javascript:;"  style="color: gray;">个人中心</a></dd>' +
+				' <dd><a href="javascript:;" style="color: gray;">修改信息</a></dd><dd><a href="javascript:;" style="color: gray;">退了</a></dd></dl>';
+			$("#rightNav").empty();
+			$("#rightNav").append(html);
+			if (userInfo.islanlord != 0 || userInfo.islanlord != null) {
+				$("#china").after('<li class="layui-nav-item "> <a href="">查看我的房源</a></li>' +
+					'<li class="layui-nav-item "><a href="host/create_a_room/room.html">添加房源</a></li>');
+			} else {
+				$("#china").after('<li class="layui-nav-item "> <a href="">成为房东</a></li>');
+			}
+		}
+		setHouse();
+		function setHouse() {
+			if(houseInfo == null) {
+				$("#t1").empty();
+				$("#hosue").empty();
+				$("#hosue").append('<div  style="height: 420px;margin-top:70px;margin-left:800px;"><span style="font-size:40px;">暂无房源信息</span></span>');
+			}else {
+				$("#t1").empty();
+				$("#t1").append('<b>' + hosueSum + '多处住宿</b>');
+				var len = houseInfo.length;
+				$("#hosue").empty();
+				$("#hosue").append('<div  style="height: 420px;" id="d1"></div>');
+				$("#hosue").append('<div  style="height: 420px;" id="d2"></div>');
+				$("#hosue").append('<div  style="height: 420px;" id="d3"></div>');
+				for (var k = 0; k < len; k++) {
+					var html = '<div class="layui-col-xs3" ><div class="layui-carousel" id="imgCarousel' + k +
+						'"><div carousel-item=""></div></div>' +
+						'<a href="host/user.html?user_id=' + houseInfo[k].user_id + '">' +
+						'<div class="layui-col-xs9"><h4>' + houseInfo[k].house_type + ' · ' + houseInfo[k].room_number + '室' + houseInfo[k]
+						.toilet_number + '卫' + houseInfo[k].bed_number + '床</h4>' +
+						'<h3>' + houseInfo[k].house_name + '</h3><h3>￥' + houseInfo[k].house_price + ' 每晚</h3>' +
+						'</div><div class="layui-col-xs3" >' +
+						'<img style="border-radius: 50%;" src="' + houseInfo[k].user_img + '" width="45px" height="45px" >' +
+						'</div></a></div>';
+					if (k < 4) {
+						$("#d1").append(html);
+					} else if (k >= 4 && k < 8) {
+						$("#d2").append(html);
+					} else {
+						$("#d3").append(html);
+					}
+					for (var j = 0; j < houseInfo[k].house_imgs.length; j++) {
+						imghtml = '<div><a href="host/home.html?house_id=' + houseInfo[k].house_id + '"><img  src="' + houseInfo[k].house_imgs[
+							j] + '"  width="460px" ></a></div>';
+						$("#imgCarousel" + k + " div").append(imghtml);
+					}
+				}
+			}
+		}
 		//设置cookie
 		function setCookie(cname, cvalue, exdays) {
 		    var d = new Date();
@@ -418,7 +431,6 @@
 		    var expires = "expires="+ d.toUTCString();
 		    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 		} 
-		
 		//获取Cookie
 		function getCookie(cname) {
 		    var name = cname + "=";
@@ -452,7 +464,6 @@
 			}
 			return `${year}-${month}-${day}`
 		}
-
 		function formatTime(year, month, day) {
 			// let year = dateVal.getFullYear(),
 			//     month = dateVal.getMonth()+1,
@@ -468,29 +479,39 @@
 		
 		/**
 		 * 批量生成日期函数
-		 * @param {Date} startTime 
+		 * @param {Date} startTime
 		 * @param {Date} endTime 
 		 */
 		function generateFun(startTime, endTime) {
 			let timeStamp = Math.ceil((endTime.getTime() - startTime.getTime()) / (1000 * 60 * 60 * 24)), //判断两个日期相差多少天
 				timeArr = [];
+				timeArr.push(formatDate(startTime))
 			for (let index = 1; index <= timeStamp; index++) {
 				const element = startTime.setTime((1000 * 60 * 60 * 24) + startTime.getTime())
 				timeArr.push(formatDate(new Date(element)))
 			}
-			timeArr.push(formatDate(startTime))
 			return timeArr
 		}
 		
 		var personNum=0;
-		$("body").on("click","#addBtn", function() {
-			personNum > 16 ? 16 : personNum++;
-			$("#personNum").text(personNum+'+');
-		});
-		$("body").on("click","#subBtn", function() {
-			personNum <= 0 ? 0 : personNum--;
-			$("#personNum").text(personNum+'+');
-		});
+		//请求后端方法，再拿到房子数据
+		function getHouseInfo(dateStart,dateEnd,addr,minPrice,maxPrice,personNum) {
+			map='{"reserve_date":"'+dateStart+'","check_out_date":"'+dateEnd+'","house_address":"'+
+				addr+'","minPrice":"'+minPrice+'","maxPrice":"'+maxPrice+'","personNum":"'+personNum+'"}'
+			$.getJSON(basePath+"house.do?method=getHouseInfoBySelect&callback=?",
+			{"map":map},function(result){
+				msg=result.msg;
+				houseInfo=result.houseInfo;
+				console.log(msg)
+				if(houseInfo != null) {
+					layer.msg(msg);
+					setHouse();
+				}else {
+					layer.msg(msg);
+				}
+				
+			});
+		}
 		
 	</script>
 	<script>
@@ -512,20 +533,13 @@
 				done: function(value, date, endDate) {
 					dateArr = generateFun(new Date(formatTime(date.year, date.month, date.date)), new Date(formatTime(endDate.year,
 						endDate.month, endDate.date)));
-					console.log(dateArr)
+					console.log(dateArr[0]+"---"+dateArr[dateArr.length-1])
 					DateNum = dateArr.length - 1;
-					//请求后端，再拿到房子数据
-					// $.getJSON(basePath+"user.do?method=login&callback=?",
-					// {"map":map},function(result){
-					// 	msg=result.msg;
-					// 	console.log(msg)
-					// 	if(userInfo != null) {
-					// 		layer.msg(msg);
-					// 	}else {
-					// 		layer.msg(msg);
-					// 	}
-						
-					// });
+					if(dateArr != null) {
+						dateStart=dateArr[0];
+						dateEnd=dateArr[dateArr.length-1];
+					}
+					//getHouseInfo();
 				}
 			});
 			//验证字符串是否是数字
@@ -568,7 +582,7 @@
 							if(!checkNumber(price_max) || !checkNumber(price_min) || price_min < 0 ||price_max < 0) {
 								layer.msg("价格设置错误！")
 							} else{
-									alert(0)
+								
 							}
 						}
 					});

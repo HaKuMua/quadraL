@@ -14,14 +14,22 @@ import cn.com.util.UUIDGenerator;
 
 import com.zj.dao.CheckInPersonDao;
 import com.zj.dao.GrogshopOrderDao;
+import com.zj.dao.HouseDao;
+import com.zj.dao.HouseImgDao;
+import com.zj.dao.NoticeDao;
 import com.zj.dao.ReserveDao;
 import com.zj.dao.UserDao;
 import com.zj.dao.impl.CheckInPersonDaoImpl;
 import com.zj.dao.impl.GrogshopOrderDaoImpl;
+import com.zj.dao.impl.HouseDaoImpl;
+import com.zj.dao.impl.HouseImgDaoImpl;
+import com.zj.dao.impl.NoticeDaoImpl;
 import com.zj.dao.impl.ReserveDaoImpl;
 import com.zj.dao.impl.UserDaoImpl;
 import com.zj.entity.CheckInPerson;
 import com.zj.entity.GrogshopOrder;
+import com.zj.entity.House;
+import com.zj.entity.HouseImg;
 import com.zj.entity.Reserve;
 import com.zj.entity.User;
 import com.zj.service.impl.GrogshopOrderServiceImpl;
@@ -36,6 +44,9 @@ public class GrogshopOrderService implements GrogshopOrderServiceImpl{
 	private ReserveDaoImpl reserveDaoImpl = new ReserveDao();
 	private CheckInPersonDaoImpl checkInPersonDaoImpl = new CheckInPersonDao();
 	private UserDaoImpl userDaoImpl = new UserDao();
+	private HouseDaoImpl houseDaoImpl = new HouseDao();
+	private HouseImgDaoImpl houseImgDaoImpl = new HouseImgDao();
+	private NoticeDaoImpl noticeDaoImpl = new NoticeDao();
 	private Logger log = Logger.getLogger(GrogshopOrderService.class);
 	/**
 	 * 将所有订单信息包装成一个list<map>返回 
@@ -137,6 +148,8 @@ public class GrogshopOrderService implements GrogshopOrderServiceImpl{
 				log.debug("订单信息插入失败");
 				return null;
 			}
+			//插入通知
+			noticeDaoImpl.addNotice("用户"+user_id+"在您这预定了房子", user_id);
 			//插入入住人表
 			for(Map<String, Object> checkInPersonMap : checkInPersonInfoMap){
 				CheckInPerson checkInPerson = new CheckInPerson();
@@ -157,6 +170,68 @@ public class GrogshopOrderService implements GrogshopOrderServiceImpl{
 			log.error("Date型转换异常");
 			return null;
 		}
-		return "订单插入成功";
+		return "订单支付成功";
 	}
+	/**
+	 * 通过用户ID获取此用户的所有订单信息
+	 */
+	public List<Map<String, Object>> getGrogshopOrderInfoByUserID(Integer user_id) {
+		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+		try {
+			List<GrogshopOrder> orderList = orderDaoImpl.getGrogshopOrderInfoByUserID(user_id);
+			for(GrogshopOrder order : orderList){
+				Map<String, Object> map = new HashMap<String, Object>();
+				map.put("price", order.getPrice());
+				map.put("grogshop_order_state", order.getGrogshop_order_state());
+				Reserve reserve = reserveDaoImpl.getReserveInfoByID(order.getReserve_id());
+				map.put("reserve_date", reserve.getReserve_date());
+				map.put("reserve_day_number", reserve.getReserve_day_number());
+				map.put("check_out_date", reserve.getCheck_out_date());
+				House house = houseDaoImpl.getHouseInfoByID(reserve.getHouse_id());
+				map.put("house_name", house.getHouse_name());
+				HouseImg houseImg = houseImgDaoImpl.getHouseImgByHouseID(reserve.getHouse_id()).get(0);
+				map.put("house_img_url", houseImg.getHouse_img_url());
+				list.add(map);
+			}
+		} catch (SQLException e) {
+			log.error("数据库查询异常");
+		}
+		return list;
+	}
+
+	/**
+	 * 通过房东ID获取所有在此房东的房子中下单的用户订单信息
+	 * @param user_id
+	 * @return
+	 */
+	public List<Map<String, Object>> getGrogshopOrderInfoByLandlordID(
+			Integer user_id) {
+		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+		try {
+			List<House> houseList = houseDaoImpl.getHouseByID(user_id);
+			for(House house : houseList){
+				List<Reserve> reserveList = reserveDaoImpl.getReserveByHouseID(house.getHouse_id());
+				for(Reserve reserve : reserveList){
+					Map<String, Object> map = new HashMap<String, Object>();
+					map.put("reserve_date", reserve.getReserve_date());
+					map.put("reserve_day_number", reserve.getReserve_day_number());
+					map.put("check_out_date", reserve.getCheck_out_date());
+					map.put("house_name", house.getHouse_name());
+					GrogshopOrder order = orderDaoImpl.getGrogshopOrderInfoByReserveID(reserve.getReserve_id());
+					map.put("price", order.getPrice());
+					map.put("grogshop_order_state", order.getGrogshop_order_state());
+					User user = userDaoImpl.getUserInfoById(order.getUser_id());
+					map.put("user_name", user.getUser_name());
+					map.put("real_name", user.getReal_name());
+					map.put("user_phone", user.getUser_phone());
+					map.put("user_headimg_url", user.getUser_headimg_url());
+					list.add(map);
+				}
+			}
+		} catch (SQLException e) {
+			log.error("数据库查询异常");
+		}
+		return list;
+	}
+	
 }

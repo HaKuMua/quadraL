@@ -31,4 +31,16 @@ public interface GrogshopOrderDaoImpl {
 	 * @throws SQLException
 	 */
 	int addGrogshopOrderInfo(GrogshopOrder grogshopOrder) throws SQLException;
+	/**
+	 * 通过用户ID查询此用户的所有订单
+	 * @param user_id
+	 * @return
+	 * @throws SQLException
+	 */
+	List<GrogshopOrder> getGrogshopOrderInfoByUserID(Integer user_id) throws SQLException;
+	/**
+	 * 通过预订ID获得单个订单信息
+	 */
+	GrogshopOrder getGrogshopOrderInfoByReserveID(Integer reserve_id) throws SQLException;
+	
 }

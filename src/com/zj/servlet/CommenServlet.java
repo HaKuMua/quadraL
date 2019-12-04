@@ -1,6 +1,4 @@
-package com.zj.servlet;
-
-
+﻿package com.zj.servlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -15,26 +13,25 @@ import org.apache.log4j.Logger;
 import org.json.JSONObject;
 
 import com.alibaba.fastjson.JSON;
-import com.zj.service.ArticleService;
 import com.zj.service.CommentService;
 import com.zj.service.impl.ArticleServiceImpl;
 import com.zj.service.impl.CommentServiceImpl;
 
 import cn.com.util.BaseServlet;
+
 /**
  * 文章评论信息审核 servlet
+ * 
  * @author LanceEdward
  *
  */
 public class CommenServlet extends BaseServlet {
 	private static final long serialVersionUID = 1L;
-	
+
 	private CommentServiceImpl commentService = new CommentService();
-	private ArticleServiceImpl articleService = new ArticleService();
-	private Logger log = Logger.getLogger(HouseServlet.class);
-	
-	public String commMap;
-	public String callback;
+	private String map;
+	private String callback;
+
 	// 返回所有文章评论信息
 	public void getAllComment(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
@@ -59,27 +56,21 @@ public class CommenServlet extends BaseServlet {
 		JSONObject json = new JSONObject(map);
 		response.getWriter().print(callback+"("+json+")");
 	}
+
 	/**
 	 * 添加评论
 	 * @param request
 	 * @param response
-	 * @throws SQLException 
-	 * @throws IOException 
+	 * @throws IOException
 	 */
-	public void addCommInfo(HttpServletRequest request,HttpServletResponse response) throws  IOException {
+	public void addComment(HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
 		@SuppressWarnings("unchecked")
-		Map<String, Object> commInfo = (Map<String, Object>) JSON.parse(commMap);
-		log.info(commInfo);
-		Map<String, Object> hint = new HashMap<String, Object>();
-		Integer commNum = commentService.addComm(commInfo);
-		if(commNum> 0) {
-			hint.put("msg", "评论成功！");
-			hint.put("code", 1);
-		}else {
-			hint.put("msg", "评论失败！");
-			hint.put("code", -1);
-		}
-		JSONObject json = new JSONObject(hint);
-		response.getWriter().print(callback + "(" + json + ")");
+		Map<String, Object> myMap = (Map<String, Object>) JSON.parse(map);
+		Map<String, Object> sendMap = new HashMap<String, Object>();
+		sendMap = commentService.addComment(myMap);
+		System.out.println(sendMap);
+		JSONObject obj = new JSONObject(sendMap);
+		response.getWriter().print(callback + "(" + obj + ")");
 	}
 }

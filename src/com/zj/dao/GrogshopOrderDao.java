@@ -70,5 +70,35 @@ public class GrogshopOrderDao implements GrogshopOrderDaoImpl {
 		GetConn.closeConn(conn);
 		return data;
 	}
+	/**
+	 * 通过用户ID查询此用户的所有订单
+	 * @param user_id
+	 * @return
+	 * @throws SQLException
+	 */
+	public List<GrogshopOrder> getGrogshopOrderInfoByUserID(Integer user_id)
+			throws SQLException {
+		conn = GetConn.getConn();
+		String sql = "select * from grogshop_order where user_id = ?";
+		List<GrogshopOrder> data = qr.query(conn, sql,
+				new BeanListHandler<GrogshopOrder>(GrogshopOrder.class),
+				user_id);
+		GetConn.closeConn(conn);
+		return data;
+	}
+
+	/**
+	 * 通过预订ID获得单个订单信息
+	 */
+	public GrogshopOrder getGrogshopOrderInfoByReserveID(Integer reserve_id)
+			throws SQLException {
+		conn = GetConn.getConn();
+		String sql = "select * from grogshop_order where reserve_id = ?";
+		GrogshopOrder data = qr.query(conn, sql,
+				new BeanHandler<GrogshopOrder>(GrogshopOrder.class),
+				reserve_id);
+		GetConn.closeConn(conn);
+		return data;
+	}
 
 }

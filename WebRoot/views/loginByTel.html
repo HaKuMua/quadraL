@@ -26,7 +26,7 @@
 				position: absolute;
 				font-weight: bold;
 				color: #777777;
-				margin-top: -226px;
+				margin-top: -210px;
 				margin-left: -120px;
 				height: 55px;
 			}
@@ -58,10 +58,6 @@
 						}
 					}
 				});
-				// form.on('submit(loginBtn)', function(data) {
-				// 	console.log(data.form) //被执行提交的form对象，一般在存在form标签时才会返回
-				// 	console.log(data.field) //当前容器的全部表单字段，名值对形式：{name: value}
-				// });
 			});
 			var code = 1129;
 			function loginByPwd() {
@@ -72,15 +68,30 @@
 				var tel = $("#telId").val();
 				console.log(tel);
 				if (/^((\d{3}-\d{8}|\d{4}-\d{7,8})|(1[3|5|7|8][0-9]{9}))$/.test(tel)) {
-					$(".login").append('<button class="layui-btn layui-btn-warm" id="sendCode" onclick=getCode()>发送验证码>></button>')
+					$(".login").append('<button class="layui-btn layui-btn-warm" id="sendCode" >发送验证码>></button>')
 				} else {
 					$("button").remove("#sendCode");
 				}
 			});
+			var num =1;
 			//获得验证码
-			function getCode() {
-				alert(code)
-			}
+			$("body").on("click","#sendCode",function() {
+				if(getCookie("login") == "false") {
+					layer.msg("今天不能登录！");
+					$("#sendCode").remove();
+					return;
+				}
+				if(num >= 10) {
+					setCookie("login", "false", 1);
+					layer.msg("今天不能登录！");
+					return;
+				}
+				user_phone=$("#telId").val();
+				$.getJSON(basePath+"user.do?method=getPhoneCode&callback=?",
+					{"user_phone":user_phone},function(res){
+						layer.msg(res.hint);
+				});
+			});
 			
 			//设置cookie
 			function setCookie(cname, cvalue, exdays) {
@@ -107,36 +118,37 @@
 			    return "";
 			} 
 			
-			var num =1;
 			$("#myBtn").on("click",function() {
 				if(getCookie("login") == "false") {
 					$("#myBtn").attr("class","layui-btn btn  layui-btn-disabled");
+					return;
 				}
 				if(num >= 10) {
-					alert(num)
 					setCookie("login", "false", 1);
 					layer.msg("今天不能登录！");
 					return;
 				}
 				var telId =$("#telId").val();
 				var code = $("#code").val();
-				map='"telId":'+telId+',"code":'+code;
+				map='{"user_phone":"'+telId+'","code":"'+code+'"}';
 				//后端验证并获得userInfoCookie
-				// $.getJSON(basePath+"user.do?method=phoneLogin&callback=?",
-				// 	{"map":map},function(res){
-				// 	//userInfo=res.obj.userInfo;
-				// 	//console.log(userInfo)
-				// 	if(userInfo != null) {
-				// 		//var objString = JSON.stringify(userInfo);
-				// 		//setCookie("userInfo", userInfo, 1);
-				// 		//关闭自己并跳转
-				// 		//layer.close(layer.index);
-				// 		//parent.location.reload();
-				// 	}else {
-				// 		layer.msg(res.obj.msg)
-				// 	}
+				$.getJSON(basePath+"user.do?method=loginByPhone&callback=?",
+					{"map":map},function(result){
+					userInfo=result.userInfo;
+					console.log(result)
+					if(userInfo != null) {
+						layer.msg(result.msg);
+						objString = JSON.stringify(userInfo);
+						setCookie("userInfo", objString, 1);
+						window.setTimeout (function() {
+							layer.close(layer.index);
+							parent.location.reload();
+						},1200);
+					}else {
+						layer.msg(result.msg);
+					}
 					
-				// });
+				});
 				num++;
 			});
 				
