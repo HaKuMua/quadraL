@@ -159,4 +159,22 @@ public class UserServlet extends BaseServlet {
 		JSONObject json = new JSONObject(noticeMap);
 		response.getWriter().print(json);
 	}
+	/**
+	 * 用户充值
+	 * @param request
+	 * @param response
+	 * @throws FileUploadException
+	 * @throws IOException
+	 */
+	public void topUp(HttpServletRequest request,HttpServletResponse response) throws FileUploadException, IOException {
+		@SuppressWarnings("unchecked")
+		Map<String, Object> myMap = (Map<String, Object>) JSON.parse(map);
+		if(myMap.get("money") != null && myMap.get("user_id") != null){
+			response.getWriter().print(userServiceImpl.topUp(Double.valueOf(myMap.get("money").toString()), 
+					Integer.valueOf(myMap.get("user_id").toString())));
+		}else
+		{
+			response.getWriter().print(-1);
+		}
+	}
 }

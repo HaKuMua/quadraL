@@ -6,14 +6,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 import com.zj.dao.HouseCommentDao;
 import com.zj.dao.HouseDao;
+import com.zj.dao.HouseImgDao;
 import com.zj.dao.UserDao;
 import com.zj.dao.impl.HouseCommentDaoImpl;
 import com.zj.dao.impl.HouseDaoImpl;
+import com.zj.dao.impl.HouseImgDaoImpl;
 import com.zj.dao.impl.UserDaoImpl;
 import com.zj.entity.House;
 import com.zj.entity.HouseComment;
+import com.zj.entity.HouseImg;
 import com.zj.entity.User;
 import com.zj.service.impl.HouseCommentServiceImpl;
 
@@ -22,7 +27,8 @@ public class HouseCommentService implements HouseCommentServiceImpl{
 	private HouseCommentDaoImpl hCommenDaoImpl = new HouseCommentDao();
 	private HouseDaoImpl houseDaoImpl = new HouseDao();
 	private UserDaoImpl  userDaoImpl = new UserDao(); 
-	
+	private HouseImgDaoImpl houseImgDaoImpl = new HouseImgDao();
+	private Logger log = Logger.getLogger(HouseCommentService.class);
 	/**
 	 * 将所有的房间评论打包成list返回
 	 */
@@ -56,6 +62,47 @@ public class HouseCommentService implements HouseCommentServiceImpl{
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		return list;
+	}
+	/**
+	 * 通过房东ID获取他的房子的所有评论
+	 */
+	public List<Map<String, Object>> getHouseCommentByLendlordID(Integer user_id) {
+		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+		try {
+			List<House> houseList = houseDaoImpl.getHouseByID(user_id);
+			for(House house : houseList) {
+				Map<String, Object> map = new HashMap<String, Object>();
+				List<HouseComment> commentList = hCommenDaoImpl.getHouseCommentByHouseID(house.getHouse_id());
+				map.put("commentNum", commentList.size());
+				List<Map<String, Object>> commentListMap = new ArrayList<Map<String,Object>>();
+				for(HouseComment houseComment : commentList){
+					Map<String, Object> commentMap = new HashMap<String, Object>();
+					commentMap.put("user_id", houseComment.getUser_id());
+					User user = userDaoImpl.getUserInfoById(houseComment.getUser_id());
+					commentMap.put("user_name", user.getUser_name());
+					commentMap.put("user_headimg_url", user.getUser_headimg_url());
+					commentMap.put("houseCom_date", houseComment.getHouseCom_date());
+					commentMap.put("houseCom_content", houseComment.getHouseCom_content());
+					commentMap.put("house_id", house.getHouse_id());
+					commentMap.put("house_name", house.getHouse_name());
+					HouseImg houseImg = houseImgDaoImpl.getHouseImgByHouseID(house.getHouse_id()).get(0);
+					commentMap.put("house_img_url", houseImg.getHouse_img_url());
+					commentListMap.add(commentMap);
+				}
+				map.put("commentList", commentListMap);
+				map.put("house_name", house.getHouse_name());
+				map.put("house_id", house.getHouse_id());
+				map.put("house_price", house.getHouse_price());
+				map.put("house_type", house.getHouse_type());
+				map.put("house_img_url", houseImgDaoImpl.getHouseImgByHouseID(house.getHouse_id()).get(0).getHouse_img_url());
+				map.put("house_intake", house.getHouse_intake());
+				list.add(map);
+			}
+		} catch (SQLException e) {
+			log.error("数据库操作异常");
+		}
+		
 		return list;
 	}
 }

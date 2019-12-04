@@ -20,8 +20,12 @@ public interface UserServiceImpl {
 	 * 
 	 */
 	Map<String, Object> getUserInfoByPhone(String user_phone);
-	
-	
+	/**
+	 *通过用户ID返回单个用户信息 
+	 * @param user_id
+	 * @return
+	 */
+	Map<String, Object> getUserInfoByUserID(Integer user_id);
 	
 	/**
 	 * 修改用户基本信息
@@ -64,6 +68,11 @@ public interface UserServiceImpl {
 	 * @throws SQLException 
 	 */
 	Map<String, Object> addUserHead(Integer user_id,String url);
-	
-	
+	/**
+	 * 用户充值
+	 * @param price
+	 * @param user_id
+	 * @return
+	 */
+	Integer topUp(Double price, Integer user_id);
 }

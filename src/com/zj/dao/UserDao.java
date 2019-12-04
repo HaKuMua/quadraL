@@ -181,8 +181,16 @@ public class UserDao implements UserDaoImpl{
 		GetConn.closeConn(conn);
 		return data;
 	}
-
-	
-	
+	/**
+	 * 用户充值
+	 * @return
+	 */
+	public Integer topUp(Double price, Integer user_id) throws SQLException {
+		conn = GetConn.getConn();
+		String sql = "update user set money=money+? where user_id=?";
+		Integer data = qr.update(conn, sql, price,user_id);
+		GetConn.closeConn(conn);
+		return data;
+	}
 	
 }
