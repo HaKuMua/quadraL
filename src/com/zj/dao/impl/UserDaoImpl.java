@@ -84,5 +84,10 @@ public interface UserDaoImpl {
 	 */
 
 	User queryUserInfo(String user_code,String user_pwd) throws SQLException;
+	/**
+	 * 用户充值
+	 * @return
+	 */
+	Integer topUp(Double price,Integer user_id) throws SQLException;
 
 }

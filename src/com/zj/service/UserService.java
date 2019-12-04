@@ -9,6 +9,8 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.log4j.Logger;
+
 import cn.com.util.CheckoutEmail;
 import cn.com.util.CheckoutIDCard;
 import cn.com.util.CheckoutPhoneNumber;
@@ -26,7 +28,7 @@ import com.zj.service.impl.UserServiceImpl;
 
 public class UserService implements UserServiceImpl {
 	private UserDaoImpl userDaoImpl = new UserDao();
-
+	private Logger log = Logger.getLogger(UserService.class);
 	/**
 	 * 将所有用户信息包装成一个list<map>返回
 	 */
@@ -99,6 +101,8 @@ public class UserService implements UserServiceImpl {
 				map.put("is_lanlord", user.getIs_landlord());
 				map.put("real_name", user.getReal_name());
 				map.put("user_describe", user.getUser_describe());
+				map.put("money", user.getMoney());
+				map.put("inform_date", user.getInform_date());
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -518,6 +522,48 @@ public class UserService implements UserServiceImpl {
 			map.put("msg", "认证失败！");
 		}
 		return map;
+	}
+	/**
+	 *通过用户ID返回单个用户信息 
+	 * @param user_id
+	 * @return
+	 */
+	public Map<String, Object> getUserInfoByUserID(Integer user_id) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		try {
+			User user = userDaoImpl.getUserInfoById(user_id);
+			map.put("user_id", user.getUser_id());
+			map.put("user_name", user.getUser_name());
+			map.put("user_headimg_url", user.getUser_headimg_url());
+			map.put("user_email", user.getUser_email());
+			map.put("user_phone", user.getUser_phone());
+			map.put("user_IDcard", user.getUser_IDcard());
+			map.put("is_landlord", user.getIs_landlord());
+			map.put("user_pwd", user.getUser_pwd());
+			map.put("money", user.getMoney());
+			map.put("real_name", user.getReal_name());
+			map.put("user_describe", user.getUser_describe());
+			map.put("inform_date", user.getInform_date());
+		} catch (SQLException e) {
+			log.error("数据库操作异常");
+		}
+		return map;
+	}
+	/**
+	 * 用户充值
+	 */
+	public Integer topUp(Double price, Integer user_id) {
+		Integer data = null;
+		try {
+			if(price > 0)
+				data = userDaoImpl.topUp(price, user_id);
+			else
+				return -1;
+		} catch (SQLException e) {
+			log.error("数据库操作异常");
+			return -1;
+		}
+		return data > 0 ? 1 : -1;
 	}
 
 }
