@@ -170,7 +170,7 @@ public class GrogshopOrderService implements GrogshopOrderServiceImpl{
 			log.error("Date型转换异常");
 			return null;
 		}
-		return "订单插入成功";
+		return "订单支付成功";
 	}
 	/**
 	 * 通过用户ID获取此用户的所有订单信息

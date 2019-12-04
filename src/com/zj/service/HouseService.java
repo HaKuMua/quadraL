@@ -195,6 +195,8 @@ public class HouseService implements HouseServiceImpl {
 					.toString()));
 		if (houseInfo.get("house_address") != null)
 			house.setHouse_address(houseInfo.get("house_address").toString());
+		if (houseInfo.get("location_id") != null)
+			house.setLocation_id(houseInfo.get("location_id").toString());
 
 		// 给房子详情实体类设置值进去
 		if (houseInfo.get("room_number") != null)

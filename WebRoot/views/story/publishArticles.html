@@ -3,6 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<title>度假屋、民宿、体验和攻略 - Airbnb爱彼迎</title>
+		<script src="../../js/comment.js"></script>
 		<link rel="stylesheet" type="text/css" href="../../layui/css/layui.css">
 		<script src="../../js/jquery.min.js"></script>
 		<script src="../../layui/layui.js"></script>
@@ -59,7 +60,7 @@
 				</div>
 			</div><br><br>
 			<div style=" margin-top: 50px;width: 700px;height: 80px;" id="edit">
-				<input  style="height:60px; font-size: 20px;" placeholder="故事标题" autocomplete="off" type="text" name="title" id="title"
+				<input style="height:60px; font-size: 20px;" placeholder="故事标题" autocomplete="off" type="text" name="title" id="title"
 				 class="layui-input" />
 			</div>
 
@@ -103,7 +104,7 @@
 				element = layui.element,
 				layedit = layui.layedit,
 				upload = layui.upload;
-	
+
 			//创建一个编辑器
 			var editIndex = layedit.build('LAY_editor', {
 				height: 480, //设置编辑器高度
@@ -120,34 +121,52 @@
 				]
 			});
 			console.log(layedit.getContent(editIndex));
-			$("#add").on("click",function() {
-				title=$("#title").val();
-				content=layedit.getContent(editIndex);
+			$("#add").on("click", function() {
+				title = $("#title").val();
+				content = layedit.getContent(editIndex);
+				house_id=7;
 				console.log(content);
-				if(title != '' && content != '') {
-					alert("去发布！")
-				}else {
-					layer.msg("请填写完整！")
+				if (title != '' && content != '' && img.length >= 5) {
+					map = '{"user_id":"' + userInfo.user_id + '","article_name":"' + title +
+						'","house_id":"' + house_id +'","allArticleImg":"' + img + '"}';
+					$.getJSON(basePath + "article.do?method=addArticleInfo&callback=?", {
+						"articleMap": map,"article_content":content 
+					}, function(result) {
+						layer.msg(result.msg);
+					});
+				} else {
+					layer.msg("请填写完整！图片不能少于五张！")
 				}
 			});
-			upload.render({
+			var uploadInst = upload.render({
 				elem: '#uploadImg',
+				url: basePath + 'article.do?method=uploadImg',
+				headers: {
+					"withCredentials": 'true'
+				},
 				multiple: true,
 				before: function(obj) {
 					obj.preview(function(index, file, result) {
-						$('#look').append('<img width=665; height=450; src="' + result + '" alt="' + file.name +
+						$('#look').append('<img width=600; height=400; src="' + result + '" alt="' + file.name +
 							'" class="layui-upload-img">')
 						//img.push(result+file.name);
-						console.log(result + file.name)
 					});
+				},
+				done: function(res) {
+					//如果上传失败
+					console.log(res.data.src);
+					img.push(res.data.src);
+					if (res.code > 0) {
+						return layer.msg('上传失败');
+					} else {
+						return layer.msg('上传成功');
+					}
 				}
 			});
 		});
-		
 	</script>
 	<script type="text/javascript">
 		//利用Cookie拿到信息
-		// var userInfo=$.Cookie('userInfo');
 		var userInfo = {
 			user_id: '1000',
 			user_name: 'haku',
@@ -180,27 +199,57 @@
 			}
 
 		}
+		var img = [];
 
-		window.onload = function() {
-			//初始化导航栏
-			if (userInfo.user_id != '') {
-				var html = '<li class="layui-nav-item " id="china"> <a href="" >房源订单中心</a></li>' +
-					'<li class="layui-nav-item"><a href="">故事</a></li>' +
-					'<li class="layui-nav-item"><a href="">帮助</a> </li>' +
-					' <li class="layui-nav-item" lay-unselect=""><a href="javascript:;"><img src="' +
-					userInfo.user_img + '" class="layui-nav-img">' + userInfo.user_name + '</a> ' +
-					'<dl class="layui-nav-child"><dd><a href="javascript:;"  style="color: gray;">个人中心</a></dd>' +
-					' <dd><a href="javascript:;" style="color: gray;">修改信息</a></dd><dd><a href="javascript:;" style="color: gray;">退了</a></dd></dl>';
-				$("#rightNav").empty();
-				$("#rightNav").append(html);
-				if (userInfo.islanlord != 0) {
-					$("#china").after('<li class="layui-nav-item "> <a href="">查看我的房源</a></li>' +
-						'<li class="layui-nav-item "><a href="host/create_a_room/room.html">添加房源</a></li>');
-				} else {
-					$("#china").after('<li class="layui-nav-item "> <a href="">成为房东</a></li>');
-				}
+		json = getCookie('userInfo');
+		if (json != '' || json == null) {
+			jsonInfo = JSON.parse(json);
+			if (jsonInfo != null) {
+				userInfo = jsonInfo;
+				console.log(userInfo);
 			}
 		}
-		
+		//初始化导航栏
+		if (userInfo.user_id != null) {
+			var html = '<li class="layui-nav-item " id="china"> <a href="../user/myOrder.html" >房源订单中心</a></li>' +
+				'<li class="layui-nav-item"><a href="../story/index.html">故事</a></li>' +
+				'<li class="layui-nav-item"><a href="#" id="notice">消息<span id="dot" class="layui-badge-dot"></a> </li>' +
+				' <li class="layui-nav-item" lay-unselect=""><a href="javascript:;"><img src="' +
+				userInfo.user_img + '" class="layui-nav-img">' + userInfo.user_name + '</a> ' +
+				'<dl class="layui-nav-child"><dd><a href="landlord.html"  style="color: gray;">个人中心</a></dd>' +
+				' <dd><a href="../user/modifyInfo.html" style="color: gray;">修改信息</a></dd><dd><a href="javascript:;" id="quit" style="color: gray;">退了</a></dd></dl>';
+			$("#rightNav").empty();
+			$("#rightNav").append(html);
+			if (userInfo.islanlord != 1) {
+				$("#china").after('<li class="layui-nav-item "> <a href="javascript:;">我的房源</a>' +
+					'<dl class="layui-nav-child"><dd><a href="../user/landlordOrder.html"  style="color: gray;">订单信息</a></dd>' +
+					' <dd><a href="../user/myHouse.html" style="color: gray;">房源信息</a></dd></dl>' + '</li>' +
+					'<li class="layui-nav-item "><a href="create_a_room/room.html">添加房源</a></li>');
+			} else {
+				$("#china").after('<li class="layui-nav-item "> <a href="">成为房东</a></li>');
+			}
+
+		}
+		//退出按钮监听
+		$("body").on("click", "#quit", function() {
+			setCookie("userInfo", null, 0.1);
+			location.href = "../index.html";
+		});
+		//获取Cookie
+		function getCookie(cname) {
+			var name = cname + "=";
+			var decodedCookie = decodeURIComponent(document.cookie);
+			var ca = decodedCookie.split(';');
+			for (var i = 0; i < ca.length; i++) {
+				var c = ca[i];
+				while (c.charAt(0) == ' ') {
+					c = c.substring(1);
+				}
+				if (c.indexOf(name) == 0) {
+					return c.substring(name.length, c.length);
+				}
+			}
+			return "";
+		}
 	</script>
 </html>

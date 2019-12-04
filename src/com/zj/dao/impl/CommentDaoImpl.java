@@ -1,6 +1,7 @@
-package com.zj.dao.impl;
+﻿package com.zj.dao.impl;
 
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 
 import com.zj.entity.Comment;
@@ -19,7 +20,7 @@ public interface CommentDaoImpl {
 	 * 给文章添加评论
 	 * @throws SQLException 
 	 */
-	int addComment(Integer article_id,Integer user_id,String comment_content,String replier_id) throws SQLException;
+	int addComment(Comment comment) throws SQLException;
 	/**
 	 * 通过id删除文章评论
 	 * @throws SQLException 
@@ -55,4 +56,9 @@ public interface CommentDaoImpl {
 	 * @throws SQLException 
 	 */
 	Long queryPraiseCount(Integer comment_id) throws SQLException;
+	/**
+	 * 通过文章id删除一篇文章的所有评论
+	 * @throws SQLException 
+	 */
+	Integer deleteCommByArticleId(Integer article_id) throws SQLException;
 }

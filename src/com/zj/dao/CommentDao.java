@@ -1,7 +1,8 @@
-package com.zj.dao;
+﻿package com.zj.dao;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.dbutils.QueryRunner;
@@ -26,11 +27,10 @@ public class CommentDao implements CommentDaoImpl{
 	 * 给文章添加评论
 	 * @throws SQLException 
 	 */
-	public int addComment(Integer article_id, Integer user_id,
-			String comment_content, String replier_id) throws SQLException {
+	public int addComment(Comment comment) throws SQLException {
 		conn = GetConn.getConn();
 		String sql = "insert into comment(article_id, user_id,comment_content,replier_id) values(?,?,?,?)";
-		int data = qr.update(conn, sql, article_id, user_id,comment_content,replier_id);
+		int data = qr.update(conn, sql, comment.getArticle_id(), comment.getUser_id(),comment.getComment_content(),comment.getReplier_id());
 		GetConn.closeConn(conn);
 		return data;
 	}
@@ -55,6 +55,19 @@ public class CommentDao implements CommentDaoImpl{
 		conn = GetConn.getConn();
 		String sql = "select * from comment where comment_id = ?";
 		Comment data = qr.query(conn, sql, new BeanHandler<Comment>(Comment.class), comment_id);
+		GetConn.closeConn(conn);
+		return data;
+	}
+	
+	/**
+	 * 通过名字和日期查询评论
+	 * @throws SQLException 
+	 */
+	public Comment queryCommentByName(String comment_content, Date comment_date)
+			throws SQLException {
+		conn = GetConn.getConn();
+		String sql = "select * from comment where comment_content = ? and comment_date =?";
+		Comment data = qr.query(conn, sql, new BeanHandler<Comment>(Comment.class), comment_content,comment_date);
 		GetConn.closeConn(conn);
 		return data;
 	}
@@ -128,4 +141,17 @@ public class CommentDao implements CommentDaoImpl{
 		GetConn.closeConn(conn);
 		return data;
 	}
+
+	/**
+	 * 通过文章id删除一篇文章的所有评论
+	 * @throws SQLException 
+	 */
+	public Integer deleteCommByArticleId(Integer article_id) throws SQLException {
+		conn = GetConn.getConn();
+		String sql = "delete from comment where article_id = ?";
+		Integer data = qr.update(conn, sql, article_id);
+		GetConn.closeConn(conn);
+		return data;
+	}
+	
 }

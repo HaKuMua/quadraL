@@ -79,7 +79,7 @@ public class UserDao implements UserDaoImpl{
 	 */
 	public Integer addUser(String user_name, String user_phone) throws SQLException {
 		conn = GetConn.getConn();
-		String sql = "insert into user(user_name,user_phone) values(?,?,?)";
+		String sql = "insert into user(user_name,user_phone) values(?,?)";
 		int data = qr.update(conn, sql, user_name,user_phone);
 		GetConn.closeConn(conn);
 		return data;
@@ -103,9 +103,10 @@ public class UserDao implements UserDaoImpl{
 	public Integer queryPhoneExit(String user_phone) throws SQLException {
 		conn = GetConn.getConn();
 		String sql = "select count(*) from user where user_phone = ?";
-		Integer data = qr.query(conn, sql, new ScalarHandler<Integer>(), user_phone);
+		Long data = qr.query(conn, sql, new ScalarHandler<Long>(), user_phone);
 		GetConn.closeConn(conn);
-		return data;
+		
+		return new Integer(data.toString());
 	}
 	/**
 	 * 用户更新密码
@@ -174,10 +175,9 @@ public class UserDao implements UserDaoImpl{
 	@Override
 	public Integer setRealName(Integer user_id, String real_name,
 			String user_IDcard) throws SQLException {
-		// TODO Auto-generated method stub
 		conn = GetConn.getConn();
 		String sql = "update user set real_name = ?,user_IDcard = ? where user_id = ?";
-		Integer data = qr.update(conn, sql,new ScalarHandler<Integer>(),real_name, user_IDcard,user_id);
+		Integer data = qr.update(conn, sql,real_name, user_IDcard,user_id);
 		GetConn.closeConn(conn);
 		return data;
 	}

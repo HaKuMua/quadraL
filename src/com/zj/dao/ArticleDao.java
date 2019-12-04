@@ -26,11 +26,10 @@ public class ArticleDao implements ArticleDaoImpl{
 	 * 添加文章
 	 * @throws SQLException 
 	 */
-	public int addArticle(Integer user_id, String article_name,
-			String article_content,Integer house_id) throws SQLException {
+	public int addArticle(Article articleInfo) throws SQLException {
 		conn = GetConn.getConn();
 		String sql = "insert into article(user_id,article_name,article_content,house_id) values(?,?,?,?)";
-		int data = qr.update(conn, sql,user_id, article_name,article_content,house_id);
+		int data = qr.update(conn, sql,articleInfo.getUser_id(), articleInfo.getArticle_name(),articleInfo.getArticle_content(),articleInfo.getHouse_id());
 		GetConn.closeConn(conn);
 		return data;
 	}
@@ -136,8 +135,33 @@ public class ArticleDao implements ArticleDaoImpl{
 	 * @throws SQLException 
 	 */
 	public List<Article> queryFuzzyQuery(String keyWord) throws SQLException {
-		String sql = "select * from article where article_name like %?%";
-		return qr.query(conn, sql, new BeanListHandler<Article>(Article.class), keyWord);
+		conn = GetConn.getConn();
+		String sql = "select * from article where article_name like \"%\"?\"%\"";
+		List<Article> data = qr.query(conn, sql, new BeanListHandler<Article>(Article.class), keyWord);
+		GetConn.closeConn(conn);
+		return data;
 	}
-	
+	/**
+	 * 通过文章名字查id
+	 * @throws SQLException 
+	 */
+	public Integer queryIdByArticleName(String article_name) throws SQLException {
+		conn = GetConn.getConn();
+		String sql = "select article_id from article where article_name = ?";
+		Integer data = qr.query(conn, sql, new ScalarHandler<Integer>(), article_name);
+		GetConn.closeConn(conn);
+		return data;
+	}
+
+	/**
+	 * 获得一个用户所有文章
+	 * @throws SQLException 
+	 */
+	public List<Article> queryArticleByUserId(Integer user_id) throws SQLException {
+		conn = GetConn.getConn();
+		String sql = "select * from article where user_id = ?";
+		List<Article> data = qr.query(conn, sql, new BeanListHandler<Article>(Article.class), user_id);
+		GetConn.closeConn(conn);
+		return data;
+	}
 }
