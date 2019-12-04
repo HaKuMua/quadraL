@@ -107,6 +107,4 @@ public class Comment implements Serializable{
 				+ ", comment_date=" + comment_date + ", comment_praise="
 				+ comment_praise + "]";
 	}
-
-	
 }

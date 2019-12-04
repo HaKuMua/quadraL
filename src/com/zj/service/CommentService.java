@@ -1,10 +1,12 @@
-package com.zj.service;
+﻿package com.zj.service;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.apache.log4j.Logger;
 
 import cn.com.util.PageUtil;
 
@@ -27,8 +29,8 @@ public class CommentService implements CommentServiceImpl {
 
 	private CommentDaoImpl commenDaoImpl = new CommentDao();
 	private ArticleDaoImpl articleDaoImpl = new ArticleDao();
-	private UserDaoImpl userDaoImpl = new UserDao();
-
+	private UserDaoImpl  userDaoImpl = new UserDao(); 
+	private Logger log = Logger.getLogger(HouseService.class);
 	/**
 	 * 将所有的评论打包成list返回
 	 */
@@ -64,7 +66,6 @@ public class CommentService implements CommentServiceImpl {
 		}
 		return list;
 	}
-
 	// 分页显示一篇文章评论
 	public List<Map<String, Object>> getPageCommInfo(Integer commPresentPage,
 			Integer article_id) throws SQLException {
@@ -134,4 +135,21 @@ public class CommentService implements CommentServiceImpl {
 		}
 		return map;
 	}
+	/**
+	 * 删除一条评论
+	 */
+	public Integer deleteComm(Integer comment_id) {
+//		//判断该评论是否有回复，有则删除
+//		try {
+//			Long replierCount = commenDaoImpl.queryReplierCount(comment_id);
+//			if(replierCount > 1) {
+//				Integer user_id = commenDaoImpl.qu
+//			}
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		return null;
+	}
+	
 }

@@ -49,4 +49,8 @@ public interface ArticleServiceImpl {
 	 * 删除文章
 	 */
 	Integer deleteArticleInfo(Integer article_id);
+	/**
+	 * 查询一个用户所有文章
+	 */
+	List<Map<String, Object>> getAllArticleByUser(Integer user_id);
 }

@@ -152,4 +152,16 @@ public class ArticleDao implements ArticleDaoImpl{
 		GetConn.closeConn(conn);
 		return data;
 	}
+
+	/**
+	 * 获得一个用户所有文章
+	 * @throws SQLException 
+	 */
+	public List<Article> queryArticleByUserId(Integer user_id) throws SQLException {
+		conn = GetConn.getConn();
+		String sql = "select * from article where user_id = ?";
+		List<Article> data = qr.query(conn, sql, new BeanListHandler<Article>(Article.class), user_id);
+		GetConn.closeConn(conn);
+		return data;
+	}
 }

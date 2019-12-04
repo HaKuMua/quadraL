@@ -21,9 +21,7 @@ import cn.com.util.PageUtil;
 
 import com.alibaba.fastjson.JSON;
 import com.zj.service.ArticleService;
-import com.zj.service.CommentService;
 import com.zj.service.impl.ArticleServiceImpl;
-import com.zj.service.impl.CommentServiceImpl;
 /**
  * 文章
  * @author ml
@@ -32,7 +30,6 @@ import com.zj.service.impl.CommentServiceImpl;
 public class ArticleServlet extends BaseServlet {
 	private static final long serialVersionUID = 1L;
 	private ArticleServiceImpl articleService = new ArticleService();
-	private CommentServiceImpl commentServiceImpl = new CommentService();
 	private Logger log = Logger.getLogger(HouseServlet.class);
 	public String callback;
 	public String articleMap;
@@ -40,6 +37,7 @@ public class ArticleServlet extends BaseServlet {
 	private Integer article_id;
 	private Integer commPresentPage;
 	private String article_content;
+
 	// 返回所有的文章信息
 	public void getAllArticle(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
@@ -90,6 +88,7 @@ public class ArticleServlet extends BaseServlet {
 		response.getWriter().print(json);
 	}
 	/**
+
 	 * 添加文章
 	 * @param request
 	 * @param response
@@ -154,5 +153,17 @@ public class ArticleServlet extends BaseServlet {
 		}
 		JSONObject json = new JSONObject(hint);
 		response.getWriter().print(callback + "(" + json + ")");
+	}
+	// 返回一个用户所有的文章信息
+	public void getUserAllArticle(HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
+		@SuppressWarnings("unchecked")
+		Map<String, Object> articleInfo = (Map<String, Object>) JSON.parse(articleMap);
+		Integer user_id = Integer.valueOf(articleInfo.get("user_id").toString());
+		List<Map<String, Object>> list = articleService.getAllArticleByUser(user_id);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		JSONObject obj = new JSONObject(map);
+		response.getWriter().print(callback + "(" + obj + ")");
 	}
 }
