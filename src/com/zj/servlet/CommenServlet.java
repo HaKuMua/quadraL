@@ -9,12 +9,10 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
 import org.json.JSONObject;
 
 import com.alibaba.fastjson.JSON;
 import com.zj.service.CommentService;
-import com.zj.service.impl.ArticleServiceImpl;
 import com.zj.service.impl.CommentServiceImpl;
 
 import cn.com.util.BaseServlet;
@@ -50,7 +48,7 @@ public class CommenServlet extends BaseServlet {
 	public void getPageCommInfo(HttpServletRequest request,HttpServletResponse response) throws SQLException, IOException {
 		Integer article_id = Integer.valueOf(JSON.parse("article_id").toString());
 		Integer commPresentPage = Integer.valueOf(JSON.parse("commPresentPage").toString());
-		List<Map<String, Object>> list = articleService.getPageCommInfo(commPresentPage, article_id);
+		List<Map<String, Object>> list = commentService.getPageCommInfo(commPresentPage, article_id);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("pageCommentInfo", list);
 		JSONObject json = new JSONObject(map);

@@ -65,4 +65,9 @@ public interface ArticleDaoImpl {
 	 * @throws SQLException 
 	 */
 	Integer queryIdByArticleName(String article_name) throws SQLException;
+	/**
+	 * 获得一个用户所有文章
+	 * @throws SQLException 
+	 */
+	List<Article> queryArticleByUserId(Integer user_id) throws SQLException;
 }

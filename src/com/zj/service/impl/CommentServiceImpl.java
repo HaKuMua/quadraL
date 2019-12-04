@@ -24,5 +24,9 @@ public interface CommentServiceImpl {
 	 * @return
 	 */
 	Map<String, Object> addComment(Map<String, Object> info);
+	/**
+	 * 删除一条评论
+	 */
+	Integer deleteComm(Integer comment_id);
 
 }

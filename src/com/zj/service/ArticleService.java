@@ -387,4 +387,37 @@ public class ArticleService implements ArticleServiceImpl{
 		}
 		return 1;
 	}
+
+	/**
+	 * 查询一个用户所有文章
+	 */
+	public List<Map<String, Object>> getAllArticleByUser(Integer user_id) {
+		List<Map<String, Object>> list = null;
+		try {
+			List<Article> articleList = articleDaoImpl.queryArticleByUserId(user_id);
+			if(articleList != null){
+				list = new ArrayList<Map<String,Object>>();
+				for(Article article : articleList){
+					Map<String, Object> map = new HashMap<String, Object>();
+					map.put("article_id", article.getArticle_id());
+					//获取对应的文章图片
+					Integer article_id = article.getArticle_id();
+					List<ArticleImg> articleImg = articleImgDaoImpl.queryArticleImgByArticleId(article_id);
+					map.put("article_img", articleImg);
+					map.put("user_id", article.getUser_id());
+					User user = userDaoImpl.getUserInfoById(user_id);
+					map.put("user_name", user.getUser_name());
+					map.put("article_name", article.getArticle_name());
+					map.put("article_content", article.getArticle_content());
+					map.put("article_date", article.getArticle_date());
+					map.put("article_praise", article.getArticle_praise());
+					map.put("article_collect", article.getArticle_collect());
+					list.add(map);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
 }

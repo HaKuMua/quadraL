@@ -135,4 +135,21 @@ public class CommentService implements CommentServiceImpl {
 		}
 		return map;
 	}
+	/**
+	 * 删除一条评论
+	 */
+	public Integer deleteComm(Integer comment_id) {
+//		//判断该评论是否有回复，有则删除
+//		try {
+//			Long replierCount = commenDaoImpl.queryReplierCount(comment_id);
+//			if(replierCount > 1) {
+//				Integer user_id = commenDaoImpl.qu
+//			}
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		return null;
+	}
+	
 }

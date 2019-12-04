@@ -34,6 +34,7 @@ public class ArticleServlet extends BaseServlet {
 	public String articleMap;
 	public Integer articlePresentPage;
 	public Integer article_id;
+	public Integer user_id;
 	// 返回所有的文章信息
 	public void getAllArticle(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
@@ -136,5 +137,17 @@ public class ArticleServlet extends BaseServlet {
 		}
 		JSONObject json = new JSONObject(hint);
 		response.getWriter().print(callback + "(" + json + ")");
+	}
+	// 返回一个用户所有的文章信息
+	public void getUserAllArticle(HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
+		@SuppressWarnings("unchecked")
+		Map<String, Object> articleInfo = (Map<String, Object>) JSON.parse(articleMap);
+		Integer user_id = Integer.valueOf(articleInfo.get("user_id").toString());
+		List<Map<String, Object>> list = articleService.getAllArticleByUser(user_id);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		JSONObject obj = new JSONObject(map);
+		response.getWriter().print(callback + "(" + obj + ")");
 	}
 }
