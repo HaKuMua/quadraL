@@ -41,7 +41,7 @@
 			}
 		</style>
 	</head>
-	<body>
+	<body><br><br>
 		<div class="login"><br><br>
 			<span style="margin-left: 30px;  
 				font-weight: bold;font-size: 25px; color: #777777;">账号密码登录</span><br><br>
@@ -82,7 +82,7 @@
 			$("#myBtn").on("click",function() {
 				var user_code =$("#userId").val();
 				var user_pwd = $("#pwdId").val();
-				map='{"user_code":'+user_code+',"user_pwd":'+user_pwd+'}';
+				map='{"user_code":"'+user_code+'","user_pwd":"'+user_pwd+'"}';
 				//后端验证并获得userInfoCookie
 				$.getJSON(basePath+"user.do?method=loginByCode&callback=?",
 				{"map":map},function(result){

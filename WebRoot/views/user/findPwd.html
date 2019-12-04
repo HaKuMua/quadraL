@@ -32,6 +32,14 @@
 				width:700px;
 				margin-left: 700px;
 			}
+			#in{
+				text-align: center;
+			}
+			#in input{
+				margin-left: 200px;
+				width: 320px;
+				height: 50px;
+			}
 			
 			.foot {
 				margin-top:30%;
@@ -44,7 +52,7 @@
 		<div id="top">
 			<ul class="layui-nav layui-bg-green" id="navId">
 				<li class="layui-nav-item">
-					<a href="index.html">
+					<a href="../index.html">
 						<img src="../../img/logo.jpg" class="layui-nav-img">
 					</a>
 				</li>
@@ -70,18 +78,18 @@
 			<a href=""  class="layui-btn layui-btn-primary">查看我的个人资料</a>
 		</div>
 		<div id="main">
-			<div style="border: 1px solid grey; height: 300px;" >
-				<div id=""style="height: 40px;background-color: #F2F4F5; line-height: 40px;">
+			<div style="border: 1px solid grey; height: 380px;" >
+				<div style="height: 40px;background-color: #F2F4F5; line-height: 40px;">
 					<h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;找回密码</h3>
-				</div>
-				<div class="layui-col-xs8">
+				</div><br><br>
+				<div id="in">
 					<input type="password" name="pwd" id="user_pwd" class="layui-input" placeholder="您的旧密码"/>
 					 <br><br>
 					 <input type="password" name="pwd" id="user_pwd1" class="layui-input" placeholder="您的新密码"/>
 					  <br><br>
 					  <input type="password" name="pwd" id="user_pwd2" class="layui-input" placeholder="确认您的新密码"/>
-					   <br><br>
-					 <button id="submit" type="button" class="layui-btn layui-btn-green " style="width: 280px; ">确认</button>
+					   <br><br><br>
+					 <button id="submit" type="button" class="layui-btn layui-btn-green " style="width: 280px; ">提交</button>
 				</div>
 			</div><br>
 		</div>
@@ -113,41 +121,50 @@
 			real_name:'',
 			islanlord:1
 		};
-		window.onload=function() {
-			json = getCookie('userInfo');
-			if (json != '' || json == null) {
-				jsonInfo = JSON.parse(json);
-				if (jsonInfo != null) {
-					userInfo = jsonInfo;
-				}
-			}
-			
-			//初始化导航栏
-			if (userInfo.user_id != '') {
-				var html = '<li class="layui-nav-item " id="china"> <a href="" >房源订单中心</a></li>' +
-					'<li class="layui-nav-item"><a href="">故事</a></li>' +
-					'<li class="layui-nav-item"><a href="">帮助</a> </li>' +
-					' <li class="layui-nav-item" lay-unselect=""><a href="javascript:;"><img src="' +
-					userInfo.user_img + '" class="layui-nav-img">' + userInfo.user_name + '</a> ' +
-					'<dl class="layui-nav-child"><dd><a href="javascript:;"  style="color: gray;">个人中心</a></dd>' +
-					' <dd><a href="javascript:;" style="color: gray;">修改信息</a></dd><dd><a href="javascript:;" style="color: gray;">退了</a></dd></dl>';
-				$("#rightNav").empty();
-				$("#rightNav").append(html);
-				if (userInfo.islanlord != 0 || userInfo.islanlord != null) {
-					$("#china").after('<li class="layui-nav-item "> <a href="">查看我的房源</a></li>' +
-						'<li class="layui-nav-item "><a href="host/create_a_room/room.html">添加房源</a></li>');
-				} else {
-					$("#china").after('<li class="layui-nav-item "> <a href="">成为房东</a></li>');
-				}
+		json = getCookie('userInfo');
+		if (json != '' || json == null) {
+			jsonInfo = JSON.parse(json);
+			if (jsonInfo != null) {
+				userInfo = jsonInfo;
+				console.log(userInfo);
 			}
 		}
+		
+		//初始化导航栏
+		if (userInfo.user_id != null) {
+			var html = '<li class="layui-nav-item " id="china"> <a href="myOrder.html" >房源订单中心</a></li>' +
+				'<li class="layui-nav-item"><a href="../story/index.html">故事</a></li>' +
+				'<li class="layui-nav-item"><a href="#" id="notice">消息<span id="dot" class="layui-badge-dot"></span></a> </li>' +
+				' <li class="layui-nav-item" lay-unselect=""><a href="javascript:;"><img src="' +
+				userInfo.user_img + '" class="layui-nav-img">' + userInfo.user_name + '</a> ' +
+				'<dl class="layui-nav-child"><dd><a href="../host/landlord.html"  style="color: gray;">个人中心</a></dd>' +
+				' <dd><a href="modifyInfo.html" style="color: gray;">修改信息</a></dd><dd><a href="../index.html" id="quit" style="color: gray;">退了</a></dd></dl>';
+			$("#rightNav").empty();
+			$("#rightNav").append(html);
+			if (userInfo.islanlord != 1) {
+				$("#china").after('<li class="layui-nav-item "> <a href="">我的房源</a>' +
+					'<dl class="layui-nav-child"><dd><a href="landlordOrder.html"  style="color: gray;">订单信息</a></dd>' +
+					' <dd><a href="myHouse.html" style="color: gray;">房源信息</a></dd></dl>' + '</li>' +
+					'<li class="layui-nav-item "><a href="../host/create_a_room/room.html">添加房源</a></li>');
+			} else {
+				$("#china").after('<li class="layui-nav-item "> <a href="../host/create_a_room/become.html">成为房东</a></li>');
+			}
+		}
+		//退出按钮监听
+		$("body").on("click", "#quit", function() {
+			setCookie("userInfo", null, 0.1);
+		});
+		
+		$("#editTel").on("click",function() {
+			html='';
+		});
 		//设置cookie
 		function setCookie(cname, cvalue, exdays) {
-			var d = new Date();
-			d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-			var expires = "expires=" + d.toUTCString();
-			document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-		}
+		    var d = new Date();
+		    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+		    var expires = "expires="+ d.toUTCString();
+		    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+		} 
 		
 		//获取Cookie
 		function getCookie(cname) {
@@ -165,6 +182,7 @@
 			}
 			return "";
 		}
+		
 		
 		$("#submit").on("click", function() {
 			user_pwd = $("#user_pwd").val();
@@ -189,10 +207,6 @@
 							layer.close(layer.index);
 							parent.location.reload();
 						}, 1200);
-						json = getCookie("userInfo");
-						console.log(json)
-						jsonInfo = JSON.parse(json);
-						console.log(jsonInfo)
 					} else {
 						layer.msg(result.msg);
 					}

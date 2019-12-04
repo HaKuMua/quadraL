@@ -76,4 +76,18 @@ public interface UserServiceImpl {
 	 * @return
 	 */
 	Integer topUp(Double price, Integer user_id);
+	
+	/**
+	 * 得到用户所有的评论
+	 * @param user_id
+	 * @return
+	 */
+	List<Map<String, Object>> getUserComment(Integer user_id);
+	
+	/**
+	 * 得到自己写的所有的评论
+	 * @param user_id
+	 * @return
+	 */
+	List<Map<String, Object>>  getMyComment(Integer user_id);
 }

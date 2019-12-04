@@ -218,7 +218,7 @@
 		console.log(userInfo.user_id == null)
 		//初始化导航栏
 		if (userInfo.user_id != null) {
-			var html = '<li class="layui-nav-item " id="china"> <a href="user/myOrder.html" >房源订单中心</a></li>' +
+			var html = '<li class="layui-nav-item " id="china"> <a href="myOrder.html" >房源订单中心</a></li>' +
 				'<li class="layui-nav-item"><a href="story/index.html">故事</a></li>' +
 				'<li class="layui-nav-item"><a href="#" id="notice">消息<span id="dot" class="layui-badge-dot"></span></a> </li>' +
 				' <li class="layui-nav-item" lay-unselect=""><a href="javascript:;"><img src="' +
@@ -276,8 +276,7 @@
 						'<img src="' + orderInfo[i].houseImg + '"  width="290px" height="216px" >' +
 						'<h3>' + orderInfo[i].house_name + '</h3><h4>' + orderInfo[i].reserve_date + '-- ' + orderInfo[i].check_out_date + '· ' + orderInfo[i].reserve_day_number + '晚</h4>' +
 						'<h3>订单已完成 · ￥' + orderInfo[i].price + '</h3></a><br>' +
-						'<a href="../host/home.html?house_id=?' + orderInfo[i].house_id +
-						'" class="layui-btn layui-btn-warm" style="width: 290px;" >查看是否可订</a></div>';
+						'<a href="#" id="'+orderInfo[i].house_id+'" class="layui-btn layui-btn-warm comBtn" style="width: 290px;" >评论</a></div>';
 				}else {
 					html = '<div class="layui-col-xs4"><a href="../host/home.html?house_id=?' + orderInfo[i].house_id + '">' +
 						'<img src="' + orderInfo[i].houseImg + '"  width="290px" height="216px" >' +
@@ -294,6 +293,27 @@
 				$("#" + id).append(html);
 			}
 		}
+		
+		$("body").on("click",".comBtn",function() {
+			house_id=$(this).attr("id");
+			layer.prompt({
+			  formType: 2,
+			  title:'评论',
+			  value: '请对你本次入住进行评论',
+			  area: ['420px', '250px'] //自定义文本域宽高
+			}, function(value, index, elem){
+				map='{"user_id":"'+userInfo.user_id+'","house_id":"'+house_id+'","houseCom_content":"'+value+'","replier_id":"'+userInfo.user_id+'"}'
+				$.getJSON(basePath + "house_comment.do?method=addComment&callback=?", {
+					"map": map
+				}, function(res) {
+					layer.msg(res.msg);
+					window.setTimeout (function() {
+						layer.closeAll();
+					},1200);
+					
+				});
+			});
+		});
 	</script>
 	<script>
 		layui.use(['form', 'element', 'layer', 'laypage'], function() {

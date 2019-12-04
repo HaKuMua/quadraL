@@ -672,9 +672,10 @@
 			$("#t2").append(html);
 			$("#t3").empty();
 			$("#t3").append('<h3>入住时间 ' + houseInfo.may_check_in_date + '后· 退房时间 ' + houseInfo.may_check_out_date + '</h3>');
-			$("#comment").append("<br><h2>暂无评论<h2>")
+			$("#comment").empty();
+			if(houseInfo.allHouseComment.length == 0)
+				$("#comment").append("<br><h2>暂无评论<h2>")
 			for (i = 0; i < houseInfo.allHouseComment.length; i++) {
-				$("#comment").empty();
 				html = '<div ><br><br><a href="">' +
 					'<img style="border-radius: 50%;" width="60px" height="60px" src="' + houseInfo.allHouseComment[i].user_headimg_url +
 					'"  >' +
@@ -852,68 +853,7 @@
 		});
 	</script>
 	<script>
-		layui.use(['carousel', 'form', 'element', 'layer', 'laydate', 'laypage'], function() {
-			var carousel = layui.carousel,
-				form = layui.form,
-				laydate = layui.laydate;
-			$ = layui.jquery,
-				layer = layui.layer,
-				element = layui.element,
-				laypage = layui.laypage;
-			laydate.render({
-				elem: '#canDate', //指定元素
-				position: 'static',
-				format: 'yyyy年MM月dd日',
-				min: date,
-				mark: houseInfo.checked,
-				showBottom: false
-			});
-			//图片轮播
-			carousel.render({
-				elem: '#test10',
-				width: '778px',
-				height: '440px',
-				interval: 5000
-			});
-			var active = {
-				safeguard: function() {
-					var index = layer.open({
-						type: 2,
-						title: false,
-						closeBtn: true,
-						area: ['1100px', '700px'],
-						offset: 'auto',
-						shade: 0.6,
-						content: ['../tip/safeguard.html', 'no']
-					});
-				}
-			};
-			$("body").on("click", ".navA", function() {
-				var othis = $(this),
-					method = othis.data('method');
-				active[method] ? active[method].call(this, othis) : '';
-			});
-			form.on('select(person)', function(data) {
-				personNum = data.value;
-			});
-			$('.layui-btn').on('click', function() {
-				var othis = $(this),
-					method = othis.data('method');
-				active[method] ? active[method].call(this, othis) : '';
-			});
-
-			// //分页
-			// //总页数大于页码总数
-			// laypage.render({
-			// 	elem: 'demo',
-			// 	limit: 7,
-			// 	count: 70,
-			// 	jump: function(obj) {
-			// 		console.log(obj)
-			// 	}
-			// });
-
-		});
+		
 	</script>
 	<script src="http://cdn.staticfile.org/jquery/2.1.1-rc2/jquery.min.js"></script>
 	<script src="../../js/jquery.cxcalendar.js"></script>
@@ -937,11 +877,74 @@
 						}
 					}
 					a = sarr[0] + "-" + sarr[1] + "-" + sarr[2];
+					checked[arr[k]]='已预订';
 					dateList.push(a);
 					timeList.push(arr[k])
 				}
+				
 			}
-			console.log(dateList);
+			layui.use(['carousel', 'form', 'element', 'layer', 'laydate', 'laypage'], function() {
+				var carousel = layui.carousel,
+					form = layui.form,
+					laydate = layui.laydate;
+				$ = layui.jquery,
+					layer = layui.layer,
+					element = layui.element,
+					laypage = layui.laypage;
+				laydate.render({
+					elem: '#canDate', //指定元素
+					position: 'static',
+					format: 'yyyy年MM月dd日',
+					min: date,
+					mark: checked,
+					showBottom: false
+				});
+				//图片轮播
+				carousel.render({
+					elem: '#test10',
+					width: '778px',
+					height: '440px',
+					interval: 5000
+				});
+				var active = {
+					safeguard: function() {
+						var index = layer.open({
+							type: 2,
+							title: false,
+							closeBtn: true,
+							area: ['1100px', '700px'],
+							offset: 'auto',
+							shade: 0.6,
+							content: ['../tip/safeguard.html', 'no']
+						});
+					}
+				};
+				$("body").on("click", ".navA", function() {
+					var othis = $(this),
+						method = othis.data('method');
+					active[method] ? active[method].call(this, othis) : '';
+				});
+				form.on('select(person)', function(data) {
+					personNum = data.value;
+				});
+				$('.layui-btn').on('click', function() {
+					var othis = $(this),
+						method = othis.data('method');
+					active[method] ? active[method].call(this, othis) : '';
+				});
+			
+				// //分页
+				// //总页数大于页码总数
+				// laypage.render({
+				// 	elem: 'demo',
+				// 	limit: 7,
+				// 	count: 70,
+				// 	jump: function(obj) {
+				// 		console.log(obj)
+				// 	}
+				// });
+			
+			});
 			(function() {
 				var dateFirst = $('#date_first');
 				var dateLast = $('#date_last');
