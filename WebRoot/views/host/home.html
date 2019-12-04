@@ -286,14 +286,14 @@
 			</form>
 			<button id="payBtn" class="layui-btn layui-bg-red">马上预定</button><br><br>
 			<h4 style="text-align: center;">您现在预定不会收费</h4><br><br>
-				<div>
-					<div class="layui-col-xs9">
-						<h3>口碑认证！超多入住过的房客都留下了五星好评<br>现在预订，锁定热门高分房源</h3>
-					</div>
-					<div class="layui-col-xs3">
-						<img src="../../img/tag/4.gif">
-					</div>
+			<div>
+				<div class="layui-col-xs9">
+					<h3>口碑认证！超多入住过的房客都留下了五星好评<br>现在预订，锁定热门高分房源</h3>
 				</div>
+				<div class="layui-col-xs3">
+					<img src="../../img/tag/4.gif">
+				</div>
+			</div>
 		</div>
 		<div id="main">
 			<a name="details"></a>
@@ -458,16 +458,6 @@
 		</div>
 
 	</body>
-	<script src="../../js/jquery.cookie.js"></script>
-	<script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.15&key=58436f5656c3bd85a8001b6cce31c890&plugin=AMap.Autocomplete"></script>
-	<script type="text/javascript" src="https://cache.amap.com/lbs/static/addToolbar.js"></script>
-	<script type="text/javascript">
-		var map = new AMap.Map("container", {
-			resizeEnable: true,
-			zoom: 15,
-			center: [116.519942, 39.924677]
-		});
-	</script>
 	<script>
 		// 获取模态窗口
 		var modal = document.getElementById('myModal');
@@ -491,9 +481,11 @@
 			// }	
 		}
 	</script>
+	<script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.15&key=58436f5656c3bd85a8001b6cce31c890&plugin=AMap.PlaceSearch"></script>
+	<script type="text/javascript" src="https://cache.amap.com/lbs/static/addToolbar.js"></script>
 	<script type="text/javascript">
 		var userInfo = {
-			user_id: '1000',
+			user_id: 19,
 			user_name: 'haku',
 			user_img: '../../img/timg.jpg',
 			islanlord: 1
@@ -512,7 +504,7 @@
 			house_type: '公寓型住宅',
 			house_intake: 1, //房子容纳量
 			travel_information: '民宿-驾车-双流机场 36分钟左右(交通顺畅的情况) 民宿-步行10分钟-春熙路地铁3-太平园站-双流机场 (地铁大约32分钟) 民宿-驾车-成都东客站 20分钟左右(交通顺畅的情况)｡', //出行信息
-			house_address: '成都市，四川省，中国', //地址
+			house_address: '湖南省长沙市开福区伍家岭街道华创国际', //地址
 			room_number: 1,
 			address_describe: '全北京路步行街最干净,最温馨浪漫的一居室｡房子近期重新装修,日系浪漫风格,高楼层视野广阔,你可以享受巨幅的家庭影院｡ 周边全是美食,来广州茶点或者沿江酒楼抑或音乐餐吧,还可以在珠江漫步｡',
 			house_describe: '藝·净复古系列之复古花｡房间里有100寸幕布和极米H1投影仪｡步行两分钟至太古里､ifs｡89平米的套房有厨房､洗衣机､冰箱､微波炉等配置｡270度落地窗俯瞰太古里和339电视塔',
@@ -593,22 +585,42 @@
 		if (url.indexOf("?") != -1) {
 			//var house_id = url.substr(url.indexOf("=")+1);
 		}
-		//请求后端拿到已预订日期
-		$.getJSON(basePath + "reserve.do?method=getReserveDateByHouseID", {
-			"house_id": 23
-		}, function(res) {
-			alert(11)
-			dateList = res.list;
-			
-			console.log("dateList" + dateList);
-		});
+
 		// //请求后端拿到房子信息
-		 $.getJSON(basePath + "house_info.do?method=getHouseInfoByID&callback=?", {
-			"house_id":23
+		$.getJSON(basePath + "house_info.do?method=getHouseInfoByID&callback=?", {
+			"house_id": 23
 		}, function(res) {
 			houseInfo = res;
 			console.log(houseInfo);
 			get();
+			var addr = houseInfo.house_address;
+			var map = new AMap.Map("container", {
+				resizeEnable: true,
+			});
+			var placeSearch = new AMap.PlaceSearch({
+				// city 指定搜索所在城市，支持传入格式有：城市名、citycode和adcode
+				pageSize: 1,
+				map: map, // 展现结果的地图实例
+				panel: "panel", // 结果列表将在此容器中进行展示。
+				autoFitView: true // 是否自动调整地图视野使绘制的 Marker点都处于视口的可见范围
+			})
+			placeSearch.search(addr, function(status, result) {
+				// 查询成功时，result即对应匹配的POI信息
+				console.log(result)
+				var pois = result.poiList.pois;
+			
+				for (var i = 0; i < pois.length; i++) {
+					var poi = pois[i];
+					var marker = [];
+					marker[i] = new AMap.Marker({
+						position: poi.location, // 经纬度对象，也可以是经纬度构成的一维数组[116.39, 39.9]
+						title: poi.name
+					});
+					// 将创建的点标记添加到已有的地图实例：
+					map.add(marker[i]);
+				}
+				map.setFitView();
+			})
 		});
 
 		function get() {
@@ -660,8 +672,9 @@
 			$("#t2").append(html);
 			$("#t3").empty();
 			$("#t3").append('<h3>入住时间 ' + houseInfo.may_check_in_date + '后· 退房时间 ' + houseInfo.may_check_out_date + '</h3>');
-			$("#comment").empty();
+			$("#comment").append("<br><h2>暂无评论<h2>")
 			for (i = 0; i < houseInfo.allHouseComment.length; i++) {
+				$("#comment").empty();
 				html = '<div ><br><br><a href="">' +
 					'<img style="border-radius: 50%;" width="60px" height="60px" src="' + houseInfo.allHouseComment[i].user_headimg_url +
 					'"  >' +
@@ -693,8 +706,6 @@
 				$("#t7").append(html);
 			}
 		}
-
-
 		//日期格式化
 		Date.prototype.Format = function(fmt) { // author: meizz
 			var o = {
@@ -713,6 +724,7 @@
 					o[k]).substr(("" + o[k]).length)));
 			return fmt;
 		}
+
 		//计算两个日期的天数
 		function getDateNumber(dateStart, dateEnd) {
 			var date1Str = dateStart.split("-"); //将日期字符串分隔为数组,数组元素分别为年.月.日
@@ -752,45 +764,90 @@
 			return "";
 		}
 
+
+		/**
+		 * 时间格式化
+		 * @param {Date} dateVal 
+		 */
+		function formatDate(dateVal) {
+			let year = dateVal.getFullYear(),
+				month = dateVal.getMonth() + 1,
+				day = dateVal.getDate()
+			if (month < 10) {
+				month = `0${month}`
+			}
+			if (day < 10) {
+				day = `0${day}`
+			}
+			return `${year}-${month}-${day}`
+		}
+		/**
+		 * 批量生成日期函数
+		 * @param {Date} startTime 
+		 * @param {Date} endTime 
+		 */
+		function generateFun(startTime, endTime) {
+			timeArr = [];
+			timeArr.push(formatDate(startTime))
+			let timeStamp = Math.ceil((endTime.getTime() - startTime.getTime()) / (1000 * 60 * 60 * 24)) //判断两个日期相差多少天
+
+			for (let index = 1; index <= timeStamp; index++) {
+				const element = startTime.setTime((1000 * 60 * 60 * 24) + startTime.getTime())
+				timeArr.push(formatDate(new Date(element)))
+			}
+
+			return timeArr
+		}
+
 		var date = new Date().Format("yyyy-MM-dd");
-		day = -1
+		day = -1;
 		//按钮监听
 		$("#payBtn").on("click", function() {
-			// $.cookie('orderInfo', 1);
-			// var objString = JSON.stringify(obj); //JSON 数据转化成字符串
-			// setCookie('orderInfo',objString, 1);
-			// myCookie=getCookie('orderInfo')
-			// var newObject = JSON.parse(myCookie);
-			//  console.log(newObject)//字符串转化成JSON数据
+			
 			if (day < 0) {
 				layer.msg("请选择时间！");
 			} else if (personNum > houseInfo.house_intake) {
 				layer.msg("房客过多，请重新选择！");
 			} else {
-				let orderInfo = {
-					user_id: userInfo.user_id,
-					house_id: houseInfo.house_id,
-					house_name: houseInfo.house_name,
-					allHouseImg: houseInfo.allHouseImg[0],
-					house_price: houseInfo.house_price,
-					price: houseInfo.house_price * day,
-					lease_type: houseInfo.lease_type,
-					house_type: houseInfo.house_type,
-					house_intake: personNum, //房子容纳量
-					house_address: houseInfo.house_address, //地址
-					may_check_in_date: houseInfo.may_check_in_date,
-					may_check_out_date: houseInfo.may_check_in_date,
-					building_name: houseInfo.building_name,
-					startTime:startTime,
-					endTime:endTime,
-					date:date,
-					user_name: houseInfo.user_name,
-					dayNumber: day
+				realDate = generateFun(new Date(startTime), new Date(endTime))
+				bool = false;
+				for (let i = 0; i < dateList.length; i++) {
+					for (let j = 0; j < realDate.length; j++) {
+
+						if (realDate[j].toString() == timeList[i].toString()) {
+							bool = true;
+							break;
+						}
+					}
 				}
-				var objString = JSON.stringify(orderInfo);
-				
-				setCookie("orderInfo", objString, 1);
-				window.location.href = "../create_order/payments.html";
+				console.log(bool)
+				if (bool) {
+					layer.msg("时间选择有误！");
+				} else {
+					let orderInfo = {
+						user_id: userInfo.user_id,
+						house_id: houseInfo.house_id,
+						house_name: houseInfo.house_name,
+						allHouseImg: houseInfo.allHouseImg[0],
+						house_price: houseInfo.house_price,
+						price: houseInfo.house_price * day,
+						lease_type: houseInfo.lease_type,
+						house_type: houseInfo.house_type,
+						house_intake: personNum, //房子容纳量
+						house_address: houseInfo.house_address, //地址
+						may_check_in_date: houseInfo.may_check_in_date,
+						may_check_out_date: houseInfo.may_check_in_date,
+						building_name: houseInfo.building_name,
+						startTime: startTime,
+						endTime: endTime,
+						date: date,
+						user_name: houseInfo.user_name,
+						dayNumber: day
+					}
+					var objString = JSON.stringify(orderInfo);
+					setCookie("orderInfo", objString, 1);
+					window.location.href = "../create_order/payments.html";
+				}
 			}
 		});
 	</script>
@@ -803,7 +860,6 @@
 				layer = layui.layer,
 				element = layui.element,
 				laypage = layui.laypage;
-
 			laydate.render({
 				elem: '#canDate', //指定元素
 				position: 'static',
@@ -845,18 +901,17 @@
 					method = othis.data('method');
 				active[method] ? active[method].call(this, othis) : '';
 			});
-			
-			
-			//分页
-			//总页数大于页码总数
-			laypage.render({
-				elem: 'demo',
-				limit: 7,
-				count: 70,
-				jump: function(obj) {
-					console.log(obj)
-				}
-			});
+
+			// //分页
+			// //总页数大于页码总数
+			// laypage.render({
+			// 	elem: 'demo',
+			// 	limit: 7,
+			// 	count: 70,
+			// 	jump: function(obj) {
+			// 		console.log(obj)
+			// 	}
+			// });
 
 		});
 	</script>
@@ -864,60 +919,80 @@
 	<script src="../../js/jquery.cxcalendar.js"></script>
 	<script src="../../js/jquery.cxcalendar.languages.js"></script>
 	<script>
-		(function() {
-			var dateFirst = $('#date_first');
-			var dateLast = $('#date_last');
-			var dateFirstApi;
-			var dateLastApi;
-
-			dateFirst.cxCalendar({
-				baseClass: 'cxcalendar_holyday',
-				wday: 0,
-				type: 'datetime',
-				format: 'YYYY-MM-DD',
-				unday: [
-					'2019-11-26',
-					'2019-11-20',
-					'2019-12-30'
-				],
-				startDate: new Date()
-			}, function(api) {
-				dateFirstApi = api;
-			});
-
-			dateLast.cxCalendar({
-				baseClass: 'cxcalendar_holyday',
-				wday: 0,
-				type: 'datetime',
-				format: 'YYYY-MM-DD',
-				unday: ['2019-11-26', '2019-11-20', '2019-12-30'],
-			}, function(api) {
-				dateLastApi = api;
-			});
-			dateFirst.on('change', function() {
-				var firstTime = parseInt(dateFirstApi.getDate('TIME'), 10);
-				var lastTime = parseInt(dateLastApi.getDate('TIME'), 10);
-				if (lastTime < firstTime) {
-					dateLastApi.clearDate();
-				};
-				dateLastApi.setOptions({
-					startDate: firstTime + 86400000,
-
+		dateList = []
+		timeList = []
+		//请求后端拿到已预订日期
+		$.getJSON(basePath + "reserve.do?method=getReserveDateByHouseID", {
+			"house_id": 23
+		}, function(res) {
+			list = res.list;
+			for (let i = 0; i < list.length; i++) {
+				time = list[i].split("&");
+				arr = generateFun(new Date(time[0]), new Date(time[1]));
+				for (let k = 0; k < arr.length; k++) {
+					sarr = arr[k].toString().split("-");
+					for (let j = 1; j < 3; j++) {
+						if (sarr[j] < 10) {
+							sarr[j] = sarr[j].replace("0", "");
+						}
+					}
+					a = sarr[0] + "-" + sarr[1] + "-" + sarr[2];
+					dateList.push(a);
+					timeList.push(arr[k])
+				}
+			}
+			console.log(dateList);
+			(function() {
+				var dateFirst = $('#date_first');
+				var dateLast = $('#date_last');
+				var dateFirstApi;
+				var dateLastApi;
+				dateFirst.cxCalendar({
+					baseClass: 'cxcalendar_holyday',
+					wday: 0,
+					type: 'datetime',
+					format: 'YYYY-M-D',
+					unday: dateList,
+					startDate: new Date()
+				}, function(api) {
+					dateFirstApi = api;
 				});
-				dateLastApi.gotoDate(firstTime);
-				dateLastApi.show();
-			});
-			dateLast.on('change', function() {
-				$("#ttt").remove();
-				checkDate = dateFirstApi.getDate() + '--' + dateLastApi.getDate();
-				startTime= dateFirstApi.getDate();
-				endTime=dateLastApi.getDate();				console.log(checkDate)
-				day = getDateNumber(dateFirstApi.getDate(), dateLastApi.getDate());
-				html = '<div id="ttt"><br><hr ><div class="layui-col-xs7">' +
-					'<h3>￥' + houseInfo.house_price + '×' + day + '晚</h3></div>	<div class="layui-col-xs5">' +
-					'<h3>总价：￥' + (day * houseInfo.house_price) + '</h3>	</div></div>';
-				$("#payBtn").before(html);
-			});
-		})();
+
+				dateLast.cxCalendar({
+					baseClass: 'cxcalendar_holyday',
+					wday: 0,
+					type: 'datetime',
+					format: 'YYYY-M-D',
+					unday: dateList
+				}, function(api) {
+					dateLastApi = api;
+				});
+				dateFirst.on('change', function() {
+					var firstTime = parseInt(dateFirstApi.getDate('TIME'), 10);
+					var lastTime = parseInt(dateLastApi.getDate('TIME'), 10);
+					if (lastTime < firstTime) {
+						dateLastApi.clearDate();
+					};
+					dateLastApi.setOptions({
+						startDate: firstTime + 86400000,
+
+					});
+					dateLastApi.gotoDate(firstTime);
+					dateLastApi.show();
+				});
+				dateLast.on('change', function() {
+					$("#ttt").remove();
+					checkDate = dateFirstApi.getDate() + '--' + dateLastApi.getDate();
+					startTime = dateFirstApi.getDate();
+					endTime = dateLastApi.getDate();
+					console.log(checkDate)
+					day = getDateNumber(dateFirstApi.getDate(), dateLastApi.getDate());
+					html = '<div id="ttt"><br><hr ><div class="layui-col-xs7">' +
+						'<h3>￥' + houseInfo.house_price + '×' + day + '晚</h3></div>	<div class="layui-col-xs5">' +
+						'<h3>总价：￥' + (day * houseInfo.house_price) + '</h3>	</div></div>';
+					$("#payBtn").before(html);
+				});
+			})();
+		});
 	</script>
 </html>

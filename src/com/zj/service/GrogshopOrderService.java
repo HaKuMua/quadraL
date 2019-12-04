@@ -189,6 +189,7 @@ public class GrogshopOrderService implements GrogshopOrderServiceImpl{
 				map.put("reserve_day_number", reserve.getReserve_day_number());
 				map.put("check_out_date", reserve.getCheck_out_date());
 				House house = houseDaoImpl.getHouseInfoByID(reserve.getHouse_id());
+				map.put("house_id", house.getHouse_id());
 				map.put("house_name", house.getHouse_name());
 				HouseImg houseImg = houseImgDaoImpl.getHouseImgByHouseID(reserve.getHouse_id()).get(0);
 				map.put("house_img_url", houseImg.getHouse_img_url());

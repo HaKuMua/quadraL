@@ -44,5 +44,22 @@ public class NoticeService implements NoticeServiceImpl{
 		}
 		return hoticeList;
 	}
+	/**
+	 * 改变通知信息状态
+	 * @param user_id 用户id
+	 * @return
+	 * @throws SQLException
+	 */
+	public Boolean updateNotice(Integer user_id) {
+		Boolean bool=false;
+		try {
+			if( noticeDaoImpl.updateNotice(user_id) > 0 ) {
+				bool=true;
+			}
+		} catch (SQLException e) {
+			log.error("数据库查询异常");
+		}
+		return bool; 
+	}
 
 }

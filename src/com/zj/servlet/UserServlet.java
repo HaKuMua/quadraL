@@ -36,7 +36,7 @@ public class UserServlet extends BaseServlet {
 	private String callback;
 	private String user_id;
 	private String user_phone;
-//	private Logger log = new 
+	
 	/**
 	 * 邮箱/电话密码登录
 	 * @throws IOException 
@@ -176,6 +176,17 @@ public class UserServlet extends BaseServlet {
 		List<Map<String, Object>> list = noticeServiceImpl.getNoticeInfoByUserID(Integer.valueOf(user_id));
 		Map<String, Object> noticeMap = new HashMap<String, Object>();
 		noticeMap.put("noticeInfo", list);
+		JSONObject json = new JSONObject(noticeMap);
+		response.getWriter().print(json);
+	}
+	
+	/**
+	 * 用户ID已读通知信息
+	 */
+	public void updateNotice(HttpServletRequest request,HttpServletResponse response) throws FileUploadException, IOException {
+		Boolean bool = noticeServiceImpl.updateNotice(Integer.valueOf(user_id));
+		Map<String, Object> noticeMap = new HashMap<String, Object>();
+		noticeMap.put("bool", bool);
 		JSONObject json = new JSONObject(noticeMap);
 		response.getWriter().print(json);
 	}

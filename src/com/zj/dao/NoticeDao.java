@@ -40,8 +40,22 @@ public class NoticeDao implements NoticeDaoImpl{
 	 */
 	public List<Notice> getNoticeByUserID(Integer user_id) throws SQLException{
 		conn = GetConn.getConn();
-		String sql = "select * from notice where user_id=?";
+		String sql = "select * from notice where user_id=? and notice_status = 0";
 		List<Notice> data = qr.query(conn, sql, new BeanListHandler<Notice>(Notice.class), user_id);
+		conn.close();
+		return data;
+	}
+
+	/**
+	 * 改变通知信息状态
+	 * @param user_id 用户id
+	 * @return
+	 * @throws SQLException
+	 */
+	public Integer updateNotice(Integer user_id) throws SQLException {
+		conn = GetConn.getConn();
+		String sql = "update notice set notice_status = 1 where user_id = ?";
+		Integer data = qr.update(conn, sql, user_id);
 		conn.close();
 		return data;
 	}
