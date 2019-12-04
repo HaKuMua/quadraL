@@ -87,7 +87,7 @@ public class ArticleService implements ArticleServiceImpl{
 	 * @param articlePresentPage 当前页
 	 * @throws SQLException
 	 */
-	public List<Map<String, Object>> getPageArticleInfo(Integer presentPage) {
+	public PageUtil getPageArticleInfo(Integer presentPage) {
 		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
 		Map<String, Object> map = new HashMap<String, Object>();
 		//文章分页
@@ -98,9 +98,12 @@ public class ArticleService implements ArticleServiceImpl{
 			map.put("msg", "查询错误");
 			e.printStackTrace();
 		}
-		PageUtil<Article> pu = new PageUtil<Article>();
+		PageUtil<Map<String, Object>> pu = new PageUtil<Map<String, Object>>();
 		pu.setCountRow(articleCount.intValue());
+		//设置当前页数
 		pu.setCurrentPage(presentPage);
+		//设置一页显示多少条
+		pu.setPageSize(12);
 		int articleStartRow = pu.getStartRow();
 		int articlePageSize = pu.getPageSize();
 		List<Article> pageArticle = null;
@@ -155,16 +158,17 @@ public class ArticleService implements ArticleServiceImpl{
 					map.put("user_headimg_url", userHeadUrl);
 				}
 				list.add(map);
+				pu.setList(list);
 			}
 		} 
-		return list;
+		return pu;
 	}
 	
 	/**
 	 * 一篇文章所有信息
 	 * @throws SQLException 
 	 */
-	public List<Map<String, Object>> getOneArticleInfo(Integer article_id) throws SQLException {
+	public Map<String, Object> getOneArticleInfo(Integer article_id) throws SQLException {
 		Map<String, Object> map = new HashMap<String, Object>();
 		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
 		//获得该文章
@@ -184,12 +188,11 @@ public class ArticleService implements ArticleServiceImpl{
 			map.put("article_collect", oneArticle.getArticle_collect());
 			map.put("article_praise", oneArticle.getArticle_praise());
 			map.put("house_id",oneArticle.getHouse_id());
-			Map<String, Object> imgMap = new HashMap<String, Object>();
+			List<String> imgMap = new ArrayList<String>();
 			//获得该文章所有图片
 			List<ArticleImg> currenArticleImg = articleImgDaoImpl.queryArticleImgByArticleId(article_id);
 			for(ArticleImg articleImg : currenArticleImg) {
-				imgMap.put("image_id", articleImg.getImage_id());
-				imgMap.put("image_url", articleImg.getImage_url());
+				imgMap.add( articleImg.getImage_url());
 			}
 			map.put("article_images", imgMap);
 			//获得该文章评论数量
@@ -197,11 +200,20 @@ public class ArticleService implements ArticleServiceImpl{
 			map.put("commNum", commCount);
 			//获得该文章4条评论
 			List<Comment> currenComment = commentDaoImpl.queryPageComment(article_id,1,5);
+			List<Map<String,Object>> article_comment = new ArrayList<Map<String,Object>>();
 			for(Comment comment : currenComment) {
-				map.put("comment_id", comment.getComment_id());
-				map.put("comment_content", comment.getComment_content());
-				map.put("replier_id", comment.getReplier_id());
+				Map<String, Object> c = new HashMap<String, Object>();
+				c.put("comment_id", comment.getComment_id());
+				c.put("comment_content", comment.getComment_content());
+				c.put("replier_id", comment.getReplier_id());
+				c.put("date", comment.getComment_date().toString().substring(0,10));
+				c.put("user_id",comment.getUser_id());
+				User user = userDaoImpl.getUserInfoById(comment.getUser_id());
+				c.put("user_img", user.getUser_headimg_url());
+				c.put("user_name",user.getUser_name());
+				article_comment.add(c);
 			}
+			map.put("article_comment", article_comment);
 			//获得用户头像与昵称
 			Integer user_id = oneArticle.getUser_id();
 			User user = userDaoImpl.getUserInfoById(user_id);
@@ -247,11 +259,9 @@ public class ArticleService implements ArticleServiceImpl{
 			}
 			articleInfo.add(article);
 			map.put("articleInfo", articleInfo);
-			list.add(map);
-			return list;
+			return map;
 		}
-		list.add(map);
-		return list;
+		return map;
 	}
 	/**
 	* 分页显示评论

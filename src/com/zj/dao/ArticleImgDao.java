@@ -64,12 +64,12 @@ public class ArticleImgDao implements ArticleImgDaoImpl{
 	 */
 	public List<ArticleImg> queryArticleImgByArticleId(Integer article_id) throws SQLException {
 		conn = GetConn.getConn();
-		String sql = "select * from article_image where article_id = ?";
+		String sql = "select image_url from article_image where article_id = ?";
 		List<ArticleImg> data =  qr.query(conn, sql, new BeanListHandler<ArticleImg>(ArticleImg.class), article_id);
+		
 		GetConn.closeConn(conn);
 		return data;
 	}
-
 	/**
 	 * 查询所有文章图片
 	 * @throws SQLException 

@@ -492,7 +492,6 @@
 		}
 	</script>
 	<script type="text/javascript">
-		// var userInfo=$.Cookie('userInfo');
 		var userInfo = {
 			user_id: '1000',
 			user_name: 'haku',
@@ -579,10 +578,6 @@
 		if(url.indexOf("?")!=-1) {
 			var house_id = url.substr(url.indexOf("=")+1);
 	     }
-		var url = window.location.search; //获取url中"?"符后的字串
-		if (url.indexOf("?") != -1) {
-			var house_id = url.substr(url.indexOf("=") + 1);
-		}
 		//map='{"house_id": 4}';
 		//请求后端拿到房子信息
 		// $.getJSON(basePath + "a?method=getHouseInfoByID&callback=?", {
@@ -592,7 +587,7 @@
 		// 	console.log(houseInfo);
 		// 	get();
 		// });
-		window.onload = get();
+		get();
 		function get() {
 			$('title').text(houseInfo.house_name);
 			$("#houseImgDiv").empty();
@@ -822,16 +817,16 @@
 					method = othis.data('method');
 				active[method] ? active[method].call(this, othis) : '';
 			});
-			//提交搜索
-			form.on('submit(searchAllBtn)', function(data) {
-				console.log(data.form) //被执行提交的form对象，一般在存在form标签时才会返回
-				console.log(data.field) //当前容器的全部表单字段，名值对形式：{name: value}
-				var startDate = $("#check").val().split('-')[0];
-				var endDate = $("#check").val().split('-')[1];
-				var day = getDateNumber(startDate, endDate);
-				alert(day)
-				return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
-			});
+			// //提交搜索
+			// form.on('submit(searchAllBtn)', function(data) {
+			// 	console.log(data.form) //被执行提交的form对象，一般在存在form标签时才会返回
+			// 	console.log(data.field) //当前容器的全部表单字段，名值对形式：{name: value}
+			// 	var startDate = $("#check").val().split('-')[0];
+			// 	var endDate = $("#check").val().split('-')[1];
+			// 	var day = getDateNumber(startDate, endDate);
+			// 	alert(day)
+			// 	return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+			// });
 			//分页
 			//总页数大于页码总数
 			laypage.render({

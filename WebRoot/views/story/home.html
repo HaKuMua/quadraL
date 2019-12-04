@@ -40,7 +40,7 @@
 		<div id="top">
 			<ul class="layui-nav layui-bg-green" id="navId">
 				<li class="layui-nav-item">
-					<a href="index.html">
+					<a href="../index.html">
 						<img src="../../img/logo.jpg" class="layui-nav-img">
 					</a>
 				</li>
@@ -201,8 +201,6 @@
 		</div>
 	</body>
 	<script type="text/javascript">
-		//利用Cookie拿到信息
-		// var userInfo=$.Cookie('userInfo');
 		var userInfo = {
 			user_id: '1002',
 			user_name: 'haku',
@@ -210,9 +208,9 @@
 			islanlord: 1
 		};
 		var article = {
-			article_id: '1',
+			article_id: 3,
 			article_name: '上海魔都民宿 | 人均300入住魔都小众超民国风复古民宿！',
-			article_img: ['../../img/story/e19adcd4-1c48-4eeb-b855-1987a414b951.jpg',
+			article_images: ['../../img/story/e19adcd4-1c48-4eeb-b855-1987a414b951.jpg',
 				'../../img/story/9b678664-6ba3-48d1-bd69-66a475609ab8.jpg',
 				'../../img/story/e19adcd4-1c48-4eeb-b855-1987a414b951.jpg',
 				'../../img/story/e19adcd4-1c48-4eeb-b855-1987a414b951.jpg'
@@ -283,12 +281,19 @@
 			}
 
 		}
+		var url=window.location.search; //获取url中"?"符后的字串
+			if(url.indexOf("?")!=-1) {
+				var article_id = url.substr(url.indexOf("=")+1);
+		     }
 		//请求后端拿到指定文章信息
-		// $.getJSON(basePath+"a?method=getHouseInfoByID&callback=?",{"house_id":4},function(res){
-		// 	console.log(houseInfo);
-		// 	houseInfo = res;
-		// 	console.log(houseInfo);
-		// });
+		$.getJSON(basePath+"article.do?method=getOneArticleInfo&callback=?",
+		{"article_id":14},function(res){
+			console.log(res.oneArticleInfo);
+			article = res.oneArticleInfo;
+			console.log(article);
+			getArticle();
+			
+		});
 		json = getCookie('userInfo');
 		if (json != '' || json == null) {
 			jsonInfo = JSON.parse(json);
@@ -339,25 +344,22 @@
 			}
 			return "";
 		}
-
-		getArticle("#article");
-
-		function getArticle(infoId) {
+		function getArticle() {
 			$('title').text(article.article_name);
-			$(infoId).empty();
+			$("#article").empty();
 
 			html = '<div class="layui-col-xs10"><a href="">' +
 				'<img src="' + article.user_img + '" style="border-radius: 50%;" width="50px" height="50px">' +
 				'<h2>' + article.user_name + '</h2></a></div><div id="myBtn" class="layui-col-xs2"></div><br>';
-			$(infoId).append(html);
+			$("#article").append(html);
 			$("#myBtn").empty();
 			if (userInfo.user_id == article.user_id) {
 				$("#myBtn").append('<button style="margin-top:15px;" type="button" class="layui-btn">删除</button>');
 			}
-			for (var j = 0; j < article.article_img.length; j++) {
+			for (var j = 0; j < article.article_images.length; j++) {
 				html = '<div style="margin-top: 30px;" class="layui-col-xs12">' +
-					'<img src="' + article.article_img[j] + '"  width="660px" height="880px"></div>';
-				$(infoId).append(html);
+					'<img src="' + article.article_images[j] + '"  width="660px" height="880px"></div>';
+				$("#article").append(html);
 			}
 			html = '<div style="margin-top: 30px;" class="layui-col-xs12">' +
 				'<h1><b>' + article.article_name + '</b></h1></div>' +
@@ -375,8 +377,8 @@
 				'<i id="praiseBtn" class="layui-icon layui-icon-praise"' +
 				'style="font-size: 60px; color: #AFB5C1;"></i></div>' +
 				'<div style="margin-top: 40px;" class="layui-col-xs12"><h2><b>3条评论</b></h2></div>';
-			$(infoId).append(html);
-			$(infoId).append('<div style="margin-top: 450px;" id="comment"></>');
+			$("#article").append(html);
+			$("#article").append('<div style="margin-top: 450px;" id="comment"></>');
 			for (var j = 0; j < article.article_comment.length; j++) {
 				html = '<div style="margin-top: 50px;"><a href="">' +
 					'<div  class="layui-col-xs1"><img src="' + article.article_comment[j].user_img +
@@ -387,13 +389,13 @@
 					'</div><br><br><br><br><h2>' + article.article_comment[j].comment + '</h2><hr ></div>	';
 				$("#comment").append(html);
 			}
-			$(infoId).append('<div style="border:1px solid red; margin-top: 20px;width: 600px;height: 100px;"id="edit"></div>');
+			$("#article").append('<div style=" margin-top: 20px;width: 600px;height: 100px;"id="edit"></div>');
 			$("#edit").empty();
 			html='<div class="layui-form-item layui-form-text">'+
 				'<textarea id="myComment" placeholder="请输入评论内容" class="layui-textarea"></textarea><br>'+
 				'<button id="myCommentBtn" type="button" class="layui-btn">评论</button>';
 			$("#edit").append(html)	
-			$(infoId).append('<h2 style="margin-top: 50px;" style="margin-top: 50px;"><b>相关故事</b></h2>');
+			$("#article").append('<h2 style="margin-top: 150px;" ><b>相关故事</b></h2>');
 			for (var k = 0; k < article.articleInfo.length; k++) {
 				html = '<div  class="layui-col-xs4"><a href="home.html?article_id=' +
 					article.articleInfo[k].article_id + '">' +
@@ -403,7 +405,7 @@
 					'<i class="layui-icon layui-icon-praise" >' + article.articleInfo[k].article_praise + '</i>' +
 					'<i class="layui-icon layui-icon-reply-fill" >' + article.articleInfo[k].article_collect + '</i>' +
 					'</a><br></div>';
-				$(infoId).append(html);
+				$("#article").append(html);
 			}
 		}
 
@@ -416,12 +418,15 @@
 		$("body").on("click", "#myCommentBtn", function() {
 			comment = $("#myComment").val();
 			alert(comment)
-			//map = '{"user_id":"' + userInfo.user_id + '"}'
+			map = '{"user_id":"' + userInfo.user_id + '","article_id":"'+article.article_id+
+			'","comment_content":"'+comment+'","replier_id":"'+userInfo.user_id+'"}'
+			alert(map)
 			$.getJSON(basePath + "commen.do?method=addComment&callback=?", {
 				"map": map
 			}, function(res) {
 				houseInfo = res.commInfo;
 				console.log(houseInfo);
+				$("#comment").empty();
 				for (var j = 0; j < article.article_comment.length; j++) {
 					html = '<div style="margin-top: 50px;"><a href="">' +
 						'<div  class="layui-col-xs1"><img src="' + article.article_comment[j].user_img +

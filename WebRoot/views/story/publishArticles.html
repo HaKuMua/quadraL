@@ -124,14 +124,13 @@
 			$("#add").on("click", function() {
 				title = $("#title").val();
 				content = layedit.getContent(editIndex);
+				house_id=7;
 				console.log(content);
-				house_id=4;
 				if (title != '' && content != '' && img.length >= 5) {
 					map = '{"user_id":"' + userInfo.user_id + '","article_name":"' + title +
-						'","article_content":"' + content + '","house_id":"' + house_id +
-						'","allArticleImg":"' + img + '"}';
+						'","house_id":"' + house_id +'","allArticleImg":"' + img + '"}';
 					$.getJSON(basePath + "article.do?method=addArticleInfo&callback=?", {
-						"articleMap": map
+						"articleMap": map,"article_content":content 
 					}, function(result) {
 						layer.msg(result.msg);
 					});
@@ -168,7 +167,6 @@
 	</script>
 	<script type="text/javascript">
 		//利用Cookie拿到信息
-		// var userInfo=$.Cookie('userInfo');
 		var userInfo = {
 			user_id: '1000',
 			user_name: 'haku',

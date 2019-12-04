@@ -136,7 +136,7 @@ public class ArticleDao implements ArticleDaoImpl{
 	 */
 	public List<Article> queryFuzzyQuery(String keyWord) throws SQLException {
 		conn = GetConn.getConn();
-		String sql = "select * from article where article_name like %?%";
+		String sql = "select * from article where article_name like \"%\"?\"%\"";
 		List<Article> data = qr.query(conn, sql, new BeanListHandler<Article>(Article.class), keyWord);
 		GetConn.closeConn(conn);
 		return data;

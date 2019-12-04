@@ -48,6 +48,7 @@ public class CommenServlet extends BaseServlet {
 	 */
 	public void addComment(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
+		System.out.println(map);
 		@SuppressWarnings("unchecked")
 		Map<String, Object> myMap = (Map<String, Object>) JSON.parse(map);
 		Map<String, Object> sendMap = new HashMap<String, Object>();

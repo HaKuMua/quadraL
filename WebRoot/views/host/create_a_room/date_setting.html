@@ -176,7 +176,7 @@
 				 '","house_describe":"'+house_describe+'","toilet_number":"'+toilet_number+
 				 '","bed_number":"'+bed_number+'","may_check_in_date":"'+may_check_in_date+
 				 '","building_name":"'+building_name+'","may_check_out_date":"'+may_check_out_date+
-				 '","facilities_name":"'+facilities_name+'","user_id":"'+user_id+'"}';
+				 '","facilities_name":"'+facilities_name+'","user_id":"'+user_id+'","house_price":"'+myPrice+'"}';
 				 console.log(map);
 				 $.getJSON(basePath+"house.do?method=addHouseInfo&callback=?",
 				 {"houseMap":map},function(result){

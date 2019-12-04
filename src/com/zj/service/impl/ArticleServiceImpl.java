@@ -5,6 +5,8 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
+import cn.com.util.PageUtil;
+
 import com.zj.entity.Article;
 
 /**
@@ -23,14 +25,14 @@ public interface ArticleServiceImpl {
 	 * @param articlePresentPage 当前页
 	 * @throws SQLException
 	 */
-	List<Map<String, Object>> getPageArticleInfo(Integer articlePresentPage) throws SQLException;
+	PageUtil getPageArticleInfo(Integer articlePresentPage) throws SQLException;
 	
 	/**
 	 * 一篇文章所有信息
 	 * 一篇文章所有信息方法接口
 	 * @throws SQLException 
 	 */
-	List<Map<String, Object>> getOneArticleInfo(Integer article_id) throws SQLException;
+	Map<String, Object> getOneArticleInfo(Integer article_id) throws SQLException;
 	/**
 	* 分页显示评论方法接口
 	 * @param commPresentPage

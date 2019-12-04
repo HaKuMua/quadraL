@@ -504,7 +504,7 @@
 		if (userInfo.user_id != null) {
 			var html = '<li class="layui-nav-item " id="china"> <a href="user/myOrder.html" >房源订单中心</a></li>' +
 				'<li class="layui-nav-item"><a href="story/index.html">故事</a></li>' +
-				'<li class="layui-nav-item"><a href="#" id="notice">消息<span id="dot" class="layui-badge-dot"></a> </li>' +
+				'<li class="layui-nav-item"><a href="#" id="notice">消息<span id="dot" class="layui-badge-dot"></span></a> </li>' +
 				' <li class="layui-nav-item" lay-unselect=""><a href="javascript:;"><img src="' +
 				userInfo.user_img + '" class="layui-nav-img">' + userInfo.user_name + '</a> ' +
 				'<dl class="layui-nav-child"><dd><a href="host/landlord.html"  style="color: gray;">个人中心</a></dd>' +
@@ -515,7 +515,7 @@
 				$("#china").after('<li class="layui-nav-item "> <a href="">我的房源</a>'+
 				'<dl class="layui-nav-child"><dd><a href="user/landlordOrder.html"  style="color: gray;">订单信息</a></dd>'+
 				' <dd><a href="user/myHouse.html" style="color: gray;">房源信息</a></dd></dl>'+'</li>' +
-					'<li class="layui-nav-item "><a href="create_a_room/room.html">添加房源</a></li>');
+					'<li class="layui-nav-item "><a href="host/create_a_room/room.html">添加房源</a></li>');
 			} else {
 				$("#china").after('<li class="layui-nav-item "> <a href="">成为房东</a></li>');
 			}
@@ -606,7 +606,6 @@
 				noticeInfo = result.noticeInfo;
 				console.log(result)	
 				if (noticeInfo != null) {
-					$("#notice").text('消息<span id="dot" class="layui-badge-dot">');
 				} else {
 					$("#dot").remove();
 				}

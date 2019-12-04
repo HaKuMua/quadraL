@@ -17,6 +17,7 @@ import org.json.JSONObject;
 
 import cn.com.util.BaseServlet;
 import cn.com.util.FileLoadServletUtil;
+import cn.com.util.PageUtil;
 
 import com.alibaba.fastjson.JSON;
 import com.zj.service.ArticleService;
@@ -35,9 +36,10 @@ public class ArticleServlet extends BaseServlet {
 	private Logger log = Logger.getLogger(HouseServlet.class);
 	public String callback;
 	public String articleMap;
-	public Integer articlePresentPage;
-	public Integer article_id;
-	public Integer commPresentPage;
+	private Integer articlePresentPage;
+	private Integer article_id;
+	private Integer commPresentPage;
+	private String article_content;
 	// 返回所有的文章信息
 	public void getAllArticle(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
@@ -54,12 +56,10 @@ public class ArticleServlet extends BaseServlet {
 	 * @throws IOException 
 	 */
 	public void getPageArticleInfo(HttpServletRequest request,HttpServletResponse response) throws SQLException, IOException {
-		Integer articlePresentPage = Integer.valueOf(JSON.parse("articlePresentPage").toString());
-		List<Map<String, Object>> list = articleService.getPageArticleInfo(articlePresentPage);
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("pageArticleInfo", list);
-		JSONObject json = new JSONObject(map);
-		response.getWriter().print(callback+"("+json+")");
+		System.out.println(articlePresentPage);
+		PageUtil<Map<String, Object>> pageList = articleService.getPageArticleInfo(articlePresentPage);
+		JSONObject json = new JSONObject(pageList);
+		response.getWriter().print(json);
 	}	
 	
 	/**
@@ -69,10 +69,9 @@ public class ArticleServlet extends BaseServlet {
 	 * @throws IOException 
 	 */
 	public void getOneArticleInfo(HttpServletRequest request,HttpServletResponse response) throws SQLException, IOException {
-		Integer article_id = Integer.valueOf(JSON.parse("article_id").toString());
-		List<Map<String, Object>> list = articleService.getOneArticleInfo(article_id);
+		Map<String, Object> articleInfo = articleService.getOneArticleInfo(article_id);
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("oneArticleInfo", list);
+		map.put("oneArticleInfo", articleInfo);
 		JSONObject json = new JSONObject(map);
 		response.getWriter().print(callback+"("+json+")");
 	}
@@ -88,7 +87,7 @@ public class ArticleServlet extends BaseServlet {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("pageCommentInfo", list);
 		JSONObject json = new JSONObject(map);
-		response.getWriter().print(callback+"("+json+")");
+		response.getWriter().print(json);
 	}
 	/**
 	 * 添加文章
@@ -101,6 +100,7 @@ public class ArticleServlet extends BaseServlet {
 		System.out.println(articleMap);
 		@SuppressWarnings("unchecked")
 		Map<String, Object> articleInfo = (Map<String, Object>) JSON.parse(articleMap);
+		articleInfo.put("article_content", article_content);
 		log.info(articleInfo);
 		Map<String, Object> hint = new HashMap<String, Object>();
 		Integer articleNum = articleService.addArticleInfo(articleInfo);

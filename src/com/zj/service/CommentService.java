@@ -108,11 +108,11 @@ public class CommentService implements CommentServiceImpl {
 		//给文章实体类set值进去
 		if(info.get("user_id") != null)
 			comment.setUser_id(Integer.valueOf(info.get("user_id").toString()));
-		if(info.get("article_name") != null)
+		if(info.get("article_id") != null)
 			comment.setArticle_id(new Integer(info.get("article_id").toString()));
-		if(info.get("article_content") != null)
+		if(info.get("comment_content") != null)
 			comment.setComment_content(info.get("comment_content").toString());
-		if(info.get("house_id") != null)
+		if(info.get("replier_id") != null)
 			comment.setReplier_id(Integer.valueOf(info.get("replier_id").toString()));
 		int cout=-1;
 		try {
