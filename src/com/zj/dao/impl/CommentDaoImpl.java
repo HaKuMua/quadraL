@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.zj.entity.Comment;
+import com.zj.entity.GrogshopOrder;
 
 /**
  * 
@@ -15,6 +16,22 @@ public interface CommentDaoImpl {
 	 * 获取所有评论方法接口
 	 */
 	List<Comment> getAllComment() throws SQLException;
+	/**
+	 * 获取文章评论分页接口
+	 * @param startRow
+	 * @param pageSize
+	 * @return
+	 * @throws SQLException
+	 */
+	List<Comment> queryCommentPage(Integer startRow,Integer pageSize)  throws SQLException;
+	/**
+	 * 获取文章评论总页数接口
+	 * @param startRow
+	 * @param pageSize
+	 * @return
+	 * @throws SQLException
+	 */
+	Long queryCountComment()  throws SQLException;
 	/**
 	 * 给文章添加评论
 	 * @throws SQLException 
@@ -55,4 +72,5 @@ public interface CommentDaoImpl {
 	 * @throws SQLException 
 	 */
 	Long queryPraiseCount(Integer comment_id) throws SQLException;
+	
 }

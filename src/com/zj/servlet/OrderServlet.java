@@ -3,6 +3,7 @@ package com.zj.servlet;
 
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,15 +29,19 @@ public class OrderServlet extends BaseServlet {
 	public String grogshop_order_id;
 	public String grogshopOrderInfo;
 	public String checkInPersonInfo;
+	//当前页数
+	private  Integer currentPage;
+	//总页数
+	private  Integer countPage;
+	//每页条数
+	private  Integer pageSize;
 	
 	// 返回订单所有信息
 	public void getAllGrogshopOrderInfo(HttpServletRequest request,
-			HttpServletResponse response) throws IOException {
-		List<Map<String, Object>> list = orderService.getAllGrogshopOrderInfo();
-		System.out.println(list);
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("list", list);
+			HttpServletResponse response) throws IOException, SQLException {
+		Map<String, Object>map = orderService.getAllGrogshopOrderInfo(currentPage,pageSize);
 		JSONObject obj = new JSONObject(map);
+		System.out.println("obj:" + obj);
 		response.getWriter().print(callback + "(" + obj + ")");
 	}
 

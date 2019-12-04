@@ -8,10 +8,13 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
+import cn.com.util.PageUtil;
+
 import com.zj.dao.ReserveDao;
 import com.zj.dao.UserDao;
 import com.zj.dao.impl.ReserveDaoImpl;
 import com.zj.dao.impl.UserDaoImpl;
+import com.zj.entity.GrogshopOrder;
 import com.zj.entity.Reserve;
 import com.zj.entity.User;
 import com.zj.service.impl.ReserveServiceImpl;
@@ -21,31 +24,29 @@ public class ReserveService implements ReserveServiceImpl{
 	private Logger log = Logger.getLogger(ReserveService.class);
 	private UserDaoImpl  userDaoImpl = new UserDao(); 
 	@Override
-	public List<Map<String, Object>> getAllReserve() {
+	public Map<String, Object> getAllReserve(Integer orderPresentPage,Integer pageSize) throws SQLException {
 		List<Map<String, Object>> list = null;
-		try {
-			
-			List<Reserve> reserveList = reserveDaoImpl.getAllReserve();
-			if(reserveList != null){
-				list = new ArrayList<Map<String,Object>>();
-				for(Reserve reserve : reserveList){
-					Map<String, Object> map = new HashMap<String, Object>();
-					map.put("reserve_id", reserve.getReserve_id());
-					map.put("reserve_date", reserve.getReserve_date());
-					map.put("reserve_day_number", reserve.getReserve_day_number());
-					map.put("check_out_date", reserve.getCheck_out_date());
-					map.put("user_id", reserve.getUser_id());
-					Integer user_id = reserve.getUser_id();
-					User user = userDaoImpl.getUserInfoById(user_id);
-					map.put("house_id", reserve.getHouse_id());
-					map.put("user_name", user.getUser_name());
-					list.add(map);
-				}
-			}
-		} catch (SQLException e) {
-			log.error("数据库异常");
-		}
-		return list;
+		List<Reserve> reserveList = reserveDaoImpl.getAllReserve();
+		Long orderCount = reserveDaoImpl.queryCountReserve();
+		
+		PageUtil<Reserve> pu = new PageUtil<Reserve>();
+		pu.setCountRow(orderCount.intValue());
+		pu.setCountPage(orderPresentPage);
+		pu.setCurrentPage(orderPresentPage);
+		pu.setPageSize(pageSize);
+		
+		int orderStartRow = pu.getStartRow();
+		int orderPageSize = pu.getPageSize();
+		
+		List<User> userinfo = userDaoImpl.getAllUserInfo();
+		List<Reserve> pageReserve = reserveDaoImpl.queryReservePage(orderStartRow, orderPageSize);
+		Map<String,Object> dataMap = new HashMap<String, Object>();
+		dataMap.put("user", userinfo);
+		dataMap.put("reserve", pageReserve);
+		pu.setMap(dataMap);
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("pageUtil", pu);
+		return map;
 	}
 //	/**
 //	 * 添加一个订单预定信息方法

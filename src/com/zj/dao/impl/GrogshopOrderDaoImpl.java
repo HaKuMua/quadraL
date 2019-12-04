@@ -31,4 +31,20 @@ public interface GrogshopOrderDaoImpl {
 	 * @throws SQLException
 	 */
 	int addGrogshopOrderInfo(GrogshopOrder grogshopOrder) throws SQLException;
+	/**
+	 * 获取订单分页接口
+	 * @param startRow
+	 * @param pageSize
+	 * @return
+	 * @throws SQLException
+	 */
+	List<GrogshopOrder> queryOrderPage(Integer startRow,Integer pageSize)  throws SQLException;
+	/**
+	 * 获取订单总页数接口
+	 * @param startRow
+	 * @param pageSize
+	 * @return
+	 * @throws SQLException
+	 */
+	Long queryCountOrder()  throws SQLException;
 }

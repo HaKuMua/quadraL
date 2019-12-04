@@ -3,6 +3,7 @@ package com.zj.dao.impl;
 import java.sql.SQLException;
 import java.util.List;
 
+import com.zj.entity.GrogshopOrder;
 import com.zj.entity.HouseComment;
 
 /**
@@ -15,6 +16,22 @@ public interface HouseCommentDaoImpl {
 	 * 获取房子所有评论接口
 	 */
 	List<HouseComment> getAllHouseComment() throws SQLException;
+	/**
+	 * 获取房子分页接口
+	 * @param startRow
+	 * @param pageSize
+	 * @return
+	 * @throws SQLException
+	 */
+	List<HouseComment> queryHouseCommentPage(Integer startRow,Integer pageSize)  throws SQLException;
+	/**
+	 * 获取房子总页数接口
+	 * @param startRow
+	 * @param pageSize
+	 * @return
+	 * @throws SQLException
+	 */
+	Long queryCountHouseComment()  throws SQLException;
 	/**
 	 * 通过房子ID获取此房子的所有评论方法接口
 	 * @return

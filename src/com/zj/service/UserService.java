@@ -12,10 +12,12 @@ import java.util.regex.Pattern;
 import cn.com.util.CheckoutEmail;
 import cn.com.util.CheckoutIDCard;
 import cn.com.util.CheckoutPhoneNumber;
+import cn.com.util.PageUtil;
 import cn.com.util.UUIDGenerator;
 
 import com.zj.dao.UserDao;
 import com.zj.dao.impl.UserDaoImpl;
+import com.zj.entity.GrogshopOrder;
 import com.zj.entity.User;
 import com.zj.service.impl.UserServiceImpl;
 
@@ -29,31 +31,28 @@ public class UserService implements UserServiceImpl {
 
 	/**
 	 * 将所有用户信息包装成一个list<map>返回
+	 * @throws SQLException 
 	 */
-	public List<Map<String, Object>> getAllUserInfo() {
-		List<Map<String, Object>> list = null;
-		try {
-			List<User> userList = userDaoImpl.getAllUserInfo();
-			if (userList != null) {
-				list = new ArrayList<Map<String, Object>>();
-				for (User user : userList) {
-					Map<String, Object> map = new HashMap<String, Object>();
-					map.put("user_id", user.getUser_id());
-					map.put("user_name", user.getUser_name());
-					map.put("user_headimg_url", user.getUser_headimg_url());
-					map.put("user_email", user.getUser_email());
-					map.put("user_phone", user.getUser_phone());
-					map.put("user_IDcard", user.getUser_IDcard());
-					map.put("is_lanlord", user.getIs_landlord());
-					map.put("real_name", user.getReal_name());
-					map.put("user_describe", user.getUser_describe());
-					list.add(map);
-				}
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return list;
+	public Map<String, Object> getAllUserInfo(Integer userPresentPage,Integer pageSize) throws SQLException {
+		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+		// 订单分页
+		Long orderCount = userDaoImpl.queryCountUser();
+		PageUtil<GrogshopOrder> pu = new PageUtil<GrogshopOrder>();
+		pu.setCountRow(orderCount.intValue());
+		pu.setCountPage(userPresentPage);
+		pu.setCurrentPage(userPresentPage);
+		pu.setPageSize(pageSize);
+		
+		int userStartRow = pu.getStartRow();
+		int userPageSize = pu.getPageSize();
+		
+		List<User> pageUser = userDaoImpl.queryUserPage(userStartRow, userPageSize);
+		Map<String,Object> dataMap = new HashMap<String, Object>();
+		dataMap.put("user", pageUser);
+		pu.setMap(dataMap);
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("pageUtil", pu);
+		return map;
 	}
 
 	/**

@@ -14,7 +14,7 @@ public interface UserServiceImpl {
 	/**
 	 * 将所有用户信息包装成一个list<map>返回
 	 */
-	List<Map<String, Object>> getAllUserInfo();
+	Map<String,Object> getAllUserInfo(Integer userPresentPage,Integer pageSize)throws SQLException;
 	/**
 	 * 根据用户电话查询并返回其信息
 	 * 

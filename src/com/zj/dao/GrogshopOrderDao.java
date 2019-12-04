@@ -7,6 +7,7 @@ import java.util.List;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
+import org.apache.commons.dbutils.handlers.ScalarHandler;
 
 import cn.com.util.GetConn;
 
@@ -36,7 +37,26 @@ public class GrogshopOrderDao implements GrogshopOrderDaoImpl {
 		GetConn.closeConn(conn);
 		return data;
 	}
-
+	/*
+	 * 获取订单分页
+	 */
+	public List<GrogshopOrder> queryOrderPage(Integer startRow,Integer pageSize) throws SQLException{
+		conn = GetConn.getConn();
+		String sql = "select * from grogshop_order limit ?,?";
+		List<GrogshopOrder> data = qr.query(conn, sql, new BeanListHandler<GrogshopOrder>(GrogshopOrder.class),startRow,pageSize);
+		GetConn.closeConn(conn);
+		return data;
+	}
+	/*
+	 * 订单总页数
+	 */
+	public Long queryCountOrder() throws SQLException{
+		conn = GetConn.getConn();
+		String sql = "select count(*) from grogshop_order";
+		Long data = qr.query(conn, sql, new ScalarHandler<Long>());
+		GetConn.closeConn(conn);
+		return data;
+	}
 	/**
 	 * 通过ID获取酒店订单信息DAO层
 	 * @param GrogshopOrderID

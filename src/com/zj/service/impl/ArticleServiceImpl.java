@@ -16,7 +16,7 @@ public interface ArticleServiceImpl {
 	/**
 	 * 获取所有文章方法接口
 	 */
-	List<Map<String, Object>> getAllArticle();
+	Map<String, Object> getAllArticle(Integer articlePresentPage,Integer pageSize)throws SQLException;
 	
 	/**
 	 * 分页显示文章所需信息方法接口

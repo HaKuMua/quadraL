@@ -15,6 +15,7 @@ import cn.com.util.GetConn;
 
 import com.zj.dao.impl.ArticleDaoImpl;
 import com.zj.entity.Article;
+import com.zj.entity.GrogshopOrder;
 
 
 
@@ -84,17 +85,7 @@ public class ArticleDao implements ArticleDaoImpl{
 		return data;
 	}
 
-	/**
-	 * 查询所有文章数量
-	 * @throws SQLException 
-	 */
-	public Long queryCountArticle() throws SQLException {
-		conn = GetConn.getConn();
-		String sql = "select count(*) from article";
-		Long data =  qr.query(conn, sql, new ScalarHandler<Long>());
-		GetConn.closeConn(conn);
-		return data;
-	}
+	
 
 	/**
 	 * 更新赞数量
@@ -136,8 +127,34 @@ public class ArticleDao implements ArticleDaoImpl{
 	 * @throws SQLException 
 	 */
 	public List<Article> queryFuzzyQuery(String keyWord) throws SQLException {
+		conn = GetConn.getConn();
 		String sql = "select * from article where article_name like %?%";
-		return qr.query(conn, sql, new BeanListHandler<Article>(Article.class), keyWord);
+		List<Article> data = qr.query(conn, sql, new BeanListHandler<Article>(Article.class), keyWord);
+		GetConn.closeConn(conn);
+		return data;
+	}
+
+	/**
+	 * 前端后台文章分页查询
+	 */
+	public List<Article> queryArticlePage(Integer startRow, Integer pageSize)throws SQLException{
+		conn = GetConn.getConn();
+		String sql = "select * from article limit ?,?";
+		List<Article> data = qr.query(conn, sql, new BeanListHandler<Article>(Article.class),startRow,pageSize);
+		GetConn.closeConn(conn);
+		return data;
+	}
+	
+	/**
+	 * 查询所有文章数量
+	 * @throws SQLException 
+	 */
+	public Long queryCountArticle() throws SQLException {
+		conn = GetConn.getConn();
+		String sql = "select count(*) from article";
+		Long data =  qr.query(conn, sql, new ScalarHandler<Long>());
+		GetConn.closeConn(conn);
+		return data;
 	}
 	
 }

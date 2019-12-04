@@ -16,6 +16,7 @@ import com.zj.dao.impl.CommentDaoImpl;
 import com.zj.dao.impl.UserDaoImpl;
 import com.zj.entity.Article;
 import com.zj.entity.Comment;
+import com.zj.entity.GrogshopOrder;
 import com.zj.entity.User;
 import com.zj.service.impl.CommentServiceImpl;
 /**
@@ -30,37 +31,39 @@ public class CommentService implements CommentServiceImpl{
 	private UserDaoImpl  userDaoImpl = new UserDao(); 
 	/**
 	 * 将所有的评论打包成list返回
+	 * @throws SQLException 
 	 */
-	public List<Map<String, Object>> getAllComment(){
-		List<Map<String, Object>> list = null;
-		try {
-			List<Comment> commentList = commenDaoImpl.getAllComment();
-			if(commentList != null){
-				list = new ArrayList<Map<String,Object>>();
-				for(Comment comment : commentList){
-					Map<String, Object> map = new HashMap<String, Object>();
-					map.put("comment_id", comment.getComment_id());
-					map.put("article_id", comment.getArticle_id());
+	public Map<String, Object> getAllComment(Integer commentPresentPage,Integer pageSize) throws SQLException{
 					//获取文章名
-					Integer article_id = comment.getArticle_id();
-					Article article = articleDaoImpl.queryArticleById(article_id);
-					map.put("article_name", article.getArticle_name());
-					map.put("user_id", comment.getUser_id());
 					//获取用户名
-					Integer user_id = comment.getUser_id();
-					User user = userDaoImpl.getUserInfoById(user_id);
-					map.put("user_name", user.getUser_name());
-					map.put("comment_content", comment.getComment_content());
-					map.put("replier_id", comment.getReplier_id());
-					map.put("comment_date", comment.getComment_date());
-					map.put("comment_praise", comment.getComment_praise());
-					list.add(map);
-				}
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return list;
+		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+		// 订单分页
+		Long orderCount = commenDaoImpl.queryCountComment();
+		PageUtil<Comment> pu = new PageUtil<Comment>();
+		pu.setCountRow(orderCount.intValue());
+		pu.setCurrentPage(commentPresentPage);
+		pu.setPageSize(pageSize);
+		
+		int commentStartRow = pu.getStartRow();
+		int commentPageSize = pu.getPageSize();
+		
+		List<Comment> pageComment = commenDaoImpl.queryCommentPage(commentStartRow, commentPageSize);
+		Article article = new Article();
+		String article_name = article.getArticle_name();
+		List<Article> pageArticle = articleDaoImpl.getAllArticle();
+		List<User> pageUser = userDaoImpl.getAllUserInfo();
+		
+		
+		
+		Map<String,Object> dataMap = new HashMap<String, Object>();
+		dataMap.put("comment", pageComment);
+		dataMap.put("article", pageArticle);
+		dataMap.put("user", pageUser);
+		
+		pu.setMap(dataMap);
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("pageUtil", pu);
+		return map;
 	}
 	//分页显示一篇文章评论
 			public List<Map<String, Object>> getPageCommInfo(Integer commPresentPage,Integer article_id) throws SQLException{

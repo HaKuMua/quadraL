@@ -12,9 +12,9 @@ import java.util.Map;
  */
 public interface HouseServiceImpl {
 	/**
-	 * 将所有房子信息包装成一个list<map>返回方法接口
+	 * 将所有房子信息包装成一个<map>返回方法接口
 	 */
-	List<Map<String, Object>> getAllHouseInfo();
+	Map<String, Object> getAllHouseInfo(Integer housePresentPage,Integer pageSize)throws SQLException;
 	/**
 	 * 将单个房子信息包装成map返回方法接口
 	 */

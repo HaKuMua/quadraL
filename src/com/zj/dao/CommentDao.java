@@ -13,6 +13,7 @@ import cn.com.util.GetConn;
 
 import com.zj.dao.impl.CommentDaoImpl;
 import com.zj.entity.Comment;
+import com.zj.entity.GrogshopOrder;
 
 /**
  * 
@@ -128,4 +129,25 @@ public class CommentDao implements CommentDaoImpl{
 		GetConn.closeConn(conn);
 		return data;
 	}
+	/*
+	 * 获取评论分页
+	 */
+	public List<Comment> queryCommentPage(Integer startRow,Integer pageSize) throws SQLException{
+		conn = GetConn.getConn();
+		String sql = "select * from comment limit ?,?";
+		List<Comment> data = qr.query(conn, sql, new BeanListHandler<Comment>(Comment.class),startRow,pageSize);
+		GetConn.closeConn(conn);
+		return data;
+	}
+	/*
+	 * 评论总页数
+	 */
+	public Long queryCountComment() throws SQLException{
+		conn = GetConn.getConn();
+		String sql = "select count(*) from comment";
+		Long data = qr.query(conn, sql, new ScalarHandler<Long>());
+		GetConn.closeConn(conn);
+		return data;
+	}
+
 }

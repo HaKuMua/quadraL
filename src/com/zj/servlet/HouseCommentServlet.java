@@ -1,8 +1,7 @@
 package com.zj.servlet;
 
-
-
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,19 +18,24 @@ import cn.com.util.BaseServlet;
 
 public class HouseCommentServlet extends BaseServlet {
 	private static final long serialVersionUID = 1L;
-	
-	private HouseCommentServiceImpl hCommentService =  new HouseCommentService();
-	
+
+	private HouseCommentServiceImpl hCommentService = new HouseCommentService();
+
 	public String callback;
-	
+
+	// 当前页数
+	private Integer currentPage;
+	// 总页数
+	private Integer countPage;
+	// 每页条数
+	private Integer pageSize;
+
 	// 返回所有文章评论信息
-		public void getAllHouseComment(HttpServletRequest request,
-				HttpServletResponse response) throws IOException {
-			List<Map<String, Object>> list = hCommentService.getAllHouseComment();
-			System.out.println(list);
-			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("list", list);
-			JSONObject obj = new JSONObject(map);
-			response.getWriter().print(callback + "(" + obj + ")");
-		}
+	public void getAllHouseComment(HttpServletRequest request,
+			HttpServletResponse response) throws IOException, SQLException {
+		Map<String, Object>map = hCommentService.getAllHouseComment(currentPage,pageSize);
+		JSONObject obj = new JSONObject(map);
+		System.out.println("obj:" + obj);
+		response.getWriter().print(callback + "(" + obj + ")");
+	}
 }

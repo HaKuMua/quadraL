@@ -11,9 +11,9 @@ import java.util.Map;
  */
 public interface CommentServiceImpl {
 	/**
-	 * 将所有的评论打包成list返回方法接口
+	 * 将所有的评论打包成map返回方法接口
 	 */
-	List<Map<String, Object>> getAllComment();
+	Map<String, Object> getAllComment(Integer commentPresentPage,Integer pageSize) throws SQLException;
 	/*
 	 * 评论分页
 	 */

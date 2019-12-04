@@ -173,7 +173,8 @@
 								</a>
 							</li>
 							<li class="sidebar-item">
-								<a class="sidebar-link waves-effect waves-dark sidebar-link" href="hotel-commen-check.html" aria-expanded="false" id="addLandlord">
+								<a class="sidebar-link waves-effect waves-dark sidebar-link" href="hotel-commen-check.html" aria-expanded="false"
+								 id="addLandlord">
 									<i class="mdi mdi-border-none"></i>
 									<span class="hide-menu">酒店评论审核</span>
 								</a>
@@ -240,6 +241,8 @@
 												<th scope="col" class="t7">预定编号</th>
 											</tr>
 										</thead>
+										<tbody id="tb">
+										</tbody>
 									</table>
 								</div>
 							</div>
@@ -261,44 +264,47 @@
 			</div>
 			<!-- End Page wrapper  -->
 		</div>
-		<!-- End Wrapper -->
-		<script >
-			$.getJSON("http://localhost:80/QuadraL/order.do?method=getAllGrogshopOrderInfo&callback=?",
-				function(order_result) {
-					window.onload = function() {
-						var tdArr = document.getElementById('tablebox').firstElementChild;
-						for (var i = 0; i < order_result.list.length; i++) {
-							var tr = document.createElement("tr");
-							//后端数字数据 转 状态文字信息
-							var text = order_result.list[i].grogshop_order_state > 0 ? "已入住":"未入住";
-							tr.innerHTML = '<td class="t1">' + order_result.list[i].grogshop_order_id + '</td><td class="t2">' + order_result.list[i].user_name +
-								'</td><td class="t3">' + order_result.list[i].price + '</td><td class="t4">' + order_result.list[i].place_an_order_date +
-								'<td class="t5">' + text + '</td><td class="t6">' + order_result.list[i].grogshop_order_describe +
-								'<td class="t7">' + order_result.list[i].reserve_id ;
-							tdArr.appendChild(tr)
-						}
-					};
-				}
-			);
-		</script>
 		<script src="layui/layui.js" charset="utf-8"></script>
 		<script>
 			layui.use(['laypage', 'layer'], function() {
 				var laypage = layui.laypage,
 					layer = layui.layer;
-		
-				//总页数大于页码总数
-				laypage.render({
-					elem: 'demo1',
-					count: 70 //数据总数
-						,
-					jump: function(obj) {
-						console.log(obj)
-					}
-				});
+				$.getJSON("http://localhost:80/QuadraL/order.do?method=getAllGrogshopOrderInfo&callback=?", function(order_result) {
+					//加载layui的显示页码的插件
+					laypage.render({
+						elem: 'demo1',
+						count: order_result.pageUtil.countRow, //获取返回值中的总行数
+						limit: 2,
+						layout: ['prev', 'next'],
+						jump: function(obj, first) { //点击页码的回调函数
+							//obj包含了当前分页的所有参数，比如：
+							console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
+							console.log(obj.limit); //得到每页显示的条数
+							//查询一页的数据
+							$.getJSON("http://localhost:80/QuadraL/order.do?method=getAllGrogshopOrderInfo&callback=?", {
+								"currentPage": obj.curr,
+								"pageSize": obj.limit
+							}, function(order_result) {
+								$("#tb").empty(); //清除原来的数据
+								//通过遍历查询到的内容，把数据显示出来
+								$("#tb").append("<tr></tr>");
+								for (var i = 0; i < order_result.pageUtil.map.order.length; i++) {
+									var tr = document.createElement("tr");
+									//后端数字数据 转 状态文字信息
+									var text = order_result.pageUtil.map.order[i].grogshop_order_state > 0 ? "已入住" : "未入住";
+									tr.innerHTML = '<td class="t1">' + order_result.pageUtil.map.order[i].grogshop_order_id +
+										'</td><td class="t2">' + order_result.pageUtil.map.order[i].user_name +
+										'</td><td class="t3">' + order_result.pageUtil.map.order[i].price + '</td><td class="t4">' +
+										order_result.pageUtil.map.order[i].place_an_order_date +
+										'<td class="t5">' + text + '</td><td class="t6">' + order_result.pageUtil.map.order[i].grogshop_order_describe +
+										'<td class="t7">' + order_result.pageUtil.map.order[i].reserve_id;
+									$("#tb").append(tr);
+								}
+							}, "json");
+						}
+					});
+				}, "json");
 			});
 		</script>
-		
 	</body>
-
 </html>

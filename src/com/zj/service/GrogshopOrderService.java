@@ -10,6 +10,7 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
+import cn.com.util.PageUtil;
 import cn.com.util.UUIDGenerator;
 
 import com.zj.dao.CheckInPersonDao;
@@ -28,62 +29,63 @@ import com.zj.service.impl.GrogshopOrderServiceImpl;
 
 /**
  * 订单服务层
+ * 
  * @author LanceEdward
- *
+ * 
  */
-public class GrogshopOrderService implements GrogshopOrderServiceImpl{
+public class GrogshopOrderService implements GrogshopOrderServiceImpl {
 	private GrogshopOrderDaoImpl orderDaoImpl = new GrogshopOrderDao();
 	private ReserveDaoImpl reserveDaoImpl = new ReserveDao();
 	private CheckInPersonDaoImpl checkInPersonDaoImpl = new CheckInPersonDao();
 	private UserDaoImpl userDaoImpl = new UserDao();
 	private Logger log = Logger.getLogger(GrogshopOrderService.class);
+	//订单当前页
 	/**
-	 * 将所有订单信息包装成一个list<map>返回 
+	 * 将所有订单信息包装成一个list<map>返回
+	 * 分页显示订单信息
 	 * @return
+	 * @throws SQLException
 	 */
-	public List<Map<String, Object>> getAllGrogshopOrderInfo(){
-		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
-		try {
-			List<GrogshopOrder> allOrder = orderDaoImpl.getAllGrogshopOrderInfo();
-			if(allOrder != null){
-				list = new ArrayList<Map<String,Object>>();
-				for(int i = 0;i<allOrder.size();i++){
-					Map<String, Object> map = new HashMap<String, Object>();
-					map.put("grogshop_order_id", allOrder.get(i).getGrogshop_order_id());
-					map.put("user_id", allOrder.get(i).getUser_id());
-					Integer user_id = allOrder.get(i).getUser_id();
-					User user = userDaoImpl.getUserInfoById(user_id);
-					map.put("user_name", user.getUser_name());
-					map.put("price", allOrder.get(i).getPrice());
-					map.put("place_an_order_date", allOrder.get(i).getPlace_an_order_date());
-					map.put("grogshop_order_state", allOrder.get(i).getGrogshop_order_state());
-					map.put("grogshop_order_describe", allOrder.get(i).getGrogshop_order_describe());
-					map.put("reserve_id", allOrder.get(i).getReserve_id());
-					list.add(map);
-				}
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return list;
+	public Map<String,Object> getAllGrogshopOrderInfo(Integer orderPresentPage,Integer pageSize)
+			throws SQLException {
+		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+		// 订单分页
+		Long orderCount = orderDaoImpl.queryCountOrder();
+		PageUtil<GrogshopOrder> pu = new PageUtil<GrogshopOrder>();
+		pu.setCountRow(orderCount.intValue());
+		pu.setCurrentPage(orderPresentPage);
+		pu.setPageSize(pageSize);
 		
+		int orderStartRow = pu.getStartRow();
+		int orderPageSize = pu.getPageSize();
+		
+		List<GrogshopOrder> pageOrder = orderDaoImpl.queryOrderPage(orderStartRow, orderPageSize);
+		Map<String,Object> dataMap = new HashMap<String, Object>();
+		dataMap.put("order", pageOrder);
+		pu.setMap(dataMap);
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("pageUtil", pu);
+		return map;
 	}
-	
+
 	/**
 	 * 将单个订单信息包装成map返回
 	 */
-	public Map<String, Object> getAllGrogshopOrderInfoByID(Integer grogshop_order_id){
+	public Map<String, Object> getAllGrogshopOrderInfoByID(
+			Integer grogshop_order_id) {
 		Map<String, Object> map = null;
 		try {
-			GrogshopOrder order = orderDaoImpl.getGrogshopOrderInfoByID(grogshop_order_id);
-			if(order != null){
+			GrogshopOrder order = orderDaoImpl
+					.getGrogshopOrderInfoByID(grogshop_order_id);
+			if (order != null) {
 				map = new HashMap<String, Object>();
 				map.put("grogshop_order_id", order.getGrogshop_order_id());
 				map.put("user_id", order.getUser_id());
 				map.put("price", order.getPrice());
 				map.put("place_an_order_date", order.getGrogshop_order_state());
 				map.put("grogshop_order_state", order.getGrogshop_order_state());
-				map.put("grogshop_order_describe", order.getGrogshop_order_describe());
+				map.put("grogshop_order_describe",
+						order.getGrogshop_order_describe());
 				map.put("reserve_id", order.getReserve_id());
 			}
 		} catch (SQLException e) {
@@ -91,61 +93,75 @@ public class GrogshopOrderService implements GrogshopOrderServiceImpl{
 		}
 		return map;
 	}
+
 	/**
 	 * 添加一个订单信息方法
+	 * 
 	 * @param grogshopOrder
 	 * @return
 	 */
 	public String addGrogshopOrderInfo(Map<String, Object> grogshopOrderInfo,
 			List<Map<String, Object>> checkInPersonInfoMap) {
 		try {
-			//下单先扣钱
-			Integer user_id = Integer.valueOf(grogshopOrderInfo.get("user_id").toString());
-			Double price = Double.valueOf(grogshopOrderInfo.get("price").toString());
+			// 下单先扣钱
+			Integer user_id = Integer.valueOf(grogshopOrderInfo.get("user_id")
+					.toString());
+			Double price = Double.valueOf(grogshopOrderInfo.get("price")
+					.toString());
 			User user = userDaoImpl.getUserInfoById(user_id);
-			if(price>user.getMoney())
+			if (price > user.getMoney())
 				return "余额不足下单失败";
-			if(userDaoImpl.updateUserMoney(price, user_id) > 0)
+			if (userDaoImpl.updateUserMoney(price, user_id) > 0)
 				log.debug("扣钱成功");
-			//插入预定表
+			// 插入预定表
 			Reserve reserve = new Reserve();
-			reserve.setReserve_date(new SimpleDateFormat("yyyy-MM-dd").parse(grogshopOrderInfo.get("reserve_date").toString()));
-			reserve.setReserve_day_number(Integer.valueOf(grogshopOrderInfo.get("reserve_day_number").toString()));
-			reserve.setCheck_out_date(new SimpleDateFormat("yyyy-MM-dd").parse(grogshopOrderInfo.get("check_out_date").toString()));
+			reserve.setReserve_date(new SimpleDateFormat("yyyy-MM-dd")
+					.parse(grogshopOrderInfo.get("reserve_date").toString()));
+			reserve.setReserve_day_number(Integer.valueOf(grogshopOrderInfo
+					.get("reserve_day_number").toString()));
+			reserve.setCheck_out_date(new SimpleDateFormat("yyyy-MM-dd")
+					.parse(grogshopOrderInfo.get("check_out_date").toString()));
 			reserve.setUser_id(user_id);
-			reserve.setHouse_id(Integer.valueOf(grogshopOrderInfo.get("house_id").toString()));
-			if(reserveDaoImpl.addReserve(reserve)>0){
+			reserve.setHouse_id(Integer.valueOf(grogshopOrderInfo.get(
+					"house_id").toString()));
+			if (reserveDaoImpl.addReserve(reserve) > 0) {
 				log.debug("插入信息成功");
-			}else{
+			} else {
 				log.debug("插入信息失败");
 				return null;
 			}
-			//插入订单表
+			// 插入订单表
 			GrogshopOrder grogshopOrder = new GrogshopOrder();
 			String uuID = UUIDGenerator.getUUID();
 			grogshopOrder.setGrogshop_order_id(uuID);
-			grogshopOrder.setUser_id(Integer.valueOf(grogshopOrderInfo.get("user_id").toString()));
+			grogshopOrder.setUser_id(Integer.valueOf(grogshopOrderInfo.get(
+					"user_id").toString()));
 			grogshopOrder.setPrice(price);
-			grogshopOrder.setGrogshop_order_state(grogshopOrderInfo.get("grogshop_order_state").toString());
-			if(grogshopOrderInfo.get("grogshop_order_describe") !=null)
-				grogshopOrder.setGrogshop_order_describe(grogshopOrderInfo.get("grogshop_order_describe").toString());
-			grogshopOrder.setReserve_id(Integer.valueOf(grogshopOrderInfo.get("reserve_id").toString()));
+			grogshopOrder.setGrogshop_order_state(grogshopOrderInfo.get(
+					"grogshop_order_state").toString());
+			if (grogshopOrderInfo.get("grogshop_order_describe") != null)
+				grogshopOrder.setGrogshop_order_describe(grogshopOrderInfo.get(
+						"grogshop_order_describe").toString());
+			grogshopOrder.setReserve_id(Integer.valueOf(grogshopOrderInfo.get(
+					"reserve_id").toString()));
 			log.debug(grogshopOrder);
-			if(orderDaoImpl.addGrogshopOrderInfo(grogshopOrder) > 0){
+			if (orderDaoImpl.addGrogshopOrderInfo(grogshopOrder) > 0) {
 				log.debug("订单信息插入成功");
-			}else{
+			} else {
 				log.debug("订单信息插入失败");
 				return null;
 			}
-			//插入入住人表
-			for(Map<String, Object> checkInPersonMap : checkInPersonInfoMap){
+			// 插入入住人表
+			for (Map<String, Object> checkInPersonMap : checkInPersonInfoMap) {
 				CheckInPerson checkInPerson = new CheckInPerson();
 				checkInPerson.setGrogshop_order_id(uuID);
-				checkInPerson.setCheck_in_person_name(checkInPersonMap.get("check_in_person_name").toString());
-				checkInPerson.setCheck_in_person_ID_card(checkInPersonMap.get("check_in_person_ID_card").toString());
-				if(checkInPersonDaoImpl.addCheckInPerson(checkInPerson)>0){
+				checkInPerson.setCheck_in_person_name(checkInPersonMap.get(
+						"check_in_person_name").toString());
+				checkInPerson.setCheck_in_person_ID_card(checkInPersonMap.get(
+						"check_in_person_ID_card").toString());
+				if (checkInPersonDaoImpl.addCheckInPerson(checkInPerson) > 0) {
 					log.debug("插入入住人信息成功");
-				}else{
+				} else {
 					log.debug("插入入住人信息失败");
 					return null;
 				}
@@ -159,4 +175,5 @@ public class GrogshopOrderService implements GrogshopOrderServiceImpl{
 		}
 		return "订单插入成功";
 	}
+
 }

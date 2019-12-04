@@ -12,8 +12,10 @@ import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
 
 import cn.com.util.GetConn;
+import cn.com.util.PageUtil;
 
 import com.zj.dao.impl.UserDaoImpl;
+import com.zj.entity.GrogshopOrder;
 import com.zj.entity.User;
 /**
  * 
@@ -26,6 +28,9 @@ public class UserDao implements UserDaoImpl{
 	 */
 	private QueryRunner qr = new QueryRunner();
 	private Connection conn = null;
+	PageUtil<User> page = new PageUtil<User>();
+	
+	
 	/**
 	 * 获取所有用户信息方法
 	 */
@@ -178,6 +183,30 @@ public class UserDao implements UserDaoImpl{
 		conn = GetConn.getConn();
 		String sql = "update user set real_name = ?,user_IDcard = ? where user_id = ?";
 		Integer data = qr.update(conn, sql,new ScalarHandler<Integer>(),real_name, user_IDcard,user_id);
+		GetConn.closeConn(conn);
+		return data;
+	}
+
+	/**
+	 * 获取用户分页
+	 */
+	@Override
+	public List<User> queryUserPage(Integer startRow, Integer pageSize)
+			throws SQLException {
+		conn = GetConn.getConn();
+		String sql = "select * from user limit ?,?";
+		List<User> data = qr.query(conn, sql, new BeanListHandler<User>(User.class),startRow,pageSize);
+		GetConn.closeConn(conn);
+		return data;
+	}
+	/**
+	 * 获取用户总页数
+	 */
+	@Override
+	public Long queryCountUser() throws SQLException {
+		conn = GetConn.getConn();
+		String sql = "select count(*) from user";
+		Long data = qr.query(conn, sql, new ScalarHandler<Long>());
 		GetConn.closeConn(conn);
 		return data;
 	}

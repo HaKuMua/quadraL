@@ -11,6 +11,8 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
+import cn.com.util.PageUtil;
+
 import com.zj.dao.HouseCommentDao;
 import com.zj.dao.HouseDao;
 import com.zj.dao.HouseImgDao;
@@ -21,6 +23,7 @@ import com.zj.dao.impl.HouseDaoImpl;
 import com.zj.dao.impl.HouseImgDaoImpl;
 import com.zj.dao.impl.HouseParticularsDaoImpl;
 import com.zj.dao.impl.UserDaoImpl;
+import com.zj.entity.GrogshopOrder;
 import com.zj.entity.House;
 import com.zj.entity.HouseComment;
 import com.zj.entity.HouseImg;
@@ -41,48 +44,33 @@ public class HouseService implements HouseServiceImpl {
 
 	/**
 	 * 将所有房子信息包装成一个list<map>返回
+	 * @throws SQLException 
 	 */
-	public List<Map<String, Object>> getAllHouseInfo() {
-		List<Map<String, Object>> list = null;
-		try {
-			List<House> allHouse = houseDaoImpl.getAllHouseInfo();
-			List<HouseParticulars> allHouseParticulars = houseParticularsDaoImpl
-					.getAllHouseParticularsInfo();
-			if (allHouse != null) {
-				list = new ArrayList<Map<String, Object>>();
-				for (int i = 0; i < allHouse.size(); i++) {
-					List<HouseImg> allHouseImg = houseImgDaoImpl
-							.getHouseImgByHouseID(allHouse.get(i).getHouse_id());
-					Map<String, Object> map = new HashMap<String, Object>();
-					map.put("house_id", allHouse.get(i).getHouse_id());
-					map.put("house_name", allHouse.get(i).getHouse_name());
-					map.put("house_intake", allHouse.get(i).getHouse_intake());
-					map.put("lease_type", allHouse.get(i).getLease_type());
-					map.put("may_check_in_date", allHouse.get(i)
-							.getMay_check_in_date());
-					map.put("may_check_out_date", allHouse.get(i)
-							.getMay_check_out_date());
-					map.put("house_type", allHouse.get(i).getHouse_type());
-					map.put("house_state", allHouse.get(i).getHouse_state());
-					map.put("travel_information", allHouse.get(i)
-							.getTravel_information());
-					map.put("house_price", allHouse.get(i).getHouse_price());
-					map.put("house_address", allHouse.get(i).getHouse_address());
-					map.put("user_id", allHouse.get(i).getUser_id());
-					map.put("room_number", allHouseParticulars.get(i)
-							.getRoom_number());
-					map.put("address_describe", allHouseParticulars.get(i)
-							.getAddress_describe());
-					map.put("toilet_number", allHouseParticulars.get(i)
-							.getToilet_number());
-					map.put("allHouseImg", allHouseImg);
-					list.add(map);
-				}
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return list;
+	public Map<String, Object> getAllHouseInfo(Integer housePresentPage,Integer pageSize) throws SQLException {
+		
+		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+		// 订单分页
+		Long houseCount = houseDaoImpl.queryCountHouse();
+		PageUtil<House> pu = new PageUtil<House>();
+		pu.setCountRow(houseCount.intValue());
+		pu.setCurrentPage(housePresentPage);
+		pu.setPageSize(pageSize);
+		
+		int houseStartRow = pu.getStartRow();
+		int housePageSize = pu.getPageSize();
+		List<House> pageHouse = houseDaoImpl.queryHousePage(houseStartRow, housePageSize);
+		
+		
+		List<HouseImg> allHouseImg = houseImgDaoImpl.getAllHouseImgInfo();
+		Map<String,Object> dataMap = new HashMap<String, Object>();
+		dataMap.put("house", pageHouse);
+		dataMap.put("houseImg", allHouseImg);
+		
+		pu.setMap(dataMap);
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("pageUtil", pu);
+		return map;
+		
 	}
 
 	/**
