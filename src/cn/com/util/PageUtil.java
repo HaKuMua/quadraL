@@ -2,7 +2,9 @@ package cn.com.util;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 页码从1开始
@@ -17,7 +19,7 @@ public class PageUtil<T> implements Serializable{
 	//总行数
 	private Integer countRow = 0;
 	//一页显示多少个
-	private Integer pageSize = 10;
+	private Integer pageSize = 2;
 	//当页数
 	private Integer currentPage = 1;
 	//总页数
@@ -30,16 +32,16 @@ public class PageUtil<T> implements Serializable{
 	/**
 	 * 查询到的结果
 	 */
-	private List<T> list = new ArrayList<T>();
+	private Map<String,Object> map = new HashMap<String, Object>();
 	
 	
 	
 	
-	public List<T> getList() {
-		return list;
+	public Map<String,Object> getMap() {
+		return map;
 	}
-	public void setList(List<T> list) {
-		this.list = list;
+	public void setMap(Map<String,Object> map) {
+		this.map = map;
 	}
 	public Integer getCountRow() {
 		return countRow;
@@ -120,7 +122,7 @@ public class PageUtil<T> implements Serializable{
 		return "PageUtil [countRow=" + countRow + ", pageSize=" + pageSize
 				+ ", currentPage=" + currentPage + ", countPage=" + countPage
 				+ ", startRow=" + startRow + ", endRow=" + endRow + ", list="
-				+ list + "]";
+				+ map + "]";
 	}
 	
 	

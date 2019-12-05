@@ -13,6 +13,7 @@ import org.apache.log4j.Logger;
 
 
 import cn.com.util.PageUtil;
+import cn.com.util.RemoveHtmlTagUtil;
 
 import com.zj.dao.ArticleDao;
 import com.zj.dao.ArticleImgDao;
@@ -29,6 +30,7 @@ import com.zj.dao.impl.UserDaoImpl;
 import com.zj.entity.Article;
 import com.zj.entity.ArticleImg;
 import com.zj.entity.Comment;
+import com.zj.entity.GrogshopOrder;
 import com.zj.entity.House;
 import com.zj.entity.HouseImg;
 import com.zj.entity.User;
@@ -50,36 +52,37 @@ public class ArticleService implements ArticleServiceImpl{
 	/**
 	 * 获得所有文章
 	 * @return
+	 * @throws SQLException 
 	 */
-	public List<Map<String, Object>> getAllArticle(){
-		List<Map<String, Object>> list = null;
-		try {
-			List<Article> articleList = articleDaoImpl.getAllArticle();
-			if(articleList != null){
-				list = new ArrayList<Map<String,Object>>();
-				for(Article article : articleList){
-					Map<String, Object> map = new HashMap<String, Object>();
-					map.put("article_id", article.getArticle_id());
-					//获取对应的文章图片
-					Integer article_id = article.getArticle_id();
-					List<ArticleImg> articleImg = articleImgDaoImpl.queryArticleImgByArticleId(article_id);
-					map.put("article_img", articleImg);
-					map.put("user_id", article.getUser_id());
-					Integer user_id = article.getUser_id();
-					User user = userDaoImpl.getUserInfoById(user_id);
-					map.put("user_name", user.getUser_name());
-					map.put("article_name", article.getArticle_name());
-					map.put("article_content", article.getArticle_content());
-					map.put("article_date", article.getArticle_date());
-					map.put("article_praise", article.getArticle_praise());
-					map.put("article_collect", article.getArticle_collect());
-					list.add(map);
-				}
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
+	public Map<String, Object> getAllArticle(Integer articlePresentPage,Integer pageSize) throws SQLException{
+		//文章图片
+		//文章作者
+		
+		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+		// 文章分页
+		Long articleCount = articleDaoImpl.queryCountArticle();
+		PageUtil<Article> pu = new PageUtil<Article>();
+		pu.setCountRow(articleCount.intValue());
+		pu.setCurrentPage(articlePresentPage);
+		pu.setPageSize(pageSize);
+		
+		int articleStartRow = pu.getStartRow();
+		int articlePageSize = pu.getPageSize();
+		
+		List<Article> articlePage = articleDaoImpl.queryArticlePage(articleStartRow, articlePageSize);
+		for(Article article : articlePage) {
+			article.setArticle_content(RemoveHtmlTagUtil.removeHtmlTag(article.getArticle_content()));
 		}
-		return list;
+		List<ArticleImg> articleImg = articleImgDaoImpl.queryArticleImg();
+		List<User> user = userDaoImpl.getAllUserInfo();
+		Map<String,Object> dataMap = new HashMap<String, Object>();
+		dataMap.put("article", articlePage);
+		dataMap.put("articleImg", articleImg);
+		dataMap.put("user", user);
+		pu.setMap(dataMap);
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("pageUtil", pu);
+		return map;
 	}
 	
 	/**
@@ -395,8 +398,14 @@ public class ArticleService implements ArticleServiceImpl{
 			log.error("文章删除异常！");
 			return -1;
 		}
+	 * 根据文章Id删除文章service
+	 */
+	public int deleteArticleById(Integer article_id) throws SQLException {
+		articleDaoImpl.deleteArticleById(article_id);
 		return 1;
 	}
+	
+
 
 	/**
 	 * 查询一个用户所有文章

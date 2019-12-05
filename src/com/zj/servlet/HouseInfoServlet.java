@@ -1,8 +1,7 @@
 package com.zj.servlet;
 
-
-
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,20 +21,26 @@ import cn.com.util.FileLoadServletUtil;
 
 public class HouseInfoServlet extends BaseServlet {
 	private static final long serialVersionUID = 1L;
-	
+
 	private HouseServiceImpl houseService = new HouseService();
-	
+
 	public String callback;
 	public String house_id;
-	
-	//返回所有房子信息
+	// 当前页数
+	private Integer currentPage;
+	// 总页数
+	private Integer countPage;
+	// 每页条数
+	private Integer pageSize;
+
+	// 返回所有房子信息
 	public void getAllHouseInfo(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		List<Map<String, Object>> list = houseService.getAllHouseInfo();
-		System.out.println(list);
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("list", list);
+			HttpServletResponse response) throws ServletException, IOException,
+			SQLException {
+		Map<String, Object> map = houseService.getAllHouseInfo(currentPage,
+				pageSize);
 		JSONObject obj = new JSONObject(map);
+		System.out.println("obj:" + obj);
 		response.getWriter().print(callback + "(" + obj + ")");
 	}
 
@@ -49,5 +54,5 @@ public class HouseInfoServlet extends BaseServlet {
 		JSONObject obj = new JSONObject(map);
 		response.getWriter().print(callback + "(" + obj + ")");
 	}
-	
+
 }

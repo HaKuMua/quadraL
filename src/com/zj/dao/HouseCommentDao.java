@@ -8,10 +8,12 @@ import javax.persistence.criteria.CriteriaBuilder.In;
 
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
+import org.apache.commons.dbutils.handlers.ScalarHandler;
 
 import cn.com.util.GetConn;
 
 import com.zj.dao.impl.HouseCommentDaoImpl;
+import com.zj.entity.GrogshopOrder;
 import com.zj.entity.HouseComment;
 
 /**
@@ -63,6 +65,23 @@ public class HouseCommentDao implements HouseCommentDaoImpl{
 		conn = GetConn.getConn();
 		String sql = "select * from house_comment where user_id=?";
 		List<HouseComment> data = qr.query(conn, sql, new BeanListHandler<HouseComment>(HouseComment.class), user_id);
+	/*
+	 * 获取订单分页
+	 */
+	public List<HouseComment> queryHouseCommentPage(Integer startRow,Integer pageSize) throws SQLException{
+		conn = GetConn.getConn();
+		String sql = "select * from house_comment limit ?,?";
+		List<HouseComment> data = qr.query(conn, sql, new BeanListHandler<HouseComment>(HouseComment.class),startRow,pageSize);
+		GetConn.closeConn(conn);
+		return data;
+	}
+	/*
+	 * 订单总页数
+	 */
+	public Long queryCountHouseComment() throws SQLException{
+		conn = GetConn.getConn();
+		String sql = "select count(*) from house_comment";
+		Long data = qr.query(conn, sql, new ScalarHandler<Long>());
 		GetConn.closeConn(conn);
 		return data;
 	}

@@ -1,7 +1,10 @@
 package com.zj.service.impl;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
+
+import com.zj.entity.GrogshopOrder;
 
 /**
  * 
@@ -10,10 +13,11 @@ import java.util.Map;
  */
 public interface GrogshopOrderServiceImpl {
 	/**
-	 * 将所有订单信息包装成一个list<map>返回方法接口
+	 * 将所有订单信息包装成一个map>返回方法接口
 	 * @return
+	 * @throws SQLException 
 	 */
-	List<Map<String, Object>> getAllGrogshopOrderInfo();
+	Map<String,Object> getAllGrogshopOrderInfo(Integer orderPresentPage,Integer pageSize) throws SQLException;
 	/**
 	 * 将单个订单信息包装成map返回方法接口
 	 */

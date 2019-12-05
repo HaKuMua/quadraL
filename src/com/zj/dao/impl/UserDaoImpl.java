@@ -3,6 +3,7 @@
 import java.sql.SQLException;
 import java.util.List;
 
+import com.zj.entity.GrogshopOrder;
 import com.zj.entity.User;
 
 /**
@@ -15,7 +16,22 @@ public interface UserDaoImpl {
 	 * 获取所有用户信息方法接口
 	 */
 	List<User> getAllUserInfo() throws SQLException;
-	
+	/**
+	 * 获取用户分页接口
+	 * @param startRow
+	 * @param pageSize
+	 * @return
+	 * @throws SQLException
+	 */
+	List<User> queryUserPage(Integer startRow,Integer pageSize)  throws SQLException;
+	/**
+	 * 获取用户总页数接口
+	 * @param startRow
+	 * @param pageSize
+	 * @return
+	 * @throws SQLException
+	 */
+	Long queryCountUser()  throws SQLException;
 	/**
 	 * 通过用户手机号获取单个用户信息方法接口
 	 */

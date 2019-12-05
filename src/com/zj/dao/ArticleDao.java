@@ -15,6 +15,7 @@ import cn.com.util.GetConn;
 
 import com.zj.dao.impl.ArticleDaoImpl;
 import com.zj.entity.Article;
+import com.zj.entity.GrogshopOrder;
 
 
 
@@ -41,6 +42,10 @@ public class ArticleDao implements ArticleDaoImpl{
 	public int deleteArticleById(Integer article_id) throws SQLException {
 		conn = GetConn.getConn();
 		String sql = "delete from article where article_id = ?";
+		String sql2 = "delete from article_image where article_id = ?";
+		String sql3 = "delete from comment where article_id = ?";
+		qr.update(conn,sql2,article_id);
+		qr.update(conn,sql3,article_id);
 		int data = qr.update(conn, sql, article_id);
 		GetConn.closeConn(conn);
 		return data;
@@ -83,17 +88,7 @@ public class ArticleDao implements ArticleDaoImpl{
 		return data;
 	}
 
-	/**
-	 * 查询所有文章数量
-	 * @throws SQLException 
-	 */
-	public Long queryCountArticle() throws SQLException {
-		conn = GetConn.getConn();
-		String sql = "select count(*) from article";
-		Long data =  qr.query(conn, sql, new ScalarHandler<Long>());
-		GetConn.closeConn(conn);
-		return data;
-	}
+	
 
 	/**
 	 * 更新赞数量
@@ -161,6 +156,26 @@ public class ArticleDao implements ArticleDaoImpl{
 		conn = GetConn.getConn();
 		String sql = "select * from article where user_id = ?";
 		List<Article> data = qr.query(conn, sql, new BeanListHandler<Article>(Article.class), user_id);
+
+	/**
+	 * 前端后台文章分页查询
+	 */
+	public List<Article> queryArticlePage(Integer startRow, Integer pageSize)throws SQLException{
+		conn = GetConn.getConn();
+		String sql = "select * from article limit ?,?";
+		List<Article> data = qr.query(conn, sql, new BeanListHandler<Article>(Article.class),startRow,pageSize);
+		GetConn.closeConn(conn);
+		return data;
+	}
+	
+	/**
+	 * 查询所有文章数量
+	 * @throws SQLException 
+	 */
+	public Long queryCountArticle() throws SQLException {
+		conn = GetConn.getConn();
+		String sql = "select count(*) from article";
+		Long data =  qr.query(conn, sql, new ScalarHandler<Long>());
 		GetConn.closeConn(conn);
 		return data;
 	}

@@ -1,5 +1,6 @@
 package com.zj.service.impl;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
@@ -13,7 +14,7 @@ public interface ReserveServiceImpl {
 	/**
 	 * 将所有预定信息包装成一个list<map>返回
 	 */
-	List<Map<String, Object>> getAllReserve();
+	Map<String,Object> getAllReserve(Integer orderPresentPage,Integer pageSize)throws SQLException;
 	/**
 	 * 获得所有已预订时间
 	 * @return

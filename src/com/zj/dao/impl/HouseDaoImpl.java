@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 
+import com.zj.entity.GrogshopOrder;
 import com.zj.entity.House;
 
 /**
@@ -16,6 +17,22 @@ public interface HouseDaoImpl {
 	 * 获取所有房子信息方法接口
 	 */
 	List<House> getAllHouseInfo() throws SQLException;
+	/**
+	 * 获取房子分页接口
+	 * @param startRow
+	 * @param pageSize
+	 * @return
+	 * @throws SQLException
+	 */
+	List<House> queryHousePage(Integer startRow,Integer pageSize)  throws SQLException;
+	/**
+	 * 获取房子总页数接口
+	 * @param startRow
+	 * @param pageSize
+	 * @return
+	 * @throws SQLException
+	 */
+	Long queryCountHouse()  throws SQLException;
 	/**
 	 * 通过房子ID获取单个房子信息方法接口
 	 */
