@@ -25,7 +25,7 @@ public interface ArticleImgDaoImpl {
 	 * 通过id查询文章图片
 	 * @throws SQLException 
 	 */
-	ArticleImg queryArticleImgById(Integer image_id) throws SQLException;
+	ArticleImg queryArticleImgById(Integer article_id) throws SQLException;
 	/**
 	 * 通过文章id查询一篇文章的图片
 	 * @throws SQLException 

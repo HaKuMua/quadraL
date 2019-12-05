@@ -52,5 +52,13 @@ public interface ArticleServiceImpl {
 	/**
 	 * 查询一个用户所有文章
 	 */
-	List<Map<String, Object>> getAllArticleByUser(Integer user_id);
+	PageUtil getAllArticleByUser(Integer user_id,Integer page);
+	
+	/**
+	 * 点赞
+	 * @param article_praise 赞数量
+	 * @param article_id
+	 * @return 赞数量
+	 */
+	Integer updatePraiset(Integer article_praise,Integer article_id);
 }

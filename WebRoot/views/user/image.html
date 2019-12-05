@@ -74,7 +74,7 @@
 			<a href="comment.html">
 				<h2>我的评论</h2>
 			</a><br><br>
-			<a href="" class="layui-btn layui-btn-primary">查看我的个人资料</a>
+			<a href="#" id="myIndex" class="layui-btn layui-btn-primary">查看我的个人资料</a>
 		</div>
 		<div id="main">
 			<div style="border: 1px solid grey; height: 300px;">
@@ -126,7 +126,7 @@
 			jsonInfo = JSON.parse(json);
 			if (jsonInfo != null) {
 				userInfo = jsonInfo;
-				$("#myImg").attr("src",userInfo.user_headimg_url);
+				$("#myImg").attr("src","../../"+userInfo.user_headimg_url);
 				console.log(userInfo);
 			}
 		}
@@ -136,9 +136,8 @@
 			var html = '<li class="layui-nav-item " id="china"> <a href="myOrder.html" >房源订单中心</a></li>' +
 				'<li class="layui-nav-item"><a href="../story/index.html">故事</a></li>' +
 				'<li class="layui-nav-item"><a href="#" id="notice">消息<span id="dot" class="layui-badge-dot"></span></a> </li>' +
-				' <li class="layui-nav-item" lay-unselect=""><a href="javascript:;"><img src="' +
-				userInfo.user_img + '" class="layui-nav-img">' + userInfo.user_name + '</a> ' +
-				'<dl class="layui-nav-child"><dd><a href="../host/landlord.html"  style="color: gray;">个人中心</a></dd>' +
+				' <li class="layui-nav-item" lay-unselect=""><a href="javascript:;"><img id="headImg" src="../../'+userInfo.user_headimg_url+'" class="layui-nav-img">' + userInfo.user_name + '</a> ' +
+				'<dl class="layui-nav-child"><dd><a href="../host/landlord.html?user_id='+userInfo.user_id+'"  style="color: gray;">个人中心</a></dd>' +
 				' <dd><a href="modifyInfo.html" style="color: gray;">修改信息</a></dd><dd><a href="../index.html" id="quit" style="color: gray;">退了</a></dd></dl>';
 			$("#rightNav").empty();
 			$("#rightNav").append(html);
@@ -183,7 +182,9 @@
 			}
 			return "";
 		}
-		
+		$("#myIndex").on("click",function() {
+			location.href="../host/landlord.html?user_id="+userInfo.user_id;
+		})
 		// $("#submit").on("click", function() {
 		// 	user_name = $("#user_name").val();
 		// 	user_email = $("#emailDiv").val();
@@ -224,25 +225,10 @@
 				element = layui.element,
 				upload = layui.upload;
 
-			// //多图片上传
-			// upload.render({
-			// 	elem: '#submit',
-			// 	url: '/upload/',
-			// 	multiple: true,
-			// 	before: function(obj) {
-			// 		//预读本地文件示例，不支持ie8
-			// 		obj.preview(function(index, file, result) {
-			// 			$('#demo2').append('<img src="' + result + '" alt="' + file.name + '" class="layui-upload-img">')
-			// 		});
-			// 	},
-			// 	done: function(res) {
-			// 		//上传完毕
-			// 	}
-			// });
 			//普通图片上传
 			var uploadInst = upload.render({
 				elem: '#submit',
-				url: basePath+'user.do?method=uploadImg&user_id=3',
+				url: basePath+'user.do?method=uploadImg&user_id='+userInfo.user_id,
 				headers: {"withCredentials": 'true'},
 				before: function(obj) {
 					//预读本地文件示例，不支持ie8
@@ -251,13 +237,13 @@
 					});
 				},
 				done: function(res) {
-					//如果上传失败
-					console.log(res.data.userInfo);
-					if (res.code > 0) {
-						return layer.msg('修改失败');
-					}else{
+					userInfo=res.data.userInfo.userInfo;
+					console.log(userInfo)
+						objString = JSON.stringify(userInfo);
+						setCookie("userInfo", objString, 1);
+						$("#myImg").attr("src","../../"+userInfo.user_headimg_url);
+						$("#headImg").attr("src","../../"+userInfo.user_headimg_url);
 						return layer.msg('修改成功');
-					}
 				},
 				error: function() {
 					//演示失败状态，并实现重传

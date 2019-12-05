@@ -3,6 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<title>我的故事 - Airbnb爱彼迎</title>
+		<script src="../../js/comment.js"></script>
 		<link rel="stylesheet" type="text/css" href="../../layui/css/layui.css">
 		<script src="../../js/jquery.min.js"></script>
 		<script src="../../layui/layui.js"></script>
@@ -55,17 +56,17 @@
 			<div id="article">
 				<div class="layui-col-xs4">
 					<a href="home.html?article_id=?">
-						<img src="../../img/story/9b678664-6ba3-48d1-bd69-66a475609ab8.jpg" width="230px" height="290px" >
+						<img src="../../img/story/9b678664-6ba3-48d1-bd69-66a475609ab8.jpg" width="230px" height="290px">
 						<h3>深圳民宿 | 假装度假系列 来深圳一定要住的超美独栋泳池别墅</h3><br>
-						<img src="../../img/timg.jpg" width="30px" height="30px"  style="border-radius:50%;">
-						<i class="layui-icon layui-icon-praise" >12</i>
-						<i class="layui-icon layui-icon-reply-fill" >2</i>
+						<img src="../../img/timg.jpg" width="30px" height="30px" style="border-radius:50%;">
+						<i class="layui-icon layui-icon-praise">12</i>
+						<i class="layui-icon layui-icon-reply-fill">2</i>
 					</a>
 					<br>
 				</div>
 				<div class="layui-col-xs4">
 					<a href="">
-						<img src="../../img/story/9b678664-6ba3-48d1-bd69-66a475609ab8.jpg"  width="230px" height="290px" >
+						<img src="../../img/story/9b678664-6ba3-48d1-bd69-66a475609ab8.jpg" width="230px" height="290px">
 						<h3>重庆在重庆的半山腰发现了陶渊明式的“桃花源记”</h3>
 						<h4>2019/12/21 - 12/22 · 1晚</h4>
 						<h3>订单待支付 · ￥626.24</h3>
@@ -73,7 +74,7 @@
 				</div>
 				<div class="layui-col-xs4">
 					<a href="">
-						<img src="../../img/story/9b678664-6ba3-48d1-bd69-66a475609ab8.jpg"  width="230px" height="290px" >
+						<img src="../../img/story/9b678664-6ba3-48d1-bd69-66a475609ab8.jpg" width="230px" height="290px">
 						<h3>上海魔都民宿 | 人均300入住魔都小众超民国风复古民宿！</h3>
 						<h4>2019/12/21 - 12/22 · 1晚</h4>
 						<h3>订单待支付 · ￥626.24</h3>
@@ -81,7 +82,7 @@
 				</div>
 				<div class="layui-col-xs4">
 					<a href="">
-						<img src="../../img/story/e19adcd4-1c48-4eeb-b855-1987a414b951.jpg"  width="230px" height="290px" >
+						<img src="../../img/story/e19adcd4-1c48-4eeb-b855-1987a414b951.jpg" width="230px" height="290px">
 						<h3>里昂里昂，某一天再会</h3>
 						<h4>2019/12/21 - 12/22 · 1晚</h4>
 						<h3>订单待支付 · ￥626.24</h3>
@@ -91,143 +92,151 @@
 		</div>
 	</body>
 	<script>
-		layui.use(['form', 'element', 'layer', 'upload', 'layedit'], function() {
+		layui.use(['form', 'element', 'layer', 'flow', 'layedit'], function() {
 			var form = layui.form,
 				layer = layui.layer,
 				element = layui.element,
 				layedit = layui.layedit,
-				upload = layui.upload;
-			
-			upload.render({
-				elem: '#uploadImg',
-				multiple: true,
-				before: function(obj) {
-					obj.preview(function(index, file, result) {
-						$('#look').append('<img width=665; height=450; src="' + result + '" alt="' + file.name +
-							'" class="layui-upload-img">')
-						//img.push(result+file.name);
-						console.log(result + file.name)
-					});
+				flow = layui.flow;
+
+			//流加载
+			flow.load({
+				elem: '#article', //指定列表容器
+				isAuto: false,
+				done: function(page, next) { //到达临界点（默认滚动触发），触发下一页
+					var lis = [];
+					map='{"page":"'+ page+'","user_id":" '+ userInfo.user_id+'"}'
+					//以jQuery的Ajax请求为例，请求下一页数据（注意：page是从2开始返回）
+					$.get(basePath + "article.do?method=getUserAllArticle&articleMap="+map,
+					 function(res) {
+						 console.log(res.pageInfo.list);
+						//假设你的列表返回在data集合中
+						layui.each(res.pageInfo.list, function(index, item) {
+							articleInfo.push(res.pageInfo.list[index]);
+							getArticle("#article");
+						});
+						//执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页
+						//pages为Ajax返回的总页数，只有当前页小于总页数的情况下，才会继续出现加载更多
+						next(lis.join(''), page < res.pages);
+					},"json");
 				}
 			});
 		});
-		
 	</script>
 	<script type="text/javascript">
-		window.onload = function() {
-			json = getCookie('userInfo');
-			if (json != '' || json == null) {
-				jsonInfo = JSON.parse(json);
-				if (jsonInfo != null) {
-					userInfo = jsonInfo;
-					console.log(userInfo);
-				}
+		json = getCookie('userInfo');
+		if (json != '' || json == null) {
+			jsonInfo = JSON.parse(json);
+			if (jsonInfo != null) {
+				userInfo = jsonInfo;
+				$("#user_name").val(userInfo.user_name);
+				$("#tel").text(userInfo.user_phone);
+				$("#user_email").val(userInfo.user_email);
+				$("#user_area").val(userInfo.user_describe);
+				console.log(userInfo);
 			}
-			//初始化导航栏
-			if (userInfo.user_id != null) {
-				var html = '<li class="layui-nav-item " id="china"> <a href="../user/myOrder.html" >房源订单中心</a></li>' +
-					'<li class="layui-nav-item"><a href="../story/index.html">故事</a></li>' +
-					'<li class="layui-nav-item"><a href="#" id="notice">消息<span id="dot" class="layui-badge-dot"></a> </li>' +
-					' <li class="layui-nav-item" lay-unselect=""><a href="javascript:;"><img src="' +
-					userInfo.user_img + '" class="layui-nav-img">' + userInfo.user_name + '</a> ' +
-					'<dl class="layui-nav-child"><dd><a href="landlord.html"  style="color: gray;">个人中心</a></dd>' +
-					' <dd><a href="../user/modifyInfo.html" style="color: gray;">修改信息</a></dd><dd><a href="javascript:;" id="quit" style="color: gray;">退了</a></dd></dl>';
-				$("#rightNav").empty();
-				$("#rightNav").append(html);
-				if (userInfo.islanlord != 1) {
-					$("#china").after('<li class="layui-nav-item "> <a href="javascript:;">我的房源</a>' +
-						'<dl class="layui-nav-child"><dd><a href="../user/landlordOrder.html"  style="color: gray;">订单信息</a></dd>' +
-						' <dd><a href="../user/myHouse.html" style="color: gray;">房源信息</a></dd></dl>' + '</li>' +
-						'<li class="layui-nav-item "><a href="create_a_room/room.html">添加房源</a></li>');
-				} else {
-					$("#china").after('<li class="layui-nav-item "> <a href="">成为房东</a></li>');
-				}
-			
+		}
+
+		//初始化导航栏
+		if (userInfo.user_id != null) {
+			var html = '<li class="layui-nav-item " id="china"> <a href="myOrder.html" >房源订单中心</a></li>' +
+				'<li class="layui-nav-item"><a href="../story/index.html">故事</a></li>' +
+				'<li class="layui-nav-item"><a href="#" id="notice">消息<span id="dot" class="layui-badge-dot"></span></a> </li>' +
+				' <li class="layui-nav-item" lay-unselect=""><a href="javascript:;"><img src="../../' +
+				userInfo.user_headimg_url + '" class="layui-nav-img">' + userInfo.user_name + '</a> ' +
+				'<dl class="layui-nav-child"><dd><a href="../host/landlord.html?user_id=' + userInfo.user_id +
+				'"  style="color: gray;">个人中心</a></dd>' +
+				' <dd><a href="modifyInfo.html" style="color: gray;">修改信息</a></dd><dd><a href="../index.html" id="quit" style="color: gray;">退了</a></dd></dl>';
+			$("#rightNav").empty();
+			$("#rightNav").append(html);
+			if (userInfo.islanlord != 1) {
+				$("#china").after('<li class="layui-nav-item "> <a href="">我的房源</a>' +
+					'<dl class="layui-nav-child"><dd><a href="landlordOrder.html"  style="color: gray;">订单信息</a></dd>' +
+					' <dd><a href="myHouse.html" style="color: gray;">房源信息</a></dd></dl>' + '</li>' +
+					'<li class="layui-nav-item "><a href="../host/create_a_room/room.html">添加房源</a></li>');
+			} else {
+				$("#china").after('<li class="layui-nav-item "> <a href="../host/create_a_room/become.html">成为房东</a></li>');
 			}
-			//退出按钮监听
-			$("body").on("click", "#quit", function() {
-				setCookie("userInfo", null, 0.1);
-				location.href = "../index.html";
-			});
+		}
+		//退出按钮监听
+		$("body").on("click", "#quit", function() {
+			setCookie("userInfo", null, 0.1);
+		});
+
 		var articleInfo = [
-			{
-				article_id:'1',
-				article_name:'上海魔都民宿 | 人均300入住魔都小众超民国风复古民宿！',
-				article_img:'../../img/story/e19adcd4-1c48-4eeb-b855-1987a414b951.jpg',
-				user_img:'../../img/timg.jpg',
-				article_praise:20,
-				article_collect:12
-			},
-			{
-				article_id:'1',
-				article_name:'上海魔都民宿 | 人均300入住魔都小众超民国风复古民宿！',
-				article_img:'../../img/story/9b678664-6ba3-48d1-bd69-66a475609ab8.jpg',
-				user_img:'../../img/timg.jpg',
-				article_praise:20,
-				article_collect:12
-			},
-			{
-				article_id:'1',
-				article_name:'上海魔都民宿 | 人均300入住魔都小众超民国风复古民宿！',
-				article_img:'../../img/story/e19adcd4-1c48-4eeb-b855-1987a414b951.jpg',
-				user_img:'../../img/timg.jpg',
-				article_praise:20,
-				article_collect:12
-			},
-			{
-				article_id:'1',
-				article_name:'上海魔都民宿 | 人均300入住魔都小众超民国风复古民宿！',
-				article_img:'../../img/story/e19adcd4-1c48-4eeb-b855-1987a414b951.jpg',
-				user_img:'../../img/timg.jpg',
-				article_praise:20,
-				article_collect:12
-			}
+			// {
+		// 		article_id: '1',
+		// 		article_name: '上海魔都民宿 | 人均300入住魔都小众超民国风复古民宿！',
+		// 		article_img: '../../img/story/e19adcd4-1c48-4eeb-b855-1987a414b951.jpg',
+		// 		user_img: '../../img/timg.jpg',
+		// 		article_praise: 20,
+		// 		article_collect: 12
+		// 	},
+		// 	{
+		// 		article_id: '1',
+		// 		article_name: '上海魔都民宿 | 人均300入住魔都小众超民国风复古民宿！',
+		// 		article_img: '../../img/story/9b678664-6ba3-48d1-bd69-66a475609ab8.jpg',
+		// 		user_img: '../../img/timg.jpg',
+		// 		article_praise: 20,
+		// 		article_collect: 12
+		// 	},
+		// 	{
+		// 		article_id: '1',
+		// 		article_name: '上海魔都民宿 | 人均300入住魔都小众超民国风复古民宿！',
+		// 		article_img: '../../img/story/e19adcd4-1c48-4eeb-b855-1987a414b951.jpg',
+		// 		user_img: '../../img/timg.jpg',
+		// 		article_praise: 20,
+		// 		article_collect: 12
+		// 	},
+		// 	{
+		// 		article_id: '1',
+		// 		article_name: '上海魔都民宿 | 人均300入住魔都小众超民国风复古民宿！',
+		// 		article_img: '../../img/story/e19adcd4-1c48-4eeb-b855-1987a414b951.jpg',
+		// 		user_img: '../../img/timg.jpg',
+		// 		article_praise: 20,
+		// 		article_collect: 12
+		// 	}
 		]
 		getArticle("#article")
+
 		function getArticle(infoId) {
 			$(infoId).empty();
-			var len =articleInfo.length;
+			var len = articleInfo.length;
 			for (var k = 0; k < len; k++) {
-				var html = '<div style="margin-top:50px;" class="layui-col-xs4"><a href="../story/home.html?article_id='+
-					articleInfo[k].article_id+'">' +
-					'<img src="'+articleInfo[k].article_img+'" width="230px" height="290px" >'+
-					'<h3 style="height:50px;">'+articleInfo[k].article_name+'</h3><br>' +
-					'<img src="'+articleInfo[k].user_img+'" width="30px" height="30px"  style="border-radius:50%;">'+
-					'&nbsp;&nbsp;&nbsp;<i class="layui-icon layui-icon-praise" >'+articleInfo[k].article_praise+'</i>'+
-					'&nbsp;&nbsp;&nbsp;<i class="layui-icon layui-icon-reply-fill" >'+articleInfo[k].article_collect+'</i>'+
+				var html = '<div style="margin-top:50px;" class="layui-col-xs4"><a href="../story/home.html?article_id=' +
+					articleInfo[k].article_id + '">' +
+					'<img src="../../' + articleInfo[k].image_url + '" width="230px" height="290px" >' +
+					'<h3 style="height:50px;">' + articleInfo[k].article_name + '</h3><br>' +
+					'<img src="../../' + articleInfo[k].user_headimg_url + '" width="30px" height="30px"  style="border-radius:50%;">' +
+					'&nbsp;&nbsp;&nbsp;<i class="layui-icon layui-icon-praise" >' + articleInfo[k].article_praise + '</i>' +
+					'&nbsp;&nbsp;&nbsp;<i class="layui-icon layui-icon-reply-fill" >' + articleInfo[k].commCount + '</i>' +
 					'</a><br></div>';
 				$(infoId).append(html);
 			}
 		}
-
-
-		$("body").on("click","#quit",function() {
-			setCookie("userInfo",'')
-		})
-		
 		//设置cookie
 		function setCookie(cname, cvalue, exdays) {
-		    var d = new Date();
-		    d.setTime(d.getTime() + (exdays*24*60*60*1000));
-		    var expires = "expires="+ d.toUTCString();
-		    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-		} 
-		
+			var d = new Date();
+			d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+			var expires = "expires=" + d.toUTCString();
+			document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+		}
+
 		//获取Cookie
 		function getCookie(cname) {
-		    var name = cname + "=";
-		    var decodedCookie = decodeURIComponent(document.cookie);
-		    var ca = decodedCookie.split(';');
-		    for(var i = 0; i <ca.length; i++) {
-		        var c = ca[i];
-		        while (c.charAt(0) == ' ') {
-		            c = c.substring(1);
-		         }
-		         if (c.indexOf(name) == 0) {
-		            return c.substring(name.length, c.length);
-		         }
-		     }
-		    return "";
-		} 
+			var name = cname + "=";
+			var decodedCookie = decodeURIComponent(document.cookie);
+			var ca = decodedCookie.split(';');
+			for (var i = 0; i < ca.length; i++) {
+				var c = ca[i];
+				while (c.charAt(0) == ' ') {
+					c = c.substring(1);
+				}
+				if (c.indexOf(name) == 0) {
+					return c.substring(name.length, c.length);
+				}
+			}
+			return "";
+			}
 	</script>
 </html>

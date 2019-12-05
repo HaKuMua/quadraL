@@ -42,7 +42,7 @@ public class HouseService implements HouseServiceImpl {
 	private HouseParticularsDaoImpl houseParticularsDaoImpl = new HouseParticularsDao();
 	private HouseCommentDaoImpl houseCommentDaoImpl = new HouseCommentDao();
 	private BuildingCodesDaoImpl buildingCodesDaoImpl = new BuildingCodesDao();
-	private UserDaoImpl userDao = new UserDao();
+	private UserDaoImpl userDaoImpl = new UserDao();
 	private Logger log = Logger.getLogger(HouseService.class);
 
 	/**
@@ -133,7 +133,7 @@ public class HouseService implements HouseServiceImpl {
 				if (houseComment.getReplier_id() != null) {
 					commentMap.put(
 							"replier_name",
-							userDao.getUserInfoById(
+							userDaoImpl.getUserInfoById(
 									houseComment.getReplier_id())
 									.getUser_name());
 				} else {
@@ -141,10 +141,10 @@ public class HouseService implements HouseServiceImpl {
 				}
 
 				commentMap.put("user_name",
-						userDao.getUserInfoById(houseComment.getUser_id())
+						userDaoImpl.getUserInfoById(houseComment.getUser_id())
 								.getUser_name());
 				commentMap.put("user_headimg_url",
-						userDao.getUserInfoById(houseComment.getUser_id())
+						userDaoImpl.getUserInfoById(houseComment.getUser_id())
 								.getUser_headimg_url());
 				commentList.add(commentMap);
 			}
@@ -161,7 +161,7 @@ public class HouseService implements HouseServiceImpl {
 				map.put("house_price", house.getHouse_price());
 				map.put("house_address", house.getHouse_address());
 				map.put("user_id", house.getUser_id());
-				User user = userDao.getUserInfoById( house.getUser_id());
+				User user = userDaoImpl.getUserInfoById( house.getUser_id());
 				map.put("user_name", user.getUser_name());
 				map.put("user_img", user.getUser_headimg_url());
 				map.put("user_describe", user.getUser_describe());
@@ -327,6 +327,8 @@ public class HouseService implements HouseServiceImpl {
 			for (House house : houseList) {
 				Map<String, Object> map = new HashMap<String, Object>();
 				map.put("house_id", house.getHouse_id());
+				List<HouseImg> houseimgs = houseImgDaoImpl.getHouseImgByHouseID(house.getHouse_id());
+				map.put("house_img",houseimgs.get(0).getHouse_img_url() );
 				map.put("house_name", house.getHouse_name());
 				map.put("house_intake", house.getHouse_intake());
 				map.put("lease_type", house.getLease_type());
@@ -361,7 +363,7 @@ public class HouseService implements HouseServiceImpl {
 						"yyyy-MM-dd").parse(reserve_date),
 						new SimpleDateFormat("yyyy-MM-dd")
 								.parse(check_out_date));
-			} else if (reserve_date == null || reserve_date == "") {
+			} else if (reserve_date == null || reserve_date.equals("-1") || check_out_date == null ||check_out_date == "-1") {
 				houseList = houseDaoImpl.getHouseByAdd(house_address);
 			} else {
 				houseList = houseDaoImpl.getHouseByDateAndAdd(
@@ -371,8 +373,19 @@ public class HouseService implements HouseServiceImpl {
 			}
 			for (House house : houseList) {
 				Map<String, Object> map = new HashMap<String, Object>();
+				HouseParticulars houseParticulars = houseParticularsDaoImpl
+						.getHouseParticularsInfoByID(house
+								.getHouse_particulars_id());
 				map.put("house_id", house.getHouse_id());
+				List<HouseImg> houseimgs = houseImgDaoImpl.getHouseImgByHouseID(house.getHouse_id());
+				map.put("house_img",houseimgs );
+				map.put("user_id", house.getUser_id());
+				User user = userDaoImpl.getUserInfoById( house.getUser_id());
+				map.put("user_name", user.getUser_name());
+				map.put("user_img", user.getUser_headimg_url());
 				map.put("house_name", house.getHouse_name());
+				map.put("room_number", houseParticulars.getRoom_number());
+				map.put("toilet_number", houseParticulars.getToilet_number());
 				map.put("house_intake", house.getHouse_intake());
 				map.put("lease_type", house.getLease_type());
 				map.put("may_check_in_date", house.getMay_check_in_date());
@@ -386,8 +399,10 @@ public class HouseService implements HouseServiceImpl {
 				list.add(map);
 			}
 		} catch (SQLException e) {
+			e.printStackTrace();
 			log.error("数据库查询异常");
 		} catch (ParseException e) {
+			e.printStackTrace();
 			log.error("时间类型转换异常");
 		}
 		return list;

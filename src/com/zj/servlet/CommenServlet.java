@@ -46,13 +46,15 @@ public class CommenServlet extends BaseServlet {
 	 * @throws IOException 
 	 */
 	public void getPageCommInfo(HttpServletRequest request,HttpServletResponse response) throws SQLException, IOException {
-		Integer article_id = Integer.valueOf(JSON.parse("article_id").toString());
-		Integer commPresentPage = Integer.valueOf(JSON.parse("commPresentPage").toString());
+		@SuppressWarnings("unchecked")
+		Map<String, Object> myMap = (Map<String, Object>) JSON.parse(map);
+		Integer article_id = Integer.valueOf(myMap.get("article_id").toString());
+		Integer commPresentPage = Integer.valueOf(myMap.get("commPresentPage").toString());
 		List<Map<String, Object>> list = commentService.getPageCommInfo(commPresentPage, article_id);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("pageCommentInfo", list);
 		JSONObject json = new JSONObject(map);
-		response.getWriter().print(callback+"("+json+")");
+		response.getWriter().print(json);
 	}
 
 	/**

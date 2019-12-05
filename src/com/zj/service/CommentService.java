@@ -1,7 +1,10 @@
 ﻿package com.zj.service;
 
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -85,8 +88,12 @@ public class CommentService implements CommentServiceImpl {
 				map.put("comment_id", comment.getComment_id());
 				map.put("article_id", comment.getArticle_id());
 				map.put("user_id", comment.getUser_id());
+				User user = userDaoImpl.getUserInfoById(comment.getUser_id());
+				map.put("user_name", user.getUser_name());
+				map.put("user_img", user.getUser_headimg_url());
 				map.put("comment_content", comment.getComment_content());
 				map.put("replier_id", comment.getReplier_id());
+				map.put("comment_date", comment.getComment_date());
 				// 获得该评论的回复数
 				Integer comment_id = comment.getComment_id();
 				Long replierCount = commenDaoImpl.queryReplierCount(comment_id);
@@ -105,7 +112,6 @@ public class CommentService implements CommentServiceImpl {
 	public Map<String, Object> addComment(Map<String, Object> info) {
 		Comment comment = new Comment();
 		Map<String, Object> map = new HashMap<String, Object>();
-		List<Comment> list = new ArrayList<Comment>();
 		//给文章实体类set值进去
 		if(info.get("user_id") != null)
 			comment.setUser_id(Integer.valueOf(info.get("user_id").toString()));
@@ -119,18 +125,19 @@ public class CommentService implements CommentServiceImpl {
 		try {
 			 cout = commenDaoImpl.addComment(comment);
 			 if(cout > 0) {
-				 list = commenDaoImpl.queryAllComment(comment.getArticle_id());
-				 if(list == null) {
-					 map.put("msg", "评论失败！");
-				 }else {
-					 map.put("commInfo", list);
-					 map.put("msg", "评论成功！");
-				 }
+				 User user= userDaoImpl.getUserInfoById(new Integer(info.get("user_id").toString()));
+				 map.put("user_id", user.getUser_id());
+				 map.put("user_name", user.getUser_name());
+				 map.put("user_img", user.getUser_headimg_url());
+				 map.put("comment_content", comment.getComment_content());
+				 map.put("comment_date",new SimpleDateFormat("YYYY-MM-dd HH:mm:ss").format(new Date()));
+				 map.put("msg", "评论成功！");
 			 }else {
 				 map.put("msg", "评论失败！");
 				 return map;
 			 }
 		} catch (SQLException e) {
+			map.put("msg", "评论失败！");
 			e.printStackTrace();
 		}
 		return map;

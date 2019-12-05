@@ -91,12 +91,17 @@ public class HouseServlet extends BaseServlet {
 	 */
 	public void getHouseInfoBySelect(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		System.out.println(selectMap);
 		@SuppressWarnings("unchecked")
 		Map<String, Object> select = (Map<String, Object>) JSON
 				.parse(selectMap);
 		String reserve_date = select.get("reserve_date").toString();
-		String check_out_date = select.get("check_out_date").toString();
+		String check_out_date  = select.get("check_out_date").toString();
+		
 		String house_address = select.get("house_address").toString();
+		System.out.println("reserve_date:"+reserve_date.equals("-1"));
+		System.out.println("check_out_date:"+check_out_date);
+		System.out.println("house_address:"+house_address);
 		List<Map<String, Object>> list = houseService.getHouseByDateOrAddress(
 				reserve_date, check_out_date, house_address);
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -116,12 +121,12 @@ public class HouseServlet extends BaseServlet {
 	public void uploadImg(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException, FileUploadException {
 			// 图片上传并且返回保存的路径
-			String url = FileLoadServletUtil.upload(request, response,"D:/quadraL/roomImg/");
+			String url = FileLoadServletUtil.upload(request, response,"D:/MyEclipse2015work/quadraL/WebRoot/image/houseImg/");
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			map.put("code", "0");
 			HashMap<String, Object> data = new HashMap<String, Object>();
 			//将图片地址存到数据库(因为浏览器不能直接访问本地路径，会报错)；
-			String dataBaseUrl="/image"+url.substring(10);
+			String dataBaseUrl=url.substring(37);
 			data.put("src", dataBaseUrl);
 			map.put("data", data);
 			JSONObject obj = new JSONObject(map);

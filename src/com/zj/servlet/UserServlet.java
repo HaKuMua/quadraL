@@ -117,12 +117,13 @@ public class UserServlet extends BaseServlet {
 	public void uploadImg(HttpServletRequest request,HttpServletResponse response) throws FileUploadException, IOException {
 		// 图片上传并且返回保存的路径
 		String url = FileLoadServletUtil.upload(request, response,
-				"D:/quadraL/userImg/");
+				"D:/MyEclipse2015work/quadraL/WebRoot/image/userImg/");
 		HashMap<String, Object> map = new HashMap<String, Object>();
+		System.out.println(url);
 		map.put("code", "0");
 		HashMap<String, Object> data = new HashMap<String, Object>();
 		//将图片地址存到数据库(因为浏览器不能直接访问本地路径，会报错)；
-		String dataBaseUrl="/image"+url.substring(10);
+		String dataBaseUrl=url.substring(37);
 		data.put("src", dataBaseUrl);
 		data.put("userInfo", userServiceImpl.addUserHead(new Integer(user_id), dataBaseUrl));
 		map.put("data", data);
@@ -130,7 +131,7 @@ public class UserServlet extends BaseServlet {
 		// 如果上传成功返回1
 		response.getWriter().print(obj);
 	}
-
+	
 	/**
 	 * 获取手机验证码
 	 * @param request
