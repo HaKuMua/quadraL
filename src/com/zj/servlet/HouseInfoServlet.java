@@ -42,6 +42,7 @@ public class HouseInfoServlet extends BaseServlet {
 	// 按照房子id返回信息
 	public void getHouseInfoByID(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		System.out.println(house_id);
 		Map<String, Object> map = houseService.getHouseInfoByID(Integer
 				.valueOf(house_id));
 		System.out.println(map);

@@ -45,6 +45,7 @@ public class ReserveServlet extends BaseServlet {
 		List<String> list = reserveService.getReserveDate(Integer.valueOf(house_id));
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", list);
+		System.out.println(list);
 		JSONObject obj = new JSONObject(map);
 		response.getWriter().print(obj);
 	}

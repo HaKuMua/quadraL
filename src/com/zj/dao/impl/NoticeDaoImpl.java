@@ -22,4 +22,12 @@ public interface NoticeDaoImpl {
 	 * @throws SQLException
 	 */
 	List<Notice> getNoticeByUserID(Integer user_id) throws SQLException;
+	
+	/**
+	 * 改变通知信息状态
+	 * @param user_id 用户id
+	 * @return
+	 * @throws SQLException
+	 */
+	Integer updateNotice(Integer user_id) throws SQLException;
 }

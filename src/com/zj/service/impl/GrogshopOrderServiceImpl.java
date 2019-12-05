@@ -23,7 +23,7 @@ public interface GrogshopOrderServiceImpl {
 	 * @param grogshopOrder
 	 * @return
 	 */
-	String addGrogshopOrderInfo(Map<String, Object> grogshopOrderInfo,List<Map<String, Object>> checkInPersonInfoMap);
+	Integer addGrogshopOrderInfo(Map<String, Object> grogshopOrderInfo,List<Map<String, Object>> checkInPersonInfoMap);
 	/**
 	 * 通过用户ID获取此用户的所有订单信息
 	 */

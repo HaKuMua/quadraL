@@ -13,30 +13,25 @@
 				color: white;
 				font-weight: bold;
 			}
+
 			#rightNav {
 				float: right;
 			}
-			
-			#leftDiv{
+
+			#leftDiv {
 				margin-top: 90px;
 				position: absolute;
-				width:250px;
+				width: 250px;
 				height: 300px;
 				margin-left: 350px;
 				text-align: center;
 			}
-			
-			#main{
+
+			#main {
 				margin-top: 90px;
 				position: absolute;
-				width:700px;
+				width: 700px;
 				margin-left: 700px;
-			}
-			
-			.foot {
-				margin-top:30%;
-				width: 1090px;
-				margin-left: 550px;
 			}
 		</style>
 	</head>
@@ -44,15 +39,14 @@
 		<div id="top">
 			<ul class="layui-nav layui-bg-green" id="navId">
 				<li class="layui-nav-item">
-					<a href="index.html">
+					<a href="../index.html">
 						<img src="../../img/logo.jpg" class="layui-nav-img">
 					</a>
 				</li>
 				<li class="layui-nav-item ">
 					<form class="layui-form" action="">
-						<input id="topSearch" style=" width: 400px;height:48px; font-weight: bold; font-size: 20px; " name="search" 
-						placeholder="搜一搜"
-						 autocomplete="off" class="layui-input">
+						<input id="topSearch" style=" width: 400px;height:48px; font-weight: bold; font-size: 20px; " name="search"
+						 placeholder="搜一搜" autocomplete="off" class="layui-input">
 					</form>
 				</li>
 				<div id="rightNav">
@@ -62,54 +56,50 @@
 				</div>
 			</ul>
 		</div>
-		<div id="leftDiv" >
-			<br><br><a href="modifyInfo.html"><h2>编辑个人资料</h2></a><br><br>
-			<a href="findPwd.html"><h2>安全</h2></a><br><br>
-			<a href="image.html"><h2>照片</h2></a><br><br>
-			<a href="comment.html"><h2><b>我的评论</b></h2></a><br><br>
-			<a href="../host/landlord.html?user_id="  class="layui-btn layui-btn-primary">查看我的个人资料</a>
+		<div id="leftDiv">
+			<br><br><a href="modifyInfo.html">
+				<h2>编辑个人资料</h2>
+			</a><br><br>
+			<a href="findPwd.html">
+				<h2>安全</h2>
+			</a><br><br>
+			<a href="image.html">
+				<h2>照片</h2>
+			</a><br><br>
+			<a href="comment.html">
+				<h2><b>我的评论</b></h2>
+			</a><br><br>
+			<a href="" id="myIndex" class="layui-btn layui-btn-primary">查看我的个人资料</a>
 		</div>
 		<div id="main">
-				<div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
-				  <ul class="layui-tab-title">
-				    <li class="layui-this">对于您的评价</li>
-				    <li>您写的评价</li>
-				  </ul>
-				  <br><br>
-				  <div class="layui-tab-content" style="height: 100px;">
-					<div class="layui-tab-item layui-show" style="border: 1px solid grey; height:200px;">
+			<div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+				<ul class="layui-tab-title">
+					<li class="layui-this" id="t1">对于您的评价</li>
+					<li id="t2">您写的评价</li>
+				</ul>
+				<br><br>
+				<div class="layui-tab-content" style="border: 1px solid grey;height: 100%; ">
+					<div class="layui-tab-item layui-show">
 						<div style="height: 40px;background-color: #F2F4F5; line-height: 40px;">
 							<h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;过往评价</h3>
 						</div><br><br>
-						<div id="Capa_1">
+						<div id="comment1" style="width: 93%;">
 							<h3>预订的住宿结束后才能在爱彼迎网站上撰写评价。您收到的评价将出现在这里以及您公开的个人资料中。</h3>
 							<br>
 							<h4>尚未有人对您进行评价。</h4>
-							
+
 						</div>
 					</div>
-				    <div class="layui-tab-item " style="border: 1px solid grey; height: 200px;">
-				    	<div style="height: 40px;background-color: #F2F4F5; line-height: 40px;">
-				    		<h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;撰写评论</h3>
-				    	</div><br><br>
-						<div id="">
-							<h4>目前没有写评价的需要。该是预订另一个旅程的时候了！</h4>
+					<div class="layui-tab-item ">
+						<div style="height: 40px;background-color: #F2F4F5; line-height: 40px;">
+							<h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;撰写评论</h3>
+						</div><br><br>
+						<div id="comment2" style="width: 93%;">
+							<h4>尚未进行评价。</h4>
 						</div>
-				    </div>
+					</div>
 				</div>
 			</div><br>
-		</div>
-		<div class="foot" >
-			<div >
-				<div>京ICP备16017121号-3 京ICP证 160773号 
-				<img src="https://z1.muscache.cn/airbnb/static/packages/public_security_bureau_logo.d0289dc0.png"
-					 alt="中国公安局标志"> <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010502032345" target="_blank"
-					 rel="noopener noreferrer"  aria-busy="false">京公网安备 11010502032345号</a>
-					技术支持：卓应教育（湖南）有限公司 <a href="https://a0.muscache.com/pictures/03ec62da-f467-4e2b-bfee-6eefd052d7f5.jpg" target="_blank"
-					 rel="noopener noreferrer"  aria-busy="false">营业执照</a></div>
-				<div dir="ltr" >© 2019 Airbnb, Inc. All rights reserved.</div>
-			</div>
-			<br><br><br><br><br><br>
 		</div>
 	</body>
 	<script type="text/javascript">
@@ -117,56 +107,153 @@
 		// var userInfo=$.Cookie('userInfo');
 		var userInfo = {
 			user_id: '1000',
-			user_name:'haku',
+			user_name: 'haku',
 			user_headimg_url: '../../img/timg.jpg',
-			user_email:'',
-			user_IDcard:'',
-			user_pwd:'',
-			money:'',
-			user_phone:'',
-			real_name:'',
-			islanlord:1
+			user_email: '',
+			user_IDcard: '',
+			user_pwd: '',
+			money: '',
+			user_phone: '',
+			real_name: '',
+			islanlord: 1
 		};
-		window.onload=function() {
-			json = getCookie('userInfo');
-			if (json != '' || json == null) {
-				jsonInfo = JSON.parse(json);
-				if (jsonInfo != null) {
-					userInfo = jsonInfo;
-				}
-			}
-			
-			//初始化导航栏
-			if (userInfo.user_id != '') {
-				var html = '<li class="layui-nav-item " id="china"> <a href="" >房源订单中心</a></li>' +
-					'<li class="layui-nav-item"><a href="">故事</a></li>' +
-					'<li class="layui-nav-item"><a href="">帮助</a> </li>' +
-					' <li class="layui-nav-item" lay-unselect=""><a href="javascript:;"><img src="' +
-					userInfo.user_img + '" class="layui-nav-img">' + userInfo.user_name + '</a> ' +
-					'<dl class="layui-nav-child"><dd><a href="javascript:;"  style="color: gray;">个人中心</a></dd>' +
-					' <dd><a href="javascript:;" style="color: gray;">修改信息</a></dd><dd><a href="javascript:;" style="color: gray;">退了</a></dd></dl>';
-				$("#rightNav").empty();
-				$("#rightNav").append(html);
-				if (userInfo.islanlord != 0 || userInfo.islanlord != null) {
-					$("#china").after('<li class="layui-nav-item "> <a href="">查看我的房源</a></li>' +
-						'<li class="layui-nav-item "><a href="host/create_a_room/room.html">添加房源</a></li>');
-				} else {
-					$("#china").after('<li class="layui-nav-item "> <a href="">成为房东</a></li>');
-				}
+		var comInfo = [{
+
+		}]
+		json = getCookie('userInfo');
+		if (json != '' || json == null) {
+			jsonInfo = JSON.parse(json);
+			if (jsonInfo != null) {
+				userInfo = jsonInfo;
+				console.log(userInfo);
 			}
 		}
+
+		//初始化导航栏
+		if (userInfo.user_id != null) {
+			var html = '<li class="layui-nav-item " id="china"> <a href="myOrder.html" >房源订单中心</a></li>' +
+				'<li class="layui-nav-item"><a href="../story/index.html">故事</a></li>' +
+				'<li class="layui-nav-item"><a href="#" id="notice">消息<span id="dot" class="layui-badge-dot"></span></a> </li>' +
+				' <li class="layui-nav-item" lay-unselect=""><a href="javascript:;"><img src="' +
+				userInfo.user_img + '" class="layui-nav-img">' + userInfo.user_name + '</a> ' +
+				'<dl class="layui-nav-child"><dd><a href="../host/landlord.html"  style="color: gray;">个人中心</a></dd>' +
+				' <dd><a href="modifyInfo.html" style="color: gray;">修改信息</a></dd><dd><a href="../index.html" id="quit" style="color: gray;">退了</a></dd></dl>';
+			$("#rightNav").empty();
+			$("#rightNav").append(html);
+			if (userInfo.islanlord != 1) {
+				$("#china").after('<li class="layui-nav-item "> <a href="">我的房源</a>' +
+					'<dl class="layui-nav-child"><dd><a href="landlordOrder.html"  style="color: gray;">订单信息</a></dd>' +
+					' <dd><a href="myHouse.html" style="color: gray;">房源信息</a></dd></dl>' + '</li>' +
+					'<li class="layui-nav-item "><a href="../host/create_a_room/room.html">添加房源</a></li>');
+			} else {
+				$("#china").after('<li class="layui-nav-item "> <a href="../host/create_a_room/become.html">成为房东</a></li>');
+			}
+		}
+		//退出按钮监听
+		$("body").on("click", "#quit", function() {
+			setCookie("userInfo", null, 0.1);
+		});
+
+		$("#editTel").on("click", function() {
+			html = '';
+		});
+		//设置cookie
+		function setCookie(cname, cvalue, exdays) {
+			var d = new Date();
+			d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+			var expires = "expires=" + d.toUTCString();
+			document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+		}
+
+		//获取Cookie
+		function getCookie(cname) {
+			var name = cname + "=";
+			var decodedCookie = decodeURIComponent(document.cookie);
+			var ca = decodedCookie.split(';');
+			for (var i = 0; i < ca.length; i++) {
+				var c = ca[i];
+				while (c.charAt(0) == ' ') {
+					c = c.substring(1);
+				}
+				if (c.indexOf(name) == 0) {
+					return c.substring(name.length, c.length);
+				}
+			}
+			return "";
+		}
+		getUserComment();
+		getMyComment();
+
+		function getUserComment() {
+			$.getJSON(basePath + "user.do?method=getUserComment", {
+				"user_id": userInfo.user_id
+			}, function(result) {
+				comInfo = result.commentInfo;
+				console.log(comInfo)
+				if (comInfo != null) {
+					$("#comment1").empty();
+					$("#comment1").append('<h2 style="color: gray;"><b>' + comInfo.length + '条评价</b></h2><br>');
+					for (let i = 0; i < comInfo.length; i++) {
+						html = '<div ><div class="layui-col-xs10">' +
+							'<a href="home.html?house_id=' + comInfo[i].house_id + '">' + comInfo[i].house_name +
+							'</a></div>' +
+							'<div class="layui-col-xs2"><img src="' + comInfo[i].house_img + '" width="60px">' +
+							'</div><br><br><br><h3>' + comInfo[i].houseCom_content + '</h3><br><a href="">' +
+							'<img style="border-radius: 50%;" width="50px" height="50px" src="' + comInfo[i].user_img + '">' +
+							'<h2 style="margin-left: 80px; margin-top: -50px;">' + comInfo[i].user_name + '</h2>' +
+							'<h3 style="margin-left: 80px; margin-top: 0px;">' + comInfo[i].houseCom_date +
+							'</h3><br></a><hr></div><br><br>';
+						$("#comment1").append(html);
+					}
+				} else {
+					$("#comment1").empty();
+					$("#comment1").append("<h3>预订的住宿结束后才能在爱彼迎网站上撰写评价。您收到的评价将出现在这里以及您公开的个人资料中。</h3><br><h4>尚未有人对您进行评价。</h4>")
+				}
+			});
+		}
+		function getMyComment() {
+			$.getJSON(basePath + "user.do?method=getMyComment", {
+				"user_id": userInfo.user_id
+			}, function(result) {
+				comInfo = result.commentInfo;
+				if (comInfo != null) {
+					$("#comment2").empty();
+					$("#comment2").append('<h2 style="color: gray;"><b>' + comInfo.length + '条评价</b></h2><br>');
+					for (let i = 0; i < comInfo.length; i++) {
+						html = '<div ><div class="layui-col-xs10">' +
+							'<a href="home.html?house_id=' + comInfo[i].house_id + '">' + comInfo[i].house_name +
+							'</a></div>' +
+							'<div class="layui-col-xs2"><img src="' + comInfo[i].house_img + '" width="60px">' +
+							'</div><br><br><br><h3>' + comInfo[i].houseCom_content + '</h3><br><hr></div><br><br>';
+						$("#comment2").append(html);
+					}
+				} else {
+					$("#comment2").empty();
+					$("#comment2").append("<h3>预订的住宿结束后才能在爱彼迎网站上撰写评价。您收到的评价将出现在这里以及您公开的个人资料中。</h3><br><h4>尚未有人对您进行评价。</h4>")
+				}
+			});
+		}
+
+		$("#t1").on("click", function() {
+			getUserComment();
+		});
+		$("#t2").on("click", function() {
+			getMyComment();
+		});
 		
-		
+		$("#myIndex").on("click",function() {
+			location.href="../host/landlord.html?user_id="+userInfo.user_id;
+		})
 	</script>
 	<script>
-		layui.use(['form','element','layer','laypage','carousel'], function() {
+		layui.use(['form', 'element', 'layer', 'laypage', 'carousel'], function() {
 			var form = layui.form,
 				$ = layui.jquery,
 				layer = layui.layer,
 				element = layui.element,
 				laypage = layui.laypage,
-				carousel=layui.carousel; 
-		
-	});
+				carousel = layui.carousel;
+
+		});
 	</script>
 </html>

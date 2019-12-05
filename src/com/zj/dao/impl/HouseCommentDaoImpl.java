@@ -3,6 +3,7 @@ package com.zj.dao.impl;
 import java.sql.SQLException;
 import java.util.List;
 
+import com.zj.entity.Comment;
 import com.zj.entity.HouseComment;
 
 /**
@@ -21,4 +22,16 @@ public interface HouseCommentDaoImpl {
 	 * @throws SQLException 
 	 */
 	List<HouseComment> getHouseCommentByHouseID(Integer HouseID) throws SQLException;
+	
+	/**
+	 * 给房子添加评论
+	 * @throws SQLException 
+	 */
+	Integer addComment(HouseComment comment) throws SQLException;
+	
+	/**
+	 * 获得user_id的评论
+	 * @throws SQLException 
+	 */
+	List<HouseComment> getUserComment(Integer user_id) throws SQLException ;
 }

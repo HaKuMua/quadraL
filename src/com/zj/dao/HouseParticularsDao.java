@@ -7,6 +7,7 @@ import java.util.List;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
+import org.apache.commons.dbutils.handlers.ScalarHandler;
 
 import com.zj.dao.impl.HouseParticularsDaoImpl;
 import com.zj.entity.HouseParticulars;
@@ -49,12 +50,26 @@ public class HouseParticularsDao implements HouseParticularsDaoImpl{
 	/**
 	 * 添加一个房子详情信息方法
 	 */
-	public int addHouseParticularsInfo(HouseParticulars houseParticulars)
+	public Integer addHouseParticularsInfo(HouseParticulars houseParticulars)
 			throws SQLException {
 		conn = GetConn.getConn();
 		String sql = "insert into house_particulars(room_number,address_describe,toilet_number" +
 				",house_describe) value(?,?,?,?)";
-		int data = qr.update(conn, sql, houseParticulars.getRoom_number(),houseParticulars.getAddress_describe()
+		Integer data = qr.update(conn, sql, houseParticulars.getRoom_number(),houseParticulars.getAddress_describe()
+				,houseParticulars.getToilet_number(),houseParticulars.getHouse_describe());
+		GetConn.closeConn(conn);
+		return data;
+	}
+	
+	/**
+	 * 通过信息获得一个房子详情id
+	 */
+	public Integer getHouseParticularsIdByInfo(HouseParticulars houseParticulars)
+			throws SQLException {
+		conn = GetConn.getConn();
+		String sql = "select house_particulars_id from  house_particulars where room_number= ? "
+				+ "and address_describe =? and toilet_number = ? and house_describe = ?";
+		Integer data = qr.query(conn, sql,new ScalarHandler<Integer>(), houseParticulars.getRoom_number(),houseParticulars.getAddress_describe()
 				,houseParticulars.getToilet_number(),houseParticulars.getHouse_describe());
 		GetConn.closeConn(conn);
 		return data;

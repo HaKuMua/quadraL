@@ -604,7 +604,7 @@
 				"user_id": userInfo.user_id
 			}, function(result) {
 				noticeInfo = result.noticeInfo;
-				console.log(result)	
+				console.log(noticeInfo)	
 				if (noticeInfo != null) {
 				} else {
 					$("#dot").remove();
@@ -727,7 +727,7 @@
 		}
 		//通知
 		function notice(html) {
-			var index = layer.open({
+			 index = layer.open({
 				type: 1,
 				title: false,
 				closeBtn: false,
@@ -739,20 +739,20 @@
 			});
 		}
 		$("body").on("click", "#notice", function() {
-			if (noticeInfo == null) {
+			if (noticeInfo == null||noticeInfo.length == 0) {
 				html =
 					'<div style="width: 300px;height: 100%;"><div style="font-size:20px;text-align: center;" class="layui-col-xs10">消息(0)</div>' +
 					'<br><br><hr><div id="content"><div style="margin-left: 90px;color: #31B0D5"><h2>暂无消息</h2><br></div>' +
 					'</div></div>';
 			} else {
 				html =
-					'<div style="width: 300px;height: 100%;"><div style="font-size:20px;text-align: center;" class="layui-col-xs10">消息(' +
-					noticeInfo.length + ')</div>' +
+					'<div style="width: 300px;height: 100%;"><div style="font-size:20px;text-align: left;" class="layui-col-xs10">消息(' +
+					noticeInfo.length + ') </div><div class="layui-col-xs2"style="text-align: right;"  ><button id="done" class="layui-btn layui-btn-primary layui-btn-sm">已读</button></div>' +
 					'<br><br><hr><div id="content">';
 				for (let i = 0; i < noticeInfo.length; i++) {
 					h = '<div style="margin-left: 10px;color: #31B0D5"><div class="layui-col-xs9">' +
-						'<h3>' + noticeInfo[i].content + '</h3></div>' +
-						'<div class="layui-col-xs3"><h5 style="margin-top:4px;">' + noticeInfo[i].date + '</h5></div>' +
+						'<h3>' + noticeInfo[i].notice_content + '</h3></div>' +
+						'<div class="layui-col-xs3"><h5 style="margin-top:4px;">' + noticeInfo[i].notice_date + '</h5></div>' +
 						'</div><br><br>';
 					html = html + h;
 				}
@@ -760,7 +760,16 @@
 			}
 			notice(html);
 		});
-		var time = new Date().Format("yyyy-MM-dd")
+		$("body").on("click","#done",function() {
+			$.getJSON(basePath + "user.do?method=updateNotice", {
+				"user_id": userInfo.user_id
+			}, function(res) {
+				noticeInfo=null;
+				layer.closeAll();
+			});
+		});
+		
+		var time = new Date().Format("yyyy-MM-dd");
 	</script>
 	<script>
 		layui.use(['carousel', 'form', 'element', 'layer', 'laydate'], function() {
@@ -804,13 +813,7 @@
 					method = othis.data('method');
 				active[method] ? active[method].call(this, othis) : '';
 			});
-			//提交搜索
-			form.on('submit(searchAllBtn)', function(data) {
-				console.log(data.form) //被执行提交的form对象，一般在存在form标签时才会返回
-				console.log(data.field) //当前容器的全部表单字段，名值对形式：{name: value}
-
-				return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
-			});
+			
 			//图片轮播
 			carousel.render({
 				elem: '#carouselImg',

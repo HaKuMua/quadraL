@@ -53,11 +53,11 @@ public class HouseDao implements HouseDaoImpl{
 		conn = GetConn.getConn();
 		String sql = "insert into house(User_id,house_name,house_intake,lease_type,may_check_in_date" +
 				",may_check_out_date,house_type,house_particulars_id,house_state,travel_information,house_price" +
-				",house_address) value(?,?,?,?,?,?,?,?,?,?,?,?)";
+				",house_address,location_id) value(?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		int data = qr.update(conn, sql, house.getUser_id(),house.getHouse_name(),house.getHouse_intake()
 				,house.getLease_type(),house.getMay_check_in_date(),house.getMay_check_out_date()
 				,house.getHouse_type(),house.getHouse_particulars_id(),house.getHouse_state(),house.getTravel_information()
-				,house.getHouse_price(),house.getHouse_address());
+				,house.getHouse_price(),house.getHouse_address(),house.getLocation_id());
 		GetConn.closeConn(conn);
 		return data;
 	}

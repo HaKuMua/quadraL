@@ -38,4 +38,11 @@ public interface ReserveDaoImpl {
 	 * @throws SQLException
 	 */
 	Reserve getReserveInfoByID(Integer reserve_id) throws SQLException;
+	/**
+	 * 获得预订表ID
+	 * @param reserve
+	 * @return
+	 * @throws SQLException
+	 */
+	Integer getReserveID(Reserve reserve) throws SQLException;
 }

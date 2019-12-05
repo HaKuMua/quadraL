@@ -19,6 +19,8 @@ import cn.com.util.UUIDGenerator;
 import com.zj.dao.UserDao;
 import com.zj.dao.impl.UserDaoImpl;
 import com.zj.entity.User;
+import com.zj.service.impl.HouseCommentServiceImpl;
+import com.zj.service.impl.HouseServiceImpl;
 import com.zj.service.impl.UserServiceImpl;
 
 /**
@@ -28,6 +30,8 @@ import com.zj.service.impl.UserServiceImpl;
 
 public class UserService implements UserServiceImpl {
 	private UserDaoImpl userDaoImpl = new UserDao();
+	private HouseServiceImpl houseServiceImpl = new HouseService();
+	private HouseCommentServiceImpl houseCoServiceImpl = new HouseCommentService();
 	private Logger log = Logger.getLogger(UserService.class);
 	/**
 	 * 将所有用户信息包装成一个list<map>返回
@@ -290,19 +294,15 @@ public class UserService implements UserServiceImpl {
 		String user_email = info.get("user_email").toString();
 		String user_describe = info.get("user_describe").toString();
 		// 正则表达式
-		String regName = "^([\\u4e00-\\u9fa5]){2,12}$";
-		String regRealName = "^([\\u4e00-\\u9fa5]){2,12}$";
 		if (user_name == null || user_name.isEmpty() || user_email == null
 				|| user_email.isEmpty()) {
 			// 属性存在空值
 			map.put("msg", "属性存在空值");
 		} else {
+			System.out.println(user_email);
 			// 判断信息是否符合正则表达式
-			Pattern pRegName = Pattern.compile(regName);
-			Matcher mRegName = pRegName.matcher(user_name);
 			boolean RegEmail = CheckoutEmail.checkEmail(user_email);
-			boolean RegIDcard = false;
-			if (mRegName.matches() && RegEmail && RegIDcard) {// 符合正则
+			if ( RegEmail ) {// 符合正则
 				int count = -1;
 				try {
 					count = userDaoImpl.updateBasicInfo(user_id, user_name,
@@ -532,6 +532,12 @@ public class UserService implements UserServiceImpl {
 		Map<String, Object> map = new HashMap<String, Object>();
 		try {
 			User user = userDaoImpl.getUserInfoById(user_id);
+			if(user.getIs_landlord() == 1) {
+				List<Map<String, Object>> list = houseServiceImpl.getHouseByID(user_id);
+				map.put("house", list);
+				list = houseCoServiceImpl.getHouseCommentByLandlordID(user_id);
+				map.put("user_comment", list);
+			}
 			map.put("user_id", user.getUser_id());
 			map.put("user_name", user.getUser_name());
 			map.put("user_headimg_url", user.getUser_headimg_url());
@@ -564,6 +570,41 @@ public class UserService implements UserServiceImpl {
 			return -1;
 		}
 		return data > 0 ? 1 : -1;
+	}
+
+	/**
+	 * 得到用户所有的评论
+	 * @param user_id
+	 * @return
+	 */
+	public List<Map<String, Object>> getUserComment(Integer user_id) {
+		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+			try {
+				User user = userDaoImpl.getUserInfoById(user_id);
+				list = houseCoServiceImpl.getHouseCommentByLandlordID(user_id);
+			} catch (SQLException e) {
+				log.error("数据库操作异常");
+				e.printStackTrace();
+			}
+		return list;
+	}
+
+	/**
+	 * 得到自己写的评论
+	 * @param user_id
+	 * @return
+	 */
+	public List<Map<String, Object>> getMyComment(Integer user_id) {
+		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+		try {
+			User user = userDaoImpl.getUserInfoById(user_id);
+			list = houseCoServiceImpl.getUserComment(user_id);
+		} catch (SQLException e) {
+			log.error("数据库操作异常");
+			e.printStackTrace();
+		}
+		
+	return list;
 	}
 
 }

@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
+import javax.persistence.criteria.CriteriaBuilder.In;
+
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 
@@ -31,13 +33,36 @@ public class HouseCommentDao implements HouseCommentDaoImpl{
 		return data;
 	}
 	/**
-	 * 同过房子ID获取此房子的所有评论DAO层方法
+	 * 通过房子ID获取此房子的所有评论DAO层方法
 	 * @throws SQLException 
 	 */
 	public List<HouseComment> getHouseCommentByHouseID(Integer HouseID) throws SQLException {
 		conn = GetConn.getConn();
 		String sql = "select * from house_comment where house_id=?";
 		List<HouseComment> data = qr.query(conn, sql, new BeanListHandler<HouseComment>(HouseComment.class), HouseID);
+		GetConn.closeConn(conn);
+		return data;
+	}
+	/**
+	 * 给房子添加评论
+	 * @throws SQLException 
+	 */
+	public Integer addComment(HouseComment comment) throws SQLException {
+		conn = GetConn.getConn();
+		String sql = "insert into house_comment(house_id, user_id,houseCom_content,replier_id) values(?,?,?,?)";
+		Integer data = qr.update(conn, sql, comment.getHouse_id(), comment.getUser_id(),comment.getHouseCom_content(),comment.getReplier_id());
+		GetConn.closeConn(conn);
+		return data;
+	}
+	
+	/**
+	 * 获得user_id的评论
+	 * @throws SQLException 
+	 */
+	public List<HouseComment> getUserComment(Integer user_id) throws SQLException {
+		conn = GetConn.getConn();
+		String sql = "select * from house_comment where user_id=?";
+		List<HouseComment> data = qr.query(conn, sql, new BeanListHandler<HouseComment>(HouseComment.class), user_id);
 		GetConn.closeConn(conn);
 		return data;
 	}

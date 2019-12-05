@@ -36,7 +36,7 @@ public class UserServlet extends BaseServlet {
 	private String callback;
 	private String user_id;
 	private String user_phone;
-//	private Logger log = new 
+	
 	/**
 	 * 邮箱/电话密码登录
 	 * @throws IOException 
@@ -179,6 +179,17 @@ public class UserServlet extends BaseServlet {
 		JSONObject json = new JSONObject(noticeMap);
 		response.getWriter().print(json);
 	}
+	
+	/**
+	 * 用户ID已读通知信息
+	 */
+	public void updateNotice(HttpServletRequest request,HttpServletResponse response) throws FileUploadException, IOException {
+		Boolean bool = noticeServiceImpl.updateNotice(Integer.valueOf(user_id));
+		Map<String, Object> noticeMap = new HashMap<String, Object>();
+		noticeMap.put("bool", bool);
+		JSONObject json = new JSONObject(noticeMap);
+		response.getWriter().print(json);
+	}
 	/**
 	 * 用户充值
 	 * @param request
@@ -196,5 +207,48 @@ public class UserServlet extends BaseServlet {
 		{
 			response.getWriter().print(-1);
 		}
+	}
+	
+	/**
+	 * 得到用户信息
+	 * @param request
+	 * @param response
+	 * @throws FileUploadException
+	 * @throws IOException
+	 */
+	public void getUserInfo(HttpServletRequest request,HttpServletResponse response) throws FileUploadException, IOException {
+		Map<String, Object> infoMap = userServiceImpl.getUserInfoByUserID(Integer.valueOf(user_id));
+		JSONObject json = new JSONObject(infoMap);
+		response.getWriter().print(json);
+	}
+	
+	/**
+	 * 得到用户所有的评论
+	 * @param request
+	 * @param response
+	 * @throws FileUploadException
+	 * @throws IOException
+	 */
+	public void getUserComment(HttpServletRequest request,HttpServletResponse response) throws FileUploadException, IOException {
+		List<Map<String, Object>> list = userServiceImpl.getUserComment(Integer.valueOf(user_id));
+		Map<String, Object> commentMap = new HashMap<String, Object>();
+		commentMap.put("commentInfo", list);
+		JSONObject json = new JSONObject(commentMap);
+		response.getWriter().print(json);
+	}
+	
+	/**
+	 * 得到自己所写的评论
+	 * @param request
+	 * @param response
+	 * @throws FileUploadException
+	 * @throws IOException
+	 */
+	public void getMyComment(HttpServletRequest request,HttpServletResponse response) throws FileUploadException, IOException {
+		List<Map<String, Object>> list = userServiceImpl.getMyComment(Integer.valueOf(user_id));
+		Map<String, Object> commentMap = new HashMap<String, Object>();
+		commentMap.put("commentInfo", list);
+		JSONObject json = new JSONObject(commentMap);
+		response.getWriter().print(json);
 	}
 }

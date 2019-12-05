@@ -16,46 +16,49 @@ import com.zj.dao.impl.HouseCommentDaoImpl;
 import com.zj.dao.impl.HouseDaoImpl;
 import com.zj.dao.impl.HouseImgDaoImpl;
 import com.zj.dao.impl.UserDaoImpl;
+import com.zj.entity.Comment;
 import com.zj.entity.House;
 import com.zj.entity.HouseComment;
 import com.zj.entity.HouseImg;
 import com.zj.entity.User;
 import com.zj.service.impl.HouseCommentServiceImpl;
 
-public class HouseCommentService implements HouseCommentServiceImpl{
+public class HouseCommentService implements HouseCommentServiceImpl {
 
 	private HouseCommentDaoImpl hCommenDaoImpl = new HouseCommentDao();
 	private HouseDaoImpl houseDaoImpl = new HouseDao();
-	private UserDaoImpl  userDaoImpl = new UserDao(); 
+	private UserDaoImpl userDaoImpl = new UserDao();
 	private HouseImgDaoImpl houseImgDaoImpl = new HouseImgDao();
 	private Logger log = Logger.getLogger(HouseCommentService.class);
+
 	/**
 	 * 将所有的房间评论打包成list返回
 	 */
-	public List<Map<String, Object>> getAllHouseComment(){
+	public List<Map<String, Object>> getAllHouseComment() {
 		List<Map<String, Object>> list = null;
 		try {
-			List<HouseComment> hCommentList = hCommenDaoImpl.getAllHouseComment();
-			if(hCommentList != null){
-				list = new ArrayList<Map<String,Object>>();
-				for(HouseComment hComment : hCommentList){
+			List<HouseComment> hCommentList = hCommenDaoImpl
+					.getAllHouseComment();
+			if (hCommentList != null) {
+				list = new ArrayList<Map<String, Object>>();
+				for (HouseComment hComment : hCommentList) {
 					Map<String, Object> map = new HashMap<String, Object>();
 					map.put("houseCom_id", hComment.getHouseCom_id());
 					map.put("house_id", hComment.getHouse_id());
-					//获取房子名
+					// 获取房子名
 					Integer house_id = hComment.getHouse_id();
 					House house = houseDaoImpl.getHouseInfoByID(house_id);
 					map.put("house_name", house.getHouse_name());
 					map.put("user_id", hComment.getUser_id());
-					//获取用户名
+					// 获取用户名
 					Integer user_id = hComment.getUser_id();
 					User user = userDaoImpl.getUserInfoById(user_id);
 					map.put("user_name", user.getUser_name());
 					map.put("houseCom_content", hComment.getHouseCom_content());
 					map.put("houseCom_date", hComment.getHouseCom_date());
 					map.put("replier_id", hComment.getReplier_id());
-					//获取回复人姓名
-					
+					// 获取回复人姓名
+
 					list.add(map);
 				}
 			}
@@ -64,45 +67,106 @@ public class HouseCommentService implements HouseCommentServiceImpl{
 		}
 		return list;
 	}
+
 	/**
 	 * 通过房东ID获取他的房子的所有评论
 	 */
-	public List<Map<String, Object>> getHouseCommentByLendlordID(Integer user_id) {
-		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+	public List<Map<String, Object>> getHouseCommentByLandlordID(Integer user_id) {
+		List<Map<String, Object>> commentListMap = new ArrayList<Map<String, Object>>();
 		try {
 			List<House> houseList = houseDaoImpl.getHouseByID(user_id);
-			for(House house : houseList) {
+			for (House house : houseList) {
 				Map<String, Object> map = new HashMap<String, Object>();
-				List<HouseComment> commentList = hCommenDaoImpl.getHouseCommentByHouseID(house.getHouse_id());
-				map.put("commentNum", commentList.size());
-				List<Map<String, Object>> commentListMap = new ArrayList<Map<String,Object>>();
-				for(HouseComment houseComment : commentList){
+				List<HouseComment> commentList = hCommenDaoImpl
+						.getHouseCommentByHouseID(house.getHouse_id());
+				for (HouseComment houseComment : commentList) {
 					Map<String, Object> commentMap = new HashMap<String, Object>();
 					commentMap.put("user_id", houseComment.getUser_id());
-					User user = userDaoImpl.getUserInfoById(houseComment.getUser_id());
+					User user = userDaoImpl.getUserInfoById(houseComment
+							.getUser_id());
 					commentMap.put("user_name", user.getUser_name());
-					commentMap.put("user_headimg_url", user.getUser_headimg_url());
-					commentMap.put("houseCom_date", houseComment.getHouseCom_date());
-					commentMap.put("houseCom_content", houseComment.getHouseCom_content());
+					commentMap.put("user_headimg_url",
+							user.getUser_headimg_url());
+					commentMap.put("houseCom_date",
+							houseComment.getHouseCom_date());
+					commentMap.put("houseCom_content",
+							houseComment.getHouseCom_content());
 					commentMap.put("house_id", house.getHouse_id());
 					commentMap.put("house_name", house.getHouse_name());
-					HouseImg houseImg = houseImgDaoImpl.getHouseImgByHouseID(house.getHouse_id()).get(0);
-					commentMap.put("house_img_url", houseImg.getHouse_img_url());
+					HouseImg houseImg = houseImgDaoImpl.getHouseImgByHouseID(
+							house.getHouse_id()).get(0);
+					commentMap
+							.put("house_img_url", houseImg.getHouse_img_url());
 					commentListMap.add(commentMap);
 				}
-				map.put("commentList", commentListMap);
-				map.put("house_name", house.getHouse_name());
-				map.put("house_id", house.getHouse_id());
-				map.put("house_price", house.getHouse_price());
-				map.put("house_type", house.getHouse_type());
-				map.put("house_img_url", houseImgDaoImpl.getHouseImgByHouseID(house.getHouse_id()).get(0).getHouse_img_url());
-				map.put("house_intake", house.getHouse_intake());
-				list.add(map);
+
 			}
 		} catch (SQLException e) {
 			log.error("数据库操作异常");
 		}
-		
-		return list;
+		return commentListMap;
+	}
+
+	/**
+	 * 增加一条评论
+	 * 
+	 * @param info
+	 * @return
+	 */
+	public Map<String, Object> addComment(Map<String, Object> info) {
+		HouseComment comment = new HouseComment();
+		Map<String, Object> map = new HashMap<String, Object>();
+		// 给文章实体类set值进去
+		if (info.get("user_id") != null)
+			comment.setUser_id(Integer.valueOf(info.get("user_id").toString()));
+		if (info.get("house_id") != null)
+			comment.setHouse_id(new Integer(info.get("house_id").toString()));
+		if (info.get("houseCom_content") != null)
+			comment.setHouseCom_content(info.get("houseCom_content").toString());
+		if (info.get("replier_id") != null)
+			comment.setReplier_id(Integer.valueOf(info.get("replier_id")
+					.toString()));
+		int cout = -1;
+		try {
+			cout = hCommenDaoImpl.addComment(comment);
+			if (cout > 0) {
+				map.put("msg", "评论成功！");
+			} else {
+				map.put("msg", "评论失败！");
+			}
+		} catch (SQLException e) {
+			map.put("msg", "评论失败！");
+			e.printStackTrace();
+		}
+		return map;
+	}
+
+	/**
+	 * 通过userID获取他写的所有评论
+	 */
+	public List<Map<String, Object>> getUserComment(Integer user_id) {
+		List<Map<String, Object>> commentListMap = new ArrayList<Map<String, Object>>();
+		try {
+			List<HouseComment> commentList = hCommenDaoImpl.getUserComment(user_id);
+			for (HouseComment houseComment : commentList) {
+				Map<String, Object> commentMap = new HashMap<String, Object>();
+				commentMap.put("user_id", houseComment.getUser_id());
+				House house = houseDaoImpl.getHouseInfoByID(houseComment.getHouse_id());
+				commentMap.put("houseCom_date",
+						houseComment.getHouseCom_date());
+				commentMap.put("houseCom_content",
+						houseComment.getHouseCom_content());
+				commentMap.put("house_id", house.getHouse_id());
+				commentMap.put("house_name", house.getHouse_name());
+				HouseImg houseImg = houseImgDaoImpl.getHouseImgByHouseID(
+						house.getHouse_id()).get(0);
+				commentMap
+						.put("house_img_url", houseImg.getHouse_img_url());
+				commentListMap.add(commentMap);
+			}
+		} catch (SQLException e) {
+			log.error("数据库操作异常");
+		}
+		return commentListMap;
 	}
 }

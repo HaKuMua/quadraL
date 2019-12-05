@@ -56,8 +56,9 @@ public class ReserveService implements ReserveServiceImpl{
 		List<String> dateList = new ArrayList<String>();
 		try {
 			List<Reserve> list = reserveDaoImpl.getReserveByHouseID(house_id);
+			System.out.println("list:"+list);
 			for(Reserve reserve : list){
-				String date = reserve.getReserve_date()+"and"+reserve.getCheck_out_date();
+				String date = reserve.getReserve_date()+"&"+reserve.getCheck_out_date();
 				dateList.add(date);
 			}
 		} catch (SQLException e) {
