@@ -53,21 +53,21 @@ public class ArticleServlet extends BaseServlet {
 	//所要删除的条目ID
 	private Integer deleteId;
 	
-	/**
-	 * 根据文章Id删除文章
-	 * @param request
-	 * @param response
-	 * @throws SQLException 
-	 * @throws IOException 
-	 */
-	public void deleteArticle(HttpServletRequest request,
-			HttpServletResponse response) throws SQLException, IOException{
-		Integer article_id = deleteId;
-		int isDelete = articleService.deleteArticleById(article_id);
-		JSONObject obj = new JSONObject(isDelete);
-		System.out.println("obj:" + obj);
-		response.getWriter().print(callback + "(" + obj + ")");
-	}
+//	/**
+//	 * 根据文章Id删除文章
+//	 * @param request
+//	 * @param response
+//	 * @throws SQLException 
+//	 * @throws IOException 
+//	 */
+//	public void deleteArticle(HttpServletRequest request,
+//			HttpServletResponse response) throws SQLException, IOException{
+//		Integer article_id = deleteId;
+//		int isDelete = articleService.deleteArticleById(article_id);
+//		JSONObject obj = new JSONObject(isDelete);
+//		System.out.println("obj:" + obj);
+//		response.getWriter().print(callback + "(" + obj + ")");
+//	}
 	/**
 	 *  返回所有的文章信息
 	 * @param request
@@ -98,28 +98,6 @@ public class ArticleServlet extends BaseServlet {
 	}	
 	
 		
-	public void getPageArticleInfo(HttpServletRequest request,
-			HttpServletResponse response) {
-		//获取用户设置的当前页
-		String articleCurrentPage = request.getParameter("articleCurrentPage");
-		Integer articlePresentPage = 1;
-		try {
-			articlePresentPage = new Integer(articleCurrentPage);
-		} catch (Exception e) {
-			articlePresentPage = 1;
-		}
-		//
-		try {
-			List<Map<String, Object>> list = articleService
-					.getPageArticleInfo(articlePresentPage);
-			JSONObject obj = new JSONObject(list);
-			response.getWriter().print(callback + "(" + obj + ")");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
 
 	/**
 	 * 一篇文章所有信息 需要article_id
@@ -237,23 +215,7 @@ public class ArticleServlet extends BaseServlet {
 		JSONObject json = new JSONObject(hint);
 		response.getWriter().print(callback + "(" + json + ")");
 	}
-	public void addArticle(HttpServletRequest request,
-			HttpServletResponse response) {
-		Integer user_id = new Integer(request.getParameter("article_id"));
-		String article_name = request.getParameter("article_name");
-		String article_content = request.getParameter("article_content");
-		Integer house_id = new Integer(request.getParameter("house_id"));
-		try {
-			int count = articleService.addArticle(user_id, article_name,
-					article_content, house_id);
-			if (count > 0) {
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		JSONObject json = new JSONObject(hint);
-		response.getWriter().print(callback + "(" + json + ")");
-	}
+	
 
 	/**
 	 * 返回一个用户所有的文章信息

@@ -394,10 +394,7 @@ public class ArticleService implements ArticleServiceImpl{
 			log.error("文章删除异常！");
 			return -1;
 		}
-	 * 根据文章Id删除文章service
-	 */
-	public int deleteArticleById(Integer article_id) throws SQLException {
-		articleDaoImpl.deleteArticleById(article_id);
+	
 		return 1;
 	}
 	

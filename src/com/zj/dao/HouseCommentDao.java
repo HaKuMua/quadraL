@@ -18,72 +18,92 @@ import com.zj.entity.HouseComment;
 
 /**
  * 
- * @author lijia
- *房子评论数据库操作
+ * @author lijia 房子评论数据库操作
  */
-public class HouseCommentDao implements HouseCommentDaoImpl{
+public class HouseCommentDao implements HouseCommentDaoImpl {
 	private QueryRunner qr = new QueryRunner();
 	private Connection conn = null;
+
 	/**
 	 * 获取房子评论所有信息方法
 	 */
 	public List<HouseComment> getAllHouseComment() throws SQLException {
 		conn = GetConn.getConn();
 		String sql = "select * from house_comment";
-		List<HouseComment> data = qr.query(conn, sql, new BeanListHandler<HouseComment>(HouseComment.class));
+		List<HouseComment> data = qr.query(conn, sql,
+				new BeanListHandler<HouseComment>(HouseComment.class));
 		GetConn.closeConn(conn);
 		return data;
 	}
+
 	/**
 	 * 通过房子ID获取此房子的所有评论DAO层方法
-	 * @throws SQLException 
+	 * 
+	 * @throws SQLException
 	 */
-	public List<HouseComment> getHouseCommentByHouseID(Integer HouseID) throws SQLException {
+	public List<HouseComment> getHouseCommentByHouseID(Integer HouseID)
+			throws SQLException {
 		conn = GetConn.getConn();
 		String sql = "select * from house_comment where house_id=?";
-		List<HouseComment> data = qr.query(conn, sql, new BeanListHandler<HouseComment>(HouseComment.class), HouseID);
+		List<HouseComment> data = qr.query(conn, sql,
+				new BeanListHandler<HouseComment>(HouseComment.class), HouseID);
 		GetConn.closeConn(conn);
 		return data;
 	}
+
 	/**
 	 * 给房子添加评论
-	 * @throws SQLException 
+	 * 
+	 * @throws SQLException
 	 */
 	public Integer addComment(HouseComment comment) throws SQLException {
 		conn = GetConn.getConn();
 		String sql = "insert into house_comment(house_id, user_id,houseCom_content,replier_id) values(?,?,?,?)";
-		Integer data = qr.update(conn, sql, comment.getHouse_id(), comment.getUser_id(),comment.getHouseCom_content(),comment.getReplier_id());
+		Integer data = qr.update(conn, sql, comment.getHouse_id(),
+				comment.getUser_id(), comment.getHouseCom_content(),
+				comment.getReplier_id());
 		GetConn.closeConn(conn);
 		return data;
 	}
-	
+
 	/**
 	 * 获得user_id的评论
-	 * @throws SQLException 
+	 * 
+	 * @throws SQLException
 	 */
-	public List<HouseComment> getUserComment(Integer user_id) throws SQLException {
+	public List<HouseComment> getUserComment(Integer user_id)
+			throws SQLException {
 		conn = GetConn.getConn();
 		String sql = "select * from house_comment where user_id=?";
-		List<HouseComment> data = qr.query(conn, sql, new BeanListHandler<HouseComment>(HouseComment.class), user_id);
+		List<HouseComment> data = qr.query(conn, sql,
+				new BeanListHandler<HouseComment>(HouseComment.class), user_id);
+		GetConn.closeConn(conn);
+		return data;
+	}
+
 	/*
 	 * 获取订单分页
 	 */
-	public List<HouseComment> queryHouseCommentPage(Integer startRow,Integer pageSize) throws SQLException{
+	public List<HouseComment> queryHouseCommentPage(Integer startRow,
+			Integer pageSize) throws SQLException {
 		conn = GetConn.getConn();
 		String sql = "select * from house_comment limit ?,?";
-		List<HouseComment> data = qr.query(conn, sql, new BeanListHandler<HouseComment>(HouseComment.class),startRow,pageSize);
+		List<HouseComment> data = qr.query(conn, sql,
+				new BeanListHandler<HouseComment>(HouseComment.class),
+				startRow, pageSize);
 		GetConn.closeConn(conn);
 		return data;
 	}
+
 	/*
 	 * 订单总页数
 	 */
-	public Long queryCountHouseComment() throws SQLException{
+	public Long queryCountHouseComment() throws SQLException {
 		conn = GetConn.getConn();
 		String sql = "select count(*) from house_comment";
 		Long data = qr.query(conn, sql, new ScalarHandler<Long>());
 		GetConn.closeConn(conn);
 		return data;
 	}
-	
+
 }

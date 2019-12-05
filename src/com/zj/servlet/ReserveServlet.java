@@ -19,6 +19,7 @@ import cn.com.util.BaseServlet;
 public class ReserveServlet extends BaseServlet {
 	private static final long serialVersionUID = 1L;
 	public String callback;
+	private String house_id;
 
 	private ReserveServiceImpl reserveService = new ReserveService();
 
