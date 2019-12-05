@@ -11,6 +11,7 @@ import java.util.Map;
 
 
 import cn.com.util.PageUtil;
+import cn.com.util.RemoveHtmlTagUtil;
 
 import com.zj.dao.ArticleDao;
 import com.zj.dao.ArticleImgDao;
@@ -45,7 +46,6 @@ public class ArticleService implements ArticleServiceImpl{
 	private UserDaoImpl userDaoImpl = new UserDao();
 	private HouseDaoImpl houseDaoImpl = new HouseDao();
 	private HouseImgDaoImpl houseImgDaoImpl = new HouseImgDao();
-	
 	/**
 	 * 获得所有文章
 	 * @return
@@ -66,11 +66,14 @@ public class ArticleService implements ArticleServiceImpl{
 		int articleStartRow = pu.getStartRow();
 		int articlePageSize = pu.getPageSize();
 		
-		List<Article> articleOrder = articleDaoImpl.queryArticlePage(articleStartRow, articlePageSize);
+		List<Article> articlePage = articleDaoImpl.queryArticlePage(articleStartRow, articlePageSize);
+		for(Article article : articlePage) {
+			article.setArticle_content(RemoveHtmlTagUtil.removeHtmlTag(article.getArticle_content()));
+		}
 		List<ArticleImg> articleImg = articleImgDaoImpl.queryArticleImg();
 		List<User> user = userDaoImpl.getAllUserInfo();
 		Map<String,Object> dataMap = new HashMap<String, Object>();
-		dataMap.put("article", articleOrder);
+		dataMap.put("article", articlePage);
 		dataMap.put("articleImg", articleImg);
 		dataMap.put("user", user);
 		pu.setMap(dataMap);
@@ -251,11 +254,15 @@ public class ArticleService implements ArticleServiceImpl{
 		return 0;
 	}
 
-	@Override
+	/**
+	 * 根据文章Id删除文章service
+	 */
 	public int deleteArticleById(Integer article_id) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
+		articleDaoImpl.deleteArticleById(article_id);
+		return 1;
 	}
+	
+
 
 
 }

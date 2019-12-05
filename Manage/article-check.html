@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
-
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -27,11 +26,7 @@
 		<!--Custom JavaScript -->
 		<script src="js/custom.min.js"></script>
 	</head>
-
 	<body>
-		<!-- ============================================================== -->
-		<!-- Preloader - style you can find in spinners.css -->
-		<!-- ============================================================== -->
 		<div class="preloader">
 			<div class="lds-ripple">
 				<div class="lds-pos"></div>
@@ -244,7 +239,7 @@
 					<!-- Right sidebar -->
 					<!-- .right-sidebar -->
 					<!-- End Right sidebar -->
-					<div id="demo1">
+					<div id="layuiPage">
 					</div>
 				</div>
 				<!-- End Container fluid  -->
@@ -259,151 +254,33 @@
 		<!-- End Wrapper -->
 		<!-- All Jquery -->
 		<!-- 后端数据交互到前端表格 -->
-		// <script>
-		// 	$.getJSON("http://localhost:80/QuadraL/article.do?method=getAllArticle&callback=?",
-		// 		function(article_result) {
-
-		// 			window.onload = function() {
-		// 				var tdArr = document.getElementById('tablebox').firstElementChild;
-		// 				for (var i = 0; i < article_result.list.length; i++) {
-		// 					var tr = document.createElement("tr");
-		// 					$(".myModal").append(
-		// 						'<div class="modal fade" id="myModal' + i +
-		// 						'" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">' +
-		// 						'<div class="modal-dialog modal-lg">' +
-		// 						'<div class="modal-content">' +
-		// 						'<div class="modal-header">' +
-		// 						'<h4 class="modal-title" id="myModalLabel">' +
-		// 						'文章详细内容' +
-		// 						'</h4>' +
-		// 						'<button type="button" class="close" data-dismiss="modal" aria-hidden="true">' +
-		// 						'×' +
-		// 						'</button>' +
-
-		// 						'</div>' +
-		// 						'<div class="modal-body">' +
-		// 						'<!--文章图片轮播图-->' +
-		// 						'<div class="modal-body">' +
-		// 						'<div id="demo' + i + '" class="carousel slide" data-ride="carousel">' +
-		// 						'<!-- 指示符 -->' +
-		// 						'<ul class="carousel-indicators" id="inner' + i + '">' +
-		// 						'</ul>' +
-		// 						'<!-- 轮播图片 -->' +
-		// 						'<div class="carousel-inner" id="carouselImg' + i + '">' +
-		// 						'</div>' +
-		// 						'<!-- 左右切换按钮 -->' +
-		// 						'<a class="carousel-control-prev" href="#demo' + i + '" data-slide="prev">' +
-		// 						'<span class="carousel-control-prev-icon"></span>' +
-		// 						'</a>' +
-		// 						'<a class="carousel-control-next" href="#demo' + i + '" data-slide="next">' +
-		// 						'<span class="carousel-control-next-icon"></span>' +
-		// 						'</a>' +
-		// 						'</div>' +
-		// 						'<!--轮播图结束-->' +
-		// 						'<!--文本表格-->' +
-		// 						'<div id="text' + i + '" style="  width:750px; height:400px;">' +
-		// 						'</div>' +
-		// 						'<div class="modal-footer">' +
-		// 						'<button type="button" class="btn btn-default" data-dismiss="modal">' +
-		// 						'返回继续操作' +
-		// 						'</button>' +
-		// 						'</div>' +
-		// 						'</div>' +
-		// 						'</div>' +
-		// 						'</div>' +
-		// 						<!-- /.modal-content -->
-		// 						'</div>'
-		// 					);
-		// 					tr.innerHTML = '<td class="t1">' + article_result.list[i].article_id + '</td><td class="t2">' + article_result
-		// 						.list[i].user_name +
-		// 						'</td><td class="t3">' + article_result.list[i].article_name +
-		// 						'</td><td class="t4" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' + article_result.list[
-		// 							i].article_content +
-		// 						'</td><td class="t5">' + article_result.list[i].article_date + '</td><td class="t6">' + article_result.list[i]
-		// 						.article_praise +
-		// 						'</td><td class="t7">' + article_result.list[i].article_collect +
-		// 						'</td><td class="t8">' +
-		// 						'<button class="btn more btn-primary btn-sm" id="' + i + '" data-toggle="modal" data-target="#myModal' + i +
-		// 						'">查看文章详细内容</button>' +
-		// 						'</td><td class="t9">' +
-		// 						'<button class="btn delete btn-primary btn-sm" id="delete">删除</button>';
-		// 					tdArr.appendChild(tr)
-		// 					// alert(article_result.list[i].article_img.length);
-		// 					for (j = 0; j < article_result.list[i].article_img.length; j++) {
-		// 						$("#carouselImg" + i).append('<div class="carousel-item">' +
-		// 							'<img src="img/hotel/16pic_5271012_b.jpg" id="imgSrc' + j + '"> ' +
-		// 							'<div class="carousel-caption"> ' +
-		// 							'<h3>房间2</h3>' +
-		// 							'<p>提供便捷的交通!</p>' +
-		// 							'</div>' +
-		// 							'</div>');
-		// 						// $("#imgSrc"+j).attr('src',house_result.list[i].allHouseImg[j].house_img_url); 
-		// 						// alert(house_result.list[i].allHouseImg[i].house_img_url);
-		// 						$("#inner" + i).append(
-		// 							'<li data-target="#demo' + j + '" data-slide-to="' + j + '"></li>'
-		// 						);
-		// 						$("#inner" + i).children(":first").addClass("active");
-		// 					}
-		// 					$("#carouselImg" + i).children(":first").addClass("active");
-
-
-		// 				}
-		// 			};
-		// 		}
-		// 	);
-
-			// $(document).on("click", ".more", function() {
-			// 	var id = $(this).attr("id");
-			// 	$("#text" + id).append(map.list[id].article_content);
-			// 	// alert(map.list[id].article_img);
-			// });
-			// $(document).on("click", ".delete", function() {
-			// 	var id = $(this).attr("id");
-			// 	var num = $(this).parent().parent();
-			// 	// $.mui.ajax('',{
-			// 	// 	data:{
-
-			// 	// 	},
-			// 	// 	dataType:'json',//服务器返回json格式数据
-			// 	// 	type:'post',//HTTP请求类型
-			// 	// 	timeout:10000,//超时时间设置为10秒；
-			// 	// 	success:function(data){
-
-			// 	// 	},
-			// 	// 	error:function(xhr,type,errorThrown){
-
-			// 	// 	}
-			// 	// });
-			// 	$(this).parent().parent().remove();
-			// });
-		</script>
 		<!-- layui 实现表格内容分页-->
 		<script src="layui/layui.js" charset="utf-8"></script>
 		<script>
 			var map1;
+			var articleId = new Array();
+			var deleteId;
 			layui.use(['laypage', 'layer'], function() {
 				var laypage = layui.laypage,
 					layer = layui.layer;
 				$.getJSON("http://localhost:80/QuadraL/article.do?method=getAllArticle&callback=?", function(article_result) {
 					//加载layui的显示页码的插件
 					laypage.render({
-						elem: 'demo1',
+						elem: 'layuiPage',
 						count: article_result.pageUtil.countRow, //获取返回值中的总行数
-						limit: 2,
-						layout: ['prev', 'next'],
+						limit:2,
 						jump: function(obj, first) { //点击页码的回调函数
 							//obj包含了当前分页的所有参数，比如：
-							console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
+							console.log("当前页数"+obj.curr); //得到当前页，以便向服务端请求对应页的数据。
 							console.log(obj.limit); //得到每页显示的条数
 							//查询一页的数据
-							
 							var j;
 							$.getJSON("http://localhost:80/QuadraL/article.do?method=getAllArticle&callback=?", {
 								"currentPage": obj.curr,
 								"pageSize": obj.limit
 							}, function(article_result) {
 								map1 = article_result;
-								console.log(map1);
+								// console.log(map1);
 								$("#tb").empty(); //清除原来的数据
 								$(".myModal").empty();
 								//通过遍历查询到的内容，把数据显示出来
@@ -422,7 +299,6 @@
 										'<button type="button" class="close" data-dismiss="modal" aria-hidden="true">' +
 										'×' +
 										'</button>' +
-
 										'</div>' +
 										'<div class="modal-body">' +
 										'<!--文章图片轮播图-->' +
@@ -454,9 +330,10 @@
 										'</div>' +
 										'</div>' +
 										'</div>' +
-										<!-- /.modal-content -->
 										'</div>'
 									);
+									articleId.push(article_result.pageUtil.map.article[i].article_id);
+									console.log(articleId);
 									tr.innerHTML = '<td class="t1">' + article_result.pageUtil.map.article[i].article_id +
 										'</td><td class="t2">' + article_result.pageUtil.map.user[i].user_name +
 										'</td><td class="t3">' + article_result.pageUtil.map.article[i].article_name +
@@ -472,7 +349,7 @@
 										'" data-toggle="modal" data-target="#myModal' + i +
 										'">查看文章详细内容</button>' +
 										'</td><td class="t9">' +
-										'<button class="btn delete btn-primary btn-sm" id="delete">删除</button>';
+										'<button class="btn delete btn-primary btn-sm" id="'+i+'">删除</button>';
 									$("#tb").append(tr);
 									for (j = 0; j < article_result.pageUtil.map.articleImg.length; j++) {
 										if(article_result.pageUtil.map.articleImg[j].article_id == article_result.pageUtil.map.article[i].article_id){
@@ -483,8 +360,6 @@
 												'<p>提供便捷的交通!</p>' +
 												'</div>' +
 												'</div>');
-											// $("#imgSrc"+j).attr('src',house_result.list[i].allHouseImg[j].house_img_url); 
-											// alert(house_result.list[i].allHouseImg[i].house_img_url);
 											$("#inner" + i).append(
 												'<li data-target="#demo' + j + '" data-slide-to="' + j + '"></li>'
 											);
@@ -505,21 +380,14 @@
 			});
 			$(document).on("click", ".delete", function() {
 				var id = $(this).attr("id");
+				console.log(articleId[id]);
+				deleteId = articleId[id];
 				var num = $(this).parent().parent();
-				// $.mui.ajax('',{
-				// 	data:{
-			
-				// 	},
-				// 	dataType:'json',//服务器返回json格式数据
-				// 	type:'post',//HTTP请求类型
-				// 	timeout:10000,//超时时间设置为10秒；
-				// 	success:function(data){
-			
-				// 	},
-				// 	error:function(xhr,type,errorThrown){
-			
-				// 	}
-				// });
+				$.getJSON("http://localhost:80/QuadraL/article.do?method=deleteArticle&callback=?",{
+				"deleteId":deleteId
+				},function(success){
+					alert("删除成功");
+				});
 				$(this).parent().parent().remove();
 			});
 		</script>

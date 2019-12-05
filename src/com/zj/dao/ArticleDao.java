@@ -43,6 +43,10 @@ public class ArticleDao implements ArticleDaoImpl{
 	public int deleteArticleById(Integer article_id) throws SQLException {
 		conn = GetConn.getConn();
 		String sql = "delete from article where article_id = ?";
+		String sql2 = "delete from article_image where article_id = ?";
+		String sql3 = "delete from comment where article_id = ?";
+		qr.update(conn,sql2,article_id);
+		qr.update(conn,sql3,article_id);
 		int data = qr.update(conn, sql, article_id);
 		GetConn.closeConn(conn);
 		return data;

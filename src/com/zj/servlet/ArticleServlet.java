@@ -40,8 +40,31 @@ public class ArticleServlet extends BaseServlet {
 	private Integer countPage;
 	// 每页条数
 	private Integer pageSize;
-
-	// 返回所有的文章信息
+	//所要删除的条目ID
+	private Integer deleteId;
+	
+	/**
+	 * 根据文章Id删除文章
+	 * @param request
+	 * @param response
+	 * @throws SQLException 
+	 * @throws IOException 
+	 */
+	public void deleteArticle(HttpServletRequest request,
+			HttpServletResponse response) throws SQLException, IOException{
+		Integer article_id = deleteId;
+		int isDelete = articleService.deleteArticleById(article_id);
+		JSONObject obj = new JSONObject(isDelete);
+		System.out.println("obj:" + obj);
+		response.getWriter().print(callback + "(" + obj + ")");
+	}
+	/**
+	 *  返回所有的文章信息
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 * @throws SQLException
+	 */
 	public void getAllArticle(HttpServletRequest request,
 			HttpServletResponse response) throws IOException, SQLException {
 		Map<String, Object> map = articleService.getAllArticle(currentPage, pageSize);
@@ -55,7 +78,7 @@ public class ArticleServlet extends BaseServlet {
 	 */
 	public void getPageArticleInfo(HttpServletRequest request,
 			HttpServletResponse response) {
-		// 获取用户设置的当前页
+		//获取用户设置的当前页
 		String articleCurrentPage = request.getParameter("articleCurrentPage");
 		Integer articlePresentPage = 1;
 		try {
@@ -72,7 +95,7 @@ public class ArticleServlet extends BaseServlet {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
-
+			e.printStackTrace();
 		}
 	}
 
@@ -92,7 +115,7 @@ public class ArticleServlet extends BaseServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-
+			e.printStackTrace();
 		}
 	}
 
@@ -122,7 +145,7 @@ public class ArticleServlet extends BaseServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-
+			e.printStackTrace();
 		}
 	}
 
@@ -142,10 +165,8 @@ public class ArticleServlet extends BaseServlet {
 			int count = articleService.addArticle(user_id, article_name,
 					article_content, house_id);
 			if (count > 0) {
-
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
