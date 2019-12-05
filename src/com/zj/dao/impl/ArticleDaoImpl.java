@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.zj.entity.Article;
+import com.zj.entity.GrogshopOrder;
 
 /**
  * 
@@ -15,6 +16,15 @@ public interface ArticleDaoImpl {
 	 * 获取所有文章方法接口
 	 */
 	List<Article> getAllArticle() throws SQLException;
+	/**
+	 * 获取文章分页接口
+	 * @param startRow
+	 * @param pageSize
+	 * @return
+	 * @throws SQLException
+	 */
+	List<Article> queryArticlePage(Integer startRow,Integer pageSize)  throws SQLException;
+	
 	/**
 	 * 添加文章
 	 * @throws SQLException 

@@ -166,7 +166,8 @@
 								</a>
 							</li>
 							<li class="sidebar-item">
-								<a class="sidebar-link waves-effect waves-dark sidebar-link" href="hotel-commen-check.html" aria-expanded="false" id="addLandlord">
+								<a class="sidebar-link waves-effect waves-dark sidebar-link" href="hotel-commen-check.html" aria-expanded="false"
+								 id="addLandlord">
 									<i class="mdi mdi-border-none"></i>
 									<span class="hide-menu">酒店评论审核</span>
 								</a>
@@ -230,6 +231,8 @@
 												<th scope="col" class="t4">入住人身份证号</th>
 											</tr>
 										</thead>
+										<tbody id="tb">
+										</tbody>
 									</table>
 								</div>
 							</div>
@@ -249,46 +252,67 @@
 				</footer>
 				<!-- End footer -->
 			</div>
-			
+
 			<!-- End Page wrapper  -->
 		</div>
 		<!-- End Wrapper -->
 		<!-- 后端数据交互到前端表格 -->
-		<script >
-			$.getJSON("http://localhost:80/QuadraL/check-in-person.do?method=getAllCheckInPersonInfo&callback=?",
+		<!-- <script>
+			$.getJSON("http://localhost:80/QuadraL/checkInPerson.do?method=getAllCheckInPersonInfo&callback=?",
 				function(check_in_person_result) {
 					window.onload = function() {
 						var tdArr = document.getElementById('tablebox').firstElementChild;
 						for (var i = 0; i < check_in_person_result.list.length; i++) {
 							var tr = document.createElement("tr");
-							tr.innerHTML = '<td class="t1">' + check_in_person_result.list[i].check_in_person_id + '</td><td class="t2">' + check_in_person_result.list[i].grogshop_order_id +
-								'</td><td class="t3">' + check_in_person_result.list[i].check_in_person_name + '</td><td class="t4">' + check_in_person_result.list[i].check_in_person_ID_card;
+							tr.innerHTML = '<td class="t1">' + check_in_person_result.list[i].check_in_person_id + '</td><td class="t2">' +
+								check_in_person_result.list[i].grogshop_order_id +
+								'</td><td class="t3">' + check_in_person_result.list[i].check_in_person_name + '</td><td class="t4">' +
+								check_in_person_result.list[i].check_in_person_ID_card;
 							tdArr.appendChild(tr)
 						}
 					};
 				}
 			);
-		</script>
+		</script> -->
 		<script src="layui/layui.js" charset="utf-8"></script>
 		<script>
-			var nums = 10;
-			var count = $('#count').val();
 			layui.use(['laypage', 'layer'], function() {
 				var laypage = layui.laypage,
 					layer = layui.layer;
-		
-				//总页数大于页码总数
-				laypage.render({
-					elem: 'demo1',
-					count: 70 //数据总数
-						,
-					jump: function(obj) {
-						console.log(obj)
-					}
-				});
+				$.getJSON("http://localhost:80/QuadraL/checkInPerson.do?method=getAllCheckInPersonInfo&callback=?", function(
+					check_in_person_result) {
+					//加载layui的显示页码的插件
+					laypage.render({
+						elem: 'demo1',
+						count: check_in_person_result.pageUtil.countRow, //获取返回值中的总行数
+						limit: 2,
+						jump: function(obj, first) { //点击页码的回调函数
+							//obj包含了当前分页的所有参数，比如：
+							console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
+							console.log(obj.limit); //得到每页显示的条数
+							//查询一页的数据
+							$.getJSON("http://localhost:80/QuadraL/checkInPerson.do?method=getAllCheckInPersonInfo&callback=?", {
+								"currentPage": obj.curr,
+								"pageSize": obj.limit
+							}, function(check_in_person_result) {
+								$("#tb").empty(); //清除原来的数据
+								//通过遍历查询到的内容，把数据显示出来
+								$("#tb").append("<tr></tr>");
+								for (var i = 0; i < check_in_person_result.pageUtil.map.cip.length; i++) {
+									var tr = document.createElement("tr");
+									tr.innerHTML = '<td class="t1">' + check_in_person_result.pageUtil.map.cip[i].check_in_person_id +
+										'</td><td class="t2">' + check_in_person_result.pageUtil.map.cip[i].grogshop_order_id +
+										'</td><td class="t3">' + check_in_person_result.pageUtil.map.cip[i].check_in_person_name +
+										'</td><td class="t4">' + check_in_person_result.pageUtil.map.cip[i].check_in_person_ID_card;
+									$("#tb").append(tr);
+								}
+							}, "json");
+						}
+					});
+				}, "json");
 			});
 		</script>
-		
+
 	</body>
 
 </html>

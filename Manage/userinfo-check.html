@@ -187,16 +187,10 @@
 					</div>
 					<!-- End Sidebar scroll-->
 				</aside>
-				<!-- ============================================================== -->
 				<!-- End Left Sidebar - style you can find in sidebar.scss  -->
-				<!-- ============================================================== -->
-				<!-- ============================================================== -->
 				<!-- Page wrapper  -->
-				<!-- ============================================================== -->
 				<div class="page-wrapper">
-					<!-- ============================================================== -->
 					<!-- Bread crumb and right sidebar toggle -->
-					<!-- ============================================================== -->
 					<div class="page-breadcrumb">
 						<div class="row">
 							<div class="col-5 align-self-center">
@@ -216,17 +210,10 @@
 							</div>
 						</div>
 					</div>
-					<!-- ============================================================== -->
 					<!-- End Bread crumb and right sidebar toggle -->
-					<!-- ============================================================== -->
-					<!-- ============================================================== -->
 					<!-- Container fluid  -->
-					<!-- ============================================================== -->
 					<div class="container-fluid">
-						<!-- ============================================================== -->
 						<!-- Start Page Content -->
-						<!-- ============================================================== -->
-
 						<div class="col-12">
 							<div class="card">
 								<div class="card-body">
@@ -246,12 +233,14 @@
 												<th scope="col" class="t7"></th>
 											</tr>
 										</thead>
+										<tbody id="tb">
+										</tbody>
 									</table>
 								</div>
 							</div>
 						</div>
 						<!--分页-->
-						<div id="demo1">
+						<div id="layuiPage">
 						</div>
 					</div>
 					<footer class="footer text-center">
@@ -259,47 +248,45 @@
 					</footer>
 				</div>
 			</div>
-			
-			<script>
-				$.getJSON("http://localhost:80/QuadraL/user-info.do?method=getAllUserInfo&callback=?",
-					function(user_result) {
-						window.onload = function() {
-							var tdArr = document.getElementById('tablebox').firstElementChild;
-							for (var i = 0; i < user_result.list.length; i++) {
-								var tr = document.createElement("tr");
-								tr.innerHTML = '<td class="t1">' + user_result.list[i].user_id + '</td><td class="t2">' + user_result.list[i].user_name +
-									'</td><td class="t3">' + user_result.list[i].user_headimg_url + '</td><td class="t4">' + user_result.list[i].user_email + 
-									'</td><td class="t5">' + user_result.list[i].user_phone + '</td><td class="t6">' + user_result.list[i].user_IDcard +
-									'</td><td class="t7">' +
-									'<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">通过</button>';
-								tdArr.appendChild(tr)
-							}
-						};
-					}
-				);
-			</script>
 			<script src="layui/layui.js" charset="utf-8"></script>
 			<script>
 				layui.use(['laypage', 'layer'], function() {
 					var laypage = layui.laypage,
 						layer = layui.layer;
-
-					//总页数大于页码总数
-					laypage.render({
-						elem: 'demo1',
-						count: 70 //数据总数
-							,
-						jump: function(obj) {
-							console.log(obj)
-						}
-					});
+					$.getJSON("http://localhost:80/QuadraL/userInfo.do?method=getAllUserInfo&callback=?", function(user_result) {
+						//加载layui的显示页码的插件
+						laypage.render({
+							elem: 'layuiPage',
+							count: user_result.pageUtil.countRow, //获取返回值中的总行数
+							limit: 2,
+							jump: function(obj, first) { //点击页码的回调函数
+								//obj包含了当前分页的所有参数，比如：
+								console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
+								console.log(obj.limit); //得到每页显示的条数
+								//查询一页的数据
+								$.getJSON("http://localhost:80/QuadraL/userInfo.do?method=getAllUserInfo&callback=?", {
+									"currentPage": obj.curr,
+									"pageSize": obj.limit
+								}, function(user_result) {
+									$("#tb").empty(); //清除原来的数据
+									//通过遍历查询到的内容，把数据显示出来
+									$("#tb").append("<tr></tr>");
+									for (var i = 0; i < user_result.pageUtil.map.user.length; i++) {
+										var tr = document.createElement("tr");
+										var text = user_result.pageUtil.map.user[i].is_landlord > 0 ? "是":"否"; 
+										tr.innerHTML = '<td class="t1">' + user_result.pageUtil.map.user[i].user_id + '</td><td class="t2">' + user_result.pageUtil.map.user[i].user_name +
+											'</td><td class="t3">' + user_result.pageUtil.map.user[i].user_headimg_url + '</td><td class="t4">' + user_result.pageUtil.map.user[i].user_email + 
+											'</td><td class="t5">' + user_result.pageUtil.map.user[i].user_phone + '</td><td class="t6">' + user_result.pageUtil.map.user[i].user_IDcard +
+											'</td><td class="t7">' +
+											'<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">通过</button>';
+										$("#tb").append(tr);
+									}
+								}, "json");
+							}
+						});
+					}, "json");
 				});
 			</script>
-			<!-- ============================================================== -->
 			<!-- End Wrapper -->
-			<!-- ============================================================== -->
-			<!-- ============================================================== -->
-			
 	</body>
-
 </html>

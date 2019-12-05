@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.zj.entity.CheckInPerson;
+import com.zj.entity.GrogshopOrder;
 
 /**
  * 入住人数据库操作接口
@@ -11,6 +12,22 @@ import com.zj.entity.CheckInPerson;
  *
  */
 public interface CheckInPersonDaoImpl {
+	/**
+	 * 获取入住人员分页接口
+	 * @param startRow
+	 * @param pageSize
+	 * @return
+	 * @throws SQLException
+	 */
+	List<CheckInPerson> queryCheckInPersonPage(Integer startRow,Integer pageSize)  throws SQLException;
+	/**
+	 * 获取入住人员总页数接口
+	 * @param startRow
+	 * @param pageSize
+	 * @return
+	 * @throws SQLException
+	 */
+	Long queryCountCheckInPerson()  throws SQLException;
 	/**
 	 * 获取所有入住人员信息方法接口
 	 */

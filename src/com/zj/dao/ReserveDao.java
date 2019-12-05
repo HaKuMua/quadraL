@@ -12,6 +12,7 @@ import org.apache.commons.dbutils.handlers.ScalarHandler;
 import cn.com.util.GetConn;
 
 import com.zj.dao.impl.ReserveDaoImpl;
+import com.zj.entity.GrogshopOrder;
 import com.zj.entity.Reserve;
 
 /**
@@ -88,6 +89,39 @@ public class ReserveDao implements ReserveDaoImpl{
 		String sql = "select reserve_id from reserve where reserve_date=? and reserve_day_number = ? and check_out_date =? and user_id =? and house_id =?";
 		Integer data = qr.query(conn, sql, new ScalarHandler<Integer>(),reserve.getReserve_date(),reserve.getReserve_day_number(),reserve.getCheck_out_date()
 				,reserve.getUser_id(),reserve.getHouse_id());
+		GetConn.closeConn(conn);
+		return data;
+	}
+	@Override
+	public int addGrogshopOrderInfo(GrogshopOrder grogshopOrder)
+			throws SQLException {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	@Override
+	/*
+	 * 获取预定分页
+	 * (non-Javadoc)
+	 * @see com.zj.dao.impl.ReserveDaoImpl#queryReservePage(java.lang.Integer, java.lang.Integer)
+	 */
+	public List<Reserve> queryReservePage(Integer startRow,
+			Integer pageSize) throws SQLException {
+		conn = GetConn.getConn();
+		String sql = "select * from reserve limit ?,?";
+		List<Reserve> data = qr.query(conn, sql, new BeanListHandler<Reserve>(Reserve.class),startRow,pageSize);
+		GetConn.closeConn(conn);
+		return data;
+	}
+	/*
+	 * 预定 总页数
+	 * (non-Javadoc)
+	 * @see com.zj.dao.impl.ReserveDaoImpl#queryCountReserve()
+	 */
+	@Override
+	public Long queryCountReserve() throws SQLException {
+		conn = GetConn.getConn();
+		String sql = "select count(*) from reserve";
+		Long data = qr.query(conn, sql, new ScalarHandler<Long>());
 		GetConn.closeConn(conn);
 		return data;
 	}

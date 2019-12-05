@@ -173,7 +173,8 @@
 								</a>
 							</li>
 							<li class="sidebar-item">
-								<a class="sidebar-link waves-effect waves-dark sidebar-link" href="hotel-commen-check.html" aria-expanded="false" id="addLandlord">
+								<a class="sidebar-link waves-effect waves-dark sidebar-link" href="hotel-commen-check.html" aria-expanded="false"
+								 id="addLandlord">
 									<i class="mdi mdi-border-none"></i>
 									<span class="hide-menu">酒店评论审核</span>
 								</a>
@@ -239,6 +240,8 @@
 												<th scope="col" class="t6">房间名称</th>
 											</tr>
 										</thead>
+										<tbody id="tb">
+										</tbody>
 									</table>
 								</div>
 							</div>
@@ -261,7 +264,7 @@
 			<!-- End Page wrapper  -->
 		</div>
 		<!-- End Wrapper -->
-		<script >
+		<!-- <script >
 			$.getJSON("http://localhost:80/QuadraL/reserve.do?method=getAllReserve&callback=?",
 				function(reserve_result) {
 					window.onload = function() {
@@ -277,25 +280,54 @@
 					};
 				}
 			);
-		</script>
+		</script> -->
 		<script src="layui/layui.js" charset="utf-8"></script>
 		<script>
 			layui.use(['laypage', 'layer'], function() {
 				var laypage = layui.laypage,
 					layer = layui.layer;
-		
-				//总页数大于页码总数
-				laypage.render({
-					elem: 'demo1',
-					count: 70 //数据总数
-						,
-					jump: function(obj) {
-						console.log(obj)
-					}
-				});
+
+				$.getJSON("http://localhost:80/QuadraL/reserve.do?method=getAllReserve&callback=?", function(
+					reserve_result) {
+					//加载layui的显示页码的插件
+					laypage.render({
+						elem: 'demo1',
+						count: reserve_result.pageUtil.countRow, //获取返回值中的总行数
+						limit: 2,
+						jump: function(obj, first) { //点击页码的回调函数
+							//obj包含了当前分页的所有参数，比如：
+							console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
+							console.log(obj.limit); //得到每页显示的条数
+							//查询一页的数据
+							$.getJSON("http://localhost:80/QuadraL/reserve.do?method=getAllReserve&callback=?", {
+								"currentPage": obj.curr,
+								"pageSize": obj.limit
+							}, function(reserve_result) {
+								$("#tb").empty(); //清除原来的数据
+								//通过遍历查询到的内容，把数据显示出来
+								$("#tb").append("<tr></tr>");
+								for (var i = 0; i < reserve_result.pageUtil.map.reserve.length; i++) {
+									var tr = document.createElement("tr");
+									tr.innerHTML = '<td class="t1">' + reserve_result.pageUtil.map.reserve[i].reserve_id +
+										'</td><td class="t2">' + reserve_result.pageUtil.map.reserve[i].reserve_date +
+										'</td><td class="t3">' + reserve_result.pageUtil.map.reserve[i].reserve_day_number +
+										'</td><td class="t4">' + reserve_result.pageUtil.map.reserve[i].check_out_date +
+										'<td class="t5">' + reserve_result.pageUtil.map.user[i].user_name + '</td><td class="t6">' +
+										reserve_result.pageUtil.map.reserve[i].house_id;
+									$("#tb").append(tr);
+								}
+
+
+							}, "json");
+						}
+					});
+
+
+				}, "json");
+
 			});
 		</script>
-		
+
 	</body>
 
 </html>

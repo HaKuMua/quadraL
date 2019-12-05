@@ -1,5 +1,6 @@
 package com.zj.service.impl;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 /**
@@ -11,7 +12,7 @@ public interface CheckInPersonServiceImpl {
 	/**
 	 * 将所有入住人员信息包装成一个list<map>返回方法接口
 	 */
-	List<Map<String, Object>> getAllCheckInPersonInfo();
+	Map<String, Object> getAllCheckInPersonInfo(Integer cipPresentPage,Integer pageSize)throws SQLException;
 	/**
 	 * 将单个入住人员信息包装成map返回方法接口
 	 */

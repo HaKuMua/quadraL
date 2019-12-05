@@ -174,7 +174,8 @@
 								</a>
 							</li>
 							<li class="sidebar-item">
-								<a class="sidebar-link waves-effect waves-dark sidebar-link" href="hotel-commen-check.html" aria-expanded="false" id="addLandlord">
+								<a class="sidebar-link waves-effect waves-dark sidebar-link" href="hotel-commen-check.html" aria-expanded="false"
+								 id="addLandlord">
 									<i class="mdi mdi-border-none"></i>
 									<span class="hide-menu">酒店评论审核</span>
 								</a>
@@ -243,6 +244,8 @@
 												<th scope="col" class="t9"></th>
 											</tr>
 										</thead>
+										<tbody id="tb">
+										</tbody>
 									</table>
 									<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 										<div class="modal-dialog modal-lg">
@@ -254,12 +257,12 @@
 													<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
 														×
 													</button>
-									
+
 												</div>
 												<div class="modal-body">
 													<!--文本表格-->
 													<div id="text1" style="  width:750px; height:400px;">
-														
+
 													</div>
 													<div class="modal-footer">
 														<button type="button" class="btn btn-default" data-dismiss="modal">
@@ -295,56 +298,51 @@
 		</div>
 		<!-- End Wrapper -->
 		<script>
-			var count=0;
-			var map;
-			$.getJSON("http://localhost:80/QuadraL/commen.do?method=getAllComment&callback=?",
-				function(comment_result) {
-					map = comment_result;
-					window.onload = function() {
-						var tdArr = document.getElementById('tablebox').firstElementChild;
-						for (var i = 0; i < comment_result.list.length; i++) {
-							var tr = document.createElement("tr");
-							tr.innerHTML = '<td class="t1">' + comment_result.list[i].comment_id + '</td><td class="t2">' + comment_result.list[i].article_name +
-								'</td><td class="t3">' + comment_result.list[i].user_name + '</td><td class="t4" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' + comment_result.list[i].comment_content + 
-								'</td><td class="t5">' + comment_result.list[i].replier_id + '</td><td class="t6">' + comment_result.list[i].comment_date +
-								'</td><td class="t7">' + comment_result.list[i].comment_praise +
-								'</td><td class="t8">' +
-								'<button class="btn more btn-primary btn-sm" id="'+i+'" data-toggle="modal" data-target="#myModal">查看文章评论详细内容</button>' +
-								'</td><td class="t9">'+
-								'<button class="btn btn-primary delete btn-sm" id=" '+i+'" >删除</button>';
-							tdArr.appendChild(tr)
-							count++;
-							
-						}
-					};
-				}
-			);
-			$(document).on("click",".more",function(){
+			// $.getJSON("http://localhost:80/QuadraL/commen.do?method=getAllComment&callback=?",
+			// 	function(comment_result) {
+			// 		map = comment_result;
+			// 		window.onload = function() {
+			// 			var tdArr = document.getElementById('tablebox').firstElementChild;
+			// 			for (var i = 0; i < comment_result.list.length; i++) {
+			// 				var tr = document.createElement("tr");
+			// 				tr.innerHTML = '<td class="t1">' + comment_result.list[i].comment_id + '</td><td class="t2">' + comment_result.list[i].article_name +
+			// 					'</td><td class="t3">' + comment_result.list[i].user_name + '</td><td class="t4" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' + comment_result.list[i].comment_content + 
+			// 					'</td><td class="t5">' + comment_result.list[i].replier_id + '</td><td class="t6">' + comment_result.list[i].comment_date +
+			// 					'</td><td class="t7">' + comment_result.list[i].comment_praise +
+			// 					'</td><td class="t8">' +
+			// 					'<button class="btn more btn-primary btn-sm" id="'+i+'" data-toggle="modal" data-target="#myModal">查看文章评论详细内容</button>' +
+			// 					'</td><td class="t9">'+
+			// 					'<button class="btn btn-primary delete btn-sm" id=" '+i+'" >删除</button>';
+			// 				tdArr.appendChild(tr)
+
+			// 			}
+			// 		};
+			// 	}
+			// );
+			$(document).on("click", ".more", function() {
 				var id = $(this).attr("id");
 				var text = "&nbsp &nbsp &nbsp &nbsp &nbsp" + map.list[id].comment_content;
-				document.getElementById("text1").innerHTML =  text;
+				document.getElementById("text1").innerHTML = text;
 			});
-			$(document).on("click",".delete",function(){
+			$(document).on("click", ".delete", function() {
 				var id = $(this).attr("id");
 				var num = $(this).parent().parent();
 				// $.mui.ajax('',{
 				// 	data:{
-						
+
 				// 	},
 				// 	dataType:'json',//服务器返回json格式数据
 				// 	type:'post',//HTTP请求类型
 				// 	timeout:10000,//超时时间设置为10秒；
 				// 	success:function(data){
-						
+
 				// 	},
 				// 	error:function(xhr,type,errorThrown){
-						
+
 				// 	}
 				// });
 				$(this).parent().parent().remove();
 			});
-			
-			
 		</script>
 		<!--删除按钮-->
 		<script src="layui/layui.js" charset="utf-8"></script>
@@ -352,19 +350,53 @@
 			layui.use(['laypage', 'layer'], function() {
 				var laypage = layui.laypage,
 					layer = layui.layer;
-		
-				//总页数大于页码总数
-				laypage.render({
-					elem: 'demo1',
-					count: 70 //数据总数
-						,
-					jump: function(obj) {
-						console.log(obj)
-					}
-				});
+
+				$.getJSON("http://localhost:80/QuadraL/commen.do?method=getAllComment&callback=?", function(comment_result) {
+						//加载layui的显示页码的插件
+						laypage.render({
+							elem: 'demo1',
+							count: comment_result.pageUtil.countRow, //获取返回值中的总行数
+							limit: 2,
+							jump: function(obj, first) { //点击页码的回调函数
+								//obj包含了当前分页的所有参数，比如：
+								console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
+								console.log(obj.limit); //得到每页显示的条数
+								//查询一页的数据
+								var map;
+								$.getJSON("http://localhost:80/QuadraL/commen.do?method=getAllComment&callback=?", {
+									"currentPage": obj.curr,
+									"pageSize": obj.limit
+								}, function(comment_result) {
+									$("#tb").empty(); //清除原来的数据
+									//通过遍历查询到的内容，把数据显示出来
+									$("#tb").append("<tr></tr>");
+									console.log(comment_result.pageUtil.map.user[i]);
+									for (var i = 0; i < comment_result.pageUtil.map.comment.length; i++) {
+										var tr = document.createElement("tr");
+										tr.innerHTML = '<td class="t1">' + comment_result.pageUtil.map.comment[i].comment_id +
+											'</td><td class="t2">' + comment_result.pageUtil.map.article[i].article_name +
+											'</td><td class="t3">' + comment_result.pageUtil.map.user[i].user_name +
+											'</td><td class="t4" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' +
+											comment_result.pageUtil.map.comment[i].comment_content +
+											'</td><td class="t5">' + comment_result.pageUtil.map.comment.replier_id + '</td><td class="t6">' +
+											comment_result.pageUtil.map.comment[i].comment_date +
+											'</td><td class="t7">' + comment_result.pageUtil.map.comment.comment_praise +
+											'</td><td class="t8">' +
+											'<button class="btn more btn-primary btn-sm" id="' + i +
+											'" data-toggle="modal" data-target="#myModal">查看文章评论详细内容</button>' +
+											'</td><td class="t9">' +
+											'<button class="btn btn-primary delete btn-sm" id=" ' + i + '" >删除</button>';
+										$("#tb").append(tr);
+									}
+								}, "json");
+							}
+						});
+					},
+					"json");
+
 			});
 		</script>
-		
+
 	</body>
 
 </html>

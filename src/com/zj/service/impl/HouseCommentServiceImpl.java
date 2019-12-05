@@ -1,14 +1,15 @@
 package com.zj.service.impl;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
 public interface HouseCommentServiceImpl {
 
 	/**
-	 * 将所有的房间评论打包成list返回方法接口
+	 * 将所有的房间评论打包成map返回方法接口
 	 */
-	List<Map<String, Object>> getAllHouseComment();
+	Map<String, Object> getAllHouseComment(Integer hCommentPresentPage,Integer pageSize) throws SQLException;
 	/**
 	 * 通过房东ID获取他的房子的所有评论
 	 */

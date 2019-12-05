@@ -239,6 +239,8 @@
 															<th scope="col" class="t8"></th>
 														</tr>
 													</thead>
+													<tbody id="tb">
+													</tbody>
 												</table>
 												<!--模态框-->
 												<div class="myModal">
@@ -254,17 +256,9 @@
 						</div>
 					</div>
 					<!--分页-->
-					<div id="demo1">
+					<div id="layuiPage">
 					</div>
-
-					<!-- End PAge Content -->
-					<!-- Right sidebar -->
-					<!-- .right-sidebar -->
-					<!-- End Right sidebar -->
 				</div>
-
-				<!-- End Container fluid  -->
-				<!-- footer -->
 				<footer class="footer text-center">
 					All Rights Reserved by Airbnb. Designed and Developed by QuadraL.
 				</footer>
@@ -274,129 +268,126 @@
 		</div>
 		<!-- End Wrapper -->
 		<!-- All Jquery -->
-		<script>
-			var houseImg;
-			$.getJSON("http://localhost:80/QuadraL/house-info.do?method=getAllHouseInfo&callback=?",
-				function(house_result) {
-					var map = house_result;
-					houseImg = house_result.allHouseImg;
-					window.onload = function() {
-						var tdArr = document.getElementById('tablebox').firstElementChild;
-						for (var i = 0; i < house_result.list.length; i++) {
-							$(".myModal").append(
-								'<div class="modal fade" id="myModal' + i +
-								'" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >' +
-								'<div class="modal-dialog modal-lg">' +
-								'<div class="modal-content">' +
-								'<div class="modal-header">' +
-								'<h4 class="modal-title" id="myModalLabel">' +
-								'酒店审核' +
-								'</h4>' +
-								'<button type="button" class="close" data-dismiss="modal" aria-hidden="true">' +
-								'×' +
-								'</button>' +
-								'</div>' +
-								'<div class="modal-body">' +
-								'<div id="demo' + i + '" class="carousel slide" data-ride="carousel">' +
-								'<!-- 指示符 -->' +
-								'<ul class="carousel-indicators" id="inner' + i + '">' +
-								'</ul>' +
-								'<!-- 轮播图片 -->' +
-								'<div class="carousel-inner" id="carouselImg' + i + '">' +
-								'</div>' +
-								'<!-- 左右切换按钮 -->' +
-								'<a class="carousel-control-prev" href="#demo' + i + '" data-slide="prev">' +
-								'<span class="carousel-control-prev-icon"></span>' +
-								'</a>' +
-								'<a class="carousel-control-next" href="#demo' + i + '" data-slide="next">' +
-								'<span class="carousel-control-next-icon"></span>' +
-								'</a>' +
-								'</div>' +
-								'<!--轮播图结束-->' +
-								'<!--文本表格-->' +
-								'<table class="table" id="tablebox2">' +
-								'<thead>' +
-								'<tr>' +
-								'<th scope="col" class="t1">酒店编号</th>' +
-								'<th scope="col" class="t2">酒店名称</th>' +
-								'<th scope="col" class="t3">酒店容纳量</th>' +
-								'<th scope="col" class="t4">出租类型</th>' +
-								'<th scope="col" class="t5">酒店类型</th>' +
-								'<th scope="col" class="t6">酒店地址</th>' +
-								'<th scope="col" class="t7">酒店价格</th>' +
-								'<th scope="col" class="t8"></th>' +
-								'</tr>' +
-								'</thead>' +
-								'</table>' +
-								'<div class="modal-footer">' +
-								'<button type="button" class="btn btn-default" data-dismiss="modal">' +
-								'审核通过' +
-								'</button>' +
-								'<button type="button" class="btn btn-primary">' +
-								'拒绝通过' +
-								'</button>' +
-								'</div>' +
-								'</div>' +
-								'</div>' +
-								'</div>' +
-								<!-- /.modal-content -->
-								'</div>'
-							);
-							var j = 0;
-							var tr = document.createElement("tr");
-							tr.innerHTML = '<td class="t1">' + house_result.list[i].house_id +
-								'</td><td class="t2" style="width:300px">' +
-								house_result.list[i].house_name +
-								'</td><td class="t3">' + house_result.list[i].house_intake + '</td><td class="t4">' + house_result.list[i].lease_type +
-								'<td class="t5">' + house_result.list[i].house_type + '</td><td class="t6">' + house_result.list[i].house_address +
-								'<td class="t7">' + house_result.list[i].house_price + '</td><td class="t8">' +
-								'<button class="btn check btn-primary btn-sm" id="t' + i +
-								'" data-toggle="modal" data-target="#myModal' + i + '">审核</button>';
-							tdArr.appendChild(tr)
 
-							for (j = 0; j < house_result.list[i].allHouseImg.length; j++) {
-								$("#carouselImg" + i).append('<div class="carousel-item">' +
-									'<img src="img/hotel/16pic_5271012_b.jpg" id="imgSrc' + j + '"> ' +
-									'<div class="carousel-caption"> ' +
-									'<h3>房间2</h3>' +
-									'<p>提供便捷的交通!</p>' +
-									'</div>' +
-									'</div>');
-								// $("#imgSrc"+j).attr('src',house_result.list[i].allHouseImg[j].house_img_url); 
-								// alert(house_result.list[i].allHouseImg[i].house_img_url);
-								$("#inner" + i).append(
-									'<li data-target="#demo' + j + '" data-slide-to="' + j + '"></li>'
-								);
-								$("#inner" + i).children(":first").addClass("active");
-							}
-							$("#carouselImg" + i).children(":first").addClass("active");
-						}
-					};
-				}
-			);
-
-			$(".check").click(function() {
-
-
-			});
-		</script>
 		<script src="layui/layui.js" charset="utf-8"></script>
 		<script>
 			layui.use(['laypage', 'layer'], function() {
 				var laypage = layui.laypage,
 					layer = layui.layer;
-
-				//总页数大于页码总数
-				laypage.render({
-					elem: 'demo1',
-					count: 70 //数据总数
-						,
-					jump: function(obj) {
-						console.log(obj)
-					}
-				});
+				$.getJSON("http://localhost:80/QuadraL/houseInfo.do?method=getAllHouseInfo&callback=?", function(house_result) {
+					//加载layui的显示页码的插件
+					laypage.render({
+						elem: 'layuiPage',
+						count: house_result.pageUtil.countRow, //获取返回值中的总行数
+						limit: 2,
+						jump: function(obj, first) { //点击页码的回调函数
+							//obj包含了当前分页的所有参数，比如：
+							console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
+							console.log(obj.limit); //得到每页显示的条数
+							//查询一页的数据
+							$.getJSON("http://localhost:80/QuadraL/houseInfo.do?method=getAllHouseInfo&callback=?", {
+								"currentPage": obj.curr,
+								"pageSize": obj.limit
+							}, function(house_result) {
+								$("#tb").empty(); //清除原来的数据
+								$(".myModal").empty();
+								//通过遍历查询到的内容，把数据显示出来
+								$("#tb").append("<tr></tr>");
+								for (var i = 0; i < house_result.pageUtil.map.house.length; i++) {
+									$(".myModal").append(
+										'<div class="modal fade" id="myModal' + i +
+										'" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >' +
+										'<div class="modal-dialog modal-lg">' +
+										'<div class="modal-content">' +
+										'<div class="modal-header">' +
+										'<h4 class="modal-title" id="myModalLabel">' +
+										'酒店审核' +
+										'</h4>' +
+										'<button type="button" class="close" data-dismiss="modal" aria-hidden="true">' +
+										'×' +
+										'</button>' +
+										'</div>' +
+										'<div class="modal-body">' +
+										'<div id="demo' + i + '" class="carousel slide" data-ride="carousel">' +
+										'<!-- 指示符 -->' +
+										'<ul class="carousel-indicators" id="inner' + i + '">' +
+										'</ul>' +
+										'<!-- 轮播图片 -->' +
+										'<div class="carousel-inner" id="carouselImg' + i + '">' +
+										'</div>' +
+										'<!-- 左右切换按钮 -->' +
+										'<a class="carousel-control-prev" href="#demo' + i + '" data-slide="prev">' +
+										'<span class="carousel-control-prev-icon"></span>' +
+										'</a>' +
+										'<a class="carousel-control-next" href="#demo' + i + '" data-slide="next">' +
+										'<span class="carousel-control-next-icon"></span>' +
+										'</a>' +
+										'</div>' +
+										'<!--轮播图结束-->' +
+										'<!--文本表格-->' +
+										'<table class="table" id="tablebox2">' +
+										'<thead>' +
+										'<tr>' +
+										'<th scope="col" class="t1">酒店编号</th>' +
+										'<th scope="col" class="t2">酒店名称</th>' +
+										'<th scope="col" class="t3">酒店容纳量</th>' +
+										'<th scope="col" class="t4">出租类型</th>' +
+										'<th scope="col" class="t5">酒店类型</th>' +
+										'<th scope="col" class="t6">酒店地址</th>' +
+										'<th scope="col" class="t7">酒店价格</th>' +
+										'<th scope="col" class="t8"></th>' +
+										'</tr>' +
+										'</thead>' +
+										'</table>' +
+										'<div class="modal-footer">' +
+										'<button type="button" class="btn btn-default" data-dismiss="modal">' +
+										'审核通过' +
+										'</button>' +
+										'<button type="button" class="btn btn-primary">' +
+										'拒绝通过' +
+										'</button>' +
+										'</div>' +
+										'</div>' +
+										'</div>' +
+										'</div>' +
+										<!-- /.modal-content -->
+										'</div>'
+									);
+									var j = 0;
+									var tr = document.createElement("tr");
+									tr.innerHTML = '<td class="t1">' + house_result.pageUtil.map.house[i].house_id +
+										'</td><td class="t2" style="width:300px">' +
+										house_result.pageUtil.map.house[i].house_name +
+										'</td><td class="t3">' + house_result.pageUtil.map.house[i].house_intake + '</td><td class="t4">' +
+										house_result.pageUtil.map.house[i].lease_type +
+										'<td class="t5">' + house_result.pageUtil.map.house[i].house_type + '</td><td class="t6">' +
+										house_result.pageUtil.map.house[i].house_address +
+										'<td class="t7">' + house_result.pageUtil.map.house[i].house_price + '</td><td class="t8">' +
+										'<button class="btn check btn-primary btn-sm" id="t' + i +
+										'" data-toggle="modal" data-target="#myModal' + i + '">审核</button>';
+									$("#tb").append(tr);
+									for (j = 0; j < house_result.pageUtil.map.houseImg.length; j++) {
+										if (house_result.pageUtil.map.houseImg[j].house_id == house_result.pageUtil.map.house[i].house_id) {
+											$("#carouselImg" + i).append('<div class="carousel-item">' +
+												'<img src="img/hotel/16pic_5271012_b.jpg" id="imgSrc' + j + '"> ' +
+												'<div class="carousel-caption"> ' +
+												'<h3>房间2</h3>' +
+												'<p>提供便捷的交通!</p>' +
+												'</div>' +
+												'</div>');
+											$("#inner" + i).append(
+												'<li data-target="#demo' + j + '" data-slide-to="' + j + '"></li>'
+											);
+											$("#inner" + i).children(":first").addClass("active");
+										}
+									}
+									$("#carouselImg" + i).children(":first").addClass("active");
+								}
+							}, "json");
+						}
+					});
+				}, "json");
 			});
 		</script>
 	</body>
-
 </html>

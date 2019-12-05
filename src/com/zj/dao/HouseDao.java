@@ -13,6 +13,7 @@ import org.apache.commons.dbutils.handlers.ScalarHandler;
 import cn.com.util.GetConn;
 
 import com.zj.dao.impl.HouseDaoImpl;
+import com.zj.entity.GrogshopOrder;
 import com.zj.entity.House;
 /**
  * 
@@ -32,6 +33,27 @@ public class HouseDao implements HouseDaoImpl{
 		conn = GetConn.getConn();
 		String sql = "select * from house";
 		List<House> data = qr.query(conn, sql, new BeanListHandler<House>(House.class));
+		GetConn.closeConn(conn);
+		System.out.println("data :"+data);
+		return data;
+	}
+	/*
+	 * 获取订单分页
+	 */
+	public List<House> queryHousePage(Integer startRow,Integer pageSize) throws SQLException{
+		conn = GetConn.getConn();
+		String sql = "select * from house limit ?,?";
+		List<House> data = qr.query(conn, sql, new BeanListHandler<House>(House.class),startRow,pageSize);
+		GetConn.closeConn(conn);
+		return data;
+	}
+	/*
+	 * 订单总页数
+	 */
+	public Long queryCountHouse() throws SQLException{
+		conn = GetConn.getConn();
+		String sql = "select count(*) from house";
+		Long data = qr.query(conn, sql, new ScalarHandler<Long>());
 		GetConn.closeConn(conn);
 		return data;
 	}
