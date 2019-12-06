@@ -563,7 +563,7 @@
 				' <dd><a href="../user/modifyInfo.html" style="color: gray;">修改信息</a></dd><dd><a href="javascript:;" id="quit" style="color: gray;">退了</a></dd></dl>';
 			$("#rightNav").empty();
 			$("#rightNav").append(html);
-			if (userInfo.islanlord == 1) {
+			if (userInfo.is_landlord == 1) {
 				$("#china").after('<li class="layui-nav-item "> <a href="javascript:;">我的房源</a>' +
 					'<dl class="layui-nav-child"><dd><a href="../user/landlordOrder.html"  style="color: gray;">订单信息</a></dd>' +
 					' <dd><a href="../user/myHouse.html" style="color: gray;">房源信息</a></dd></dl>' + '</li>' +

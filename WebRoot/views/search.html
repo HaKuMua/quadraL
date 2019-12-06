@@ -158,7 +158,6 @@
 					</div>
 				</div> -->
 			</div>
-			<div style="text-align: center; margin-top: 60px;" id="page"></div>
 		</div>
 		<div class="foot">
 			<div>
@@ -360,7 +359,7 @@
 							' <dd><a href="user/modifyInfo.html" style="color: gray;">修改信息</a></dd><dd><a href="index.html" id="quit" style="color: gray;">退了</a></dd></dl>';
 						$("#rightNav").empty();
 						$("#rightNav").append(html);
-						if (userInfo.islanlord != 1) {
+						if (userInfo.is_landlord == 1) {
 							$("#china").after('<li class="layui-nav-item "> <a href="#">我的房源</a>' +
 								'<dl class="layui-nav-child"><dd><a href="user/landlordOrder.html"  style="color: gray;">订单信息</a></dd>' +
 								' <dd><a href="user/myHouse.html" style="color: gray;">房源信息</a></dd></dl>' + '</li>' +
@@ -555,16 +554,25 @@
 				active[method] ? active[method].call(this, othis) : '';
 			});
 
-			//总页数大于页码总数
-			laypage.render({
-				elem: 'page',
-				limit: 7,
-				count: 70 //数据总数
-					,
-				jump: function(obj) {
-					console.log(obj)
-				}
-			});
+			// //流加载
+			// flow.load({
+			// 	elem: '#main', //指定列表容器
+			// 	isAuto: false,
+			// 	done: function(page, next) { //到达临界点（默认滚动触发），触发下一页
+			// 		var lis = [];
+			// 		//以jQuery的Ajax请求为例，请求下一页数据（注意：page是从2开始返回）
+			// 		$.get(basePath + "article.do?method=getPageArticleInfo&articlePresentPage=" + page, function(res) {
+			// 			//假设你的列表返回在data集合中
+			// 			layui.each(res.list, function(index, item) {
+			// 				articleInfo2.push(res.list[index]);
+			// 				getArticle("#article2",articleInfo2);
+			// 			});
+			// 			//执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页
+			// 			//pages为Ajax返回的总页数，只有当前页小于总页数的情况下，才会继续出现加载更多
+			// 			next(lis.join(''), page < res.pages);
+			// 		},"json");
+			// 	}
+			// });
 			
 			//请求后端方法，再拿到房子数据
 			function getHouseInfo(dateStart,dateEnd,addr,minPrice,maxPrice,personNum) {
