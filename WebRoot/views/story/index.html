@@ -43,7 +43,7 @@
 		<div id="top">
 			<ul class="layui-nav layui-bg-green" id="navId">
 				<li class="layui-nav-item">
-					<a href="index.html">
+					<a href="../index.html">
 						<img src="../../img/logo.jpg" style="border-radius: 50%;" width="49px" height="49px">
 					</a>
 				</li>
@@ -85,30 +85,7 @@
 							</a>
 							<br>
 						</div>
-						<div class="layui-col-xs3">
-							<a href="">
-								<img src="../../img/story/9b678664-6ba3-48d1-bd69-66a475609ab8.jpg" width="230px" height="290px">
-								<h3>重庆在重庆的半山腰发现了陶渊明式的“桃花源记”</h3>
-								<h4>2019/12/21 - 12/22 · 1晚</h4>
-								<h3>订单待支付 · ￥626.24</h3>
-							</a><br>
-						</div>
-						<div class="layui-col-xs3">
-							<a href="">
-								<img src="../../img/story/9b678664-6ba3-48d1-bd69-66a475609ab8.jpg" width="230px" height="290px">
-								<h3>上海魔都民宿 | 人均300入住魔都小众超民国风复古民宿！</h3>
-								<h4>2019/12/21 - 12/22 · 1晚</h4>
-								<h3>订单待支付 · ￥626.24</h3>
-							</a><br>
-						</div>
-						<div class="layui-col-xs3">
-							<a href="">
-								<img src="../../img/story/e19adcd4-1c48-4eeb-b855-1987a414b951.jpg" width="230px" height="290px">
-								<h3>里昂里昂，某一天再会</h3>
-								<h4>2019/12/21 - 12/22 · 1晚</h4>
-								<h3>订单待支付 · ￥626.24</h3>
-							</a><br>
-						</div>
+						
 					</div>
 					<div class="layui-tab-item" id="article2">
 						<h2>无</h2>
@@ -132,13 +109,7 @@
 	<script type="text/javascript">
 		//利用Cookie拿到信息
 		// var userInfo=$.Cookie('userInfo');
-		var userInfo = {
-			user_id: '1000',
-			user_name: 'haku',
-			user_img: '../../img/timg.jpg',
-			user_id: '1001',
-			islanlord: 1
-		};
+		var userInfo = null;
 		var articleInfo1 = [
 			// {
 			// 	article_id: '1',
@@ -159,7 +130,6 @@
 			// 	article_collect: 12
 			// }
 		]
-
 		json = getCookie('userInfo');
 		if (json != '' || json == null) {
 			jsonInfo = JSON.parse(json);
@@ -168,8 +138,9 @@
 				console.log(userInfo);
 			}
 		}
+		console.log(userInfo )
 		//初始化导航栏
-		if (userInfo.user_id != null) {
+		if (userInfo != null) {
 			var html = '<li class="layui-nav-item " id="china"> <a href="../user/myOrder.html" >房源订单中心</a></li>' +
 				'<li class="layui-nav-item"><a href="../story/index.html">故事</a></li>' +
 				'<li class="layui-nav-item"><a href="#" id="notice">消息<span id="dot" class="layui-badge-dot"></a> </li>' +
@@ -179,7 +150,7 @@
 				' <dd><a href="../user/modifyInfo.html" style="color: gray;">修改信息</a></dd><dd><a href="javascript:;" id="quit" style="color: gray;">退了</a></dd></dl>';
 			$("#rightNav").empty();
 			$("#rightNav").append(html);
-			if (userInfo.islanlord != 1) {
+			if (userInfo.islanlord == 1) {
 				$("#china").after('<li class="layui-nav-item "> <a href="javascript:;">我的房源</a>' +
 					'<dl class="layui-nav-child"><dd><a href="../user/landlordOrder.html"  style="color: gray;">订单信息</a></dd>' +
 					' <dd><a href="../user/myHouse.html" style="color: gray;">房源信息</a></dd></dl>' + '</li>' +

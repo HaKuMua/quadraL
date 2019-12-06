@@ -216,7 +216,7 @@
 		<div id="top">
 			<ul class="layui-nav layui-bg-green" id="navId">
 				<li class="layui-nav-item">
-					<a href="index.html">
+					<a href="../index.html">
 						<img src="../../img/logo.jpg" style="border-radius: 50%;" width="49px" height="49px">
 					</a>
 				</li>
@@ -227,7 +227,7 @@
 					</form>
 				</li>
 				<div id="rightNav">
-					<li class="layui-nav-item"><a href="">故事</a></li>
+					<li class="layui-nav-item"><a href="../story/index.html">故事</a></li>
 					<li class="layui-nav-item" style="cursor: pointer;"><a class="NavA" data-method="login">注册</a></li>
 					<li class="layui-nav-item" style="cursor: pointer;"><a class="NavA" data-method="login">登录</a></li>
 				</div>
@@ -485,12 +485,7 @@
 	<script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.15&key=58436f5656c3bd85a8001b6cce31c890&plugin=AMap.PlaceSearch"></script>
 	<script type="text/javascript" src="https://cache.amap.com/lbs/static/addToolbar.js"></script>
 	<script type="text/javascript">
-		var userInfo = {
-			user_id: 19,
-			user_name: 'haku',
-			user_img: '../../img/timg.jpg',
-			islanlord: 1
-		};
+		var userInfo =null;
 		var houseInfo = {
 			house_name: '下榻日式风格的房源去畅玩太古里',
 			house_id: 23,
@@ -558,7 +553,7 @@
 			}
 		}
 		//初始化导航栏
-		if (userInfo.user_id != null) {
+		if (userInfo != null) {
 			var html = '<li class="layui-nav-item " id="china"> <a href="../user/myOrder.html" >房源订单中心</a></li>' +
 				'<li class="layui-nav-item"><a href="../story/index.html">故事</a></li>' +
 				'<li class="layui-nav-item"><a href="#" id="notice">消息<span id="dot" class="layui-badge-dot"></a> </li>' +
@@ -568,7 +563,7 @@
 				' <dd><a href="../user/modifyInfo.html" style="color: gray;">修改信息</a></dd><dd><a href="javascript:;" id="quit" style="color: gray;">退了</a></dd></dl>';
 			$("#rightNav").empty();
 			$("#rightNav").append(html);
-			if (userInfo.islanlord != 1) {
+			if (userInfo.islanlord == 1) {
 				$("#china").after('<li class="layui-nav-item "> <a href="javascript:;">我的房源</a>' +
 					'<dl class="layui-nav-child"><dd><a href="../user/landlordOrder.html"  style="color: gray;">订单信息</a></dd>' +
 					' <dd><a href="../user/myHouse.html" style="color: gray;">房源信息</a></dd></dl>' + '</li>' +
@@ -586,7 +581,7 @@
 		if (url.indexOf("?") != -1) {
 			var house_id = url.substr(url.indexOf("=")+1);
 		}
-		house_id=25
+		// house_id=25
 		//请求后端拿到房子信息
 		$.getJSON(basePath + "houseInfo.do?method=getHouseInfoByID&callback=?", {
 			"house_id": house_id
@@ -699,8 +694,8 @@
 				'<h2><b>' + houseInfo.user_name +
 				'</b></h2><br><i class="layui-icon layui-icon-ok" style="color: green;font-weight:border;">&nbsp;已验证</i><br><br></div>' +
 				'<div class="layui-col-xs4">' +
-				'<a href="user.html">' +
-				'<img style="border-radius: 50%;" src="../../img/timg.jpg" width="60px" height="60px" ></a></div>';
+				'<a href="landlord.html?user_id='+houseInfo.user_id+'">' +
+				'<img style="border-radius: 50%;" src="../../'+houseInfo.user_img+'" width="60px" height="60px" ></a></div>';
 			$("#t6").append(html);
 			if (houseInfo.user_describe != null || houseInfo.user_describe != '') {
 				$("#t7").empty();
@@ -806,7 +801,10 @@
 		day = -1;
 		//按钮监听
 		$("#payBtn").on("click", function() {
-			
+			if(userInfo == null) {
+				layer.msg("请登录！");
+				return;
+			}
 			if (day < 0) {
 				layer.msg("请选择时间！");
 			} else if (personNum > houseInfo.house_intake) {

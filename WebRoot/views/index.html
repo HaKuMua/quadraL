@@ -106,7 +106,7 @@
 					 placeholder="搜一搜" autocomplete="off" class="layui-input">
 				</li>
 				<div id="rightNav">
-					<li class="layui-nav-item"><a href="">故事</a></li>
+					<li class="layui-nav-item"><a href="story/index.html">故事</a></li>
 					<li class="layui-nav-item" style="cursor: pointer;"><a class="NavA" data-method="login">注册</a></li>
 					<li class="layui-nav-item" style="cursor: pointer;"><a class="NavA" data-method="login">登录</a></li>
 				</div>
@@ -505,21 +505,28 @@
 				' <li class="layui-nav-item" lay-unselect=""><a href="javascript:;"><img src="../' +
 				userInfo.user_headimg_url + '" class="layui-nav-img">' + userInfo.user_name + '</a> ' +
 				'<dl class="layui-nav-child"><dd><a href="host/landlord.html"  style="color: gray;">个人中心</a></dd>' +
-				' <dd><a href="user/modifyInfo.html" style="color: gray;">修改信息</a></dd><dd><a href="index.html" id="quit" style="color: gray;">退了</a></dd></dl>';
+				' <dd><a href="#"  style="color: gray;">修改信息</a></dd><dd><a href="index.html" id="quit" style="color: gray;">退了</a></dd></dl>';
 			$("#rightNav").empty();
 			$("#rightNav").append(html);
-			if (userInfo.islanlord != 1) {
+			if (userInfo.islanlord == 1) {
 				$("#china").after('<li class="layui-nav-item "> <a href="">我的房源</a>'+
 				'<dl class="layui-nav-child"><dd><a href="user/landlordOrder.html"  style="color: gray;">订单信息</a></dd>'+
 				' <dd><a href="user/myHouse.html" style="color: gray;">房源信息</a></dd></dl>'+'</li>' +
 					'<li class="layui-nav-item "><a href="host/create_a_room/room.html">添加房源</a></li>');
 			} else {
-				$("#china").after('<li class="layui-nav-item "> <a href="">成为房东</a></li>');
+				$("#china").after('<li class="layui-nav-item " id="verfiy"> <a href="#">成为房东</a></li>');
 			}
 		}
 		//退出按钮监听
 		$("body").on("click", "#quit", function() {
 			setCookie("userInfo", null, 0.1);
+		});
+		$("body").on("click", "#verfiy", function() {
+			if(userInfo.user_IDcard == null ) {
+				IDcardVa();
+			}else {
+				location.href="host/create_a_room/become.html";
+			}
 		});
 		
 		//第一个
@@ -553,7 +560,7 @@
 			}
 			return "";
 		}
-
+		//得到酒店信息
 		function getGuest(btn, infoId, listHouse) {
 			$(infoId).empty();
 			$(infoId).append('<div class="layui-row guestInfo" id="guestInfo1"></div>');
@@ -580,18 +587,32 @@
 					}
 					$(this).attr("class", "layui-btn layui-bg-green")
 					var addr = $(this).text();
-					for (var k = 0; k < listHouse.length; k++) {
-						var html = '<div class="layui-col-xs4"><a href="host/home.html?houseId=' + listHouse[k].house_id + '">' +
-							'<img src="' + listHouse[k].house_img + '" ><br><span>' + listHouse[k].house_type + '·' +
-							listHouse[k].bed_number + '张床</span><br><h3><b>' + listHouse[k].house_name + '</b></h3><br><h3>￥' +
-							listHouse[k].house_price + '</h3></a></div>'
-						if (k < 3) {
-							$(infoId + '> div:first').append(html);
-						} else {
-							$(infoId + '> div:last').append(html);
+					map='{"reserve_date":"-1","check_out_date":"-1","house_address":"'+
+						addr+'"}'
+					console.log(map)
+					$.getJSON(basePath+"house.do?method=getHouseInfoBySelect&callback=?",
+					{"selectMap":map},function(result){
+						console.log(result)
+						layer.msg("获取成功");
+						msg=result;
+						listHouse=result.houseList;
+						if(listHouse.length != null) {
+							console.log(msg)
+							for (var k = 0; k < 6; k++) {
+								var html = '<div class="layui-col-xs4"><a href="host/home.html?houseId=' + listHouse[k].house_id + '">' +
+									'<img src="../' + listHouse[k].house_img[0].house_img_url  + '" ><br><span>' + listHouse[k].house_type + '·' +
+									listHouse[k].bed_number + '张床</span><br><h3><b>' + listHouse[k].house_name + '</b></h3><br><h3>￥' +
+									listHouse[k].house_price + '</h3></a></div>'
+								if (k < 3) {
+									$(infoId + '> div:first').append(html);
+								} else {
+									$(infoId + '> div:last').append(html);
+								}
+							}
+							$(infoId + "~a:last").append('<h3>查看' + addr + '更多房源></h3>');
 						}
-					}
-					$(infoId + "~a:last").append('<h3>查看' + addr + '更多房源></h3>');
+					});
+					
 				}
 			}
 		}
