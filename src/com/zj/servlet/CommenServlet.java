@@ -28,7 +28,6 @@ public class CommenServlet extends BaseServlet {
 
 	private CommentServiceImpl commentService = new CommentService();
 	private String map;
-	private String callback;
 
 	// 当前页数
 	private Integer currentPage;
@@ -36,6 +35,7 @@ public class CommenServlet extends BaseServlet {
 	private Integer countPage;
 	// 每页条数
 	private Integer pageSize;
+	private String callback;
 
 	// 返回所有文章评论信息
 	public void getAllComment(HttpServletRequest request,

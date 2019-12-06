@@ -43,6 +43,8 @@ public class PageUtil<T> implements Serializable{
 	public void setMap(Map<String, Object> map) {
 		this.map = map;
 	}
+	
+	
 	public Integer getCountRow() {
 		return countRow;
 	}

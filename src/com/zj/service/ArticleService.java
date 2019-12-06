@@ -51,6 +51,38 @@ public class ArticleService implements ArticleServiceImpl{
 	private HouseDaoImpl houseDaoImpl = new HouseDao();
 	private HouseImgDaoImpl houseImgDaoImpl = new HouseImgDao();
 	private Logger log = Logger.getLogger(HouseService.class);
+	
+	
+	public List<Map<String, Object>> getAllArticle(){
+		List<Map<String, Object>> list = null;
+		try {
+			List<Article> articleList = articleDaoImpl.getAllArticle();
+			if(articleList != null){
+				list = new ArrayList<Map<String,Object>>();
+				for(Article article : articleList){
+					Map<String, Object> map = new HashMap<String, Object>();
+					map.put("article_id", article.getArticle_id());
+					//获取对应的文章图片
+					Integer article_id = article.getArticle_id();
+					List<ArticleImg> articleImg = articleImgDaoImpl.queryArticleImgByArticleId(article_id);
+					map.put("article_img", articleImg);
+					map.put("user_id", article.getUser_id());
+					Integer user_id = article.getUser_id();
+					User user = userDaoImpl.getUserInfoById(user_id);
+					map.put("user_name", user.getUser_name());
+					map.put("article_name", article.getArticle_name());
+					map.put("article_content", article.getArticle_content());
+					map.put("article_date", article.getArticle_date());
+					map.put("article_praise", article.getArticle_praise());
+					map.put("article_collect", article.getArticle_collect());
+					list.add(map);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
 	/**
 	 * 获得所有文章
 	 * @return
@@ -394,7 +426,13 @@ public class ArticleService implements ArticleServiceImpl{
 			log.error("文章删除异常！");
 			return -1;
 		}
-	
+		return 1;
+	}
+	/**
+	 * 根据文章Id删除文章service
+	 */
+	public int deleteArticleById(Integer article_id) throws SQLException {
+		articleDaoImpl.deleteArticleById(article_id);
 		return 1;
 	}
 	

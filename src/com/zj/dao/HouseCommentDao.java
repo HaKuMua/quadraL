@@ -75,12 +75,10 @@ public class HouseCommentDao implements HouseCommentDaoImpl {
 			throws SQLException {
 		conn = GetConn.getConn();
 		String sql = "select * from house_comment where user_id=?";
-		List<HouseComment> data = qr.query(conn, sql,
-				new BeanListHandler<HouseComment>(HouseComment.class), user_id);
+		List<HouseComment> data = qr.query(conn, sql, new BeanListHandler<HouseComment>(HouseComment.class), user_id);
 		GetConn.closeConn(conn);
 		return data;
 	}
-
 	/*
 	 * 获取订单分页
 	 */

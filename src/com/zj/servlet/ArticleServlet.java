@@ -53,6 +53,7 @@ public class ArticleServlet extends BaseServlet {
 	//所要删除的条目ID
 	private Integer deleteId;
 	
+	
 //	/**
 //	 * 根据文章Id删除文章
 //	 * @param request
@@ -89,6 +90,7 @@ public class ArticleServlet extends BaseServlet {
 	 * @throws SQLException
 	 * @throws IOException
 	 */
+	
 	public void getPageArticleInfo(HttpServletRequest request,
 			HttpServletResponse response) throws SQLException, IOException {
 		PageUtil<Map<String, Object>> pageList = articleService
