@@ -588,7 +588,7 @@
 		}
 		house_id=25
 		//请求后端拿到房子信息
-		$.getJSON(basePath + "house_info.do?method=getHouseInfoByID&callback=?", {
+		$.getJSON(basePath + "houseInfo.do?method=getHouseInfoByID&callback=?", {
 			"house_id": house_id
 		}, function(res) {
 			houseInfo = res;
