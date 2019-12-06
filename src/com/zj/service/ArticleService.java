@@ -12,6 +12,8 @@ import org.apache.log4j.Logger;
 
 
 
+
+
 import cn.com.util.PageUtil;
 import cn.com.util.RemoveHtmlTagUtil;
 
@@ -124,13 +126,12 @@ public class ArticleService implements ArticleServiceImpl{
 	 */
 	public PageUtil getPageArticleInfo(Integer presentPage) {
 		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
-		Map<String, Object> map = new HashMap<String, Object>();
 		//文章分页
 		Long articleCount = 1l;
 		try {
 			articleCount = articleDaoImpl.queryCountArticle();
 		} catch (SQLException e) {
-			map.put("msg", "查询错误");
+			log.error("查询错误");
 			e.printStackTrace();
 		}
 		PageUtil<Map<String, Object>> pu = new PageUtil<Map<String, Object>>();
@@ -145,11 +146,12 @@ public class ArticleService implements ArticleServiceImpl{
 		try {
 			pageArticle = articleDaoImpl.queryPageArticle(articleStartRow, articlePageSize);
 		} catch (SQLException e) {
-			map.put("msg", "查询错误");
+			log.error("查询错误");
 			e.printStackTrace();
 		}
 		if(pageArticle != null) {
 			for(Article article : pageArticle) {
+				Map<String, Object> map = new HashMap<String, Object>();
 				map.put("article_id", article.getArticle_id());
 				map.put("user_id", article.getUser_id());
 				map.put("article_name", article.getArticle_name());
@@ -157,23 +159,27 @@ public class ArticleService implements ArticleServiceImpl{
 				map.put("article_collect", article.getArticle_collect());
 				map.put("article_praise", article.getArticle_praise());
 				//获得该文章的第一张图片
-				Integer article_id = article.getArticle_id();
 				List<ArticleImg> currenArticleImg = null;
 				try {
-					currenArticleImg = articleImgDaoImpl.queryArticleImgByArticleId(article_id);
+					currenArticleImg = articleImgDaoImpl.queryArticleImgByArticleId(article.getArticle_id());
 				} catch (SQLException e) {
 					map.put("msg", "查询错误");
 					e.printStackTrace();
 				}
-				if(currenArticleImg != null) {
+				
+				if(!currenArticleImg.isEmpty()) {
+					System.out.println("--"+currenArticleImg);
 					ArticleImg firstImg  = currenArticleImg.get(0);
 					map.put("image_id", firstImg.getImage_id());
 					map.put("image_url", firstImg.getImage_url());
+				}else {
+					map.put("image_id", null);
+					map.put("image_url", null);
 				}
 				//获取该文章评论数量
 				Long commCount = 0l;
 				try {
-					commCount = commentDaoImpl.queryCommCount(article_id);
+					commCount = commentDaoImpl.queryCommCount(article.getArticle_id());
 				} catch (SQLException e) {
 					map.put("msg", "查询错误");
 					e.printStackTrace();
@@ -192,11 +198,12 @@ public class ArticleService implements ArticleServiceImpl{
 					String userHeadUrl = user.getUser_headimg_url();
 					map.put("user_headimg_url", userHeadUrl);
 				}
+				System.out.println(map);
 				list.add(map);
-				pu.setList(list);
-				
+				System.out.println("list:"+list);
 			}
 		} 
+		pu.setList(list);
 		return pu;
 	}
 	
@@ -234,22 +241,6 @@ public class ArticleService implements ArticleServiceImpl{
 			//获得该文章评论数量
 			Long commCount = commentDaoImpl.queryCommCount(article_id);
 			map.put("commNum", commCount);
-			//获得该文章4条评论
-			List<Comment> currenComment = commentDaoImpl.queryPageComment(article_id,1,5);
-			List<Map<String,Object>> article_comment = new ArrayList<Map<String,Object>>();
-			for(Comment comment : currenComment) {
-				Map<String, Object> c = new HashMap<String, Object>();
-				c.put("comment_id", comment.getComment_id());
-				c.put("comment_content", comment.getComment_content());
-				c.put("replier_id", comment.getReplier_id());
-				c.put("date", comment.getComment_date().toString().substring(0,10));
-				c.put("user_id",comment.getUser_id());
-				User user = userDaoImpl.getUserInfoById(comment.getUser_id());
-				c.put("user_img", user.getUser_headimg_url());
-				c.put("user_name",user.getUser_name());
-				article_comment.add(c);
-			}
-			map.put("article_comment", article_comment);
 			//获得用户头像与昵称
 			Integer user_id = oneArticle.getUser_id();
 			User user = userDaoImpl.getUserInfoById(user_id);
@@ -263,6 +254,7 @@ public class ArticleService implements ArticleServiceImpl{
 			House house= houseDaoImpl.getHouseInfoByID(house_id);
 			houseMap.put("house_name", house.getHouse_name());
 			houseMap.put("house_type", house.getHouse_type());
+			houseMap.put("house_price", house.getHouse_price());
 			//第一张图片
 			List<HouseImg> currenHouseImg = houseImgDaoImpl.getHouseImgByHouseID(house_id);
 			HouseImg firstImg  = currenHouseImg.get(0);
@@ -275,6 +267,9 @@ public class ArticleService implements ArticleServiceImpl{
 			List<Map<String, Object>> articleInfo =  new ArrayList<Map<String,Object>>();
 			Map<String, Object> article = new HashMap<String, Object>();
 			for(Article relatedArticle : relatedArticles) {
+				if(relatedArticle.getArticle_id().equals(article_id)) {
+					continue;
+				}
 				//一篇相关文章
 				article.put("article_id", relatedArticle.getArticle_id());
 				article.put("article_name", relatedArticle.getArticle_name());
@@ -446,33 +441,101 @@ public class ArticleService implements ArticleServiceImpl{
 	/**
 	 * 查询一个用户所有文章
 	 */
-	public List<Map<String, Object>> getAllArticleByUser(Integer user_id) {
-		List<Map<String, Object>> list = null;
+	public PageUtil getAllArticleByUser(Integer user_id,Integer page) {
+		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+		//文章分页
+		Long articleCount = 1l;
 		try {
-			List<Article> articleList = articleDaoImpl.queryArticleByUserId(user_id);
-			if(articleList != null){
-				list = new ArrayList<Map<String,Object>>();
-				for(Article article : articleList){
-					Map<String, Object> map = new HashMap<String, Object>();
-					map.put("article_id", article.getArticle_id());
-					//获取对应的文章图片
-					Integer article_id = article.getArticle_id();
-					List<ArticleImg> articleImg = articleImgDaoImpl.queryArticleImgByArticleId(article_id);
-					map.put("article_img", articleImg);
-					map.put("user_id", article.getUser_id());
-					User user = userDaoImpl.getUserInfoById(user_id);
-					map.put("user_name", user.getUser_name());
-					map.put("article_name", article.getArticle_name());
-					map.put("article_content", article.getArticle_content());
-					map.put("article_date", article.getArticle_date());
-					map.put("article_praise", article.getArticle_praise());
-					map.put("article_collect", article.getArticle_collect());
-					list.add(map);
-				}
-			}
+			articleCount = articleDaoImpl.queryUserCountArticle(user_id);
 		} catch (SQLException e) {
+			log.error("查询错误");
 			e.printStackTrace();
 		}
-		return list;
+		PageUtil<Map<String, Object>> pu = new PageUtil<Map<String, Object>>();
+		pu.setCountRow(articleCount.intValue());
+		//设置当前页数
+		pu.setCurrentPage(page);
+		//设置一页显示多少条
+		pu.setPageSize(12);
+		int articleStartRow = pu.getStartRow();
+		int articlePageSize = pu.getPageSize();
+		List<Article> pageArticle = null;
+		try {
+			pageArticle = articleDaoImpl.queryArticleByUserId(articleStartRow, articlePageSize,user_id);
+		} catch (SQLException e) {
+			log.error("查询错误");
+			e.printStackTrace();
+		}
+		if(pageArticle != null) {
+			for(Article article : pageArticle) {
+				Map<String, Object> map = new HashMap<String, Object>();
+				map.put("article_id", article.getArticle_id());
+				map.put("user_id", article.getUser_id());
+				map.put("article_name", article.getArticle_name());
+				map.put("article_content", article.getArticle_content());
+				map.put("article_collect", article.getArticle_collect());
+				map.put("article_praise", article.getArticle_praise());
+				//获得该文章的第一张图片
+				List<ArticleImg> currenArticleImg = null;
+				try {
+					currenArticleImg = articleImgDaoImpl.queryArticleImgByArticleId(article.getArticle_id());
+				} catch (SQLException e) {
+					map.put("msg", "查询错误");
+					e.printStackTrace();
+				}
+				
+				if(!currenArticleImg.isEmpty()) {
+					System.out.println("--"+currenArticleImg);
+					ArticleImg firstImg  = currenArticleImg.get(0);
+					map.put("image_id", firstImg.getImage_id());
+					map.put("image_url", firstImg.getImage_url());
+				}else {
+					map.put("image_id", null);
+					map.put("image_url", null);
+				}
+				//获取该文章评论数量
+				Long commCount = 0l;
+				try {
+					commCount = commentDaoImpl.queryCommCount(article.getArticle_id());
+				} catch (SQLException e) {
+					map.put("msg", "查询错误");
+					e.printStackTrace();
+				}
+				map.put("commCount", commCount);
+				User user = null;
+				try {
+					user = userDaoImpl.getUserInfoById(user_id);
+				} catch (SQLException e) {
+					map.put("msg", "查询错误");
+					e.printStackTrace();
+				}
+				if(user != null) {
+					String userHeadUrl = user.getUser_headimg_url();
+					map.put("user_headimg_url", userHeadUrl);
+				}
+				list.add(map);
+			}
+		} 
+		pu.setList(list);
+		return pu;
 	}
+	/**
+	 * 点赞
+	 * @param article_praise 赞数量
+	 * @param article_id 文章id
+	 * @return 赞数量
+	 */
+	public Integer updatePraiset(Integer article_praise, Integer article_id) {
+		int praiset =article_praise ;
+		try {
+			int count = articleDaoImpl.updateArticle_praiset(article_praise, article_id);
+			praiset = articleDaoImpl.queryArticleById(article_id).getArticle_praise();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return praiset;
+	}
+
+
 }

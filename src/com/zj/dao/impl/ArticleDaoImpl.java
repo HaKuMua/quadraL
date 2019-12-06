@@ -79,5 +79,10 @@ public interface ArticleDaoImpl {
 	 * 获得一个用户所有文章
 	 * @throws SQLException 
 	 */
-	List<Article> queryArticleByUserId(Integer user_id) throws SQLException;
+	Long queryUserCountArticle(Integer user_id) throws SQLException;
+	/**
+	 * 获得一个用户所有文章(分页)
+	 * @throws SQLException 
+	 */
+	List<Article> queryArticleByUserId(int startRow,int pageSize,Integer user_id) throws SQLException;
 }

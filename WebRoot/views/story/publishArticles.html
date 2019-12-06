@@ -41,7 +41,7 @@
 			<ul class="layui-nav layui-bg-green" id="navId">
 				<li class="layui-nav-item">
 					<a href="index.html">
-						<img src="../../img/logo.jpg" class="layui-nav-img">
+						<img src="../../img/logo.jpg" style="border-radius: 50%;" width="49px" height="49px">
 					</a>
 				</li>
 				<div id="rightNav">
@@ -124,7 +124,7 @@
 			$("#add").on("click", function() {
 				title = $("#title").val();
 				content = layedit.getContent(editIndex);
-				house_id=7;
+				house_id=25;
 				console.log(content);
 				if (title != '' && content != '' && img.length >= 5) {
 					map = '{"user_id":"' + userInfo.user_id + '","article_name":"' + title +
@@ -133,6 +133,10 @@
 						"articleMap": map,"article_content":content 
 					}, function(result) {
 						layer.msg(result.msg);
+						window.setTimeout (function() {
+							//跳转界面
+							location.href = "../user/myOrder.html";
+						},1200);
 					});
 				} else {
 					layer.msg("请填写完整！图片不能少于五张！")
@@ -147,7 +151,7 @@
 				multiple: true,
 				before: function(obj) {
 					obj.preview(function(index, file, result) {
-						$('#look').append('<img width=600; height=400; src="' + result + '" alt="' + file.name +
+						$('#look').append('<img width=600; height=800; src="' + result + '" alt="' + file.name +
 							'" class="layui-upload-img">')
 						//img.push(result+file.name);
 					});
@@ -214,8 +218,8 @@
 			var html = '<li class="layui-nav-item " id="china"> <a href="../user/myOrder.html" >房源订单中心</a></li>' +
 				'<li class="layui-nav-item"><a href="../story/index.html">故事</a></li>' +
 				'<li class="layui-nav-item"><a href="#" id="notice">消息<span id="dot" class="layui-badge-dot"></a> </li>' +
-				' <li class="layui-nav-item" lay-unselect=""><a href="javascript:;"><img src="' +
-				userInfo.user_img + '" class="layui-nav-img">' + userInfo.user_name + '</a> ' +
+				' <li class="layui-nav-item" lay-unselect=""><a href="javascript:;"><img src="../../' +
+				userInfo.user_headimg_url + '" class="layui-nav-img">' + userInfo.user_name + '</a> ' +
 				'<dl class="layui-nav-child"><dd><a href="landlord.html"  style="color: gray;">个人中心</a></dd>' +
 				' <dd><a href="../user/modifyInfo.html" style="color: gray;">修改信息</a></dd><dd><a href="javascript:;" id="quit" style="color: gray;">退了</a></dd></dl>';
 			$("#rightNav").empty();

@@ -98,7 +98,7 @@
 			<ul class="layui-nav layui-bg-green" id="navId">
 				<li class="layui-nav-item">
 					<a href="index.html">
-						<img src="../img/logo.jpg" class="layui-nav-img">
+						<img src="../img/logo.jpg" style="border-radius: 50%;" width="49px" height="49px">
 					</a>
 				</li>
 				<li class="layui-nav-item ">
@@ -492,9 +492,6 @@
 			if (jsonInfo != null) {
 				userInfo = jsonInfo;
 				console.log(userInfo);
-				if (userInfo.user_IDcard == null) {
-					IDcardVa();
-				}
 				//得到通知消息
 				getNoticeInfo()
 			}
@@ -505,8 +502,8 @@
 			var html = '<li class="layui-nav-item " id="china"> <a href="user/myOrder.html" >房源订单中心</a></li>' +
 				'<li class="layui-nav-item"><a href="story/index.html">故事</a></li>' +
 				'<li class="layui-nav-item"><a href="#" id="notice">消息<span id="dot" class="layui-badge-dot"></span></a> </li>' +
-				' <li class="layui-nav-item" lay-unselect=""><a href="javascript:;"><img src="' +
-				userInfo.user_img + '" class="layui-nav-img">' + userInfo.user_name + '</a> ' +
+				' <li class="layui-nav-item" lay-unselect=""><a href="javascript:;"><img src="../' +
+				userInfo.user_headimg_url + '" class="layui-nav-img">' + userInfo.user_name + '</a> ' +
 				'<dl class="layui-nav-child"><dd><a href="host/landlord.html"  style="color: gray;">个人中心</a></dd>' +
 				' <dd><a href="user/modifyInfo.html" style="color: gray;">修改信息</a></dd><dd><a href="index.html" id="quit" style="color: gray;">退了</a></dd></dl>';
 			$("#rightNav").empty();
@@ -708,8 +705,12 @@
 		//搜索按钮监听
 		$("#submit").on("click", function() {
 			var date = $("#check").val();
-			var addr = $("#search").val()
-			url = "search.html?addr=" + addr + "&date=" + date;
+			var addr = $("#search").val();
+			if(date == '') {
+				url = "search.html?addr=" + addr;
+			}else {
+				url = "search.html?addr=" + addr + "&date=" + date;
+			}
 			location.href = encodeURI(url);
 		});
 

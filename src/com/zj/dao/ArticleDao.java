@@ -152,13 +152,21 @@ public class ArticleDao implements ArticleDaoImpl{
 	 * 获得一个用户所有文章
 	 * @throws SQLException 
 	 */
-	public List<Article> queryArticleByUserId(Integer user_id) throws SQLException {
+	public List<Article> queryUserArticle(Integer user_id) throws SQLException {
 		conn = GetConn.getConn();
 		String sql = "select * from article where user_id = ?";
 		List<Article> data = qr.query(conn, sql, new BeanListHandler<Article>(Article.class), user_id);
 		GetConn.closeConn(conn);
 		return data;
 	}
+	public Long queryUserCountArticle(Integer user_id) throws SQLException {
+		conn = GetConn.getConn();
+		String sql = "select count(*) from article where user_id =?";
+		Long data =  qr.query(conn, sql, new ScalarHandler<Long>(),user_id);
+		GetConn.closeConn(conn);
+		return data;
+	}
+
 
 	/**
 	 * 前端后台文章分页查询
@@ -182,4 +190,18 @@ public class ArticleDao implements ArticleDaoImpl{
 		GetConn.closeConn(conn);
 		return data;
 	}
+	
+	/**
+	 * 获得一个用户所有文章(分页)
+	 * @throws SQLException 
+	 */
+	public List<Article> queryArticleByUserId(int startRow,int pageSize,Integer user_id) throws SQLException {
+		conn = GetConn.getConn();
+		String sql = "select * from article where user_id = ? limit ?,?";
+		List<Article> data = qr.query(conn, sql, new BeanListHandler<Article>(Article.class), user_id,startRow,pageSize);
+		GetConn.closeConn(conn);
+		return data;
+	}
+
+	
 }

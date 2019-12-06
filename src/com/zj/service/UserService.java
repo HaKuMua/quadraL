@@ -148,7 +148,6 @@ public class UserService implements UserServiceImpl {
 				map.put("msg", "账号或密码错误，登录失败！");
 			}
 		} catch (SQLException e) {
-
 			// 登录失败
 			map.put("msg", "登录失败！");
 			return map;
@@ -404,7 +403,6 @@ public class UserService implements UserServiceImpl {
 								// 密码设置失败
 								map.put("msg", "密码修改失败");
 							}
-
 						} else {
 							// 密码正则错误
 							map.put("msg", "正则错误，密码修改失败");

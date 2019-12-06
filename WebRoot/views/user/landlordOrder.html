@@ -83,9 +83,8 @@
 		</div>
 
 		<script type="text/html" id="barDemo">
-			<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-		  <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">确定</a>
-		   <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="view">取消</a>
+			<a class="layui-btn layui-btn-xs" lay-event="yes">确认订单</a>
+		  <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">取消订单</a>
 		</script>
 		<script type="text/javascript">
 			//利用Cookie拿到信息
@@ -102,34 +101,45 @@
 					jsonInfo = JSON.parse(json);
 					if (jsonInfo != null) {
 						userInfo = jsonInfo;
+						$("#myImg").attr("src","../../"+userInfo.user_headimg_url);
 						console.log(userInfo);
 					}
 				}
-				console.log(userInfo.user_id == null)
+				
 				//初始化导航栏
 				if (userInfo.user_id != null) {
-					var html = '<li class="layui-nav-item " id="china"> <a href="user/myOrder.html" >房源订单中心</a></li>' +
-						'<li class="layui-nav-item"><a href="story/index.html">故事</a></li>' +
+					var html = '<li class="layui-nav-item " id="china"> <a href="myOrder.html" >房源订单中心</a></li>' +
+						'<li class="layui-nav-item"><a href="../story/index.html">故事</a></li>' +
 						'<li class="layui-nav-item"><a href="#" id="notice">消息<span id="dot" class="layui-badge-dot"></span></a> </li>' +
-						' <li class="layui-nav-item" lay-unselect=""><a href="javascript:;"><img src="' +
-						userInfo.user_img + '" class="layui-nav-img">' + userInfo.user_name + '</a> ' +
-						'<dl class="layui-nav-child"><dd><a href="host/landlord.html"  style="color: gray;">个人中心</a></dd>' +
-						' <dd><a href="user/modifyInfo.html" style="color: gray;">修改信息</a></dd><dd><a href="index.html" id="quit" style="color: gray;">退了</a></dd></dl>';
+						' <li class="layui-nav-item" lay-unselect=""><a href="javascript:;"><img id="headImg" src="../../'+userInfo.user_headimg_url+'" class="layui-nav-img">' + userInfo.user_name + '</a> ' +
+						'<dl class="layui-nav-child"><dd><a href="../host/landlord.html?user_id='+userInfo.user_id+'"  style="color: gray;">个人中心</a></dd>' +
+						' <dd><a href="modifyInfo.html" style="color: gray;">修改信息</a></dd><dd><a href="../index.html" id="quit" style="color: gray;">退了</a></dd></dl>';
 					$("#rightNav").empty();
 					$("#rightNav").append(html);
 					if (userInfo.islanlord != 1) {
-						$("#china").after('<li class="layui-nav-item "> <a href="">我的房源</a>'+
-						'<dl class="layui-nav-child"><dd><a href="user/landlordOrder.html"  style="color: gray;">订单信息</a></dd>'+
-						' <dd><a href="user/myHouse.html" style="color: gray;">房源信息</a></dd></dl>'+'</li>' +
-							'<li class="layui-nav-item "><a href="host/create_a_room/room.html">添加房源</a></li>');
+						$("#china").after('<li class="layui-nav-item "> <a href="">我的房源</a>' +
+							'<dl class="layui-nav-child"><dd><a href="landlordOrder.html"  style="color: gray;">订单信息</a></dd>' +
+							' <dd><a href="myHouse.html" style="color: gray;">房源信息</a></dd></dl>' + '</li>' +
+							'<li class="layui-nav-item "><a href="../host/create_a_room/room.html">添加房源</a></li>');
 					} else {
-						$("#china").after('<li class="layui-nav-item "> <a href="">成为房东</a></li>');
+						$("#china").after('<li class="layui-nav-item "> <a href="../host/create_a_room/become.html">成为房东</a></li>');
 					}
 				}
 				//退出按钮监听
 				$("body").on("click", "#quit", function() {
 					setCookie("userInfo", null, 0.1);
 				});
+				
+				$("#editTel").on("click",function() {
+					html='';
+				});
+				//设置cookie
+				function setCookie(cname, cvalue, exdays) {
+				    var d = new Date();
+				    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+				    var expires = "expires="+ d.toUTCString();
+				    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+				} 
 				//获取Cookie
 				function getCookie(cname) {
 					var name = cname + "=";
@@ -148,7 +158,7 @@
 				}
 		</script>
 		<script>
-			layui.use(['table'], function() {
+			layui.use(['table','element'], function() {
 				var table = layui.table;
 				table.render({
 					elem: '#test',
@@ -227,20 +237,12 @@
 					var data = obj.data;
 					//console.log(obj)
 					if (obj.event === 'del') {
-						layer.confirm('真的删除行么', function(index) {
+						layer.confirm('真的取消订单么', function(index) {
 							obj.del();
 							layer.close(index);
 						});
-					} else if (obj.event === 'edit') {
-						layer.prompt({
-							formType: 2,
-							value: data.email
-						}, function(value, index) {
-							obj.update({
-								email: value
-							});
-							layer.close(index);
-						});
+					} else if (obj.event === 'yes') {
+						layer.alert("已确认！")
 					}
 				});
 			});

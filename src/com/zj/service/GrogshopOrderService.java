@@ -202,6 +202,8 @@ public class GrogshopOrderService implements GrogshopOrderServiceImpl {
 				House house = houseDaoImpl.getHouseInfoByID(reserve.getHouse_id());
 				map.put("house_id", house.getHouse_id());
 				map.put("house_name", house.getHouse_name());
+				map.put("locationId", house.getLocation_id());
+				map.put("house_address", house.getHouse_address());
 				HouseImg houseImg = houseImgDaoImpl.getHouseImgByHouseID(reserve.getHouse_id()).get(0);
 				map.put("house_img_url", houseImg.getHouse_img_url());
 				list.add(map);

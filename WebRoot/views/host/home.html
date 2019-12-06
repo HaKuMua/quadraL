@@ -196,7 +196,7 @@
 			}
 
 			#tips {
-				height: 180px;
+				height: 100%;
 				background-color: #ECECF6;
 			}
 
@@ -216,8 +216,8 @@
 		<div id="top">
 			<ul class="layui-nav layui-bg-green" id="navId">
 				<li class="layui-nav-item">
-					<a href="../index.html">
-						<img src="../../img/logo.jpg" class="layui-nav-img">
+					<a href="index.html">
+						<img src="../../img/logo.jpg" style="border-radius: 50%;" width="49px" height="49px">
 					</a>
 				</li>
 				<li class="layui-nav-item ">
@@ -358,6 +358,7 @@
 					<h2><b>成都市，四川省，中国</b></h2><br><br>
 					<h2>出行信息</h2><br>
 					<h3>民宿-驾车-双流机场 36分钟左右(交通顺畅的情况) 民宿-步行10分钟-春熙路地铁3-太平园站-双流机场 (地铁大约32分钟) 民宿-驾车-成都东客站 20分钟左右(交通顺畅的情况)｡</h3>
+					
 				</div>
 				<br>
 				<div id="container"></div>
@@ -561,8 +562,8 @@
 			var html = '<li class="layui-nav-item " id="china"> <a href="../user/myOrder.html" >房源订单中心</a></li>' +
 				'<li class="layui-nav-item"><a href="../story/index.html">故事</a></li>' +
 				'<li class="layui-nav-item"><a href="#" id="notice">消息<span id="dot" class="layui-badge-dot"></a> </li>' +
-				' <li class="layui-nav-item" lay-unselect=""><a href="javascript:;"><img src="' +
-				userInfo.user_img + '" class="layui-nav-img">' + userInfo.user_name + '</a> ' +
+				' <li class="layui-nav-item" lay-unselect=""><a href="javascript:;"><img src="../../' +
+				userInfo.user_headimg_url + '" class="layui-nav-img">' + userInfo.user_name + '</a> ' +
 				'<dl class="layui-nav-child"><dd><a href="landlord.html"  style="color: gray;">个人中心</a></dd>' +
 				' <dd><a href="../user/modifyInfo.html" style="color: gray;">修改信息</a></dd><dd><a href="javascript:;" id="quit" style="color: gray;">退了</a></dd></dl>';
 			$("#rightNav").empty();
@@ -583,12 +584,12 @@
 		});
 		var url = window.location.search; //获取url中"?"符后的字串
 		if (url.indexOf("?") != -1) {
-			//var house_id = url.substr(url.indexOf("=")+1);
+			var house_id = url.substr(url.indexOf("=")+1);
 		}
-
-		// //请求后端拿到房子信息
+		house_id=25
+		//请求后端拿到房子信息
 		$.getJSON(basePath + "house_info.do?method=getHouseInfoByID&callback=?", {
-			"house_id": 23
+			"house_id": house_id
 		}, function(res) {
 			houseInfo = res;
 			console.log(houseInfo);
@@ -622,19 +623,19 @@
 				map.setFitView();
 			})
 		});
-
+		
 		function get() {
 			$('title').text(houseInfo.house_name);
 			$("#houseImgDiv").empty();
-			html = '<div  class="layui-col-xs6"><img  class="houseImg"  src="' + houseInfo.allHouseImg[0].house_img_url +
+			html = '<div  class="layui-col-xs6"><img  class="houseImg"  src="../../' + houseInfo.allHouseImg[0].house_img_url +
 				'" width="960" height="600">' +
 				'</div><div class="layui-col-xs6">' +
 				'<div class="layui-col-xs6">' +
-				'<img  class="houseImg" src="' + houseInfo.allHouseImg[1].house_img_url + '"width="475" height="300">' +
-				'<img  class="houseImg" src="' + houseInfo.allHouseImg[2].house_img_url + '"width="475" height="300">' +
+				'<img  class="houseImg" src="../../' + houseInfo.allHouseImg[1].house_img_url + '"width="475" height="300">' +
+				'<img  class="houseImg" src="../../' + houseInfo.allHouseImg[2].house_img_url + '"width="475" height="300">' +
 				'</div><div class="layui-col-xs6">' +
-				'<img  class="houseImg" src="' + houseInfo.allHouseImg[3].house_img_url + '"width="475" height="300">' +
-				' <img  class="houseImg" src="' + houseInfo.allHouseImg[4].house_img_url + '" width="475" height="300">' +
+				'<img  class="houseImg" src="../../' + houseInfo.allHouseImg[3].house_img_url + '"width="475" height="300">' +
+				' <img  class="houseImg" src="../../' + houseInfo.allHouseImg[4].house_img_url + '" width="475" height="300">' +
 				'</div></div>';
 			$("#houseImgDiv").append(html);
 			$("#price").empty();
@@ -644,13 +645,13 @@
 				'<h1><b>' + houseInfo.house_name + '</b></h1><br>' +
 				'<h3>' + houseInfo.room_number + '间卧室·1张床·' + houseInfo.toilet_number +
 				'间卫生间·最多住' + houseInfo.house_intake + '人</h3><br><hr >' +
-				'<a href="#user"><img style="border-radius: 50%;" width="70px" height="70px" src="' + houseInfo.user_img + '"  >' +
+				'<a href="#user"><img style="border-radius: 50%;" width="70px" height="70px" src="../../' + houseInfo.user_img + '"  >' +
 				'<h2 style="margin-left: 100px; margin-top: -50px;">房东：' + houseInfo.user_name + '</h2><br><br></a>';
 			$("#t1").append(html);
 			$("#tips").empty();
 			html = '<br><br><br>' +
 				'<h2>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + houseInfo.house_describe +
-				'</h2>';
+				'</h2><br><br>';
 			$("#tips").append(html);
 			$("#t2").empty();
 			if (houseInfo.lease_type == '整个房源') {
@@ -677,7 +678,7 @@
 				$("#comment").append("<br><h2>暂无评论<h2>")
 			for (i = 0; i < houseInfo.allHouseComment.length; i++) {
 				html = '<div ><br><br><a href="">' +
-					'<img style="border-radius: 50%;" width="60px" height="60px" src="' + houseInfo.allHouseComment[i].user_headimg_url +
+					'<img style="border-radius: 50%;" width="60px" height="60px" src="../../' + houseInfo.allHouseComment[i].user_headimg_url +
 					'"  >' +
 					'<h2 style="margin-left: 80px; margin-top: -50px;">' + houseInfo.allHouseComment[i].user_name + '</h2>' +
 					'<h3 style="margin-left: 80px; margin-top: 0px;">' + houseInfo.allHouseComment[i].houseCom_date + '</h3><br>' +
@@ -685,8 +686,9 @@
 				$("#comment").append(html)
 			}
 			$("#t4").empty();
-			html = '<h2><b>' + houseInfo.house_address + '</b></h2><br><br><h2>出行信息</h2><br>' +
-				'<h3>' + houseInfo.address_describe + '</h3>';
+			html = '<h2><b>' + houseInfo.house_address + '</b></h2><br><br>' +
+				'<h3>' + houseInfo.address_describe + '</h3><br><br><h2>出行信息</h2><br>' +
+				'<h3>' + houseInfo.travel_information + '</h3>';
 			$("#t4").append(html);
 			$("#t5").empty();
 			for (var i = 0; i < houseInfo.building_name.length; i++) {
@@ -823,7 +825,7 @@
 				}
 				console.log(bool)
 				if (bool) {
-					layer.msg("时间选择有误！");
+					layer.msg("时间选择区间已有日期预定！");
 				} else {
 					let orderInfo = {
 						user_id: userInfo.user_id,
@@ -863,7 +865,7 @@
 		timeList = []
 		//请求后端拿到已预订日期
 		$.getJSON(basePath + "reserve.do?method=getReserveDateByHouseID", {
-			"house_id": 23
+			"house_id":house_id
 		}, function(res) {
 			list = res.list;
 			for (let i = 0; i < list.length; i++) {

@@ -13,6 +13,7 @@
 				width: 568px;
 				height: 514px;
 			}
+
 			.btn,
 			.login input {
 				margin-left: 30px;
@@ -21,6 +22,7 @@
 				font-size: 20px;
 				border-radius: 15px;
 			}
+
 			#sendCode {
 				border-radius: 15px;
 				position: absolute;
@@ -37,14 +39,13 @@
 			<span style="margin-left: 30px; 
 			font-weight: bold;font-size: 25px; color: #777777;">登录QuadraL</span><br>
 			<h4 style="margin-left: 30px; ">未注册的手机号验证后将自动创建新账号</h4><br>
-				<input id="telId" type="tel" name="phone" lay-verify="phone" 
-				autocomplete="off" placeholder="手机号"
-				 class="layui-input"><br><br><br>
-				<input type="text" id="code" name="code" lay-verify="code|required" placeholder="验证码" autocomplete="off" 
-				class="layui-input"><br><br><br>
-				<button class="layui-btn btn" lay-submit lay-filter="loginBtn" id="myBtn">立即登录</button>
-			<br><hr><br><br>
-			<button class="layui-btn layui-bg-gray btn"  id="loginByPwd" onclick=loginByPwd() >账号密码登录</button>
+			<input id="telId" type="tel" name="phone" lay-verify="phone" autocomplete="off" placeholder="手机号" class="layui-input"><br><br><br>
+			<input type="text" id="code" name="code" lay-verify="code|required" placeholder="验证码" autocomplete="off" class="layui-input"><br><br><br>
+			<button class="layui-btn btn" lay-submit lay-filter="loginBtn" id="myBtn">立即登录</button>
+			<br>
+			<hr><br><br>
+			<button class="layui-btn layui-bg-gray btn" id="loginByPwd" onclick=loginByPwd()>账号密码登录</button>
+			<button class="layui-btn layui-btn-warm" style="width: 120px;" id="sendCode" >发送验证码>></button>
 		</div>
 		<script>
 			layui.use(['layer', 'form'], function() {
@@ -60,97 +61,149 @@
 				});
 			});
 			var code = 1129;
+
 			function loginByPwd() {
-				window.location.href="loginByPwd.html";
+				window.location.href = "loginByPwd.html";
 			}
- 			$("#telId").mouseleave(function() {
-				$("button").remove("#sendCode");
-				var tel = $("#telId").val();
-				console.log(tel);
-				if (/^((\d{3}-\d{8}|\d{4}-\d{7,8})|(1[3|5|7|8][0-9]{9}))$/.test(tel)) {
-					$(".login").append('<button class="layui-btn layui-btn-warm" id="sendCode" >发送验证码>></button>')
-				} else {
-					$("button").remove("#sendCode");
-				}
-			});
-			var num =1;
+			var num = 1;
 			//获得验证码
-			$("body").on("click","#sendCode",function() {
-				if(getCookie("login") == "false") {
-					layer.msg("今天不能登录！");
+			$("body").on("click", "#sendCode", function() {
+				if (getCookie("login") == "false") {
+					layer.msg("登录次数过多，今天不能登录！");
 					$("#sendCode").remove();
 					return;
 				}
-				if(num >= 10) {
+				if (num >= 10) {
 					setCookie("login", "false", 1);
-					layer.msg("今天不能登录！");
+					layer.msg("登录次数过多，今天不能登录！");
 					return;
 				}
-				user_phone=$("#telId").val();
-				$.getJSON(basePath+"user.do?method=getPhoneCode&callback=?",
-					{"user_phone":user_phone},function(res){
+				if (flag == false) { //如果这个按钮是禁用状态，刚刚被点击过。就不能点击
+					return;
+				}
+				user_phone = $("#telId").val();
+				if (/^((\d{3}-\d{8}|\d{4}-\d{7,8})|(1[3|5|7|8][0-9]{9}))$/.test(user_phone)) {
+					flag = false; //每点击一下都吧flag改flase不能连续点击
+					//把按钮设置成禁用
+					$(this).toggleClass("layui-disabled");
+					$(this).text(time + "秒");
+					//每秒钟修改倒计时
+					var si = window.setInterval(function() {
+						$("#sendCode").text(--time + "秒");
+					}, 1000);
+					//让计时器运作60秒之后再flag=true
+					window.setTimeout(function() {
+						flag = true;
+						//清除倒计时
+						window.clearInterval(si);
+						time = 60;
+						//去掉禁用
+						$("#sendCode").toggleClass("layui-disabled");
+						$("#sendCode").text("发送验证码");
+					}, 60000);
+					$.getJSON(basePath + "user.do?method=getPhoneCode&callback=?", {
+						"user_phone": user_phone
+					}, function(res) {
 						layer.msg(res.hint);
-				});
+					});
+					
+				} else {
+					layer.msg("手机号格式错误!")
+				}
+				
 			});
-			
+
 			//设置cookie
 			function setCookie(cname, cvalue, exdays) {
-			    var d = new Date();
-			    d.setTime(d.getTime() + (exdays*24*60*60*1000));
-			    var expires = "expires="+ d.toUTCString();
-			    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-			} 
-			
+				var d = new Date();
+				d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+				var expires = "expires=" + d.toUTCString();
+				document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+			}
 			//获取Cookie
 			function getCookie(cname) {
-			    var name = cname + "=";
-			    var decodedCookie = decodeURIComponent(document.cookie);
-			    var ca = decodedCookie.split(';');
-			    for(var i = 0; i <ca.length; i++) {
-			        var c = ca[i];
-			        while (c.charAt(0) == ' ') {
-			            c = c.substring(1);
-			         }
-			         if (c.indexOf(name) == 0) {
-			            return c.substring(name.length, c.length);
-			         }
-			     }
-			    return "";
-			} 
-			
-			$("#myBtn").on("click",function() {
-				if(getCookie("login") == "false") {
-					$("#myBtn").attr("class","layui-btn btn  layui-btn-disabled");
+				var name = cname + "=";
+				var decodedCookie = decodeURIComponent(document.cookie);
+				var ca = decodedCookie.split(';');
+				for (var i = 0; i < ca.length; i++) {
+					var c = ca[i];
+					while (c.charAt(0) == ' ') {
+						c = c.substring(1);
+					}
+					if (c.indexOf(name) == 0) {
+						return c.substring(name.length, c.length);
+					}
+				}
+				return "";
+			}
+			var code = $("#code").val();
+
+			var flag = true; //可以点击
+			var time = 60; //倒计时
+			$("#getCode").click(function() {
+				if (flag == false) { //如果这个按钮是禁用状态，刚刚被点击过。就不能点击
 					return;
 				}
-				if(num >= 10) {
+				alert();
+				flag = false; //每点击一下都吧flag改flase不能连续点击
+				//把按钮设置成禁用
+				$(this).toggleClass("layui-disabled");
+
+				$(this).text(time + "秒后可以继续发送短信");
+				var telephone = $("#telephone").val();
+				$.post("getCode.do", {
+					"telephone": telephone
+				}, function(result) {
+
+				});
+				//每秒钟修改倒计时
+				var si = window.setInterval(function() {
+					$("#getCode").text(--time + "秒后可以继续发送短信");
+				}, 1000);
+				//让计时器运作60秒之后再flag=true
+				window.setTimeout(function() {
+					flag = true;
+					//清除倒计时
+					window.clearInterval(si);
+					time = 60;
+					//去掉禁用
+					$("#getCode").toggleClass("layui-disabled");
+					$("#getCode").text("获取验证码");
+				}, 60000);
+			});
+			$("#myBtn").on("click", function() {
+				if (getCookie("login") == "false") {
+					$("#myBtn").attr("class", "layui-btn btn  layui-btn-disabled");
+					return;
+				}
+				if (num >= 10) {
 					setCookie("login", "false", 1);
 					layer.msg("今天不能登录！");
 					return;
 				}
-				var telId =$("#telId").val();
+				var telId = $("#telId").val();
 				var code = $("#code").val();
-				map='{"user_phone":"'+telId+'","code":"'+code+'"}';
+				map = '{"user_phone":"' + telId + '","code":"' + code + '"}';
 				//后端验证并获得userInfoCookie
-				$.getJSON(basePath+"user.do?method=loginByPhone&callback=?",
-					{"map":map},function(result){
-					userInfo=result.userInfo;
+				$.getJSON(basePath + "user.do?method=loginByPhone&callback=?", {
+					"map": map
+				}, function(result) {
+					userInfo = result.userInfo;
 					console.log(result)
-					if(userInfo != null) {
+					if (userInfo != null) {
 						layer.msg(result.msg);
 						objString = JSON.stringify(userInfo);
 						setCookie("userInfo", objString, 1);
-						window.setTimeout (function() {
+						window.setTimeout(function() {
 							layer.close(layer.index);
 							parent.location.reload();
-						},1200);
-					}else {
+						}, 1200);
+					} else {
 						layer.msg(result.msg);
 					}
-					
+
 				});
 				num++;
 			});
-				
 		</script>
 </html>

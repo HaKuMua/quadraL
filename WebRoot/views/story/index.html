@@ -34,7 +34,6 @@
 			}
 
 			.foot {
-				margin-top: 180px;
 				width: 1090px;
 				margin-left: 550px;
 			}
@@ -44,8 +43,8 @@
 		<div id="top">
 			<ul class="layui-nav layui-bg-green" id="navId">
 				<li class="layui-nav-item">
-					<a href="../index.html">
-						<img src="../../img/logo.jpg" class="layui-nav-img">
+					<a href="index.html">
+						<img src="../../img/logo.jpg" style="border-radius: 50%;" width="49px" height="49px">
 					</a>
 				</li>
 				<div id="rightNav">
@@ -117,7 +116,6 @@
 				</div>
 			</div>
 		</div>
-		<div id="page"></div>
 		<div class="foot">
 			<div>
 				<div>京ICP备16017121号-3 京ICP证 160773号
@@ -141,14 +139,26 @@
 			user_id: '1001',
 			islanlord: 1
 		};
-		var articleInfo = [{
-			article_id: '1',
-			article_name: '上海魔都民宿 | 人均300入住魔都小众超民国风复古民宿！',
-			article_img: '../../img/story/e19adcd4-1c48-4eeb-b855-1987a414b951.jpg',
-			user_img: '../../img/timg.jpg',
-			article_praise: 20,
-			article_collect: 12
-		}]
+		var articleInfo1 = [
+			// {
+			// 	article_id: '1',
+			// 	article_name: '上海魔都民宿 | 人均300入住魔都小众超民国风复古民宿！',
+			// 	article_img: '../../img/story/e19adcd4-1c48-4eeb-b855-1987a414b951.jpg',
+			// 	user_img: '../../img/timg.jpg',
+			// 	article_praise: 20,
+			// 	article_collect: 12
+			// }
+		]
+		var articleInfo2 = [
+			// {
+			// 	article_id: '1',
+			// 	article_name: '上海魔都民宿 | 人均300入住魔都小众超民国风复古民宿！',
+			// 	article_img: '../../img/story/e19adcd4-1c48-4eeb-b855-1987a414b951.jpg',
+			// 	user_img: '../../img/timg.jpg',
+			// 	article_praise: 20,
+			// 	article_collect: 12
+			// }
+		]
 
 		json = getCookie('userInfo');
 		if (json != '' || json == null) {
@@ -163,8 +173,8 @@
 			var html = '<li class="layui-nav-item " id="china"> <a href="../user/myOrder.html" >房源订单中心</a></li>' +
 				'<li class="layui-nav-item"><a href="../story/index.html">故事</a></li>' +
 				'<li class="layui-nav-item"><a href="#" id="notice">消息<span id="dot" class="layui-badge-dot"></a> </li>' +
-				' <li class="layui-nav-item" lay-unselect=""><a href="javascript:;"><img src="' +
-				userInfo.user_img + '" class="layui-nav-img">' + userInfo.user_name + '</a> ' +
+				' <li class="layui-nav-item" lay-unselect=""><a href="javascript:;"><img src="../../' +
+				userInfo.user_headimg_url + '" class="layui-nav-img">' + userInfo.user_name + '</a> ' +
 				'<dl class="layui-nav-child"><dd><a href="landlord.html"  style="color: gray;">个人中心</a></dd>' +
 				' <dd><a href="../user/modifyInfo.html" style="color: gray;">修改信息</a></dd><dd><a href="javascript:;" id="quit" style="color: gray;">退了</a></dd></dl>';
 			$("#rightNav").empty();
@@ -184,6 +194,7 @@
 			setCookie("userInfo", null, 0.1);
 			location.href = "../index.html";
 		});
+
 		//获取Cookie
 		function getCookie(cname) {
 			var name = cname + "=";
@@ -200,32 +211,22 @@
 			}
 			return "";
 		}
-		getArticle("#article1");
-		function getArticle(infoId) {
+		getArticle("#article1",articleInfo1);
+		function getArticle(infoId,articleInfo) {
 			$(infoId).empty();
 			var len = articleInfo.length;
 			for (var k = 0; k < len; k++) {
 				var html = '<div style="margin-top:50px;" class="layui-col-xs3"><a href="home.html?article_id=' +
 					articleInfo[k].article_id + '">' +
-					'<img src="' + articleInfo[k].article_img + '" width="230px" height="290px" >' +
+					'<img src="../../' + articleInfo[k].image_url + '" width="230px" height="290px" >' +
 					'<h3 style="height:50px;">' + articleInfo[k].article_name + '</h3><br>' +
-					'<img src="' + articleInfo[k].user_img + '" width="30px" height="30px"  style="border-radius:50%;">' +
+					'<img src="../../' + articleInfo[k].user_headimg_url + '" width="30px" height="30px"  style="border-radius:50%;">' +
 					'&nbsp;&nbsp;&nbsp;<i class="layui-icon layui-icon-praise" >' + articleInfo[k].article_praise + '</i>' +
-					'&nbsp;&nbsp;&nbsp;<i class="layui-icon layui-icon-reply-fill" >' + articleInfo[k].article_collect + '</i>' +
+					'&nbsp;&nbsp;&nbsp;<i class="layui-icon layui-icon-reply-fill" >' + articleInfo[k].commCount + '</i>' +
 					'</a><br></div>';
 				$(infoId).append(html);
 			}
 		}
-
-		$("#story1").on("click", function() {
-			$.post(basePath + "article.do?method=getPageArticleInfo", {
-				"articlePresentPage": 1
-			}, function(result) {
-				 console.log(result.list);
-				 articleInfo=result.list;
-				 getArticle("#article2");
-			}, "json");
-		});
 	</script>
 	<script>
 		layui.use(['element', 'layer', 'laypage', 'flow'], function() {
@@ -242,34 +243,6 @@
 				}
 			};
 
-			$.post(basePath + "article.do?method=getPageArticleInfo", {
-				"articlePresentPage": 14
-			}, function(result) {
-				// console.log(result.list);
-				// articleInfo=result.list;
-				 //getArticle("#article1");
-				//加载layui的显示页码的插件
-				laypage.render({
-					elem: 'page',
-					count: result.countRow, //获取返回值中的总行数
-					first: '首页',
-					last: '尾页',
-					prev: '<em>上一页</em>',
-					next: '<em>下一页</em>',
-					jump: function(obj, first) { //点击页码的回调函数
-						//obj包含了当前分页的所有参数，比如：
-						console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
-						console.log(obj.limit); //得到每页显示的条数
-						//查询一页的数据
-						$.post(basePath + "article.do?method=getPageArticleInfo", {
-							"articlePresentPage": obj.curr
-						}, function(result) {
-							// articleInfo=result.list;
-							//  getArticle("#article1");
-						}, "json");
-					}
-				});
-			}, "json");
 
 			$('.site-demo-active').on('click', function() {
 				var othis = $(this),
@@ -278,23 +251,45 @@
 			});
 
 			//流加载
-			// flow.load({
-			//     elem: '#demo' //指定列表容器
-			//     ,done: function(page, next){ //到达临界点（默认滚动触发），触发下一页
-			//       var lis = [];
-			//       //以jQuery的Ajax请求为例，请求下一页数据（注意：page是从2开始返回）
-			//       $.get('/api/list?page='+page, function(res){
-			//         //假设你的列表返回在data集合中
-			//         layui.each(res.data, function(index, item){
-			//           lis.push('<li>'+ item.title +'</li>');
-			//         }); 
-
-			//         //执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页
-			//         //pages为Ajax返回的总页数，只有当前页小于总页数的情况下，才会继续出现加载更多
-			//         next(lis.join(''), page < res.pages);    
-			//       });
-			//     }
-			// });
+			flow.load({
+				elem: '#article2', //指定列表容器
+				isAuto: false,
+				done: function(page, next) { //到达临界点（默认滚动触发），触发下一页
+					var lis = [];
+					//以jQuery的Ajax请求为例，请求下一页数据（注意：page是从2开始返回）
+					$.get(basePath + "article.do?method=getPageArticleInfo&articlePresentPage=" + page, function(res) {
+						//假设你的列表返回在data集合中
+						layui.each(res.list, function(index, item) {
+							articleInfo2.push(res.list[index]);
+							getArticle("#article2",articleInfo2);
+						});
+						//执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页
+						//pages为Ajax返回的总页数，只有当前页小于总页数的情况下，才会继续出现加载更多
+						next(lis.join(''), page < res.pages);
+					},"json");
+				}
+			});
+			
+			//流加载
+			flow.load({
+				elem: '#article1', //指定列表容器
+				isAuto: false,
+				done: function(page, next) { //到达临界点（默认滚动触发），触发下一页
+					var lis = [];
+					//以jQuery的Ajax请求为例，请求下一页数据（注意：page是从2开始返回）
+					$.get(basePath + "article.do?method=getPageArticleInfo&articlePresentPage=" + page, function(res) {
+						//假设你的列表返回在data集合中
+						layui.each(res.list, function(index, item) {
+							console.log(res.list[index])
+							articleInfo1.push(res.list[index]);
+							getArticle("#article1",articleInfo1);
+						});
+						//执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页
+						//pages为Ajax返回的总页数，只有当前页小于总页数的情况下，才会继续出现加载更多
+						next(lis.join(''), page < res.pages);
+					},"json");
+				}
+			});
 
 		});
 	</script>

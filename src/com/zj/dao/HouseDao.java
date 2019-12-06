@@ -121,7 +121,7 @@ public class HouseDao implements HouseDaoImpl{
 	 */
 	public List<House> getHouseByAdd(String house_address) throws SQLException {
 		conn = GetConn.getConn();
-		String sql = "select * from house where house_address LIKE '%?%'";
+		String sql = "select * from house where house_address  like \"%\"?\"%\"";
 		List<House> data = qr.query(conn, sql, new BeanListHandler<House>(House.class),house_address);
 		conn.close();
 		return data;

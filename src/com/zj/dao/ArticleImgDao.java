@@ -50,10 +50,10 @@ public class ArticleImgDao implements ArticleImgDaoImpl{
 	 * 通过id查询文章图片
 	 * @throws SQLException 
 	 */
-	public ArticleImg queryArticleImgById(Integer image_id) throws SQLException {
+	public ArticleImg queryArticleImgById(Integer article_id) throws SQLException {
 		conn = GetConn.getConn();
-		String sql = "select * from article_image where image_id = ?";
-		ArticleImg data =  qr.query(conn, sql, new BeanHandler<ArticleImg>(ArticleImg.class), image_id);
+		String sql = "select * from article_image where article_id = ?";
+		ArticleImg data =  qr.query(conn, sql, new BeanHandler<ArticleImg>(ArticleImg.class), article_id);
 		GetConn.closeConn(conn);
 		return data;
 	}
