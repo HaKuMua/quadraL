@@ -27,21 +27,21 @@ public class UserInfoServlet extends BaseServlet {
 	public String callback;
 	public String user_phone;
 	// 当前页数
-	private Integer currentPage;
+	private Integer page;
 	// 总页数
 	private Integer countPage;
 	// 每页条数
-	private Integer pageSize;
+	private Integer limit;
 
 	// 返回所有用户信息
 	public void getAllUserInfo(HttpServletRequest request,
 			HttpServletResponse response) throws IOException, SQLException {
-		Map<String, Object>map = userService.getAllUserInfo(currentPage, pageSize);
+		Map<String, Object> map = userService.getAllUserInfo(limit, page);
 		JSONObject obj = new JSONObject(map);
 		System.out.println("obj:" + obj);
 		response.getWriter().print(callback + "(" + obj + ")");
+		
 	}
-
 	// 按手机号返回单条用户信息
 	public void getUserInfoByUserPhone(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {

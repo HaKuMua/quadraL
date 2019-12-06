@@ -34,10 +34,9 @@ public class HouseDao implements HouseDaoImpl{
 		String sql = "select * from house";
 		List<House> data = qr.query(conn, sql, new BeanListHandler<House>(House.class));
 		GetConn.closeConn(conn);
-		System.out.println("data :"+data);
 		return data;
 	}
-	/*
+	/**
 	 * 获取订单分页
 	 */
 	public List<House> queryHousePage(Integer startRow,Integer pageSize) throws SQLException{

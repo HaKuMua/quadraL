@@ -37,7 +37,7 @@ public class GrogshopOrderDao implements GrogshopOrderDaoImpl {
 		GetConn.closeConn(conn);
 		return data;
 	}
-	/*
+	/**
 	 * 获取订单分页
 	 */
 	public List<GrogshopOrder> queryOrderPage(Integer startRow,Integer pageSize) throws SQLException{
@@ -47,7 +47,8 @@ public class GrogshopOrderDao implements GrogshopOrderDaoImpl {
 		GetConn.closeConn(conn);
 		return data;
 	}
-	/*
+	
+	/**
 	 * 订单总页数
 	 */
 	public Long queryCountOrder() throws SQLException{

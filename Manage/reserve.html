@@ -161,12 +161,6 @@
 								</a>
 							</li>
 							<li class="sidebar-item">
-								<a class="sidebar-link waves-effect waves-dark sidebar-link" href="userinfo-check.html" aria-expanded="false">
-									<i class="mdi mdi-file"></i>
-									<span class="hide-menu">用户信息审核</span>
-								</a>
-							</li>
-							<li class="sidebar-item">
 								<a class="sidebar-link waves-effect waves-dark sidebar-link" href="comment-check.html" aria-expanded="false">
 									<i class="mdi mdi-arrange-bring-forward"></i>
 									<span class="hide-menu">文章评论审核</span>
@@ -218,37 +212,8 @@
 				<!-- Container fluid  -->
 				<div class="container-fluid">
 					<!-- Start Page Content -->
-					<div class="row">
-						<div class="col-12">
-							<div class="card">
-								<div class="card-body">
-									<div class="col-12">
-										<div class="card">
-											<div class="card-body">
-												<h4 class="card-title">预定信息</h4>
-											</div>
-										</div>
-									</div>
-									<table class="table table-hover" id="tablebox">
-										<thead>
-											<tr>
-												<th scope="col" class="t1">预定编号</th>
-												<th scope="col" class="t2">入住日期</th>
-												<th scope="col" class="t3">预定天数</th>
-												<th scope="col" class="t4">退房日期</th>
-												<th scope="col" class="t5">用户姓名</th>
-												<th scope="col" class="t6">房间名称</th>
-											</tr>
-										</thead>
-										<tbody id="tb">
-										</tbody>
-									</table>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div id="demo1">
-					</div>
+					<table class="layui-hide" id="tablebox">
+					</table>
 					<!-- End PAge Content -->
 					<!-- Right sidebar -->
 					<!-- .right-sidebar -->
@@ -283,48 +248,21 @@
 		</script> -->
 		<script src="layui/layui.js" charset="utf-8"></script>
 		<script>
-			layui.use(['laypage', 'layer'], function() {
-				var laypage = layui.laypage,
-					layer = layui.layer;
-
-				$.getJSON("http://localhost:80/QuadraL/reserve.do?method=getAllReserve&callback=?", function(
-					reserve_result) {
-					//加载layui的显示页码的插件
-					laypage.render({
-						elem: 'demo1',
-						count: reserve_result.pageUtil.countRow, //获取返回值中的总行数
-						limit: 2,
-						jump: function(obj, first) { //点击页码的回调函数
-							//obj包含了当前分页的所有参数，比如：
-							console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
-							console.log(obj.limit); //得到每页显示的条数
-							//查询一页的数据
-							$.getJSON("http://localhost:80/QuadraL/reserve.do?method=getAllReserve&callback=?", {
-								"currentPage": obj.curr,
-								"pageSize": obj.limit
-							}, function(reserve_result) {
-								$("#tb").empty(); //清除原来的数据
-								//通过遍历查询到的内容，把数据显示出来
-								$("#tb").append("<tr></tr>");
-								for (var i = 0; i < reserve_result.pageUtil.map.reserve.length; i++) {
-									var tr = document.createElement("tr");
-									tr.innerHTML = '<td class="t1">' + reserve_result.pageUtil.map.reserve[i].reserve_id +
-										'</td><td class="t2">' + reserve_result.pageUtil.map.reserve[i].reserve_date +
-										'</td><td class="t3">' + reserve_result.pageUtil.map.reserve[i].reserve_day_number +
-										'</td><td class="t4">' + reserve_result.pageUtil.map.reserve[i].check_out_date +
-										'<td class="t5">' + reserve_result.pageUtil.map.user[i].user_name + '</td><td class="t6">' +
-										reserve_result.pageUtil.map.reserve[i].house_id;
-									$("#tb").append(tr);
-								}
-
-
-							}, "json");
-						}
-					});
-
-
-				}, "json");
-
+			layui.use('table', function(){
+			  var table = layui.table;
+			  table.render({
+			    elem: '#tablebox'
+			    ,url:'http://localhost:80/QuadraL/reserve.do?method=getAllReserve&callback=?'
+			    ,cols: [[
+			      {field:'reserve_id', width:140, title: '预定编号', sort: true}
+			      ,{field:'reserve_date', width:160, title: '入住日期'}
+			      ,{field:'reserve_day_number', width:140, title: '预定天数'}
+			      ,{field:'check_out_date', width:160, title: '退房日期', sort: true}
+			      ,{field:'user_name', width:150, title: '用户姓名'}
+			      ,{field:'house_name', width:320, title: '房间名称'}
+			    ]]
+			    ,page: true
+			  });
 			});
 		</script>
 

@@ -14,7 +14,7 @@ public interface ReserveServiceImpl {
 	/**
 	 * 将所有预定信息包装成一个list<map>返回
 	 */
-	Map<String,Object> getAllReserve(Integer orderPresentPage,Integer pageSize)throws SQLException;
+	Map<String, Object> getAllReserve(Integer limit,Integer page) throws SQLException;
 	/**
 	 * 获得所有已预订时间
 	 * @return
@@ -26,4 +26,6 @@ public interface ReserveServiceImpl {
 //	 * @return
 //	 */
 //	String addReserveInfo(Map<String, Object> reserveInfo);
+
+	
 }

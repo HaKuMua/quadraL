@@ -25,6 +25,7 @@ import com.zj.dao.impl.HouseImgDaoImpl;
 import com.zj.dao.impl.HouseParticularsDaoImpl;
 import com.zj.dao.impl.UserDaoImpl;
 import com.zj.entity.BuildingCodes;
+import com.zj.entity.CheckInPerson;
 import com.zj.entity.Facilities;
 import com.zj.entity.GrogshopOrder;
 import com.zj.entity.House;
@@ -51,29 +52,40 @@ public class HouseService implements HouseServiceImpl {
 	 * 将所有房子信息包装成一个list<map>返回
 	 * @throws SQLException 
 	 */
-	public Map<String, Object> getAllHouseInfo(Integer housePresentPage,Integer pageSize) throws SQLException {
-		
-		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
-		// 订单分页
-		Long houseCount = houseDaoImpl.queryCountHouse();
-		PageUtil<House> pu = new PageUtil<House>();
-		pu.setCountRow(houseCount.intValue());
-		pu.setCurrentPage(housePresentPage);
-		pu.setPageSize(pageSize);
-		
-		int houseStartRow = pu.getStartRow();
-		int housePageSize = pu.getPageSize();
-		List<House> pageHouse = houseDaoImpl.queryHousePage(houseStartRow, housePageSize);
-		
-		
-		List<HouseImg> allHouseImg = houseImgDaoImpl.getAllHouseImgInfo();
-		Map<String,Object> dataMap = new HashMap<String, Object>();
-		dataMap.put("house", pageHouse);
-		dataMap.put("houseImg", allHouseImg);
-		
-		pu.setMap(dataMap);
+	public Map<String, Object> getAllHouseInfo(Integer limit,Integer page) throws SQLException {
 		Map<String,Object> map = new HashMap<String,Object>();
-		map.put("pageUtil", pu);
+		List<House> houseList = null;
+		try {
+			houseList = houseDaoImpl.queryHousePage((page-1)*10, limit);
+			List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+			for(House house : houseList){
+				Map<String, Object> houseMap = new HashMap<String, Object>();
+					houseMap.put("house_id", house.getHouse_id());
+					houseMap.put("user_name",userDaoImpl.getUserInfoById(house.getUser_id()).getUser_name() );
+					houseMap.put("house_name", house.getHouse_name());
+					houseMap.put("house_intake", house.getHouse_intake());
+					houseMap.put("lease_type", house.getLease_type());
+					houseMap.put("may_check_in_date", house.getMay_check_in_date());
+					houseMap.put("may_check_in_date", house.getMay_check_in_date());
+					houseMap.put("house_type", house.getHouse_type());
+					if(house.getHouse_state() == 0)
+						houseMap.put("house_state", "未审核");
+					else
+						houseMap.put("house_state", "已审核");
+					houseMap.put("house_price", house.getHouse_price());
+					houseMap.put("travel_information", house.getTravel_information());
+					houseMap.put("house_address", house.getHouse_address());
+				
+				list.add(houseMap);
+			}
+			map.put("data", list);
+			map.put("count", Integer.valueOf(houseDaoImpl.queryCountHouse().toString()));
+			map.put("msg", "");
+			map.put("code", 0);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return map;
 		
 	}

@@ -14,7 +14,7 @@ public interface HouseServiceImpl {
 	/**
 	 * 将所有房子信息包装成一个<map>返回方法接口
 	 */
-	Map<String, Object> getAllHouseInfo(Integer housePresentPage,Integer pageSize)throws SQLException;
+	Map<String, Object> getAllHouseInfo(Integer limit,Integer page)throws SQLException;
 	/**
 	 * 将单个房子信息包装成map返回方法接口
 	 */

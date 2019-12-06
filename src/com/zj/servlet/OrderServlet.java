@@ -33,14 +33,16 @@ public class OrderServlet extends BaseServlet {
 	//当前页数
 	private  Integer currentPage;
 	//总页数
-	private  Integer countPage;
+	private  Integer page;
+	//状态
+	private Integer state;
 	//每页条数
-	private  Integer pageSize;
+	private  Integer limit;
 	
 	// 返回订单所有信息
 	public void getAllGrogshopOrderInfo(HttpServletRequest request,
 			HttpServletResponse response) throws IOException, SQLException {
-		Map<String, Object>map = orderService.getAllGrogshopOrderInfo(currentPage,pageSize);
+		Map<String, Object> map = orderService.getAllGrogshopOrderInfo(limit,page);
 		JSONObject obj = new JSONObject(map);
 		System.out.println("obj:" + obj);
 		response.getWriter().print(callback + "(" + obj + ")");

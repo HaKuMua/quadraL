@@ -14,7 +14,7 @@ public interface UserServiceImpl {
 	/**
 	 * 将所有用户信息包装成一个list<map>返回
 	 */
-	Map<String,Object> getAllUserInfo(Integer userPresentPage,Integer pageSize)throws SQLException;
+	Map<String,Object> getAllUserInfo(Integer limit,Integer page)throws SQLException;
 	/**
 	 * 根据用户电话查询并返回其信息
 	 * 
@@ -90,4 +90,5 @@ public interface UserServiceImpl {
 	 * @return
 	 */
 	List<Map<String, Object>>  getMyComment(Integer user_id);
+	
 }

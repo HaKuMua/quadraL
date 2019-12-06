@@ -17,7 +17,7 @@ public interface GrogshopOrderServiceImpl {
 	 * @return
 	 * @throws SQLException 
 	 */
-	Map<String,Object> getAllGrogshopOrderInfo(Integer orderPresentPage,Integer pageSize) throws SQLException;
+	Map<String,Object> getAllGrogshopOrderInfo(Integer limit,Integer page) throws SQLException;
 	/**
 	 * 将单个订单信息包装成map返回方法接口
 	 */
@@ -38,4 +38,5 @@ public interface GrogshopOrderServiceImpl {
 	 * @return
 	 */
 	List<Map<String, Object>> getGrogshopOrderInfoByLandlordID(Integer user_id);
+	
 }

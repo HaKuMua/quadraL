@@ -161,12 +161,6 @@
 								</a>
 							</li>
 							<li class="sidebar-item">
-								<a class="sidebar-link waves-effect waves-dark sidebar-link" href="userinfo-check.html" aria-expanded="false">
-									<i class="mdi mdi-file"></i>
-									<span class="hide-menu">用户信息审核</span>
-								</a>
-							</li>
-							<li class="sidebar-item">
 								<a class="sidebar-link waves-effect waves-dark sidebar-link" href="comment-check.html" aria-expanded="false">
 									<i class="mdi mdi-arrange-bring-forward"></i>
 									<span class="hide-menu">文章评论审核</span>
@@ -218,38 +212,8 @@
 				<!-- Container fluid  -->
 				<div class="container-fluid">
 					<!-- Start Page Content -->
-					<div class="row">
-						<div class="col-12">
-							<div class="card">
-								<div class="card-body">
-									<div class="col-12">
-										<div class="card">
-											<div class="card-body">
-												<h4 class="card-title">订单信息</h4>
-											</div>
-										</div>
-									</div>
-									<table class="table table-hover" id="tablebox">
-										<thead>
-											<tr>
-												<th scope="col" class="t1">订单编号</th>
-												<th scope="col" class="t2">入住人姓名</th>
-												<th scope="col" class="t3">价格</th>
-												<th scope="col" class="t4">入住时间</th>
-												<th scope="col" class="t5">订单状态</th>
-												<th scope="col" class="t6">描述</th>
-												<th scope="col" class="t7">预定编号</th>
-											</tr>
-										</thead>
-										<tbody id="tb">
-										</tbody>
-									</table>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div id="demo1">
-					</div>
+					<table class="layui-hide" id="tablebox">
+					</table>
 					<!-- End PAge Content -->
 					<!-- Right sidebar -->
 					<!-- .right-sidebar -->
@@ -266,43 +230,23 @@
 		</div>
 		<script src="layui/layui.js" charset="utf-8"></script>
 		<script>
-			layui.use(['laypage', 'layer'], function() {
-				var laypage = layui.laypage,
-					layer = layui.layer;
-				$.getJSON("http://localhost:80/QuadraL/order.do?method=getAllGrogshopOrderInfo&callback=?", function(order_result) {
-					//加载layui的显示页码的插件
-					laypage.render({
-						elem: 'demo1',
-						count: order_result.pageUtil.countRow, //获取返回值中的总行数
-						limit: 2,
-						jump: function(obj, first) { //点击页码的回调函数
-							//obj包含了当前分页的所有参数，比如：
-							console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
-							console.log(obj.limit); //得到每页显示的条数
-							//查询一页的数据
-							$.getJSON("http://localhost:80/QuadraL/order.do?method=getAllGrogshopOrderInfo&callback=?", {
-								"currentPage": obj.curr,
-								"pageSize": obj.limit
-							}, function(order_result) {
-								$("#tb").empty(); //清除原来的数据
-								//通过遍历查询到的内容，把数据显示出来
-								$("#tb").append("<tr></tr>");
-								for (var i = 0; i < order_result.pageUtil.map.order.length; i++) {
-									var tr = document.createElement("tr");
-									//后端数字数据 转 状态文字信息
-									var text = order_result.pageUtil.map.order[i].grogshop_order_state > 0 ? "已入住" : "未入住";
-									tr.innerHTML = '<td class="t1">' + order_result.pageUtil.map.order[i].grogshop_order_id +
-										'</td><td class="t2">' + order_result.pageUtil.map.order[i].user_name +
-										'</td><td class="t3">' + order_result.pageUtil.map.order[i].price + '</td><td class="t4">' +
-										order_result.pageUtil.map.order[i].place_an_order_date +
-										'<td class="t5">' + text + '</td><td class="t6">' + order_result.pageUtil.map.order[i].grogshop_order_describe +
-										'<td class="t7">' + order_result.pageUtil.map.order[i].reserve_id;
-									$("#tb").append(tr);
-								}
-							}, "json");
-						}
-					});
-				}, "json");
+			layui.use('table', function(){
+			  var table = layui.table;
+			  
+			  table.render({
+			    elem: '#tablebox'
+			    ,url:'http://localhost:80/QuadraL/order.do?method=getAllGrogshopOrderInfo&callback=?&state=1'
+			    ,cols: [[
+			      {field:'grogshop_order_id', width:240, title: '订单ID', sort: true}
+			      ,{field:'user_name', width:160, title: '下单人姓名'}
+			      ,{field:'price', width:140, title: '交易金额'}
+			      ,{field:'place_an_order_date', width:140, title: '下单时间', sort: true}
+			      ,{field:'grogshop_order_state', width:120, title: '订单状态'}
+			      ,{field:'grogshop_order_describe', width:200, title: '订单描述'}
+			      ,{field:'reserve_id', width:120, title: '预定ID'}
+			    ]]
+			    ,page: true
+			  });
 			});
 		</script>
 	</body>

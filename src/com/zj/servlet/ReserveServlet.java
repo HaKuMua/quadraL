@@ -24,16 +24,16 @@ public class ReserveServlet extends BaseServlet {
 	private ReserveServiceImpl reserveService = new ReserveService();
 
 	// 当前页数
-	private Integer currentPage;
+	private Integer page;
 	// 总页数
 	private Integer countPage;
 	// 每页条数
-	private Integer pageSize;
+	private Integer limit;
 
 	// 返回所有的预定信息
 	public void getAllReserve(HttpServletRequest request,
 			HttpServletResponse response) throws IOException, SQLException {
-		Map<String, Object>map = reserveService.getAllReserve(currentPage, pageSize);
+		Map<String, Object>map = reserveService.getAllReserve(limit,page);
 		JSONObject obj = new JSONObject(map);
 		System.out.println("obj:" + obj);
 		response.getWriter().print(callback + "(" + obj + ")");

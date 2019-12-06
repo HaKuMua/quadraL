@@ -61,7 +61,7 @@ public interface GrogshopOrderDaoImpl {
 	 */
 	List<GrogshopOrder> queryOrderPage(Integer startRow, Integer pageSize)
 			throws SQLException;
-
+	
 	/**
 	 * 获取订单总页数接口
 	 * 

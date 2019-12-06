@@ -57,25 +57,36 @@ public class GrogshopOrderService implements GrogshopOrderServiceImpl {
 	 * @return
 	 * @throws SQLException
 	 */
-	public Map<String,Object> getAllGrogshopOrderInfo(Integer orderPresentPage,Integer pageSize)
+	public Map<String,Object> getAllGrogshopOrderInfo(Integer limit,Integer page)
 			throws SQLException {
-		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
-		// 订单分页
-		Long orderCount = orderDaoImpl.queryCountOrder();
-		PageUtil<GrogshopOrder> pu = new PageUtil<GrogshopOrder>();
-		pu.setCountRow(orderCount.intValue());
-		pu.setCurrentPage(orderPresentPage);
-		pu.setPageSize(pageSize);
-		
-		int orderStartRow = pu.getStartRow();
-		int orderPageSize = pu.getPageSize();
-		
-		List<GrogshopOrder> pageOrder = orderDaoImpl.queryOrderPage(orderStartRow, orderPageSize);
-		Map<String,Object> dataMap = new HashMap<String, Object>();
-		dataMap.put("order", pageOrder);
-		pu.setMap(dataMap);
 		Map<String,Object> map = new HashMap<String,Object>();
-		map.put("pageUtil", pu);
+		List<GrogshopOrder> orderList = null;
+		try {
+			orderList = orderDaoImpl.queryOrderPage((page-1)*10, limit);
+			List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+			for(GrogshopOrder order : orderList){
+				Map<String, Object> orderMap = new HashMap<String, Object>();
+				orderMap.put("grogshop_order_id", order.getGrogshop_order_id());
+				orderMap.put("user_name", userDaoImpl.getUserInfoById(order.getUser_id()).getUser_name());
+				orderMap.put("price", order.getPrice());
+				orderMap.put("place_an_order_date", order.getPlace_an_order_date());
+				if(order.getGrogshop_order_state().equals("1"))
+					orderMap.put("grogshop_order_state", "已支付");
+				else
+					orderMap.put("grogshop_order_state", "未支付");
+				orderMap.put("grogshop_order_describe", order.getGrogshop_order_describe());
+				orderMap.put("reserve_id", order.getReserve_id());
+				list.add(orderMap);
+			}
+			map.put("data", list);
+			map.put("count", Integer.valueOf(orderDaoImpl.queryCountOrder().toString()));
+			map.put("msg", "");
+			map.put("code", 0);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		return map;
 	}
 

@@ -27,18 +27,17 @@ public class HouseInfoServlet extends BaseServlet {
 	public String callback;
 	public String house_id;
 	// 当前页数
-	private Integer currentPage;
+	private Integer page;
 	// 总页数
 	private Integer countPage;
 	// 每页条数
-	private Integer pageSize;
+	private Integer limit;
 
 	// 返回所有房子信息
 	public void getAllHouseInfo(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException,
 			SQLException {
-		Map<String, Object> map = houseService.getAllHouseInfo(currentPage,
-				pageSize);
+		Map<String, Object> map = houseService.getAllHouseInfo(limit,page);
 		JSONObject obj = new JSONObject(map);
 		System.out.println("obj:" + obj);
 		response.getWriter().print(callback + "(" + obj + ")");

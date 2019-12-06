@@ -10,8 +10,10 @@ import org.apache.log4j.Logger;
 
 import cn.com.util.PageUtil;
 
+import com.zj.dao.HouseDao;
 import com.zj.dao.ReserveDao;
 import com.zj.dao.UserDao;
+import com.zj.dao.impl.HouseDaoImpl;
 import com.zj.dao.impl.ReserveDaoImpl;
 import com.zj.dao.impl.UserDaoImpl;
 import com.zj.entity.GrogshopOrder;
@@ -23,32 +25,35 @@ public class ReserveService implements ReserveServiceImpl{
 	private ReserveDaoImpl reserveDaoImpl = new ReserveDao();
 	private Logger log = Logger.getLogger(ReserveService.class);
 	private UserDaoImpl  userDaoImpl = new UserDao(); 
+	private HouseDaoImpl houseDaoImpl = new HouseDao();
 	/**
 	 * 获得所有预订表信息
 	 */
 	@Override
-	public Map<String, Object> getAllReserve(Integer orderPresentPage,Integer pageSize) throws SQLException {
-		List<Map<String, Object>> list = null;
-		List<Reserve> reserveList = reserveDaoImpl.getAllReserve();
-		Long orderCount = reserveDaoImpl.queryCountReserve();
-		
-		PageUtil<Reserve> pu = new PageUtil<Reserve>();
-		pu.setCountRow(orderCount.intValue());
-		pu.setCountPage(orderPresentPage);
-		pu.setCurrentPage(orderPresentPage);
-		pu.setPageSize(pageSize);
-		
-		int orderStartRow = pu.getStartRow();
-		int orderPageSize = pu.getPageSize();
-		
-		List<User> userinfo = userDaoImpl.getAllUserInfo();
-		List<Reserve> pageReserve = reserveDaoImpl.queryReservePage(orderStartRow, orderPageSize);
-		Map<String,Object> dataMap = new HashMap<String, Object>();
-		dataMap.put("user", userinfo);
-		dataMap.put("reserve", pageReserve);
-		pu.setMap(dataMap);
+	public Map<String, Object> getAllReserve(Integer limit,Integer page) throws SQLException {
 		Map<String,Object> map = new HashMap<String,Object>();
-		map.put("pageUtil", pu);
+		List<Reserve> reserveList = null;
+		try {
+			reserveList = reserveDaoImpl.queryReservePage((page-1)*10, limit);
+			List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+			for(Reserve reserve : reserveList){
+				Map<String, Object> orderMap = new HashMap<String, Object>();
+					orderMap.put("reserve_id", reserve.getReserve_id());
+					orderMap.put("reserve_date", reserve.getReserve_date());
+					orderMap.put("reserve_day_number", reserve.getReserve_day_number());
+					orderMap.put("check_out_date", reserve.getCheck_out_date());
+					orderMap.put("user_name", userDaoImpl.getUserInfoById(reserve.getUser_id()).getUser_name());
+					orderMap.put("house_name", houseDaoImpl.getHouseInfoByID(reserve.getHouse_id()).getHouse_name());
+				list.add(orderMap);
+			}
+			map.put("data", list);
+			map.put("count", Integer.valueOf(reserveDaoImpl.queryCountReserve().toString()));
+			map.put("msg", "");
+			map.put("code", 0);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return map;
 	}
 	/**

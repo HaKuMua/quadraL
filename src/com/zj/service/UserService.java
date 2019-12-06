@@ -39,28 +39,36 @@ public class UserService implements UserServiceImpl {
 	 * 将所有用户信息包装成一个list<map>返回
 	 * @throws SQLException 
 	 */
-	public Map<String, Object> getAllUserInfo(Integer userPresentPage,Integer pageSize) throws SQLException {
-		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
-		// 订单分页
-		Long orderCount = userDaoImpl.queryCountUser();
-		PageUtil<GrogshopOrder> pu = new PageUtil<GrogshopOrder>();
-		pu.setCountRow(orderCount.intValue());
-		pu.setCountPage(userPresentPage);
-		pu.setCurrentPage(userPresentPage);
-		pu.setPageSize(pageSize);
-		
-		int userStartRow = pu.getStartRow();
-		int userPageSize = pu.getPageSize();
-		
-		List<User> pageUser = userDaoImpl.queryUserPage(userStartRow, userPageSize);
-		Map<String,Object> dataMap = new HashMap<String, Object>();
-		dataMap.put("user", pageUser);
-		pu.setMap(dataMap);
+	public Map<String, Object> getAllUserInfo(Integer limit,Integer page){
 		Map<String,Object> map = new HashMap<String,Object>();
-		map.put("pageUtil", pu);
+		List<User> userList = null;
+		try {
+			userList = userDaoImpl.queryUserPage((page-1)*10, limit);
+			map.put("data", userList);
+			map.put("count", Integer.valueOf(userDaoImpl.queryCountUser().toString()));
+			map.put("msg", "");
+			map.put("code", 0);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		return map;
 	}
-
+	
+	public Integer getUserInfoCountPage(){
+		Integer countPage = null;
+		try {
+			countPage = Integer.valueOf(userDaoImpl.queryCountUser().toString());
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return countPage;
+	}
 	/**
 	 * 将单个用户信息包装成map返回 用user_phone查询
 	 */

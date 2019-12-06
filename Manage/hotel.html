@@ -161,12 +161,6 @@
 								</a>
 							</li>
 							<li class="sidebar-item">
-								<a class="sidebar-link waves-effect waves-dark sidebar-link" href="userinfo-check.html" aria-expanded="false">
-									<i class="mdi mdi-file"></i>
-									<span class="hide-menu">用户信息审核</span>
-								</a>
-							</li>
-							<li class="sidebar-item">
 								<a class="sidebar-link waves-effect waves-dark sidebar-link" href="comment-check.html" aria-expanded="false">
 									<i class="mdi mdi-arrange-bring-forward"></i>
 									<span class="hide-menu">文章评论审核</span>
@@ -217,46 +211,10 @@
 				<!-- End Bread crumb and right sidebar toggle -->
 				<!-- Container fluid  -->
 				<div class="container-fluid">
-					<!-- Start Page Content -->
-					<div class="row">
-						<div class="col-12">
-							<div class="card">
-								<div class="card-body">
-									<h4 class="card-title">酒店信息审核</h4>
-									<div class="col-12">
-										<div class="card">
-											<div class="table-responsive">
-												<table class="table" id="tablebox">
-													<thead>
-														<tr>
-															<th scope="col" class="t1">酒店编号</th>
-															<th scope="col" class="t2">酒店名称</th>
-															<th scope="col" class="t3">酒店容纳量</th>
-															<th scope="col" class="t4">出租类型</th>
-															<th scope="col" class="t5">酒店类型</th>
-															<th scope="col" class="t6">酒店地址</th>
-															<th scope="col" class="t7">酒店价格</th>
-															<th scope="col" class="t8"></th>
-														</tr>
-													</thead>
-													<tbody id="tb">
-													</tbody>
-												</table>
-												<!--模态框-->
-												<div class="myModal">
+					<table class="layui-hide" id="tablebox" lay-filter="tablebox">
+					</table>
+					<div class="myModal">
 
-												</div>
-
-												<!-- /.modal -->
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!--分页-->
-					<div id="layuiPage">
 					</div>
 				</div>
 				<footer class="footer text-center">
@@ -268,125 +226,125 @@
 		</div>
 		<!-- End Wrapper -->
 		<!-- All Jquery -->
-
+		<script type="text/html" id="barDemo">
+		  <a class="layui-btn layui-btn-sm" data-toggle="modal" data-target="#myModal" lay-event="edit">点击审核</a>
+		</script>
 		<script src="layui/layui.js" charset="utf-8"></script>
 		<script>
-			layui.use(['laypage', 'layer'], function() {
-				var laypage = layui.laypage,
-					layer = layui.layer;
-				$.getJSON("http://localhost:80/QuadraL/houseInfo.do?method=getAllHouseInfo&callback=?", function(house_result) {
-					//加载layui的显示页码的插件
-					laypage.render({
-						elem: 'layuiPage',
-						count: house_result.pageUtil.countRow, //获取返回值中的总行数
-						limit: 2,
-						jump: function(obj, first) { //点击页码的回调函数
-							//obj包含了当前分页的所有参数，比如：
-							console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
-							console.log(obj.limit); //得到每页显示的条数
-							//查询一页的数据
-							$.getJSON("http://localhost:80/QuadraL/houseInfo.do?method=getAllHouseInfo&callback=?", {
-								"currentPage": obj.curr,
-								"pageSize": obj.limit
-							}, function(house_result) {
-								$("#tb").empty(); //清除原来的数据
-								$(".myModal").empty();
-								//通过遍历查询到的内容，把数据显示出来
-								$("#tb").append("<tr></tr>");
-								for (var i = 0; i < house_result.pageUtil.map.house.length; i++) {
-									$(".myModal").append(
-										'<div class="modal fade" id="myModal' + i +
-										'" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >' +
-										'<div class="modal-dialog modal-lg">' +
-										'<div class="modal-content">' +
-										'<div class="modal-header">' +
-										'<h4 class="modal-title" id="myModalLabel">' +
-										'酒店审核' +
-										'</h4>' +
-										'<button type="button" class="close" data-dismiss="modal" aria-hidden="true">' +
-										'×' +
-										'</button>' +
-										'</div>' +
-										'<div class="modal-body">' +
-										'<div id="demo' + i + '" class="carousel slide" data-ride="carousel">' +
-										'<!-- 指示符 -->' +
-										'<ul class="carousel-indicators" id="inner' + i + '">' +
-										'</ul>' +
-										'<!-- 轮播图片 -->' +
-										'<div class="carousel-inner" id="carouselImg' + i + '">' +
-										'</div>' +
-										'<!-- 左右切换按钮 -->' +
-										'<a class="carousel-control-prev" href="#demo' + i + '" data-slide="prev">' +
-										'<span class="carousel-control-prev-icon"></span>' +
-										'</a>' +
-										'<a class="carousel-control-next" href="#demo' + i + '" data-slide="next">' +
-										'<span class="carousel-control-next-icon"></span>' +
-										'</a>' +
-										'</div>' +
-										'<!--轮播图结束-->' +
-										'<!--文本表格-->' +
-										'<table class="table" id="tablebox2">' +
-										'<thead>' +
-										'<tr>' +
-										'<th scope="col" class="t1">酒店编号</th>' +
-										'<th scope="col" class="t2">酒店名称</th>' +
-										'<th scope="col" class="t3">酒店容纳量</th>' +
-										'<th scope="col" class="t4">出租类型</th>' +
-										'<th scope="col" class="t5">酒店类型</th>' +
-										'<th scope="col" class="t6">酒店地址</th>' +
-										'<th scope="col" class="t7">酒店价格</th>' +
-										'<th scope="col" class="t8"></th>' +
-										'</tr>' +
-										'</thead>' +
-										'</table>' +
-										'<div class="modal-footer">' +
-										'<button type="button" class="btn btn-default" data-dismiss="modal">' +
-										'审核通过' +
-										'</button>' +
-										'<button type="button" class="btn btn-primary">' +
-										'拒绝通过' +
-										'</button>' +
-										'</div>' +
-										'</div>' +
-										'</div>' +
-										'</div>' +
-										<!-- /.modal-content -->
-										'</div>'
-									);
-									var j = 0;
-									var tr = document.createElement("tr");
-									tr.innerHTML = '<td class="t1">' + house_result.pageUtil.map.house[i].house_id +
-										'</td><td class="t2" style="width:300px">' +
-										house_result.pageUtil.map.house[i].house_name +
-										'</td><td class="t3">' + house_result.pageUtil.map.house[i].house_intake + '</td><td class="t4">' +
-										house_result.pageUtil.map.house[i].lease_type +
-										'<td class="t5">' + house_result.pageUtil.map.house[i].house_type + '</td><td class="t6">' +
-										house_result.pageUtil.map.house[i].house_address +
-										'<td class="t7">' + house_result.pageUtil.map.house[i].house_price + '</td><td class="t8">' +
-										'<button class="btn check btn-primary btn-sm" id="t' + i +
-										'" data-toggle="modal" data-target="#myModal' + i + '">审核</button>';
-									$("#tb").append(tr);
-									for (j = 0; j < house_result.pageUtil.map.houseImg.length; j++) {
-										if (house_result.pageUtil.map.houseImg[j].house_id == house_result.pageUtil.map.house[i].house_id) {
-											$("#carouselImg" + i).append('<div class="carousel-item">' +
-												'<img src="img/hotel/16pic_5271012_b.jpg" id="imgSrc' + j + '"> ' +
-												'<div class="carousel-caption"> ' +
-												'<h3>房间2</h3>' +
-												'<p>提供便捷的交通!</p>' +
-												'</div>' +
-												'</div>');
-											$("#inner" + i).append(
-												'<li data-target="#demo' + j + '" data-slide-to="' + j + '"></li>'
-											);
-											$("#inner" + i).children(":first").addClass("active");
-										}
-									}
-									$("#carouselImg" + i).children(":first").addClass("active");
-								}
-							}, "json");
+			layui.use('table', function(){
+			  var table = layui.table;
+			  table.on('tool(tablebox)', function(obj){
+			    var data = obj.data;
+			    if(obj.event === 'edit'){
+			    	$(".myModal").empty();
+			      	$(".myModal").append(
+						'<div class="modal fade" id="myModal' +
+						'" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >' +
+						'<div class="modal-dialog modal-lg">' +
+						'<div class="modal-content">' +
+						'<div class="modal-header">' +
+						'<h4 class="modal-title" id="myModalLabel">' +
+						'酒店审核' +
+						'</h4>' +
+						'<button type="button" class="close" data-dismiss="modal" aria-hidden="true">' +
+						'×' +
+						'</button>' +
+						'</div>' +
+						'<div class="modal-body">' +
+						'<div id="demo' + '" class="carousel slide" data-ride="carousel">' +
+						'<!-- 指示符 -->' +
+						'<ul class="carousel-indicators" id="inner' + '">' +
+						'</ul>' +
+						'<!-- 轮播图片 -->' +
+						'<div class="carousel-inner" id="carouselImg'+ '">' +
+						'</div>' +
+						'<!-- 左右切换按钮 -->' +
+						'<a class="carousel-control-prev" href="#demo'+ '" data-slide="prev">' +
+						'<span class="carousel-control-prev-icon"></span>' +
+						'</a>' +
+						'<a class="carousel-control-next" href="#demo' + '" data-slide="next">' +
+						'<span class="carousel-control-next-icon"></span>' +
+						'</a>' +
+						'</div>' +
+						'<!--轮播图结束-->' +
+						'<!--文本表格-->' +
+						'<table class="table" id="tablebox2">' +
+						'<thead>' +
+						'<tr>' +
+						'<th scope="col" class="t1">酒店编号</th>' +
+						'<th scope="col" class="t2">酒店名称</th>' +
+						'<th scope="col" class="t3">酒店容纳量</th>' +
+						'<th scope="col" class="t4">出租类型</th>' +
+						'<th scope="col" class="t5">酒店类型</th>' +
+						'<th scope="col" class="t6">酒店地址</th>' +
+						'<th scope="col" class="t7">酒店价格</th>' +
+						'<th scope="col" class="t8"></th>' +
+						'</tr>' +
+						'</thead>' +
+						'</table>' +
+						'<div class="modal-footer">' +
+						'<button type="button" class="btn btn-default" data-dismiss="modal">' +
+						'审核通过' +
+						'</button>' +
+						'<button type="button" class="btn btn-primary">' +
+						'拒绝通过' +
+						'</button>' +
+						'</div>' +
+						'</div>' +
+						'</div>' +
+						'</div>' +
+						'</div>'
+					);
+					$.getJSON("http://localhost:80/QuadraL/houseInfo.do?method=getHouseInfoByID&callback=?",
+							{"house_id":data.house_id},function(result){
+						for (j = 0; j < result.allHouseImg.length; j++) {
+							$("#carouselImg" ).append('<div class="carousel-item">' +
+								'<img src="'+result.allHouseImg[j].house_img_url+'" id="imgSrc' + j + '"> ' +
+								'<div class="carousel-caption"> ' +
+								'</div>' +
+								'</div>');
+							$("#inner").append(
+								'<li data-target="#demo' + j + '" data-slide-to="' + j + '"></li>'
+							);
+							$("#inner").children(":first").addClass("active");
 						}
+						$("#carouselImg").children(":first").addClass("active");
 					});
-				}, "json");
+			    }
+			  });
+			  table.render({
+			    elem: '#tablebox'
+			    ,url:'http://localhost:80/QuadraL/houseInfo.do?method=getAllHouseInfo&callback=?'
+			    ,page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
+	                layout: ['limit', 'count', 'prev', 'page', 'next', 'skip'] //自定义分页布局
+	                //,curr: 5 //设定初始在第 5 页
+	                ,limit:10 //一页显示多少条
+	                ,limits:[5,10,15]//每页条数的选择项
+	                ,groups: 2 //只显示 2 个连续页码
+	                ,first: "首页" //不显示首页
+	                ,last: "尾页" //不显示尾页
+				}
+			    ,cols: [[
+			      {field:'house_id', width:240, title: '酒店ID', sort: true}
+			      ,{field:'user_name', width:160, title: '老板姓名'}
+			      ,{field:'house_name', width:140, title: '酒店名称'}
+			      ,{field:'house_intake', width:140, title: '酒店容纳量', sort: true}
+			      ,{field:'lease_type', width:120, title: '出租类型'}
+			      ,{field:'may_check_in_date', width:200, title: '可入住时间'}
+			      ,{field:'may_check_out_date', width:120, title: '可退房时间'}
+			      ,{field:'house_type', width:120, title: '酒店类型'}
+			      ,{field:'house_state', width:120, title: '酒店状态'}
+			      ,{field:'house_price', width:120, title: '酒店价格'}
+			      ,{field:'travel_information', width:120, title: '出行信息'}
+			      ,{field:'house_address', width:120, title: '酒店地址'}
+			      ,{fixed: 'right', width:178, align:'center', toolbar: '#barDemo'}
+			    ]]
+			    ,page: true
+			  });
+			});
+			$('.demoTable .layui-btn').on('click', function(){
+			    var type = $(this).data('type');
+			    active[type] ? active[type].call(this) : '';
 			});
 		</script>
 	</body>

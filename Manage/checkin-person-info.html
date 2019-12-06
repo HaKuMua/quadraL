@@ -154,12 +154,6 @@
 								</a>
 							</li>
 							<li class="sidebar-item">
-								<a class="sidebar-link waves-effect waves-dark sidebar-link" href="userinfo-check.html" aria-expanded="false">
-									<i class="mdi mdi-file"></i>
-									<span class="hide-menu">用户信息审核</span>
-								</a>
-							</li>
-							<li class="sidebar-item">
 								<a class="sidebar-link waves-effect waves-dark sidebar-link" href="comment-check.html" aria-expanded="false">
 									<i class="mdi mdi-arrange-bring-forward"></i>
 									<span class="hide-menu">文章评论审核</span>
@@ -211,39 +205,12 @@
 				<!-- Container fluid  表格主体-->
 				<div class="container-fluid">
 					<!-- Start Page Content -->
-					<div class="row">
-						<div class="col-12">
-							<div class="card">
-								<div class="card-body">
-									<div class="col-12">
-										<div class="card">
-											<div class="card-body">
-												<h4 class="card-title">入住人信息</h4>
-											</div>
-										</div>
-									</div>
-									<table class="table table-hover" id="tablebox">
-										<thead>
-											<tr>
-												<th scope="col" class="t1">入住人编号</th>
-												<th scope="col" class="t2">订单编号</th>
-												<th scope="col" class="t3">入住人名字</th>
-												<th scope="col" class="t4">入住人身份证号</th>
-											</tr>
-										</thead>
-										<tbody id="tb">
-										</tbody>
-									</table>
-								</div>
-							</div>
-						</div>
-					</div>
+					<table class="layui-hide" id="tablebox">
+					</table>
 					<!-- End PAge Content -->
 					<!-- Right sidebar -->
 					<!-- .right-sidebar -->
 					<!-- End Right sidebar -->
-					<div id="demo1">
-					</div>
 				</div>
 				<!-- End Container fluid  -->
 				<!-- footer -->
@@ -276,40 +243,19 @@
 		</script> -->
 		<script src="layui/layui.js" charset="utf-8"></script>
 		<script>
-			layui.use(['laypage', 'layer'], function() {
-				var laypage = layui.laypage,
-					layer = layui.layer;
-				$.getJSON("http://localhost:80/QuadraL/checkInPerson.do?method=getAllCheckInPersonInfo&callback=?", function(
-					check_in_person_result) {
-					//加载layui的显示页码的插件
-					laypage.render({
-						elem: 'demo1',
-						count: check_in_person_result.pageUtil.countRow, //获取返回值中的总行数
-						limit: 2,
-						jump: function(obj, first) { //点击页码的回调函数
-							//obj包含了当前分页的所有参数，比如：
-							console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
-							console.log(obj.limit); //得到每页显示的条数
-							//查询一页的数据
-							$.getJSON("http://localhost:80/QuadraL/checkInPerson.do?method=getAllCheckInPersonInfo&callback=?", {
-								"currentPage": obj.curr,
-								"pageSize": obj.limit
-							}, function(check_in_person_result) {
-								$("#tb").empty(); //清除原来的数据
-								//通过遍历查询到的内容，把数据显示出来
-								$("#tb").append("<tr></tr>");
-								for (var i = 0; i < check_in_person_result.pageUtil.map.cip.length; i++) {
-									var tr = document.createElement("tr");
-									tr.innerHTML = '<td class="t1">' + check_in_person_result.pageUtil.map.cip[i].check_in_person_id +
-										'</td><td class="t2">' + check_in_person_result.pageUtil.map.cip[i].grogshop_order_id +
-										'</td><td class="t3">' + check_in_person_result.pageUtil.map.cip[i].check_in_person_name +
-										'</td><td class="t4">' + check_in_person_result.pageUtil.map.cip[i].check_in_person_ID_card;
-									$("#tb").append(tr);
-								}
-							}, "json");
-						}
-					});
-				}, "json");
+			layui.use('table', function(){
+			  var table = layui.table;
+			  table.render({
+			    elem: '#tablebox'
+			    ,url:'http://localhost:80/QuadraL/checkInPerson.do?method=getAllCheckInPersonInfo&callback=?&state=1'
+			    ,cols: [[
+			      {field:'check_in_person_id', width:210, title: '入住人编号', sort: true}
+			      ,{field:'grogshop_order_id', width:350, title: '订单编号', sort: true}
+			      ,{field:'check_in_person_name', width:200, title: '入住人名字', sort: true}
+			      ,{field:'check_in_person_ID_card', width:320, title: '入住人身份证号'}
+			    ]]
+			    ,page: true
+			  });
 			});
 		</script>
 

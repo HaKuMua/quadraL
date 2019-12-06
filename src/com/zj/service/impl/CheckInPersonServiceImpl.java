@@ -12,7 +12,8 @@ public interface CheckInPersonServiceImpl {
 	/**
 	 * 将所有入住人员信息包装成一个list<map>返回方法接口
 	 */
-	Map<String, Object> getAllCheckInPersonInfo(Integer cipPresentPage,Integer pageSize)throws SQLException;
+	Map<String, Object> getAllCheckInPersonInfo(Integer limit,Integer page)throws SQLException;
+	
 	/**
 	 * 将单个入住人员信息包装成map返回方法接口
 	 */

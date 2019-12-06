@@ -27,17 +27,17 @@ public class CheckInPersonServlet extends BaseServlet {
 	public String callback;
 	public String check_in_person_ID_card;
 	//当前页数
-	private  Integer currentPage;
+	private  Integer page;
 	//总页数
 	private  Integer countPage;
 	//每页条数
-	private  Integer pageSize;
+	private  Integer limit;
 	
 	
 	// 返回所有入住人员信息
 	public void getAllCheckInPersonInfo(HttpServletRequest request,
 			HttpServletResponse response) throws IOException, SQLException {
-		Map<String, Object>map = cipService.getAllCheckInPersonInfo(currentPage,pageSize);
+		Map<String, Object>map = cipService.getAllCheckInPersonInfo(limit,page);
 		JSONObject obj = new JSONObject(map);
 		System.out.println("obj:" + obj);
 		response.getWriter().print(callback + "(" + obj + ")");
