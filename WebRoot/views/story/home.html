@@ -196,12 +196,7 @@
 		</div>
 	</body>
 	<script type="text/javascript">
-		var userInfo = {
-			user_id: '1002',
-			user_name: 'haku',
-			user_img: '../../img/timg.jpg',
-			islanlord: 1
-		};
+		var userInfo = null;
 		var article = {
 			// article_id: 3,
 			// article_name: '上海魔都民宿 | 人均300入住魔都小众超民国风复古民宿！',
@@ -278,7 +273,7 @@
 			}
 		}
 		//初始化导航栏
-		if (userInfo.user_id != null) {
+		if (userInfo != null) {
 			var html = '<li class="layui-nav-item " id="china"> <a href="../user/myOrder.html" >房源订单中心</a></li>' +
 				'<li class="layui-nav-item"><a href="../story/index.html">故事</a></li>' +
 				'<li class="layui-nav-item"><a href="#" id="notice">消息<span id="dot" class="layui-badge-dot"></a> </li>' +
@@ -288,7 +283,7 @@
 				' <dd><a href="../user/modifyInfo.html" style="color: gray;">修改信息</a></dd><dd><a href="javascript:;" id="quit" style="color: gray;">退了</a></dd></dl>';
 			$("#rightNav").empty();
 			$("#rightNav").append(html);
-			if (userInfo.islanlord != 1) {
+			if (userInfo.is_landlord == 1) {
 				$("#china").after('<li class="layui-nav-item "> <a href="javascript:;">我的房源</a>' +
 					'<dl class="layui-nav-child"><dd><a href="../user/landlordOrder.html"  style="color: gray;">订单信息</a></dd>' +
 					' <dd><a href="../user/myHouse.html" style="color: gray;">房源信息</a></dd></dl>' + '</li>' +
