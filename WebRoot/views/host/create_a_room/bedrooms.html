@@ -104,21 +104,22 @@
 				bedRoomNum = data.value;
 				$("#bedInfo").empty();
 				for(var i = 0;i<bedRoomNum;i++) {
-					html='<div ><h2>卧室'+(i+1)+'</h2><h3>床数量4</h3><br><h3 style="font-weight: bolder;">大号双人床</h3>'+
-						'<input value="0" style="width: 120px; height:35px; position: absolute; margin-top: -28px; margin-left: 220px;" type="number" name="bigDouble"  autocomplete="off" class="layui-input">'+
+					html='<div ><h2>卧室'+(i+1)+'</h2><h3>床数量'+bedNum+'</h3><br><h3 style="font-weight: bolder;">大号双人床</h3>'+
+						'<input id="a'+i+'" value="'+bedNum+'" style="width: 120px; height:35px; position: absolute; margin-top: -28px; margin-left: 220px;" type="number" name="bigDouble"  autocomplete="off" class="layui-input">'+
 						'<br><br><h3 style="font-weight: bolder;">标准单人床</h3>'+
-						'<input value="0" style="width: 120px; height:35px; position: absolute; margin-top: -28px; margin-left: 220px;" type="number" name="bigDouble"  autocomplete="off" class="layui-input">'+
+						'<input  id="b'+i+'" value="0" style="width: 120px; height:35px; position: absolute; margin-top: -28px; margin-left: 220px;" type="number" name="bigDouble"  autocomplete="off" class="layui-input">'+
 						'<br><br><h3 style="font-weight: bolder;">大号单人床</h3>'+
-						'<input value="0" style="width: 120px; height:35px; position: absolute; margin-top: -28px; margin-left: 220px;" type="number" name="bigDouble"  autocomplete="off" class="layui-input">'+
+						'<input  id="c'+i+'" value="0" style="width: 120px; height:35px; position: absolute; margin-top: -28px; margin-left: 220px;" type="number" name="bigDouble"  autocomplete="off" class="layui-input">'+
 						'<br><br><h3 style="font-weight: bolder;">水床</h3>'+
-						'<input value="0" style="width: 120px; height:35px; position: absolute; margin-top: -28px; margin-left: 220px;" type="number" name="bigDouble" autocomplete="off" class="layui-input">'+
-						'</div><br><hr >';
+						'<input  id="d'+i+'" value="0" style="width: 120px; height:35px; position: absolute; margin-top: -28px; margin-left: 220px;" type="number" name="bigDouble" autocomplete="off" class="layui-input">'+
+						'</div><br><hr ><br><br><br><br><br><br>';
 					$("#bedInfo").append(html);
 				}
 			});
 		});
 	</script>
 	<script>
+		bedRoomNum=0;
 		personNum =$.cookie('personNum');
 		bedNum=$.cookie('bedNum');
 		if(personNum == null) {
@@ -146,18 +147,44 @@
 			$("#bedNum").text(bedNum);
 		});
 		$('#btnGo').on('click', function() {
-			if (personNum == 'null' || bedNum == 'null') {
-				layui.msg("请填写完整");
-			} else if(bedNum < 0){
-				
+			if (personNum == 'null' || bedNum == 'null' || bedRoomNum == 0) {
+				layer.msg("请填写完整");
 			}else{
+				sum=0;
+				for(let i=0;i<bedRoomNum;i++) {
+						a=$("#a"+i).val();
+						b=$("#b"+i).val();
+						c=$("#c"+i).val();
+						d=$("#d"+i).val();
+						if(!checkNumber(a) || !checkNumber(b) ||!checkNumber(c) ||!checkNumber(d) ) {
+							layer.msg("床型信息数量有误！");
+							return;
+						}
+						if( a<0 || b  <0 || c <0 ||d <0 ) {
+							layer.msg("床型信息数量有误！");
+							return;
+						}
+						sum +=eval(a)+eval(b)+eval(c)+eval(d);
+						console.log(sum);
+				}
+				if(sum > bedNum) {
+					layer.msg("床型信息数量超过总数！");
+					return;
+				}
 				$.cookie('personNum', personNum);
 				$.cookie('room_number', bedRoomNum);
 				$.cookie('bedNum', bedNum);
 				location.href = "bathrooms.html";
 			}
 		});
-		
+		//验证字符串是否是数字
+		function checkNumber(theObj) {
+		    var reg = /^[0-9]+.?[0-9]*$/;
+		    if (reg.test(theObj)) {
+		        return true;
+		    }
+		    return false;
+		}
 		window.onload = function() {
 			$("#personNum").text(personNum);
 			$("#bedNum").text(bedNum);
