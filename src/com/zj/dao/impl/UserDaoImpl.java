@@ -106,4 +106,10 @@ public interface UserDaoImpl {
 	 */
 	Integer topUp(Double price,Integer user_id) throws SQLException;
 
+	
+	/**
+	 * 用户成为房东
+	 * @return
+	 */
+	Integer becomeLandlord(Integer user_id) throws SQLException;
 }

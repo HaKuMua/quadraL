@@ -221,6 +221,18 @@ public class UserDao implements UserDaoImpl{
 		return data;
 	}
 
+	/**
+	 * 用户成为房东
+	 * @return
+	 */
+	public Integer becomeLandlord(Integer user_id) throws SQLException {
+		conn = GetConn.getConn();
+		String sql = "update user set is_landlord = 1 where user_id=?";
+		Integer data = qr.update(conn, sql,user_id);
+		GetConn.closeConn(conn);
+		return data;
+	}
+
 	
 	
 }

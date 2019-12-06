@@ -73,11 +73,11 @@
 			bathRoomNum=1;
 		}
 		$("#addBtn").on("click", function() {
-			bathRoomNum > 16 ? 16 : bathRoomNum+=0.5;
+			bathRoomNum > 16 ? 16 : bathRoomNum+=1;
 			$("#bathRoomNum").text(bathRoomNum);
 		});
 		$("#subBtn").on("click", function() {
-			bathRoomNum <= 0.5 ? 1 : bathRoomNum -=0.5;
+			bathRoomNum <= 1 ? 1 : bathRoomNum -=1;
 			$("#bathRoomNum").text(bathRoomNum);
 		});
 		$('#btnGo').on('click', function() {

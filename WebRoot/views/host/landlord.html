@@ -91,7 +91,6 @@
 		<div id="left">
 			<img src="../../img/timg.jpg" width="120px" height="120px">
 			<hr>
-			<i class="layui-icon layui-icon-face-smile" style="color: red;">&nbsp;我的余额：￥999</i>
 			<br><br>
 			<i class="layui-icon layui-icon-dialogue" style="color: red;">&nbsp;554条评价</i><br><br>
 			<i class="layui-icon layui-icon-ok" style="color: red;">&nbsp;已验证</i><br><br>
@@ -102,7 +101,6 @@
 			<i class="layui-icon layui-icon-ok" style="color: green;">&nbsp;身份证</i><br><br>
 		</div>
 		<div id="leftFoot">
-			<button id="recharge" class="layui-btn" type="button">充值余额</button>
 		</div>
 		<div id="main">
 			<div id="title">
@@ -142,7 +140,7 @@
 						<h3>藝净- 复古花,太古里旁高层花园电影套房藝净- 复古花,太古里旁高层花园电影套房</h3>
 					</a>
 				</div>
-				<div class="layui-col-xs6"style="margin-top: 30px;">
+				<div class="layui-col-xs6" style="margin-top: 30px;">
 					<a href="">
 						<img src="../../img/room/ac356f32-0ba7-4dd8-9796-94d085e711fa.jpg" width="290px" height="216px">
 						<h4>价格：500一晚·整套房子·最多2人</h4>
@@ -273,12 +271,7 @@
 		if (url.indexOf("?") != -1) {
 			var user_id = url.substr(url.indexOf("=")+1);
 		}
-		var userInfo = {
-			user_id: '1000',
-			user_name: 'haku',
-			user_img: '../../img/timg.jpg',
-			is_landlord: 1
-		};
+		var userInfo=null;
 		var info = {
 			user_id: '',
 			user_tel: '',
@@ -366,7 +359,7 @@
 			}
 		}
 		//初始化导航栏
-		if (userInfo.user_id != null) {
+		if (userInfo != null) {
 			var html = '<li class="layui-nav-item " id="china"> <a href="../user/myOrder.html" >房源订单中心</a></li>' +
 				'<li class="layui-nav-item"><a href="../story/index.html">故事</a></li>' +
 				'<li class="layui-nav-item"><a href="#" id="notice">消息<span id="dot" class="layui-badge-dot"></a> </li>' +
@@ -398,14 +391,22 @@
 		}, function(res) {
 			console.log(res)
 			info = res;
+			$("#leftFoot").empty();
+			if(userInfo != null) {
+				if(userInfo.user_id == info.user_id) {
+					$("#leftFoot").append('<button id="recharge" class="layui-btn" type="button">充值余额</button>');
+					$("#i2").before('<i class="layui-icon layui-icon-face-smile" style="color: red;">&nbsp;我的余额：￥' + info.money + '</i><br><br>');
+				}else {
+					$("#leftFoot").empty();
+				}	
+			}
 			getInfo();
 		});
 		//getInfo();
 		function getInfo() {
 			$("#left").empty();
-			html = '<img src="../../' + userInfo.user_headimg_url + '" width="120px" height="120px" ><hr >' +
-				'<i class="layui-icon layui-icon-face-smile" style="color: red;">&nbsp;我的余额：￥' + info.money + '</i><br><br>' +
-				// '<i class="layui-icon layui-icon-dialogue" style="color: red;">&nbsp;' + info.user_comment.length + '条评价</i><br><br>' +
+			html = '<img src="../../' + info.user_headimg_url + '" width="120px" height="120px" ><hr >' +
+				 '<i id="i2" class="layui-icon layui-icon-dialogue" style="color: red;">&nbsp;' + info.user_comment.length + '条评价</i><br><br>' +
 				'<i class="layui-icon layui-icon-ok" style="color: red;">&nbsp;已验证</i><br><br>' +
 				'<hr ><h2>'+info.user_name+'已提供</h2><br>' +
 				'<i class="layui-icon layui-icon-ok" style="color: green;">&nbsp;电子邮箱</i><br><br>' +
@@ -418,9 +419,9 @@
 				'</h2>' +
 				'</div><br><br><br><br><br><br><br><br>' +
 				'<hr><div class="layui-col-xs12">' +
-				'<h2 style="color: gray;"><b>自我介绍</b></h2><br><h4>' + userInfo.user_describe  + '</h4></div><br>';
+				'<h2 style="color: gray;"><b>自我介绍</b></h2><br><h4>' + info.user_describe  + '</h4></div><br>';
 			$("#title").append(html);
-			if (userInfo.is_landlord == 0) {
+			if (info.is_landlord == 0) {
 				$("#house").empty();
 				$("#comment").empty();
 			} else {

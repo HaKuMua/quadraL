@@ -212,9 +212,6 @@ public class HouseService implements HouseServiceImpl {
 		if (houseInfo.get("house_particulars_id") != null)
 			house.setHouse_particulars_id(Integer.valueOf(houseInfo.get(
 					"house_particulars_id").toString()));
-		if (houseInfo.get("house_state") != null)
-			house.setHouse_state(Integer.valueOf(houseInfo.get("house_state")
-					.toString()));
 		if (houseInfo.get("travel_information") != null)
 			house.setTravel_information(houseInfo.get("travel_information")
 					.toString());
@@ -225,7 +222,6 @@ public class HouseService implements HouseServiceImpl {
 			house.setHouse_address(houseInfo.get("house_address").toString());
 		if (houseInfo.get("location_id") != null)
 			house.setLocation_id(houseInfo.get("location_id").toString());
-
 		// 给房子详情实体类设置值进去
 		if (houseInfo.get("room_number") != null)
 			houseParticulars.setRoom_number(Integer.valueOf(houseInfo.get(
@@ -243,6 +239,8 @@ public class HouseService implements HouseServiceImpl {
 		int count = -1;
 
 		try {
+			//改变用户is_landlord状态 1 为是房东
+			count =userDaoImpl.becomeLandlord(house.getUser_id());
 			// 插房子详情
 			count = houseParticularsDaoImpl
 					.addHouseParticularsInfo(houseParticulars);
