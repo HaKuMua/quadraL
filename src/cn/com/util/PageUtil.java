@@ -34,7 +34,7 @@ public class PageUtil<T> implements Serializable{
 	 */
 	private Map<String,Object> map = new HashMap<String, Object>();
 	
-	
+	private List<T> list = new ArrayList<T>();
 	
 	
 	public Map<String,Object> getMap() {
@@ -42,6 +42,14 @@ public class PageUtil<T> implements Serializable{
 	}
 	public void setMap(Map<String,Object> map) {
 		this.map = map;
+	}
+	
+	
+	public List<T> getList() {
+		return list;
+	}
+	public void setList(List<T> list) {
+		this.list = list;
 	}
 	public Integer getCountRow() {
 		return countRow;

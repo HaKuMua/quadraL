@@ -63,7 +63,7 @@ public class ArticleServlet extends BaseServlet {
 	public void deleteArticle(HttpServletRequest request,
 			HttpServletResponse response) throws SQLException, IOException{
 		Integer article_id = deleteId;
-		int isDelete = articleService.deleteArticleById(article_id);
+		int isDelete = articleService.deleteArticleInfo(article_id);
 		JSONObject obj = new JSONObject(isDelete);
 		System.out.println("obj:" + obj);
 		response.getWriter().print(callback + "(" + obj + ")");
@@ -88,13 +88,6 @@ public class ArticleServlet extends BaseServlet {
 	 * @throws SQLException 
 	 * @throws IOException 
 	 */
-	public void getPageArticleInfo(HttpServletRequest request,HttpServletResponse response) throws SQLException, IOException {
-		System.out.println(articlePresentPage);
-		PageUtil<Map<String, Object>> pageList = articleService.getPageArticleInfo(articlePresentPage);
-		JSONObject json = new JSONObject(pageList);
-		response.getWriter().print(json);
-	}	
-	
 		
 	public void getPageArticleInfo(HttpServletRequest request,
 			HttpServletResponse response) {
@@ -108,8 +101,7 @@ public class ArticleServlet extends BaseServlet {
 		}
 		//
 		try {
-			List<Map<String, Object>> list = articleService
-					.getPageArticleInfo(articlePresentPage);
+			List<Map<String, Object>> list = articleService.getPageArticleInfo(articlePresentPage);
 			JSONObject obj = new JSONObject(list);
 			response.getWriter().print(callback + "(" + obj + ")");
 		} catch (SQLException e) {

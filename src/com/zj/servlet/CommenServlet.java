@@ -1,5 +1,4 @@
 ﻿package com.zj.servlet;
-package com.zj.servlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -29,7 +28,6 @@ public class CommenServlet extends BaseServlet {
 
 	private CommentServiceImpl commentService = new CommentService();
 	private String map;
-	private String callback;
 
 	public String callback;
 	// 当前页数

@@ -42,6 +42,7 @@ public interface GrogshopOrderDaoImpl {
 	 * 通过预订ID获得单个订单信息
 	 */
 	GrogshopOrder getGrogshopOrderInfoByReserveID(Integer reserve_id) throws SQLException;
+	/**
 	 * 获取订单分页接口
 	 * @param startRow
 	 * @param pageSize

@@ -156,6 +156,9 @@ public class ArticleDao implements ArticleDaoImpl{
 		conn = GetConn.getConn();
 		String sql = "select * from article where user_id = ?";
 		List<Article> data = qr.query(conn, sql, new BeanListHandler<Article>(Article.class), user_id);
+		GetConn.closeConn(conn);
+		return data;
+	}
 
 	/**
 	 * 前端后台文章分页查询
