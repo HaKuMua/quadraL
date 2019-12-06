@@ -29,7 +29,6 @@ public class ReserveServlet extends BaseServlet {
 	private Integer countPage;
 	// 每页条数
 	private Integer pageSize;
-	private String house_id;
 
 	// 返回所有的预定信息
 	public void getAllReserve(HttpServletRequest request,

@@ -90,28 +90,7 @@ public class ArticleServlet extends BaseServlet {
 	 * @throws SQLException
 	 * @throws IOException
 	 */
-		
-	public void getPageArticleInfo(HttpServletRequest request,
-			HttpServletResponse response) {
-		//获取用户设置的当前页
-		String articleCurrentPage = request.getParameter("articleCurrentPage");
-		Integer articlePresentPage = 1;
-		try {
-			articlePresentPage = new Integer(articleCurrentPage);
-		} catch (Exception e) {
-			articlePresentPage = 1;
-		}
-		//
-		try {
-			List<Map<String, Object>> list = articleService.getPageArticleInfo(articlePresentPage);
-			JSONObject obj = new JSONObject(list);
-			response.getWriter().print(callback + "(" + obj + ")");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+	
 	public void getPageArticleInfo(HttpServletRequest request,
 			HttpServletResponse response) throws SQLException, IOException {
 		PageUtil<Map<String, Object>> pageList = articleService

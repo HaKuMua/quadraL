@@ -45,12 +45,6 @@ public class PageUtil<T> implements Serializable{
 	}
 	
 	
-	public List<T> getList() {
-		return list;
-	}
-	public void setList(List<T> list) {
-		this.list = list;
-	}
 	public Integer getCountRow() {
 		return countRow;
 	}
