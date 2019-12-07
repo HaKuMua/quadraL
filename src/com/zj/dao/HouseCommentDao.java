@@ -79,7 +79,7 @@ public class HouseCommentDao implements HouseCommentDaoImpl {
 		GetConn.closeConn(conn);
 		return data;
 	}
-	/*
+	/**
 	 * 获取订单分页
 	 */
 	public List<HouseComment> queryHouseCommentPage(Integer startRow,
@@ -93,7 +93,7 @@ public class HouseCommentDao implements HouseCommentDaoImpl {
 		return data;
 	}
 
-	/*
+	/**
 	 * 订单总页数
 	 */
 	public Long queryCountHouseComment() throws SQLException {
