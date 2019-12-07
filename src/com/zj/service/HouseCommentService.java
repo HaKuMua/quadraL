@@ -37,31 +37,29 @@ public class HouseCommentService implements HouseCommentServiceImpl {
 	 * 将所有的房间评论打包成list返回
 	 * @throws SQLException 
 	 */
-	public Map<String, Object> getAllHouseComment(Integer hCommentPresentPage,Integer pageSize) throws SQLException{
-		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
-		// 订单分页
-		Long hCommentCount = hCommenDaoImpl.queryCountHouseComment();
-		PageUtil<HouseComment> pu = new PageUtil<HouseComment>();
-		pu.setCountRow(hCommentCount.intValue());
-		pu.setCurrentPage(hCommentPresentPage);
-		pu.setPageSize(pageSize);
-		
-		int hCommentStartRow = pu.getStartRow();
-		int hCommentPageSize = pu.getPageSize();
-		
-		List<HouseComment> hCommentOrder = hCommenDaoImpl.queryHouseCommentPage(hCommentStartRow, hCommentPageSize);
-		List<User> user = userDaoImpl.getAllUserInfo();
-		List<House> house = houseDaoImpl.getAllHouseInfo();
-		
-		Map<String,Object> dataMap = new HashMap<String, Object>();
-		
-		dataMap.put("hComment", hCommentOrder);
-		dataMap.put("user", user);
-		dataMap.put("house", house);
-		
-		pu.setMap(dataMap);
+	public Map<String, Object> getAllHouseComment(Integer limit,Integer page) throws SQLException{
 		Map<String,Object> map = new HashMap<String,Object>();
-		map.put("pageUtil", pu);
+		List<HouseComment> houseCommentList = null;
+		try {
+			houseCommentList = hCommenDaoImpl.queryHouseCommentPage((page-1)*10, limit);
+			List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+			for(HouseComment hComment : houseCommentList){
+				Map<String, Object> hCommentMap = new HashMap<String, Object>();
+				hCommentMap.put("houseCom_id", hComment.getHouseCom_id());
+				hCommentMap.put("house_name", houseDaoImpl.getHouseInfoByID(hComment.getHouse_id()).getHouse_name());
+				hCommentMap.put("user_name", userDaoImpl.getUserInfoById(hComment.getUser_id()).getUser_name());
+				hCommentMap.put("houseCom_content", hComment.getHouseCom_content());
+				hCommentMap.put("houseCom_date", hComment.getHouseCom_date());
+				list.add(hCommentMap);
+			}
+			map.put("data", list);
+			map.put("count", Integer.valueOf(hCommenDaoImpl.queryCountHouseComment().toString()));
+			map.put("msg", "");
+			map.put("code", 0);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return map;
 	}
 

@@ -66,7 +66,7 @@ public class HouseService implements HouseServiceImpl {
 					houseMap.put("house_intake", house.getHouse_intake());
 					houseMap.put("lease_type", house.getLease_type());
 					houseMap.put("may_check_in_date", house.getMay_check_in_date());
-					houseMap.put("may_check_in_date", house.getMay_check_in_date());
+					houseMap.put("may_check_out_date", house.getMay_check_out_date());
 					houseMap.put("house_type", house.getHouse_type());
 					if(house.getHouse_state() == 0)
 						houseMap.put("house_state", "未审核");

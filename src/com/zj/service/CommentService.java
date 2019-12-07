@@ -22,6 +22,7 @@ import com.zj.dao.impl.UserDaoImpl;
 import com.zj.entity.Article;
 import com.zj.entity.Comment;
 import com.zj.entity.GrogshopOrder;
+import com.zj.entity.House;
 import com.zj.entity.User;
 import com.zj.service.impl.CommentServiceImpl;
 
@@ -35,43 +36,38 @@ public class CommentService implements CommentServiceImpl {
 	private ArticleDaoImpl articleDaoImpl = new ArticleDao();
 	private UserDaoImpl userDaoImpl = new UserDao();
 	private Logger log = Logger.getLogger(HouseService.class);
-
+	
 	/**
 	 * 将所有的评论打包成list返回
 	 * 
 	 * @throws SQLException
 	 */
 
-	public Map<String, Object> getAllComment(Integer commentPresentPage,
-			Integer pageSize) throws SQLException {
-		// 获取文章名
-		// 获取用户名
-		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
-		// 订单分页
-		Long orderCount = commenDaoImpl.queryCountComment();
-		PageUtil<Comment> pu = new PageUtil<Comment>();
-		pu.setCountRow(orderCount.intValue());
-		pu.setCurrentPage(commentPresentPage);
-		pu.setPageSize(pageSize);
-
-		int commentStartRow = pu.getStartRow();
-		int commentPageSize = pu.getPageSize();
-
-		List<Comment> pageComment = commenDaoImpl.queryCommentPage(
-				commentStartRow, commentPageSize);
-		Article article = new Article();
-		String article_name = article.getArticle_name();
-		List<Article> pageArticle = articleDaoImpl.getAllArticle();
-		List<User> pageUser = userDaoImpl.getAllUserInfo();
-
-		Map<String, Object> dataMap = new HashMap<String, Object>();
-		dataMap.put("comment", pageComment);
-		dataMap.put("article", pageArticle);
-		dataMap.put("user", pageUser);
-
-		pu.setMap(dataMap);
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("pageUtil", pu);
+	public Map<String, Object> getAllComment(Integer limit,Integer page) throws SQLException {
+		Map<String,Object> map = new HashMap<String,Object>();
+		List<Comment> commentList = null;
+		try {
+			commentList = commenDaoImpl.queryCommentPage((page-1)*10, limit);
+			List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+			for(Comment comment : commentList){
+				Map<String, Object> commentMap = new HashMap<String, Object>();
+				commentMap.put("comment_id", comment.getComment_id());
+				commentMap.put("article_name", articleDaoImpl.queryArticleById(comment.getArticle_id()).getArticle_name());
+				commentMap.put("user_name", userDaoImpl.getUserInfoById(comment.getUser_id()).getUser_name());
+				commentMap.put("comment_content", comment.getComment_content());
+				commentMap.put("replier_name", userDaoImpl.getUserInfoById(comment.getReplier_id()).getUser_name());
+				commentMap.put("comment_date", comment.getComment_date());
+				commentMap.put("comment_praise", comment.getComment_praise());
+				list.add(commentMap);
+			}
+			map.put("data", list);
+			map.put("count", Integer.valueOf(commenDaoImpl.queryCountComment().toString()));
+			map.put("msg", "");
+			map.put("code", 0);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return map;
 	}
 

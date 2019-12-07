@@ -30,18 +30,18 @@ public class CommenServlet extends BaseServlet {
 	private String map;
 
 	// 当前页数
-	private Integer currentPage;
+	private Integer page;
 	// 总页数
 	private Integer countPage;
 	// 每页条数
-	private Integer pageSize;
+	private Integer limit;
 	private String callback;
 
 	// 返回所有文章评论信息
 	public void getAllComment(HttpServletRequest request,
 			HttpServletResponse response) throws IOException, SQLException {
-		Map<String, Object> map = commentService.getAllComment(currentPage,
-				pageSize);
+		Map<String, Object> map = commentService.getAllComment(limit,
+				page);
 		JSONObject obj = new JSONObject(map);
 		System.out.println("obj:" + obj);
 		response.getWriter().print(callback + "(" + obj + ")");

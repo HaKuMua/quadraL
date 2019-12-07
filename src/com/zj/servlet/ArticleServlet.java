@@ -45,11 +45,11 @@ public class ArticleServlet extends BaseServlet {
 	public String map;
 
 	// 当前页数
-	private Integer currentPage;
+	private Integer page;
 	// 总页数
 	private Integer countPage;
 	// 每页条数
-	private Integer pageSize;
+	private Integer limit;
 	//所要删除的条目ID
 	private Integer deleteId;
 	
@@ -78,7 +78,7 @@ public class ArticleServlet extends BaseServlet {
 	 */
 	public void getAllArticle(HttpServletRequest request,
 			HttpServletResponse response) throws IOException, SQLException {
-		Map<String, Object> map = articleService.getAllArticle(currentPage, pageSize);
+		Map<String, Object> map = articleService.getAllArticle(limit, page);
 		JSONObject obj = new JSONObject(map);
 		System.out.println("obj:" + obj);
 		response.getWriter().print(callback + "(" + obj + ")");

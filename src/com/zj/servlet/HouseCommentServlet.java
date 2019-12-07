@@ -30,16 +30,16 @@ public class HouseCommentServlet extends BaseServlet {
 	public String callback;
 
 	// 当前页数
-	private Integer currentPage;
+	private Integer page;
 	// 总页数
 	private Integer countPage;
 	// 每页条数
-	private Integer pageSize;
+	private Integer limit;
 
 	// 返回所有文章评论信息
 	public void getAllHouseComment(HttpServletRequest request,
 			HttpServletResponse response) throws IOException, SQLException {
-		Map<String, Object>map = hCommentService.getAllHouseComment(currentPage,pageSize);
+		Map<String, Object>map = hCommentService.getAllHouseComment(limit,page);
 		JSONObject obj = new JSONObject(map);
 		System.out.println("obj:" + obj);
 		response.getWriter().print(callback + "(" + obj + ")");
