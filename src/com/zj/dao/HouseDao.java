@@ -154,8 +154,8 @@ public class HouseDao implements HouseDaoImpl{
 	}
 	/**
 	 * 通过房子id获得房子
-	 * @param house_name 房子名字
-	 * @return id
+	 * @param house_id
+	 * @return
 	 * @throws SQLException
 	 */
 	public House getHouseByHouseId(Integer house_id) throws SQLException {
