@@ -76,12 +76,26 @@ public interface HouseDaoImpl {
 	 */
 	List<House> getHouseByID(Integer user_id) throws SQLException;
 	/**
+	 * 通过用户ID获取此用户旗下所有已审核房子信息
+	 * @param user_id
+	 * @return
+	 * @throws SQLException
+	 */
+	List<House> getHouseByIDByState(Integer user_id) throws SQLException;
+	/**
 	 * 通过房子名字获得id
 	 * @param house_name 房子名字
 	 * @return id
 	 * @throws SQLException
 	 */
 	Integer getHouseByName(String house_name) throws SQLException;
+	/**
+	 * 修改房子状态接口
+	 * @param status
+	 * @return
+	 * @throws SQLException
+	 */
+	Integer updateHouseStatus(Integer status,Integer house_id) throws SQLException;
 	
 	/**
 	 * 通过房子id获得房子

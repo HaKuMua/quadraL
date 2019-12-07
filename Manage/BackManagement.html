@@ -57,7 +57,7 @@
 						<!-- Logo -->
 						<!-- ============================================================== -->
 						<div class="navbar-brand" >
-							<a href="index.html" class="logo">
+							<a class="logo">
 								<!-- Logo icon -->
 								<b class="logo-icon">
 									<!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
@@ -89,33 +89,13 @@
 						<ul class="navbar-nav float-left mr-auto">
 							<!-- Search -->
 							<li class="nav-item search-box">
-								<a class="nav-link waves-effect waves-dark" href="javascript:void(0)">
-									<div class="d-flex align-items-center">
-										<i class="mdi mdi-magnify font-20 mr-1"></i>
-										<div class="ml-1 d-none d-sm-block">
-											<span>查询</span>
-										</div>
-									</div>
-								</a>
-								<form class="app-search position-absolute">
-									<input type="text" class="form-control" placeholder="查询 &amp; 输入所要查询的关键字">
-									<a class="srh-btn">
-										<i class="ti-close"></i>
-									</a>
-								</form>
 							</li>
 						</ul>
 						<!-- Right side toggle and nav items -->
 						<ul class="navbar-nav float-right">
 							<!-- User profile and search -->
 							<li class="nav-item dropdown">
-								<a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href="" data-toggle="dropdown"
-								 aria-haspopup="true" aria-expanded="false"><img src="img/users/1.jpg" alt="user" class="rounded-circle" width="31"></a>
-								<div class="dropdown-menu dropdown-menu-right user-dd animated">
-									<a class="dropdown-item" href="javascript:void(0)"><i class="ti-user m-r-5 m-l-5"></i> 个人中心</a>
-									<a class="dropdown-item" href="javascript:void(0)"><i class="ti-wallet m-r-5 m-l-5"></i> 收支情况</a>
-									<a class="dropdown-item" href="javascript:void(0)"><i class="ti-email m-r-5 m-l-5"></i> 退出登录</a>
-								</div>
+								<a class="dropdown-item" href="login.html"><i class="mdi m-r-10 mdi-power"></i> 退出登录</a>
 							</li>
 							<!-- User profile and search -->
 						</ul>
@@ -226,7 +206,7 @@
 		<!-- End Wrapper -->
 		<!-- All Jquery -->
 		<script type="text/html" id="barDemo1">
-		  <a class="layui-btn layui-btn-sm" data-toggle="modal" data-target="#myModal" lay-event="edit">点击审核</a>
+		  <a class="layui-btn layui-btn-sm" data-toggle="modal" data-target="#myModal" lay-event="edit" >点击审核</a>
 		</script>
 		<script type="text/html" id="barDemo2">
 			<a class="layui-btn layui-btn-danger layui-btn-xs" data-toggle="modal" data-target="#myModal" lay-event="del">删除</a>
@@ -391,6 +371,7 @@
 				$("#tablebox").empty();
 				layui.use('table', function(){
 				  var table = layui.table;
+				  var layer = layui.layer;
 				  table.on('tool(tablebox)', function(obj){
 				    var data = obj.data;
 				    if(obj.event === 'edit'){
@@ -409,43 +390,35 @@
 							'</button>' +
 							'</div>' +
 							'<div class="modal-body">' +
-							'<div id="demo' + '" class="carousel slide" data-ride="carousel">' +
+							'<div id="demo" class="carousel slide" data-ride="carousel">' +
 							'<!-- 指示符 -->' +
-							'<ul class="carousel-indicators" id="inner' + '">' +
+							'<ul class="carousel-indicators" id="inner">' +
 							'</ul>' +
 							'<!-- 轮播图片 -->' +
-							'<div class="carousel-inner" id="carouselImg'+ '">' +
+							'<div class="carousel-inner" id="carouselImg">' +
 							'</div>' +
 							'<!-- 左右切换按钮 -->' +
-							'<a class="carousel-control-prev" href="#demo'+ '" data-slide="prev">' +
+							'<a class="carousel-control-prev" href="#demo" data-slide="prev">' +
 							'<span class="carousel-control-prev-icon"></span>' +
 							'</a>' +
-							'<a class="carousel-control-next" href="#demo' + '" data-slide="next">' +
+							'<a class="carousel-control-next" href="#demo" data-slide="next">' +
 							'<span class="carousel-control-next-icon"></span>' +
 							'</a>' +
 							'</div>' +
 							'<!--轮播图结束-->' +
-							'<!--文本表格-->' +
-							'<table class="table" id="tablebox2">' +
-							'<thead>' +
-							'<tr>' +
-							'<th scope="col" class="t1">酒店编号</th>' +
-							'<th scope="col" class="t2">酒店名称</th>' +
-							'<th scope="col" class="t3">酒店容纳量</th>' +
-							'<th scope="col" class="t4">出租类型</th>' +
-							'<th scope="col" class="t5">酒店类型</th>' +
-							'<th scope="col" class="t6">酒店地址</th>' +
-							'<th scope="col" class="t7">酒店价格</th>' +
-							'<th scope="col" class="t8"></th>' +
-							'</tr>' +
-							'</thead>' +
-							'</table>' +
+							'酒店名称：'+data.house_name+'<br>'+
+							'出租类型：'+data.lease_type+'<br>'+
+							'酒店地址：'+data.house_address+'<br>'+
+							'酒店价格：'+data.house_price+'<br>'+
 							'<div class="modal-footer">' +
-							'<button type="button" class="btn btn-default" data-dismiss="modal">' +
+							'<button type="button" id="tonguo" class="btn btn-default" data-dismiss="modal">' +
 							'审核通过' +
 							'</button>' +
-							'<button type="button" class="btn btn-primary">' +
+							'<button type="button" id="jujue" class="btn btn-primary" data-dismiss="modal">' +
 							'拒绝通过' +
+							'</button>' +
+							'<button type="button" class="btn btn-primary" data-dismiss="modal">' +
+							'取消' +
 							'</button>' +
 							'</div>' +
 							'</div>' +
@@ -453,6 +426,28 @@
 							'</div>' +
 							'</div>'
 						);
+						$("#tonguo").click(function(){
+							$.getJSON("http://localhost:80/QuadraL/house.do?method=updateHouseStatus&callback=?",
+								{"status":"1","house_id":data.house_id},function(result){
+									if(result>0){
+										layer.msg("已通过喵~");
+									}else{
+										layer.msg("出现错误了喵~");
+									}
+									$(".layui-laypage-btn")[0].click();
+							});
+						});
+						$("#jujue").click(function(){
+							$.getJSON("http://localhost:80/QuadraL/house.do?method=updateHouseStatus&callback=?",
+								{"status":"-1","house_id":data.house_id},function(result){
+									if(result>0){
+										layer.msg("已拒绝喵~");
+									}else{
+										layer.msg("出现错误了喵~");
+									}
+									$(".layui-laypage-btn")[0].click();
+							});
+						});
 						$.getJSON("http://localhost:80/QuadraL/houseInfo.do?method=getHouseInfoByID&callback=?",
 								{"house_id":data.house_id},function(result){
 							for (j = 0; j < result.allHouseImg.length; j++) {
@@ -495,7 +490,23 @@
 				      ,{field:'house_price', width:120, title: '酒店价格', sort: true}
 				      ,{field:'travel_information', width:240, title: '出行信息'}
 				      ,{field:'house_address', width:240, title: '酒店地址'}
-				      ,{fixed: 'right', width:178, align:'center', toolbar: '#barDemo1'}
+				      ,{fixed:'right', width:178, align:'center', templet:function (item) {
+                               var tem = [];
+                               console.log(item)
+                               if (item.house_state == "已审核") {
+                                   tem.push('<a class="layui-btn  layui-btn-sm" style="color: #000000;background-color: #5BC0DE;">已审核</a>');
+                               }
+                               if(item.house_state == "未审核"){
+                                   tem.push('<a lay-event="edit" data-toggle="modal" data-target="#myModal" class="layui-btn  layui-btn-sm">点击审核</a>');
+                               }
+                               if(item.house_state == "已拒绝"){
+                                   tem.push('<a class="layui-btn  layui-btn-sm" style="color: #000000;background-color: red;">已拒绝</a>');
+                               }
+                               if(item.house_state == "已审核且已预定"){
+                                   tem.push('<a class="layui-btn  layui-btn-sm" style="color: #000000;background-color: #5BC0DE;">已预定</a>');
+                               }
+                               return tem.join(' <font></font> ');
+                           }}
 				    ]]
 				    ,page: true
 				  });
@@ -530,12 +541,14 @@
 							'</div>' +
 							'<div class="modal-body">' +
 							'<div id="demo" class="carousel slide" data-ride="carousel">' +
-							
+							'文章名：'+data.article_name+'<br>'+
+							'评论内容：'+data.comment_content+'<br>'+
+							'评论时间：'+data.comment_date+'<br>'+
 							'<div class="modal-footer">' +
-							'<button type="button" class="btn btn-default" data-dismiss="modal">' +
+							'<button type="button" class="btn btn-default" data-dismiss="modal" id="sc">' +
 							'确认删除' +
 							'</button>' +
-							'<button type="button" class="btn btn-primary">' +
+							'<button type="button" class="btn btn-primary" data-dismiss="modal">' +
 							'取消' +
 							'</button>' +
 							'</div>' +
@@ -545,7 +558,17 @@
 							'</div>' +
 							'</div>'
 						);
-						
+						$("#sc").click(function(){
+							$.getJSON("http://localhost:80/QuadraL/commen.do?method=deleteComment&callback=?",
+								{"comment_id":data.comment_id},function(result){
+									if(result>0){
+										layer.msg("已经删除了喵~");
+									}else{
+										layer.msg("出现错误了喵~");
+									}
+									$(".layui-laypage-btn")[0].click();
+							});
+						});
 				    }
 				  });
 				  table.render({
@@ -603,12 +626,14 @@
 							'</div>' +
 							'<div class="modal-body">' +
 							'<div id="demo" class="carousel slide" data-ride="carousel">' +
-							
+							'房子名称：'+data.house_name+'<br>'+
+							'房间评论内容：'+data.houseCom_content+'<br>'+
+							'评论日期：'+data.houseCom_date+'<br>'+
 							'<div class="modal-footer">' +
-							'<button type="button" class="btn btn-default" data-dismiss="modal">' +
+							'<button type="button" class="btn btn-default" data-dismiss="modal" id="sc">' +
 							'确认删除' +
 							'</button>' +
-							'<button type="button" class="btn btn-primary">' +
+							'<button type="button" class="btn btn-primary" data-dismiss="modal">' +
 							'取消' +
 							'</button>' +
 							'</div>' +
@@ -618,7 +643,17 @@
 							'</div>' +
 							'</div>'
 						);
-						
+						$("#sc").click(function(){
+							$.getJSON("http://localhost:80/QuadraL/houseComment.do?method=deleteHouseComment&callback=?",
+								{"houseCom_id":data.houseCom_id},function(result){
+									if(result>0){
+										layer.msg("已经删除了喵~");
+									}else{
+										layer.msg("出现错误了喵~");
+									}
+									$(".layui-laypage-btn")[0].click();
+							});
+						});
 				    }
 				  });
 				  table.render({
@@ -674,12 +709,14 @@
 							'</div>' +
 							'<div class="modal-body">' +
 							'<div id="demo" class="carousel slide" data-ride="carousel">' +
-							
+							'文章题目：'+data.article_name+'<br>'+
+							'文章内容：'+data.article_content+'<br>'+
+							'文章发布日期：'+data.article_date+'<br>'+
 							'<div class="modal-footer">' +
-							'<button type="button" class="btn btn-default" data-dismiss="modal">' +
+							'<button type="button" class="btn btn-default" data-dismiss="modal" id="sc">' +
 							'确认删除' +
 							'</button>' +
-							'<button type="button" class="btn btn-primary">' +
+							'<button type="button" class="btn btn-primary" data-dismiss="modal">' +
 							'取消' +
 							'</button>' +
 							'</div>' +
@@ -689,7 +726,17 @@
 							'</div>' +
 							'</div>'
 						);
-						
+						$("#sc").click(function(){
+							$.getJSON("http://localhost:80/QuadraL/article.do?method=deleteArticle&callback=?",
+								{"article_id":data.article_id},function(result){
+									if(result.hint>0){
+										layer.msg("已经删除了喵~");
+									}else{
+										layer.msg("出现错误了喵~");
+									}
+									$(".layui-laypage-btn")[0].click();
+							});
+						});
 				    }
 				  });
 				  table.render({

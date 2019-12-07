@@ -176,4 +176,19 @@ public class HouseCommentService implements HouseCommentServiceImpl {
 		}
 		return commentListMap;
 	}
+	/**
+	 * 删除一篇房子评论
+	 */
+	public Integer deleteHouseComm(Integer houseComment_id) {
+		try {
+			Integer dal = hCommenDaoImpl.deleteHouseCommentByID(houseComment_id);
+			if(dal > 0)
+				return 1;
+			else
+				return 0;
+		} catch (SQLException e) {
+			log.error("数据库操作异常");
+			return -1;
+		}
+	}
 }

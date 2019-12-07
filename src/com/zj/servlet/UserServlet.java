@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.fileupload.FileUploadException;
+import org.apache.log4j.Logger;
 import org.json.JSONObject;
 
 import cn.com.util.BaseServlet;
@@ -32,11 +33,19 @@ public class UserServlet extends BaseServlet {
 	private static final long serialVersionUID = 1L;
 	private UserServiceImpl userServiceImpl = new UserService();
 	private NoticeServiceImpl noticeServiceImpl = new NoticeService();
+	private Logger log = Logger.getLogger(UserServlet.class);
 	private String map;
 	private String callback;
 	private String user_id;
 	private String user_phone;
-	
+	/**
+	 * 管理员账号
+	 */
+	private String managername;
+	/**
+	 * 管理员密码
+	 */
+	private String managerpwd;
 	/**
 	 * 邮箱/电话密码登录
 	 * @throws IOException 
@@ -119,7 +128,7 @@ public class UserServlet extends BaseServlet {
 		String url = FileLoadServletUtil.upload(request, response,
 				"D:/MyEclipse2015work/quadraL/WebRoot/image/userImg/");
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		System.out.println(url);
+		log.debug(url);
 		map.put("code", "0");
 		HashMap<String, Object> data = new HashMap<String, Object>();
 		//将图片地址存到数据库(因为浏览器不能直接访问本地路径，会报错)；
@@ -161,7 +170,7 @@ public class UserServlet extends BaseServlet {
 	 * @throws IOException
 	 */
 	public void IdCardVal(HttpServletRequest request,HttpServletResponse response) throws IOException {
-		System.out.println(map);
+		log.debug(map);
 		@SuppressWarnings("unchecked")
 		Map<String, Object> myMap = (Map<String, Object>) JSON.parse(map);
 		Map<String, Object> sendMap = new HashMap<String, Object>();
@@ -251,5 +260,17 @@ public class UserServlet extends BaseServlet {
 		commentMap.put("commentInfo", list);
 		JSONObject json = new JSONObject(commentMap);
 		response.getWriter().print(json);
+	}
+	/**
+	 * 管理员登录验证
+	 * @param request
+	 * @param response
+	 * @throws FileUploadException
+	 * @throws IOException
+	 */
+	public void isManager(HttpServletRequest request,HttpServletResponse response) throws FileUploadException, IOException {
+		Integer data = userServiceImpl.isManager(managername, managerpwd);
+		log.debug(data);
+		response.getWriter().print(callback+"("+data+")");
 	}
 }

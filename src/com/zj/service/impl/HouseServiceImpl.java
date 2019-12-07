@@ -35,10 +35,18 @@ public interface HouseServiceImpl {
 	 * @param user_id
 	 * @return
 	 */
-	List<Map<String, Object>> getHouseByID(Integer user_id);
+	List<Map<String, Object>> getHouseByID(Integer user_id,Integer status);
 	/**
 	 * 通过筛选返回指定房子信息
 	 * @return
 	 */
 	List<Map<String, Object>> getHouseByDateOrAddress(String reserve_date ,String check_out_date,String house_address);
+	/**
+	 * 修改房子状态服务层接口
+	 * @param status
+	 * @return
+	 * @throws SQLException
+	 */
+	Integer updateHouseStatus(Integer status,Integer house_id);
+	
 }

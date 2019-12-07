@@ -20,6 +20,7 @@ import cn.com.util.UUIDGenerator;
 import com.zj.dao.UserDao;
 import com.zj.dao.impl.UserDaoImpl;
 import com.zj.entity.GrogshopOrder;
+import com.zj.entity.ManagerInfo;
 import com.zj.entity.User;
 import com.zj.service.impl.HouseCommentServiceImpl;
 import com.zj.service.impl.HouseServiceImpl;
@@ -538,7 +539,7 @@ public class UserService implements UserServiceImpl {
 		try {
 			User user = userDaoImpl.getUserInfoById(user_id);
 			if(user.getIs_landlord() == 1) {
-				List<Map<String, Object>> list = houseServiceImpl.getHouseByID(user_id);
+				List<Map<String, Object>> list = houseServiceImpl.getHouseByID(user_id,1);
 				map.put("house", list);
 				list = houseCoServiceImpl.getHouseCommentByLandlordID(user_id);
 				map.put("user_comment", list);
@@ -610,6 +611,26 @@ public class UserService implements UserServiceImpl {
 		}
 		
 	return list;
+	}
+	/**
+	 * 验证管理员登录
+	 * @param name
+	 * @param pwd
+	 * @return
+	 * @throws SQLException
+	 */
+	public Integer isManager(String name, String pwd) {
+		try {
+			ManagerInfo manager = userDaoImpl.isManager(name, pwd);
+			if(manager != null){
+				return 1;
+			}else{
+				return 0;
+			}
+		} catch (SQLException e) {
+			log.error("数据库操作异常");
+			return -1;
+		}
 	}
 
 }

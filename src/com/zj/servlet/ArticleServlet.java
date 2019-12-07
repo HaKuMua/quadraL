@@ -276,8 +276,9 @@ public class ArticleServlet extends BaseServlet {
 		Integer count = articleService.deleteArticleInfo(article_id);
 		Map<String, Integer> map = new HashMap<String, Integer>();
 		map.put("hint", count);
+		log.debug(map);
 		JSONObject obj = new JSONObject(map);
-		response.getWriter().print(obj);
+		response.getWriter().print(callback + "(" + obj + ")");
 	}
 
 }

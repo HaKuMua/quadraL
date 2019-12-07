@@ -28,7 +28,7 @@ public class CommenServlet extends BaseServlet {
 
 	private CommentServiceImpl commentService = new CommentService();
 	private String map;
-
+	private Integer comment_id;
 	// 当前页数
 	private Integer page;
 	// 总页数
@@ -79,5 +79,16 @@ public class CommenServlet extends BaseServlet {
 		System.out.println(sendMap);
 		JSONObject obj = new JSONObject(sendMap);
 		response.getWriter().print(callback + "(" + obj + ")");
+	}
+	/**
+	 * 删除评论
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 */
+	public void deleteComment(HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
+		Integer del = commentService.deleteComm(comment_id);
+		response.getWriter().print(callback + "(" + del + ")");
 	}
 }

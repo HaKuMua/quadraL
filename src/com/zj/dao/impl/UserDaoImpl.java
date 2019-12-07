@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.zj.entity.GrogshopOrder;
+import com.zj.entity.ManagerInfo;
 import com.zj.entity.User;
 
 /**
@@ -112,4 +113,12 @@ public interface UserDaoImpl {
 	 * @return
 	 */
 	Integer becomeLandlord(Integer user_id) throws SQLException;
+	/**
+	 * 验证管理员登录
+	 * @param name
+	 * @param pwd
+	 * @return
+	 * @throws SQLException
+	 */
+	ManagerInfo isManager(String name,String pwd) throws SQLException;
 }

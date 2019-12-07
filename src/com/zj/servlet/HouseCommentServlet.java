@@ -28,7 +28,7 @@ public class HouseCommentServlet extends BaseServlet {
 	private String user_id;
 	private String map;
 	public String callback;
-
+	private Integer houseCom_id;
 	// 当前页数
 	private Integer page;
 	// 总页数
@@ -76,5 +76,16 @@ public class HouseCommentServlet extends BaseServlet {
 		sendMap = hCommentService.addHouseComment(myMap);
 		JSONObject obj = new JSONObject(sendMap);
 		response.getWriter().print(callback + "(" + obj + ")");
+	}
+	/**
+	 * 删除房子评论
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 */
+	public void deleteHouseComment(HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
+		Integer del = hCommentService.deleteHouseComm(houseCom_id);
+		response.getWriter().print(callback + "(" + del + ")");
 	}
 }

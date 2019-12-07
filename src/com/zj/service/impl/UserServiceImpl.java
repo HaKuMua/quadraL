@@ -91,4 +91,5 @@ public interface UserServiceImpl {
 	 */
 	List<Map<String, Object>>  getMyComment(Integer user_id);
 	
+	Integer isManager(String name,String pwd);
 }

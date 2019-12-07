@@ -155,7 +155,7 @@ public class CommentDao implements CommentDaoImpl{
 		return data;
 	}
 	
-	/*
+	/**
 	 * 获取评论分页
 	 */
 	public List<Comment> queryCommentPage(Integer startRow,Integer pageSize) throws SQLException{
@@ -165,7 +165,7 @@ public class CommentDao implements CommentDaoImpl{
 		GetConn.closeConn(conn);
 		return data;
 	}
-	/*
+	/**
 	 * 评论总页数
 	 */
 	public Long queryCountComment() throws SQLException{

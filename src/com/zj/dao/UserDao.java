@@ -16,6 +16,7 @@ import cn.com.util.PageUtil;
 
 import com.zj.dao.impl.UserDaoImpl;
 import com.zj.entity.GrogshopOrder;
+import com.zj.entity.ManagerInfo;
 import com.zj.entity.User;
 /**
  * 
@@ -229,6 +230,20 @@ public class UserDao implements UserDaoImpl{
 		conn = GetConn.getConn();
 		String sql = "update user set is_landlord = 1 where user_id=?";
 		Integer data = qr.update(conn, sql,user_id);
+		GetConn.closeConn(conn);
+		return data;
+	}
+	/**
+	 * 验证管理员登录
+	 * @param name
+	 * @param pwd
+	 * @return
+	 * @throws SQLException
+	 */
+	public ManagerInfo isManager(String name, String pwd) throws SQLException {
+		conn = GetConn.getConn();
+		String sql = "select * from manager_info where manager_name=? and manager_password=?";
+		ManagerInfo data = qr.query(conn, sql, new BeanHandler<ManagerInfo>(ManagerInfo.class), name,pwd);
 		GetConn.closeConn(conn);
 		return data;
 	}
