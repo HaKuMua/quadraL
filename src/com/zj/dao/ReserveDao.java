@@ -147,14 +147,4 @@ public class ReserveDao implements ReserveDaoImpl{
 		GetConn.closeConn(conn);
 		return data;
 	}
-	/**
-	 * 获取一个房东的指定预定信息的数量
-	 * @return
-	 * @throws SQLException
-	 */
-	public Long getAllReserveNumByState(Integer user_id, Integer state)
-			throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

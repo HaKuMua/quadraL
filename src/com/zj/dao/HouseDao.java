@@ -46,7 +46,7 @@ public class HouseDao implements HouseDaoImpl{
 		GetConn.closeConn(conn);
 		return data;
 	}
-	/*
+	/**
 	 * 订单总页数
 	 */
 	public Long queryCountHouse() throws SQLException{
@@ -92,9 +92,9 @@ public class HouseDao implements HouseDaoImpl{
 	public List<House> getHouseByDateAndAdd(Date reserve_date ,Date check_out_date,String house_address) throws SQLException {
 		conn = GetConn.getConn();
 		String sql = "select * from reserve,house where (reserve_date > '?' or check_out_date < '?') and "+ 
-"(house.house_address LIKE '%?%') and reserve.house_id=house.house_id";
+"(house.house_address LIKE '%?%') and reserve.house_id=house.house_id and (house_state = 1 or house_state=2)";
 		List<House> date = qr.query(conn, sql, new BeanListHandler<House>(House.class), check_out_date,reserve_date,house_address);
-		conn.close();
+		GetConn.closeConn(conn);
 		return date;
 	}
 	/**
@@ -107,9 +107,9 @@ public class HouseDao implements HouseDaoImpl{
 	public List<House> getHouseByDate(Date reserve_date ,Date check_out_date) throws SQLException {
 		conn = GetConn.getConn();
 		String sql = "select * from reserve,house where (reserve_date > '?' or check_out_date < '?') and "+ 
-"reserve.house_id=house.house_id";
+"reserve.house_id=house.house_id and (house_state = 1 or house_state=2)";
 		List<House> data = qr.query(conn, sql, new BeanListHandler<House>(House.class), check_out_date,reserve_date);
-		conn.close();
+		GetConn.closeConn(conn);
 		return data;
 	}
 	/**
@@ -120,9 +120,9 @@ public class HouseDao implements HouseDaoImpl{
 	 */
 	public List<House> getHouseByAdd(String house_address) throws SQLException {
 		conn = GetConn.getConn();
-		String sql = "select * from house where house_address  like \"%\"?\"%\"";
+		String sql = "select * from house where house_address  like \"%\"?\"%\" and (house_state = 1 or house_state=2)";
 		List<House> data = qr.query(conn, sql, new BeanListHandler<House>(House.class),house_address);
-		conn.close();
+		GetConn.closeConn(conn);
 		return data;
 	}
 	/**
@@ -135,34 +135,7 @@ public class HouseDao implements HouseDaoImpl{
 		conn = GetConn.getConn();
 		String sql = "select * from house where user_id=?";
 		List<House> data = qr.query(conn, sql, new BeanListHandler<House>(House.class), user_id);
-		conn.close();
-		return data;
-	}
-	
-	/**
-	 * 通过房子名字获得id
-	 * @param house_name 房子名字
-	 * @return id
-	 * @throws SQLException
-	 */
-	public Integer getHouseByName(String house_name) throws SQLException {
-		conn = GetConn.getConn();
-		String sql = "select house_id from house where house_name=?";
-		Integer data = qr.query(conn, sql, new ScalarHandler(),house_name);
-		conn.close();
-		return data;
-	}
-	/**
-	 * 通过房子id获得房子
-	 * @param house_id
-	 * @return
-	 * @throws SQLException
-	 */
-	public House getHouseByHouseId(Integer house_id) throws SQLException {
-		conn = GetConn.getConn();
-		String sql = "select * from house where house_id=?";
-		House data = qr.query(conn, sql, new BeanHandler<House>(House.class),house_id);
-		conn.close();
+		GetConn.closeConn(conn);
 		return data;
 	}
 	/**
@@ -179,6 +152,19 @@ public class HouseDao implements HouseDaoImpl{
 		return data;
 	}
 	/**
+	 * 通过房子名字获得id
+	 * @param house_name 房子名字
+	 * @return id
+	 * @throws SQLException
+	 */
+	public Integer getHouseByName(String house_name) throws SQLException {
+		conn = GetConn.getConn();
+		String sql = "select house_id from house where house_name=?";
+		Integer data = qr.query(conn, sql, new ScalarHandler(),house_name);
+		conn.close();
+		return data;
+	}
+	/**
 	 * 修改房子状态
 	 * @param status
 	 * @return
@@ -191,6 +177,18 @@ public class HouseDao implements HouseDaoImpl{
 		GetConn.closeConn(conn);
 		return data;
 	}
-	
+	/**
+	 * 通过房子id获得房子
+	 * @param house_id
+	 * @return
+	 * @throws SQLException
+	 */
+	public House getHouseByHouseId(Integer house_id) throws SQLException {
+		conn = GetConn.getConn();
+		String sql = "select * from house where house_id=?";
+		House data = qr.query(conn, sql, new BeanHandler<House>(House.class),house_id);
+		conn.close();
+		return data;
+	}
 	
 }
