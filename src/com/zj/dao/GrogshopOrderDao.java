@@ -185,7 +185,7 @@ public class GrogshopOrderDao implements GrogshopOrderDaoImpl {
 	}
 	
 	/**
-	 * 房东改变订单状态
+	 * 用户改变订单状态
 	 * @param order_id
 	 * @param userState
 	 * @return
