@@ -88,34 +88,32 @@ public class ArticleService implements ArticleServiceImpl{
 	 * @return
 	 * @throws SQLException 
 	 */
-	public Map<String, Object> getAllArticle(Integer articlePresentPage,Integer pageSize) throws SQLException{
-		//文章图片
-		//文章作者
-		
-		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
-		// 文章分页
-		Long articleCount = articleDaoImpl.queryCountArticle();
-		PageUtil<Article> pu = new PageUtil<Article>();
-		pu.setCountRow(articleCount.intValue());
-		pu.setCurrentPage(articlePresentPage);
-		pu.setPageSize(pageSize);
-		
-		int articleStartRow = pu.getStartRow();
-		int articlePageSize = pu.getPageSize();
-		
-		List<Article> articlePage = articleDaoImpl.queryArticlePage(articleStartRow, articlePageSize);
-		for(Article article : articlePage) {
-			article.setArticle_content(RemoveHtmlTagUtil.removeHtmlTag(article.getArticle_content()));
-		}
-		List<ArticleImg> articleImg = articleImgDaoImpl.queryArticleImg();
-		List<User> user = userDaoImpl.getAllUserInfo();
-		Map<String,Object> dataMap = new HashMap<String, Object>();
-		dataMap.put("article", articlePage);
-		dataMap.put("articleImg", articleImg);
-		dataMap.put("user", user);
-		pu.setMap(dataMap);
+	public Map<String, Object> getAllArticle(Integer limit,Integer page) throws SQLException{
 		Map<String,Object> map = new HashMap<String,Object>();
-		map.put("pageUtil", pu);
+		List<Article> articleList = null;
+		try {
+			articleList = articleDaoImpl.queryArticlePage((page-1)*10, limit);
+			List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+			for(Article article : articleList){
+				Map<String, Object> articleMap = new HashMap<String, Object>();
+				articleMap.put("article_id", article.getArticle_id());
+				articleMap.put("user_name", userDaoImpl.getUserInfoById(article.getUser_id()).getUser_name());
+				articleMap.put("article_name", article.getArticle_name());
+				articleMap.put("article_content", article.getArticle_content());
+				articleMap.put("article_date", article.getArticle_date());
+				articleMap.put("article_praise", article.getArticle_praise());
+				articleMap.put("article_collect", article.getArticle_collect());
+				articleMap.put("house_name", houseDaoImpl.getHouseInfoByID(article.getHouse_id()).getHouse_name());
+				list.add(articleMap);
+			}
+			map.put("data", list);
+			map.put("count", Integer.valueOf(articleDaoImpl.queryCountArticle().toString()));
+			map.put("msg", "");
+			map.put("code", 0);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return map;
 	}
 	
