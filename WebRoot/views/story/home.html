@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>度假屋、民宿、体验和攻略 - Airbnb爱彼迎</title>
+		<title>度假屋、民宿、体验和攻略 - QuadraL</title>
 		<script src="../../js/comment.js"></script>
 		<link rel="stylesheet" type="text/css" href="../../layui/css/layui.css">
 		<script src="../../js/jquery.min.js"></script>
@@ -309,6 +309,13 @@
 				}
 			}
 			return "";
+		}
+		//设置cookie
+		function setCookie(cname, cvalue, exdays) {
+			var d = new Date();
+			d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+			var expires = "expires=" + d.toUTCString();
+			document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 		}
 		//渲染文章
 		function getArticle() {

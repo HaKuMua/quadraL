@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>度假屋、民宿、体验和攻略 - Airbnb爱彼迎</title>
+		<title>度假屋、民宿、体验和攻略 - QuadraL</title>
 		<script src="../../js/comment.js"></script>
 		<link rel="stylesheet" type="text/css" href="../../layui/css/layui.css">
 		<script src="../../js/jquery.min.js"></script>
@@ -104,7 +104,7 @@
 		</div>
 		<div id="main">
 			<div id="title">
-				<div class="layui-col-xs12">
+				<!-- <div class="layui-col-xs12">
 					<span style="font-size: 50px; color: gray;">
 						您好，我叫藝
 					</span><br><br>
@@ -121,11 +121,11 @@
 						舒适和合理价格的机会｡我们酒店的客人可以享受融合了高效的胶囊住宿和正宗的传统设计 -
 						实质上是在东京市中心的现代和城市日式旅馆体验｡
 					</h4>
-				</div>
+				</div> -->
 			</div><br>
 			<hr><br>
 			<div id="house">
-				<h2 style="color: gray;"><b>藝的房源</b></h2><br>
+				<!-- <h2 style="color: gray;"><b>藝的房源</b></h2><br>
 				<div class="layui-col-xs6" style="margin-top: 30px;">
 					<a href="">
 						<img src="../../img/room/65e00580-6a91-4ee7-bc11-d05f259814ad.jpg" width="290px" height="216px">
@@ -160,11 +160,11 @@
 						<h4>价格：500一晚·整套房子·最多2人</h4>
 						<h3>藝净- 复古花,太古里旁高层花园电影套房</h3>
 					</a>
-				</div>
+				</div> -->
 			</div><br><br><br>
 			<hr><br><br><br>
 			<div id="comment">
-				<h2 style="color: gray;"><b>554条评价</b></h2><br>
+				<!-- <h2 style="color: gray;"><b>554条评价</b></h2><br>
 				<div>
 					<div class="layui-col-xs10">
 						<a href="">住过藝净- 复古花,太古里旁高层花园电影套房</a>
@@ -250,7 +250,7 @@
 						<h3 style="margin-left: 80px; margin-top: 0px;">2019年10月</h3><br>
 					</a>
 					<hr>
-				</div><br><br>
+				</div><br><br> -->
 			</div><br>
 		</div>
 		<div class="foot">
@@ -269,10 +269,10 @@
 	<script type="text/javascript">
 		var url = window.location.search; //获取url中"?"符后的字串
 		if (url.indexOf("?") != -1) {
-			var user_id = url.substr(url.indexOf("=")+1);
+			var user_id = url.substr(url.indexOf("=") + 1);
 		}
-		var userInfo=null;
-		var noticeInfo=null;
+		var userInfo = null;
+		var noticeInfo = null;
 		var info = {
 			user_id: '',
 			user_tel: '',
@@ -296,61 +296,79 @@
 				}
 			}],
 			house: [{
-				house_name: '下榻日式风格的房源去畅玩太古里',
-				house_id: 4,
-				house_price: 289.5,
-				house_type: '独立房间',
-				houseImg: '1',
-				house_intake: '', //房子容纳量
-			},{
-				house_name: '下榻日式风格的房源去畅玩太古里',
-				house_id: 4,
-				house_price: 289.5,
-				house_type: '独立房间',
-				houseImg: '1',
-				house_intake: '', //房子容纳量
-			},
-			{
-				house_name: '下榻日式风格的房源去畅玩太古里下榻日式风格去畅玩太古里下榻日式风格的',
-				house_id: 4,
-				house_price: 289.5,
-				house_type: '独立房间',
-				houseImg: '1',
-				house_intake: '', //房子容纳量
-			},
-			{
-				house_name: '下榻日式风格的房源去畅玩太古里',
-				house_id: 4,
-				house_price: 289.5,
-				house_type: '独立房间',
-				houseImg: '1',
-				house_intake: '', //房子容纳量
-			},
-			{
-				house_name: '太古里下榻日式风格的房源去畅玩太古里',
-				house_id: 4,
-				house_price: 289.5,
-				house_type: '独立房间',
-				houseImg: '1',
-				house_intake: '', //房子容纳量
-			},{
-				house_name: '下榻日式风格的房源去畅玩太古里',
-				house_id: 4,
-				house_price: 289.5,
-				house_type: '独立房间',
-				houseImg: '1',
-				house_intake: '', //房子容纳量
-			},
-			{
-				house_name: '下榻日式风格的房源去畅玩太古里',
-				house_id: 4,
-				house_price: 289.5,
-				house_type: '独立房间',
-				houseImg: '1',
-				house_intake: '', //房子容纳量
-			}
+					house_name: '下榻日式风格的房源去畅玩太古里',
+					house_id: 4,
+					house_price: 289.5,
+					house_type: '独立房间',
+					houseImg: '1',
+					house_intake: '', //房子容纳量
+				}, {
+					house_name: '下榻日式风格的房源去畅玩太古里',
+					house_id: 4,
+					house_price: 289.5,
+					house_type: '独立房间',
+					houseImg: '1',
+					house_intake: '', //房子容纳量
+				},
+				{
+					house_name: '下榻日式风格的房源去畅玩太古里下榻日式风格去畅玩太古里下榻日式风格的',
+					house_id: 4,
+					house_price: 289.5,
+					house_type: '独立房间',
+					houseImg: '1',
+					house_intake: '', //房子容纳量
+				},
+				{
+					house_name: '下榻日式风格的房源去畅玩太古里',
+					house_id: 4,
+					house_price: 289.5,
+					house_type: '独立房间',
+					houseImg: '1',
+					house_intake: '', //房子容纳量
+				},
+				{
+					house_name: '太古里下榻日式风格的房源去畅玩太古里',
+					house_id: 4,
+					house_price: 289.5,
+					house_type: '独立房间',
+					houseImg: '1',
+					house_intake: '', //房子容纳量
+				}, {
+					house_name: '下榻日式风格的房源去畅玩太古里',
+					house_id: 4,
+					house_price: 289.5,
+					house_type: '独立房间',
+					houseImg: '1',
+					house_intake: '', //房子容纳量
+				},
+				{
+					house_name: '下榻日式风格的房源去畅玩太古里',
+					house_id: 4,
+					house_price: 289.5,
+					house_type: '独立房间',
+					houseImg: '1',
+					house_intake: '', //房子容纳量
+				}
 			]
 		}
+		//请求后端拿到房东的房子信息
+		$.getJSON(basePath + "user.do?method=getUserInfo", {
+			"user_id": user_id
+		}, function(res) {
+			console.log(res)
+			info = res;
+			$("#leftFoot").empty();
+			if (userInfo != null) {
+				if (userInfo.user_id == info.user_id) {
+					$("#leftFoot").append('<button id="recharge" class="layui-btn" type="button">充值余额</button>');
+					$("#i2").before('<i class="layui-icon layui-icon-face-smile" style="color: red;">&nbsp;我的余额：￥' + info.money +
+						'</i><br><br>');
+				} else {
+					$("#leftFoot").empty();
+				}
+			}
+			getInfo();
+		});
 		json = getCookie('userInfo');
 		if (json != '' || json == null) {
 			jsonInfo = JSON.parse(json);
@@ -366,7 +384,8 @@
 				'<li class="layui-nav-item"><a href="javascript:;" id="notice">消息<span id="dot" class="layui-badge-dot"></a> </li>' +
 				' <li class="layui-nav-item" lay-unselect=""><a href="javascript:;"><img src="../../' +
 				userInfo.user_headimg_url + '" class="layui-nav-img">' + userInfo.user_name + '</a> ' +
-				'<dl class="layui-nav-child"><dd><a href="../host/landlord.html?user_id='+userInfo.use_id+'"  style="color: gray;">个人中心</a></dd>' +
+				'<dl class="layui-nav-child"><dd><a href="../host/landlord.html?user_id=' + userInfo.use_id +
+				'"  style="color: gray;">个人中心</a></dd>' +
 				' <dd><a href="../user/modifyInfo.html" style="color: gray;">修改信息</a></dd><dd><a href="javascript:;" id="quit" style="color: gray;">退了</a></dd></dl>';
 			$("#rightNav").empty();
 			$("#rightNav").append(html);
@@ -386,30 +405,14 @@
 			location.href = "../index.html";
 		});
 
-		//请求后端拿到房东的房子信息
-		$.getJSON(basePath + "user.do?method=getUserInfo", {
-			"user_id": user_id
-		}, function(res) {
-			console.log(res)
-			info = res;
-			$("#leftFoot").empty();
-			if(userInfo != null) {
-				if(userInfo.user_id == info.user_id) {
-					$("#leftFoot").append('<button id="recharge" class="layui-btn" type="button">充值余额</button>');
-					$("#i2").before('<i class="layui-icon layui-icon-face-smile" style="color: red;">&nbsp;我的余额：￥' + info.money + '</i><br><br>');
-				}else {
-					$("#leftFoot").empty();
-				}	
-			}
-			getInfo();
-		});
+
 		//渲染信息
 		function getInfo() {
 			$("#left").empty();
 			html = '<img src="../../' + info.user_headimg_url + '" width="120px" height="120px" ><hr >' +
-				 //'<i id="i2" class="layui-icon layui-icon-dialogue" style="color: red;">&nbsp;' + info.user_comment.length + '条评价</i><br><br>' +
+				//'<i id="i2" class="layui-icon layui-icon-dialogue" style="color: red;">&nbsp;' + info.user_comment.length + '条评价</i><br><br>' +
 				'<i class="layui-icon layui-icon-ok" style="color: red;">&nbsp;已验证</i><br><br>' +
-				'<hr ><h2>'+info.user_name+'已提供</h2><br>' +
+				'<hr ><h2>' + info.user_name + '已提供</h2><br>' +
 				'<i class="layui-icon layui-icon-ok" style="color: green;">&nbsp;电子邮箱</i><br><br>' +
 				'<i class="layui-icon layui-icon-ok" style="color: green;">&nbsp;电话号码</i><br><br>' +
 				'<i class="layui-icon layui-icon-ok" style="color: green;">&nbsp;身份证</i><br><br>';
@@ -420,16 +423,17 @@
 				'</h2>' +
 				'</div><br><br><br><br><br><br><br><br>' +
 				'<hr><div class="layui-col-xs12">' +
-				'<h2 style="color: gray;"><b>自我介绍</b></h2><br><h4>' + info.user_describe  + '</h4></div><br>';
+				'<h2 style="color: gray;"><b>自我介绍</b></h2><br><h4>' + info.user_describe + '</h4></div><br>';
 			$("#title").append(html);
 			if (info.is_landlord == 0) {
 				$("#house").empty();
 				$("#comment").empty();
 			} else {
 				$("#house").empty();
-				$("#house").append('<h2 style="color: gray;"><b>"'+info.user_name+'"的房源</b></h2><br>');
+				$("#house").append('<h2 style="color: gray;"><b>"' + info.user_name + '"的房源</b></h2><br>');
 				for (let i = 0; i < info.house.length; i++) {
-					html = '<div class="layui-col-xs6" style="margin-top: 20px;"><a href="home.html?house_id=' + info.house[i].house_id + '">' +
+					html = '<div class="layui-col-xs6" style="margin-top: 20px;"><a href="home.html?house_id=' + info.house[i].house_id +
+						'">' +
 						'<img src="../../' + info.house[i].house_img + '" width="290px" height="216px">' +
 						'<h4>价格：￥' + info.house[i].house_price + '一晚·' + info.house[i].house_type + '·最多' + info.house[i].house_intake +
 						'人</h4>' +
@@ -437,14 +441,16 @@
 					$("#house").append(html);
 				}
 				$("#comment").empty();
-				$("#comment").append('<h2 style="color: gray;"><b>' + info.user_comment == null?0:info.user_comment.length + '条评价</b></h2><br>');
+				$("#comment").append('<h2 style="color: gray;"><b>' + info.user_comment == null ? 0 : info.user_comment.length +
+					'条评价</b></h2><br>');
 				for (let i = 0; i < info.user_comment.length; i++) {
 					html = '<div ><div class="layui-col-xs10">' +
 						'<a href="home.html?house_id=' + info.user_comment[i].house_id + '">' + info.user_comment[i].house_name +
 						'</a></div>' +
 						'<div class="layui-col-xs2"><img src="../../' + info.user_comment[i].house_img_url + '" width="60px">' +
 						'</div><br><br><br><h3>' + info.user_comment[i].houseCom_content + '</h3><br><a href="">' +
-						'<img style="border-radius: 50%;" width="50px" height="50px" src="../../' + info.user_comment[i].user_headimg_url + '">' +
+						'<img style="border-radius: 50%;" width="50px" height="50px" src="../../' + info.user_comment[i].user_headimg_url +
+						'">' +
 						'<h2 style="margin-left: 80px; margin-top: -50px;">' + info.user_comment[i].user_name + '</h2>' +
 						'<h3 style="margin-left: 80px; margin-top: 0px;">' + info.user_comment[i].houseCom_date +
 						'</h3><br></a><hr></div><br><br>';
@@ -453,8 +459,14 @@
 			}
 
 		}
+		//设置cookie
+		function setCookie(cname, cvalue, exdays) {
+			var d = new Date();
+			d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+			var expires = "expires=" + d.toUTCString();
+			document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+		}
 
-		
 		//获取Cookie
 		function getCookie(cname) {
 			var name = cname + "=";
@@ -472,16 +484,15 @@
 			return "";
 		}
 		//充值
-		$("#recharge").on("click", function() {
+		$("body").on("click", "#recharge", function() {
 			html = '<div style="width: 500px;height: 420px;">' +
-				'<div style="text-align: center;"><br><br><h1>QUADRAL币</h1><h2>充值人：' + userInfo.user_name +
-				'</h2><br><hr ></div>' +
+				'<div style="text-align: center;"><br><h1>QUADRAL币</h1><h2>充值请加客服</h2><br><hr ></div>' +
 				'<div ><h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;充值金额：</h4><br><div class="layui-col-xs12">' +
 				'&nbsp;&nbsp;&nbsp;<button style="width: 110px;height: 50px;" type="button" class="layui-btn layui-bg-green moneyBtn">￥500</button>' +
 				'<button  style="width: 110px;height: 50px;" type="button" class="layui-btn layui-btn-primary  moneyBtn">￥1000</button>' +
 				'<button style="width: 110px;height: 50px;" type="button" class="layui-btn layui-btn-primary  moneyBtn">￥1000</button>' +
 				'<button style="width: 110px;height: 50px;" type="button" class="layui-btn layui-btn-primary  moneyBtn">￥2000</button>' +
-				'</div><div  style="text-align: center;"><h3>请用支付宝扫码：</h3><br><img src="../../img/pay.jpg"  width="180px"></div></div></div>';
+				'</div><div  style="text-align: center;"><h3>请用QQ扫码：</h3><br><img src="../../img/pay.jpg"  width="180px"></div></div></div>';
 			recharge(html);
 		});
 
@@ -540,7 +551,7 @@
 			}
 			notice(html);
 		});
-		
+
 		function getNoticeInfo() {
 			$.getJSON(basePath + "user.do?method=getNoticeByUserID", {
 				"user_id": userInfo.user_id
@@ -586,6 +597,5 @@
 			});
 
 		});
-		
 	</script>
 </html>
