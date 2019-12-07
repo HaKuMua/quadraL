@@ -40,12 +40,12 @@
 		<div id="top">
 			<ul class="layui-nav layui-bg-green" id="navId">
 				<li class="layui-nav-item">
-					<a href="index.html">
+					<a href="../index.html">
 						<img src="../../img/logo.jpg" style="border-radius: 50%;" width="49px" height="49px">
 					</a>
 				</li>
 				<div id="rightNav">
-					<li class="layui-nav-item"><a href="">故事</a></li>
+					<li class="layui-nav-item"><a href="../story/index.html">故事</a></li>
 					<li class="layui-nav-item" style="cursor: pointer;"><a class="NavA" data-method="login">注册</a></li>
 					<li class="layui-nav-item" style="cursor: pointer;"><a class="NavA" data-method="login">登录</a></li>
 				</div>
@@ -54,13 +54,8 @@
 		<div id="main">
 			<div id="article">
 				<div class="layui-col-xs10">
-					<a href="">
-						<img src="../../img/ReleaseRoom/1.jpg" style="border-radius: 50%;" width="50px" height="50px">
-						<h2>Haku</h2>
-					</a>
 				</div>
 				<div id="myBtn" class="layui-col-xs2">
-					<button style="margin-top:15px;" type="button" class="layui-btn">删除</button>
 				</div><br>
 				<div style="margin-top: 30px;" class="layui-col-xs12">
 					<img src="../../img/story/e19adcd4-1c48-4eeb-b855-1987a414b951.jpg" width="660px" height="880px">
@@ -197,6 +192,7 @@
 	</body>
 	<script type="text/javascript">
 		var userInfo = null;
+		var noticeInfo=null;
 		var article = {
 			// article_id: 3,
 			// article_name: '上海魔都民宿 | 人均300入住魔都小众超民国风复古民宿！',
@@ -276,10 +272,10 @@
 		if (userInfo != null) {
 			var html = '<li class="layui-nav-item " id="china"> <a href="../user/myOrder.html" >房源订单中心</a></li>' +
 				'<li class="layui-nav-item"><a href="../story/index.html">故事</a></li>' +
-				'<li class="layui-nav-item"><a href="#" id="notice">消息<span id="dot" class="layui-badge-dot"></a> </li>' +
+				'<li class="layui-nav-item"><a href="javascript:;" id="notice">消息<span id="dot" class="layui-badge-dot"></a> </li>' +
 				' <li class="layui-nav-item" lay-unselect=""><a href="javascript:;"><img src="../../' +
 				userInfo.user_headimg_url + '" class="layui-nav-img">' + userInfo.user_name + '</a> ' +
-				'<dl class="layui-nav-child"><dd><a href="landlord.html"  style="color: gray;">个人中心</a></dd>' +
+				'<dl class="layui-nav-child"><dd><a href="../host/landlord.html"  style="color: gray;">个人中心</a></dd>' +
 				' <dd><a href="../user/modifyInfo.html" style="color: gray;">修改信息</a></dd><dd><a href="javascript:;" id="quit" style="color: gray;">退了</a></dd></dl>';
 			$("#rightNav").empty();
 			$("#rightNav").append(html);
@@ -287,9 +283,9 @@
 				$("#china").after('<li class="layui-nav-item "> <a href="javascript:;">我的房源</a>' +
 					'<dl class="layui-nav-child"><dd><a href="../user/landlordOrder.html"  style="color: gray;">订单信息</a></dd>' +
 					' <dd><a href="../user/myHouse.html" style="color: gray;">房源信息</a></dd></dl>' + '</li>' +
-					'<li class="layui-nav-item "><a href="create_a_room/room.html">添加房源</a></li>');
+					'<li class="layui-nav-item "><a href="../host/create_a_room/room.html">添加房源</a></li>');
 			} else {
-				$("#china").after('<li class="layui-nav-item "> <a href="">成为房东</a></li>');
+				$("#china").after('<li class="layui-nav-item "> <a href="../host/create_a_room/become.html">成为房东</a></li>');
 			}
 
 		}
@@ -314,16 +310,19 @@
 			}
 			return "";
 		}
+		//渲染文章
 		function getArticle() {
 			$('title').text(article.article_name);
 			$("#article").empty();
-			html = '<div class="layui-col-xs10"><a href="">' +
+			html = '<div class="layui-col-xs10"><a id="landlord" href="#">' +
 				'<img src="../../' + article.user_headimg_url + '" style="border-radius: 50%;" width="50px" height="50px">' +
-				'<h2>' + article.user_name + '</h2></a></div><div id="myBtn" class="layui-col-xs2"></div><br>';
+				'<br><h2>&nbsp;' + article.user_name + '</h2></a></div><div id="myBtn" class="layui-col-xs2"></div><br>';
 			$("#article").append(html);
 			$("#myBtn").empty();
-			if (userInfo.user_id == article.user_id) {
-				$("#myBtn").append('<button id="del" style="margin-top:15px;" type="button" class="layui-btn">删除</button>');
+			if(userInfo != null) {
+				if (userInfo.user_id == article.user_id) {
+					$("#myBtn").append('<button id="del" style="margin-top:15px;" type="button" class="layui-btn">删除</button>');
+				}
 			}
 			for (var j = 0; j < article.article_images.length; j++) {
 				html = '<div style="margin-top: 30px;" class="layui-col-xs12">' +
@@ -357,7 +356,7 @@
 			$("#edit").append(html)	
 			$("#other").append('<h2 style="margin-top: 150px;" ><b>相关故事</b></h2>');
 			if(article.articleInfo.length <= 1) {
-				$("#other").append("<br><br><h2>无</h2>");
+				$("#other").append("<br><br><h2>无相关故事</h2>");
 			}else {
 				for (var k = 0; k < article.articleInfo.length; k++) {
 					html = '<div  class="layui-col-xs4"><a href="home.html?article_id=' +
@@ -373,7 +372,15 @@
 			}
 			
 		}
-		
+		//进入房东界面
+		$("body").on("click", "#landlord", function() {
+			if (userInfo == null) {
+				layer.msg("请登录呀！");
+			} else {
+				location.href = "landlord.html?user_id=" +article.user_id;
+			}
+		});
+		//渲染评论
 		function getComment(article_comment) {
 			$("#comment").empty();
 			$("#comment").append('<div style="margin-top: 40px;" class="layui-col-xs12"><h2><b>'+article_comment.length+'条评论</b></h2></div><br><br><br>')
@@ -395,6 +402,10 @@
 
 		//评论
 		$("body").on("click", "#myCommentBtn", function() {
+			if(userInfo == null) {
+				layer.msg("请登录呀！")
+				return;
+			}
 			comment = $("#myComment").val();
 			if(comment == ''){
 				layer.msg("评论不能为空！")
@@ -415,6 +426,10 @@
 		//点赞
 		bool = true;
 		$("body").on("click", "#praiseBtn", function() {
+			if(userInfo == null) {
+				layer.msg("请登录呀！")
+				return;
+			}
 			if (bool) {
 				document.getElementById("praiseBtn").style.color = "red";
 				map = '{"article_id":"'+article.article_id+'","article_praise":"'+(article.article_praise+1)+'"}'
@@ -438,7 +453,7 @@
 		
 		$("body").on("click","#del",function() {
 			layer.confirm('确定删除吗?', {icon: 3, title:'提示'}, function(index){
-			  $.getJSON(basePath + "article.do?method=deleteArticle", {
+			  $.getJSON(basePath + "article.do?method=deleteArticle&callback=?", {
 			  	"article_id":article.article_id
 			  }, function(res) {
 				  if(res.hint > 0) {
@@ -449,6 +464,71 @@
 				   layer.close(index);
 			  });
 			 
+			});
+		});
+		//设置cookie
+		function setCookie(cname, cvalue, exdays) {
+			var d = new Date();
+			d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+			var expires = "expires=" + d.toUTCString();
+			document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+		}
+		//通知
+		function notice(html) {
+			index = layer.open({
+				type: 1,
+				title: false,
+				closeBtn: false,
+				area: '320px',
+				offset: ['50px', '1450px'],
+				shade: 0.1,
+				content: html,
+				shadeClose: true
+			});
+		}
+		//点击通知
+		$("body").on("click", "#notice", function() {
+			if (noticeInfo == null || noticeInfo.length == 0) {
+				html =
+					'<div style="width: 300px;height: 100%;"><div style="font-size:20px;text-align: center;" class="layui-col-xs10">消息(0)</div>' +
+					'<br><br><hr><div id="content"><div style="margin-left: 90px;color: #31B0D5"><h2>暂无消息</h2><br></div>' +
+					'</div></div>';
+			} else {
+				html =
+					'<div style="width: 300px;height: 100%;"><div style="font-size:20px;text-align: left;" class="layui-col-xs10">消息(' +
+					noticeInfo.length +
+					') </div><div class="layui-col-xs2"style="text-align: right;"  ><button id="done" class="layui-btn layui-btn-primary layui-btn-sm">已读</button></div>' +
+					'<br><br><hr><div id="content">';
+				for (let i = 0; i < noticeInfo.length; i++) {
+					h = '<div style="margin-left: 10px;color: #31B0D5"><div class="layui-col-xs9">' +
+						'<h3>' + noticeInfo[i].notice_content + '</h3></div>' +
+						'<div class="layui-col-xs3"><h5 style="margin-top:4px;">' + noticeInfo[i].notice_date + '</h5></div>' +
+						'</div><br><br>';
+					html = html + h;
+				}
+				html += '</div></div>';
+			}
+			notice(html);
+		});
+		
+		function getNoticeInfo() {
+			$.getJSON(basePath + "user.do?method=getNoticeByUserID", {
+				"user_id": userInfo.user_id
+			}, function(result) {
+				noticeInfo = result.noticeInfo;
+				console.log(noticeInfo)
+				if (noticeInfo != null) {} else {
+					$("#dot").remove();
+				}
+			});
+		}
+		//点击已读
+		$("body").on("click", "#done", function() {
+			$.getJSON(basePath + "user.do?method=updateNotice", {
+				"user_id": userInfo.user_id
+			}, function(res) {
+				noticeInfo = null;
+				layer.closeAll();
 			});
 		});
 	</script>
@@ -484,7 +564,6 @@
 					$.get(basePath + "commen.do?method=getPageCommInfo",{
 						"map":map
 					} ,function(res) {
-						
 						//console.log(article_comment)
 						layui.each(res.pageCommentInfo, function(index, item) {
 							article_comment.push(res.pageCommentInfo[index]);
@@ -497,6 +576,25 @@
 						//next(lis.join(''), page < res.pages);
 					},"json");
 				}
+			});
+			var active = {
+				login: function() {
+					var index = layer.open({
+						type: 2,
+						title: false,
+						closeBtn: true,
+						area: ['570px', '515px'],
+						offset: 'auto',
+						shade: 0.6,
+						id: 'LAY_layuipro', //设定一个id，防止重复弹出
+						content: ['../loginBytel.html', 'no']
+					});
+				}
+			};
+			$("body").on("click", ".NavA", function() {
+				var othis = $(this),
+					method = othis.data('method');
+				active[method] ? active[method].call(this, othis) : '';
 			});
 
 		});

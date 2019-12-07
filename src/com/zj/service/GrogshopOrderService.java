@@ -77,11 +77,9 @@ public class GrogshopOrderService implements GrogshopOrderServiceImpl {
 				if (order.getGrogshop_order_state().equals("1"))
 					orderMap.put("grogshop_order_state", "已支付");
 				else if (order.getGrogshop_order_state().equals("2"))
-					orderMap.put("grogshop_order_state", "未支付");
+					orderMap.put("grogshop_order_state", "已处理");
 				else if (order.getGrogshop_order_state().equals("3"))
 					orderMap.put("grogshop_order_state", "已完成");
-				else if (order.getGrogshop_order_state().equals("4"))
-					orderMap.put("grogshop_order_state", "已退款");
 				orderMap.put("grogshop_order_describe",
 						order.getGrogshop_order_describe());
 				orderMap.put("reserve_id", order.getReserve_id());
@@ -93,7 +91,7 @@ public class GrogshopOrderService implements GrogshopOrderServiceImpl {
 			map.put("msg", "");
 			map.put("code", 0);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			log.error("数据库查询错误！");
 			e.printStackTrace();
 		}
 
@@ -185,8 +183,8 @@ public class GrogshopOrderService implements GrogshopOrderServiceImpl {
 				return -2;
 			}
 			// 插入通知
-			noticeDaoImpl.addNotice("用户" + user_id + "在您这预定了房子", Integer.valueOf(grogshopOrderInfo.get("landlord")
-					.toString()));
+			noticeDaoImpl.addNotice("有用户在您这预定了房子", Integer
+					.valueOf(grogshopOrderInfo.get("landlord").toString()));
 			// 插入入住人表
 			for (Map<String, Object> checkInPersonMap : checkInPersonInfoMap) {
 				CheckInPerson checkInPerson = new CheckInPerson();
@@ -217,11 +215,17 @@ public class GrogshopOrderService implements GrogshopOrderServiceImpl {
 	 * 通过用户ID获取此用户的所有订单信息
 	 */
 	public List<Map<String, Object>> getGrogshopOrderInfoByUserID(
-			Integer user_id) {
+			Integer user_id,Integer state) {
 		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+		List<GrogshopOrder> orderList = null;
 		try {
-			List<GrogshopOrder> orderList = orderDaoImpl
-					.getGrogshopOrderInfoByUserID(user_id);
+			if(state.equals(1))
+				orderList = orderDaoImpl.getGrogshopOrderInfoByUserID(user_id);
+			else if(state.equals(3))
+				orderList = orderDaoImpl.getFinishOrderInfoByUserID(user_id);
+			else 
+				orderList = orderDaoImpl.getNotOrderInfoByUserID(user_id);
+				
 			for (GrogshopOrder order : orderList) {
 				Map<String, Object> map = new HashMap<String, Object>();
 				map.put("order_id", order.getGrogshop_order_id());
@@ -273,6 +277,7 @@ public class GrogshopOrderService implements GrogshopOrderServiceImpl {
 				map.put("check_out_date", reserve.getCheck_out_date());
 				map.put("house_name", (houseDaoImpl.getHouseByHouseId(reserve
 						.getHouse_id())).getHouse_name());
+				map.put("house_id", (reserve.getHouse_id()));
 				map.put("price", order.getPrice());
 				if (order.getGrogshop_order_landlordState().equals("1"))
 					map.put("grogshop_order_state", "未处理");
@@ -328,29 +333,29 @@ public class GrogshopOrderService implements GrogshopOrderServiceImpl {
 		try {
 			GrogshopOrder order = orderDaoImpl
 					.getGrogshopOrderInfoByID(order_id);
-			Integer count =0;
-				if (state.equals(2)) {
-					System.out.println("房东确认订单！");
-					count = orderDaoImpl.updateLandlordStatus(order_id,
-							state);
-					System.out.println(count);
-					// 插入通知
-					count=noticeDaoImpl.addNotice("房东已确认您的订单！", order.getUser_id());
-					if(count > 0) {
-						code = 1;
-						return code;
-					}
-				} else if (state.equals(3)) {
-					System.out.println("房东取消订单！");
-					count = orderDaoImpl.updateLandlordStatus(order_id,
-							state);
-					// 插入通知
-					count =noticeDaoImpl.addNotice("房东已取消您的订单！", order.getUser_id());
-					if(count > 0) {
-						code = 1;
-						return code;
-					}
+			Integer count = 0;
+			if (state.equals(2)) {
+				System.out.println("房东确认订单！");
+				count = orderDaoImpl.updateLandlordStatus(order_id, state);
+				System.out.println(count);
+				// 插入通知
+				count = noticeDaoImpl.addNotice("房东已确认您的订单！",
+						order.getUser_id());
+				if (count > 0) {
+					code = 1;
+					return code;
 				}
+			} else if (state.equals(3)) {
+				System.out.println("房东取消订单！");
+				count = orderDaoImpl.updateLandlordStatus(order_id, state);
+				// 插入通知
+				count = noticeDaoImpl.addNotice("房东已取消您的订单！",
+						order.getUser_id());
+				if (count > 0) {
+					code = 1;
+					return code;
+				}
+			}
 		} catch (SQLException e) {
 			log.error("数据库查询错误");
 			e.printStackTrace();

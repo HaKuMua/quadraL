@@ -29,9 +29,9 @@ public interface GrogshopOrderServiceImpl {
 	 */
 	Integer addGrogshopOrderInfo(Map<String, Object> grogshopOrderInfo,List<Map<String, Object>> checkInPersonInfoMap);
 	/**
-	 * 通过用户ID获取此用户的所有订单信息
+	 * 通过用户ID获取此用户的订单信息
 	 */
-	List<Map<String, Object>> getGrogshopOrderInfoByUserID(Integer user_id);
+	List<Map<String, Object>> getGrogshopOrderInfoByUserID(Integer user_id,Integer state);
 	/**
 	 * 通过房东ID获取所有在此房东的房子中下单的用户订单信息
 	 * @param user_id

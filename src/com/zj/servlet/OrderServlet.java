@@ -92,7 +92,7 @@ public class OrderServlet extends BaseServlet {
 	 */
 	public void getOrderInfoByUserID(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		List<Map<String, Object>> list = orderService.getGrogshopOrderInfoByUserID(Integer.valueOf(user_id));
+		List<Map<String, Object>> list = orderService.getGrogshopOrderInfoByUserID(user_id,state);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", list);
 		JSONObject json = new JSONObject(map);

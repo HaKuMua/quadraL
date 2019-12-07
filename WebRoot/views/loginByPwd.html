@@ -48,9 +48,9 @@
 			<h4 style="margin-left: 30px; ">没有账号 ?</h4>
 			<a style="margin-left: 105px; margin-top: -19px; position: absolute; color: green;" href="loginByTel.html">立即注册</a><br><br>
 				<input id="userId" type="text" name="phone" lay-verify="phoneEmail" autocomplete="off" 
-				placeholder="邮箱地址/手机号码" class="layui-input" value="15173595627"><br><br>
+				placeholder="邮箱地址/手机号码" class="layui-input" ><br><br>
 				<input type="password" name="password" lay-verify="pass|required" id="pwdId"
-				 value="324" placeholder="密码" autocomplete="off" class="layui-input"><br><br><br>
+				  placeholder="密码" autocomplete="off" class="layui-input"><br><br><br>
 				<button class="layui-btn btn" lay-filter="loginBtn" id="myBtn">立即登录</button>
 			<br><br>
 			<a  style="margin-left: 460px; margin-top: -110px; font-weight: bolder;  
@@ -91,7 +91,7 @@
 					if(userInfo != null) {
 						layer.msg(result.msg);
 						objString = JSON.stringify(userInfo);
-						setCookie("userInfo", objString, 1);
+						setCookie("userInfo", objString, 0.1);
 						window.setTimeout (function() {
 							layer.close(layer.index);
 							parent.location.reload();

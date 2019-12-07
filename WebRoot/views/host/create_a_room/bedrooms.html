@@ -40,7 +40,7 @@
 			<h2 style="position: absolute; margin-top: -30px; margin-left: 60px;">步骤1：先填写基本信息</h2>
 			<br><br>
 			<div class="layui-progress layui-progress-big" lay-showpercent="true" lay-filter="pro">
-				<div class="layui-progress-bar layui-bg-green" lay-percent="33%"></div>
+				<div class="layui-progress-bar layui-bg-green" lay-percent="16%"></div>
 			</div>
 		</div>
 		<br><br><br><br><br>
@@ -167,8 +167,8 @@
 						sum +=eval(a)+eval(b)+eval(c)+eval(d);
 						console.log(sum);
 				}
-				if(sum > bedNum) {
-					layer.msg("床型信息数量超过总数！");
+				if(sum > bedNum || sum < bedNum) {
+					layer.msg("床型信息数量总数有误！");
 					return;
 				}
 				$.cookie('personNum', personNum);

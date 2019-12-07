@@ -155,8 +155,8 @@
 				<h1>冬季特惠房源</h1><br>
 				<h3>特惠房源低至 7 折</h3><br>
 				<div id="addressBtn1" class="addressBtn">
-					<div><button class="layui-btn layui-btn-lg layui-bg-green">上海</button>
-						<button class="layui-btn layui-btn-lg layui-bg-gray">北京</button>
+					<div><button class="layui-btn layui-btn-lg layui-bg-green">北京</button>
+						<button class="layui-btn layui-btn-lg layui-bg-gray">长沙</button>
 						<button class="layui-btn layui-btn-lg layui-bg-gray">贵州</button>
 						<button class="layui-btn layui-btn-lg layui-bg-gray">成都</button>
 						<button class="layui-btn layui-btn-lg layui-bg-gray">重庆</button>
@@ -168,14 +168,14 @@
 				</div>
 				<br>
 				<a href="" style="color:green;">
-					<h3>查看上海更多房源></h3>
+					<h3>查看北京更多房源></h3>
 				</a>
 			</div>
 			<br><br>
 			<div id="title2" class="title">
 				<h1>热门目的地</h1><br>
 				<div id="addressBtn2" class="addressBtn">
-					<button class="layui-btn layui-btn-lg layui-bg-green">长沙</button>
+					<button class="layui-btn layui-btn-lg layui-bg-green">上海</button>
 					<button class="layui-btn layui-btn-lg layui-bg-gray">深圳</button>
 					<button class="layui-btn layui-btn-lg layui-bg-gray">香港</button>
 					<button class="layui-btn layui-btn-lg layui-bg-gray">澳门</button>
@@ -187,8 +187,8 @@
 				<div id="info2">
 				</div>
 				<br>
-				<a href="method=search&addr=长沙" style="color:green;">
-					<h3>查看长沙更多房源></h3>
+				<a href="" style="color:green;">
+					<h3>查看上海更多房源></h3>
 				</a>
 			</div>
 			<br><br>
@@ -367,26 +367,14 @@
 			islanlord: 0,
 			Idcard: 432524
 		};
-		var noticeInfo = [{
-				content: '用户liu在您这订了房',
-				date: '2019-12-12'
-			},
-			{
-				content: '用户liu在您这订了房',
-				date: '2019-12-12'
-			},
-			{
-				content: '用户liu在您这订了房',
-				date: '2019-12-12'
-			}
-		]
+		var noticeInfo = null;
 		var listHouse1 = [{
 				house_name: '下榻日式风格的房源去畅玩太古里',
 				house_id: '1001',
 				house_img: '../img/room/abbc72a5-cf82-41be-a999-9c951444b14b.jpg',
 				house_price: '289',
 				house_type: '独立房间',
-				bed_number: '1'
+				room_number: '1'
 			},
 			{
 				house_name: '近九眼桥/川师大/锦华万达/【复古黑熵单人房】花园洋房合拼房源中其中一间房',
@@ -394,7 +382,7 @@
 				house_img: '../img/room/9b0ae17d-7cfe-41bb-9a89-f38287f92c3a.jpg',
 				house_price: '289',
 				house_type: '独立房间',
-				bed_number: '1'
+				room_number: '1'
 			},
 			{
 				house_name: 'Jungle• 13 巴黎旅人式的假期/住进一间art deco风格的公寓/近太古里/地铁300米',
@@ -402,7 +390,7 @@
 				house_img: '../img/room/abbc72a5-cf82-41be-a999-9c951444b14b.jpg',
 				house_price: '289',
 				house_type: '独立房间',
-				bed_number: '1'
+				room_number: '1'
 			},
 			{
 				house_name: 'Jungle• 13 巴黎旅人式的假期/住进一间art deco风格的公寓/近太古里/地铁300米',
@@ -410,7 +398,7 @@
 				house_img: '../img/room/abbc72a5-cf82-41be-a999-9c951444b14b.jpg',
 				house_price: '289',
 				house_type: '独立房间',
-				bed_number: '1'
+				room_number: '1'
 			},
 			{
 				house_name: '西里的家|梦境 免费寄存行李|下楼就是春熙路太古里市中心/天府广场/宽窄巷子/北欧清新风格',
@@ -418,7 +406,7 @@
 				house_img: '../img/room/640de340-cd72-4c32-ac24-e0f2515154a7.jpg',
 				house_price: '289',
 				house_type: '独立房间',
-				bed_number: '1'
+				room_number: '1'
 			},
 			{
 				house_name: '近九眼桥/川师大/锦华万达/【复古黑熵单人房】花园洋房合拼房源中其中一间房',
@@ -426,7 +414,7 @@
 				house_img: '../img/room/abbc72a5-cf82-41be-a999-9c951444b14b.jpg',
 				house_price: '289',
 				house_type: '独立房间',
-				bed_number: '1'
+				room_number: '1'
 			},
 			{
 				house_name: 'Jungle• 13 巴黎旅人式的假期/住进一间art deco风格的公寓/近太古里/地铁300米',
@@ -434,7 +422,7 @@
 				house_img: '../img/room/abbc72a5-cf82-41be-a999-9c951444b14b.jpg',
 				house_price: '289',
 				house_type: '独立房间',
-				bed_number: '1'
+				room_number: '1'
 			},
 		]
 		var listHouse2 = [{
@@ -443,7 +431,7 @@
 				house_img: '../img/room/640de340-cd72-4c32-ac24-e0f2515154a7.jpg',
 				house_price: '289',
 				house_type: '独立房间',
-				bed_number: '1'
+				room_number: '1'
 			},
 			{
 				house_name: '近九眼桥/川师大/锦华万达/【复古黑熵单人房】花园洋房合拼房源中其中一间房',
@@ -451,7 +439,7 @@
 				house_img: '../img/room/e964c2be-a0fb-41d2-9bc7-3b308769f4ef.jpg',
 				house_price: '289',
 				house_type: '独立房间',
-				bed_number: '1'
+				room_number: '1'
 			},
 			{
 				house_name: 'Jungle• 13 巴黎旅人式的假期/住进一间art deco风格的公寓/近太古里/地铁300米',
@@ -459,7 +447,7 @@
 				house_img: '../img/room/abbc72a5-cf82-41be-a999-9c951444b14b.jpg',
 				house_price: '289',
 				house_type: '独立房间',
-				bed_number: '1'
+				room_number: '1'
 			},
 			{
 				house_name: 'Jungle• 13 巴黎旅人式的假期/住进一间art deco风格的公寓/近太古里/地铁300米',
@@ -467,7 +455,7 @@
 				house_img: '../img/room/abbc72a5-cf82-41be-a999-9c951444b14b.jpg',
 				house_price: '289',
 				house_type: '独立房间',
-				bed_number: '1'
+				room_number: '1'
 			},
 			{
 				house_name: '西里的家|梦境 免费寄存行李|下楼就是春熙路太古里市中心/天府广场/宽窄巷子/北欧清新风格',
@@ -475,7 +463,7 @@
 				house_img: '../img/room/640de340-cd72-4c32-ac24-e0f2515154a7.jpg',
 				house_price: '289',
 				house_type: '独立房间',
-				bed_number: '1'
+				room_number: '1'
 			},
 			{
 				house_name: '近九眼桥/川师大/锦华万达/【复古黑熵单人房】花园洋房合拼房源中其中一间房',
@@ -483,7 +471,7 @@
 				house_img: '../img/room/abbc72a5-cf82-41be-a999-9c951444b14b.jpg',
 				house_price: '289',
 				house_type: '独立房间',
-				bed_number: '1'
+				room_number: '1'
 			}
 		]
 		json = getCookie('userInfo');
@@ -566,9 +554,9 @@
 			$(infoId).append('<div class="layui-row guestInfo" id="guestInfo1"></div>');
 			$(infoId).append('<div class="layui-row guestInfo" id="guestInfo2"></div>');
 			for (var k = 0; k < listHouse.length; k++) {
-				var html = '<div class="layui-col-xs4"><a href="host/home.html?houseId=' + listHouse[k].house_id + '">' +
+				var html = '<div class="layui-col-xs4"><a href="host/home.html?house_id=' + listHouse[k].house_id + '">' +
 					'<img width="350px" height="233px" src="' + listHouse[k].house_img + '" ><br><span>' + listHouse[k].house_type + '·' +
-					listHouse[k].bed_number + '张床</span><br><h3><b>' + listHouse[k].house_name + '</b></h3><br><h3>￥' +
+					listHouse[k].room_number + '张床</span><br><h3><b>' + listHouse[k].house_name + '</b></h3><br><h3>￥' +
 					listHouse[k].house_price + '</h3></a></div>'
 				if (k < 3) {
 					$(infoId + '> div:first').append(html);
@@ -601,7 +589,7 @@
 							for (var k = 0; k < 6; k++) {
 								var html = '<div class="layui-col-xs4"><a href="host/home.html?houseId=' + listHouse[k].house_id + '">' +
 									'<img width="350px" height="233px" src="../' + listHouse[k].house_img[0].house_img_url  + '" ><br><span>' + listHouse[k].house_type + '·' +
-									listHouse[k].bed_number + '张床</span><br><h3><b>' + listHouse[k].house_name + '</b></h3><br><h3>￥' +
+									listHouse[k].room_number + '张床</span><br><h3><b>' + listHouse[k].house_name + '</b></h3><br><h3>￥' +
 									listHouse[k].house_price + '</h3></a></div>'
 								if (k < 3) {
 									$(infoId + '> div:first').append(html);
@@ -617,18 +605,6 @@
 			}
 		}
 
-		function getNoticeInfo() {
-			$.getJSON(basePath + "user.do?method=getNoticeByUserID", {
-				"user_id": userInfo.user_id
-			}, function(result) {
-				noticeInfo = result.noticeInfo;
-				console.log(noticeInfo)	
-				if (noticeInfo != null) {
-				} else {
-					$("#dot").remove();
-				}
-			});
-		}
 		//日期格式化
 		Date.prototype.Format = function(fmt) { // author: meizz
 			var o = {
@@ -760,6 +736,7 @@
 				shadeClose: true
 			});
 		}
+		//点击通知
 		$("body").on("click", "#notice", function() {
 			if (noticeInfo == null||noticeInfo.length == 0) {
 				html =
@@ -782,6 +759,19 @@
 			}
 			notice(html);
 		});
+		function getNoticeInfo() {
+			$.getJSON(basePath + "user.do?method=getNoticeByUserID", {
+				"user_id": userInfo.user_id
+			}, function(result) {
+				noticeInfo = result.noticeInfo;
+				console.log(noticeInfo)	
+				if (noticeInfo != null) {
+				} else {
+					$("#dot").remove();
+				}
+			});
+		}
+		//点击已读
 		$("body").on("click","#done",function() {
 			$.getJSON(basePath + "user.do?method=updateNotice", {
 				"user_id": userInfo.user_id

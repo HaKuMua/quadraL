@@ -14,18 +14,21 @@ import org.apache.log4j.Logger;
 
 
 
+
 import cn.com.util.PageUtil;
 import cn.com.util.RemoveHtmlTagUtil;
 
 import com.zj.dao.ArticleDao;
 import com.zj.dao.ArticleImgDao;
 import com.zj.dao.CommentDao;
+import com.zj.dao.GrogshopOrderDao;
 import com.zj.dao.HouseDao;
 import com.zj.dao.HouseImgDao;
 import com.zj.dao.UserDao;
 import com.zj.dao.impl.ArticleDaoImpl;
 import com.zj.dao.impl.ArticleImgDaoImpl;
 import com.zj.dao.impl.CommentDaoImpl;
+import com.zj.dao.impl.GrogshopOrderDaoImpl;
 import com.zj.dao.impl.HouseDaoImpl;
 import com.zj.dao.impl.HouseImgDaoImpl;
 import com.zj.dao.impl.UserDaoImpl;
@@ -50,6 +53,7 @@ public class ArticleService implements ArticleServiceImpl{
 	private UserDaoImpl userDaoImpl = new UserDao();
 	private HouseDaoImpl houseDaoImpl = new HouseDao();
 	private HouseImgDaoImpl houseImgDaoImpl = new HouseImgDao();
+	private GrogshopOrderDaoImpl orderDaoImpl = new GrogshopOrderDao();
 	private Logger log = Logger.getLogger(HouseService.class);
 	
 	
@@ -123,6 +127,7 @@ public class ArticleService implements ArticleServiceImpl{
 	 * @throws SQLException
 	 */
 	public PageUtil getPageArticleInfo(Integer presentPage) {
+		System.out.println(1111);
 		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
 		//文章分页
 		Long articleCount = 1l;
@@ -142,6 +147,8 @@ public class ArticleService implements ArticleServiceImpl{
 		int articlePageSize = pu.getPageSize();
 		List<Article> pageArticle = null;
 		try {
+			System.out.println("articleStartRow:"+articleStartRow);
+			System.out.println("articlePageSize:"+articlePageSize);
 			pageArticle = articleDaoImpl.queryPageArticle(articleStartRow, articlePageSize);
 		} catch (SQLException e) {
 			log.error("查询错误");
@@ -355,6 +362,7 @@ public class ArticleService implements ArticleServiceImpl{
 	 */
 	public Integer addArticleInfo(Map<String, Object> addArticleInfo) {
 		Article article = new Article();
+	
 		//给文章实体类set值进去
 		if(addArticleInfo.get("user_id") != null)
 			article.setUser_id(Integer.valueOf(addArticleInfo.get("user_id").toString()));
@@ -369,6 +377,10 @@ public class ArticleService implements ArticleServiceImpl{
 			articleImgList = addArticleInfo.get("allArticleImg").toString();
 		//添加文章内容
 		try {
+			//改变订单状态
+			System.out.println(addArticleInfo.get("order_id").toString());
+			int count = orderDaoImpl.updateUserStatus(addArticleInfo.get("order_id").toString(), 3);
+			System.out.println(count);
 			if (articleDaoImpl.addArticle(article) > 0)
 				log.info("文章内容插入成功！");
 				//给文章添加一组图片

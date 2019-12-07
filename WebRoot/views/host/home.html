@@ -314,7 +314,7 @@
 					藝·净复古系列之复古花｡房间里有100寸幕布和极米H1投影仪｡
 					步行两分钟至太古里､ifs｡89平米的套房有厨房､洗衣机､冰箱､微波炉等配置｡270度落地窗俯瞰太古里和339电视塔</h2>
 			</div><br><br>
-			<a class="navA " data-method="safeguard" href="#a">
+			<a class="NavA " data-method="safeguard" href="#a">
 				<div class="layui-col-xs2">
 					<img src="../../img/tag/2.svg">
 				</div><br>
@@ -358,7 +358,7 @@
 					<h2><b>成都市，四川省，中国</b></h2><br><br>
 					<h2>出行信息</h2><br>
 					<h3>民宿-驾车-双流机场 36分钟左右(交通顺畅的情况) 民宿-步行10分钟-春熙路地铁3-太平园站-双流机场 (地铁大约32分钟) 民宿-驾车-成都东客站 20分钟左右(交通顺畅的情况)｡</h3>
-					
+
 				</div>
 				<br>
 				<div id="container"></div>
@@ -426,19 +426,19 @@
 			<div style="margin-top: 100px;">
 				<h1>爱彼迎旅行保障</h1><br>
 				<div class="layui-col-xs4">
-					<a href=" #a" class="navA " data-method="safeguard">
+					<a href=" #a" class="NavA " data-method="safeguard">
 						<img src="../../img/tag/1.svg">
 						<h4><b>安心房源保障</b> 人工审核所有中国房源页面信息，入住更放心</h4>
 					</a>
 				</div>
 				<div class="layui-col-xs4">
-					<a href=" #a" class="navA " data-method="safeguard">
+					<a href=" #a" class="NavA " data-method="safeguard">
 						<img src="../../img/tag/2.svg">
 						<h4><b>专业中文客服</b> 15973091401 24小时服务</h4>
 					</a>
 				</div>
 				<div class="layui-col-xs4">
-					<a href=" #a" class="navA " data-method="safeguard">
+					<a href=" #a" class="NavA " data-method="safeguard">
 						<img src="../../img/tag/3.svg">
 						<h4><b>旅行安全保障</b> 多重风险控制设计，全方位保障您的行程安全</h4>
 					</a>
@@ -485,7 +485,8 @@
 	<script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.15&key=58436f5656c3bd85a8001b6cce31c890&plugin=AMap.PlaceSearch"></script>
 	<script type="text/javascript" src="https://cache.amap.com/lbs/static/addToolbar.js"></script>
 	<script type="text/javascript">
-		var userInfo =null;
+		var userInfo = null;
+		var noticeInfo=null;
 		var houseInfo = {
 			house_name: '下榻日式风格的房源去畅玩太古里',
 			house_id: 23,
@@ -556,20 +557,20 @@
 		if (userInfo != null) {
 			var html = '<li class="layui-nav-item " id="china"> <a href="../user/myOrder.html" >房源订单中心</a></li>' +
 				'<li class="layui-nav-item"><a href="../story/index.html">故事</a></li>' +
-				'<li class="layui-nav-item"><a href="#" id="notice">消息<span id="dot" class="layui-badge-dot"></a> </li>' +
+				'<li class="layui-nav-item"><a href="javascript:;" id="notice">消息<span id="dot" class="layui-badge-dot"></a> </li>' +
 				' <li class="layui-nav-item" lay-unselect=""><a href="javascript:;"><img src="../../' +
 				userInfo.user_headimg_url + '" class="layui-nav-img">' + userInfo.user_name + '</a> ' +
 				'<dl class="layui-nav-child"><dd><a href="landlord.html"  style="color: gray;">个人中心</a></dd>' +
-				' <dd><a href="../user/modifyInfo.html" style="color: gray;">修改信息</a></dd><dd><a href="javascript:;" id="quit" style="color: gray;">退了</a></dd></dl>';
+				' <dd><a href="../user/modifyInfo.html" style="color: gray;">修改信息</a></dd><dd><a href="#" id="quit" style="color: gray;">退了</a></dd></dl>';
 			$("#rightNav").empty();
 			$("#rightNav").append(html);
 			if (userInfo.is_landlord == 1) {
 				$("#china").after('<li class="layui-nav-item "> <a href="javascript:;">我的房源</a>' +
 					'<dl class="layui-nav-child"><dd><a href="../user/landlordOrder.html"  style="color: gray;">订单信息</a></dd>' +
 					' <dd><a href="../user/myHouse.html" style="color: gray;">房源信息</a></dd></dl>' + '</li>' +
-					'<li class="layui-nav-item "><a href="create_a_room/room.html">添加房源</a></li>');
+					'<li class="layui-nav-item "><a href="../host/create_a_room/room.html">添加房源</a></li>');
 			} else {
-				$("#china").after('<li class="layui-nav-item "> <a href="">成为房东</a></li>');
+				$("#china").after('<li class="layui-nav-item "> <a href="../host/create_a_room/become.html">成为房东</a></li>');
 			}
 		}
 		//退出按钮监听
@@ -579,7 +580,7 @@
 		});
 		var url = window.location.search; //获取url中"?"符后的字串
 		if (url.indexOf("?") != -1) {
-			var house_id = url.substr(url.indexOf("=")+1);
+			var house_id = url.substr(url.indexOf("=") + 1);
 		}
 		// house_id=25
 		//请求后端拿到房子信息
@@ -604,7 +605,7 @@
 				// 查询成功时，result即对应匹配的POI信息
 				console.log(result)
 				var pois = result.poiList.pois;
-			
+
 				for (var i = 0; i < pois.length; i++) {
 					var poi = pois[i];
 					var marker = [];
@@ -618,7 +619,7 @@
 				map.setFitView();
 			})
 		});
-		
+
 		function get() {
 			$('title').text(houseInfo.house_name);
 			$("#houseImgDiv").empty();
@@ -640,7 +641,8 @@
 				'<h1><b>' + houseInfo.house_name + '</b></h1><br>' +
 				'<h3>' + houseInfo.room_number + '间卧室·1张床·' + houseInfo.toilet_number +
 				'间卫生间·最多住' + houseInfo.house_intake + '人</h3><br><hr >' +
-				'<a href="#user"><img style="border-radius: 50%;" width="70px" height="70px" src="../../' + houseInfo.user_img + '"  >' +
+				'<a href="#user"><img style="border-radius: 50%;" width="70px" height="70px" src="../../' + houseInfo.user_img +
+				'"  >' +
 				'<h2 style="margin-left: 100px; margin-top: -50px;">房东：' + houseInfo.user_name + '</h2><br><br></a>';
 			$("#t1").append(html);
 			$("#tips").empty();
@@ -669,7 +671,7 @@
 			$("#t3").empty();
 			$("#t3").append('<h3>入住时间 ' + houseInfo.may_check_in_date + '后· 退房时间 ' + houseInfo.may_check_out_date + '</h3>');
 			$("#comment").empty();
-			if(houseInfo.allHouseComment.length == 0)
+			if (houseInfo.allHouseComment.length == 0)
 				$("#comment").append("<br><h2>暂无评论<h2>")
 			for (i = 0; i < houseInfo.allHouseComment.length; i++) {
 				html = '<div ><br><br><a href="">' +
@@ -694,8 +696,8 @@
 				'<h2><b>' + houseInfo.user_name +
 				'</b></h2><br><i class="layui-icon layui-icon-ok" style="color: green;font-weight:border;">&nbsp;已验证</i><br><br></div>' +
 				'<div class="layui-col-xs4">' +
-				'<a href="landlord.html?user_id='+houseInfo.user_id+'">' +
-				'<img style="border-radius: 50%;" src="../../'+houseInfo.user_img+'" width="60px" height="60px" ></a></div>';
+				'<a  style="cursor: pointer;" id="landlord">' +
+				'<img style="border-radius: 50%;" src="../../' + houseInfo.user_img + '" width="60px" height="60px" ></a></div>';
 			$("#t6").append(html);
 			if (houseInfo.user_describe != null || houseInfo.user_describe != '') {
 				$("#t7").empty();
@@ -704,6 +706,15 @@
 				$("#t7").append(html);
 			}
 		}
+		//进入房东界面
+		$("body").on("click", "#landlord", function() {
+			if (userInfo == null) {
+				layer.msg("请登录呀！");
+			} else {
+				location.href = "landlord.html?user_id=" + houseInfo.user_id;
+			}
+		});
+
 		//日期格式化
 		Date.prototype.Format = function(fmt) { // author: meizz
 			var o = {
@@ -801,14 +812,15 @@
 		day = -1;
 		//按钮监听
 		$("#payBtn").on("click", function() {
-			if(userInfo == null) {
-				layer.msg("请登录！");
+			if (userInfo == null) {
+				layer.msg("请登录喵！");
 				return;
 			}
+			
 			if (day < 0) {
-				layer.msg("请选择时间！");
+				layer.msg("请选择时间喵！");
 			} else if (personNum > houseInfo.house_intake) {
-				layer.msg("房客过多，请重新选择！");
+				layer.msg("房客过多，请重新选择喵！");
 			} else {
 				realDate = generateFun(new Date(startTime), new Date(endTime))
 				bool = false;
@@ -823,10 +835,14 @@
 				}
 				console.log(bool)
 				if (bool) {
-					layer.msg("时间选择区间已有日期预定！");
+					layer.msg("时间选择区间已有日期预定喵！");
 				} else {
+					if(userInfo.user_id == houseInfo.user_id) {
+						layer.msg("不能订自己房子喵！");
+						return;
+					}
 					let orderInfo = {
-						landlord:houseInfo.user_id,
+						landlord: houseInfo.user_id,
 						user_id: userInfo.user_id,
 						house_id: houseInfo.house_id,
 						house_name: houseInfo.house_name,
@@ -852,9 +868,67 @@
 				}
 			}
 		});
+		//通知
+		function notice(html) {
+			index = layer.open({
+				type: 1,
+				title: false,
+				closeBtn: false,
+				area: '320px',
+				offset: ['50px', '1450px'],
+				shade: 0.1,
+				content: html,
+				shadeClose: true
+			});
+		}
+		//点击通知
+		$("body").on("click", "#notice", function() {
+			if (noticeInfo == null || noticeInfo.length == 0) {
+				html =
+					'<div style="width: 300px;height: 100%;"><div style="font-size:20px;text-align: center;" class="layui-col-xs10">消息(0)</div>' +
+					'<br><br><hr><div id="content"><div style="margin-left: 90px;color: #31B0D5"><h2>暂无消息</h2><br></div>' +
+					'</div></div>';
+			} else {
+				html =
+					'<div style="width: 300px;height: 100%;"><div style="font-size:20px;text-align: left;" class="layui-col-xs10">消息(' +
+					noticeInfo.length +
+					') </div><div class="layui-col-xs2"style="text-align: right;"  ><button id="done" class="layui-btn layui-btn-primary layui-btn-sm">已读</button></div>' +
+					'<br><br><hr><div id="content">';
+				for (let i = 0; i < noticeInfo.length; i++) {
+					h = '<div style="margin-left: 10px;color: #31B0D5"><div class="layui-col-xs9">' +
+						'<h3>' + noticeInfo[i].notice_content + '</h3></div>' +
+						'<div class="layui-col-xs3"><h5 style="margin-top:4px;">' + noticeInfo[i].notice_date + '</h5></div>' +
+						'</div><br><br>';
+					html = html + h;
+				}
+				html += '</div></div>';
+			}
+			notice(html);
+		});
+		
+		function getNoticeInfo() {
+			$.getJSON(basePath + "user.do?method=getNoticeByUserID", {
+				"user_id": userInfo.user_id
+			}, function(result) {
+				noticeInfo = result.noticeInfo;
+				console.log(noticeInfo)
+				if (noticeInfo != null) {} else {
+					$("#dot").remove();
+				}
+			});
+		}
+		//点击已读
+		$("body").on("click", "#done", function() {
+			$.getJSON(basePath + "user.do?method=updateNotice", {
+				"user_id": userInfo.user_id
+			}, function(res) {
+				noticeInfo = null;
+				layer.closeAll();
+			});
+		});
 	</script>
 	<script>
-		
+
 	</script>
 	<script src="http://cdn.staticfile.org/jquery/2.1.1-rc2/jquery.min.js"></script>
 	<script src="../../js/jquery.cxcalendar.js"></script>
@@ -864,7 +938,7 @@
 		timeList = []
 		//请求后端拿到已预订日期
 		$.getJSON(basePath + "reserve.do?method=getReserveDateByHouseID", {
-			"house_id":house_id
+			"house_id": house_id
 		}, function(res) {
 			list = res.list;
 			for (let i = 0; i < list.length; i++) {
@@ -878,11 +952,11 @@
 						}
 					}
 					a = sarr[0] + "-" + sarr[1] + "-" + sarr[2];
-					checked[arr[k]]='已预订';
+					checked[arr[k]] = '已预订';
 					dateList.push(a);
 					timeList.push(arr[k])
 				}
-				
+
 			}
 			layui.use(['carousel', 'form', 'element', 'layer', 'laydate', 'laypage'], function() {
 				var carousel = layui.carousel,
@@ -908,6 +982,18 @@
 					interval: 5000
 				});
 				var active = {
+					login: function() {
+						var index = layer.open({
+							type: 2,
+							title: false,
+							closeBtn: true,
+							area: ['570px', '515px'],
+							offset: 'auto',
+							shade: 0.6,
+							id: 'LAY_layuipro', //设定一个id，防止重复弹出
+							content: ['../loginBytel.html', 'no']
+						});
+					},
 					safeguard: function() {
 						var index = layer.open({
 							type: 2,
@@ -920,7 +1006,7 @@
 						});
 					}
 				};
-				$("body").on("click", ".navA", function() {
+				$("body").on("click", ".NavA", function() {
 					var othis = $(this),
 						method = othis.data('method');
 					active[method] ? active[method].call(this, othis) : '';
@@ -928,12 +1014,7 @@
 				form.on('select(person)', function(data) {
 					personNum = data.value;
 				});
-				$('.layui-btn').on('click', function() {
-					var othis = $(this),
-						method = othis.data('method');
-					active[method] ? active[method].call(this, othis) : '';
-				});
-			
+
 				// //分页
 				// //总页数大于页码总数
 				// laypage.render({
@@ -944,7 +1025,6 @@
 				// 		console.log(obj)
 				// 	}
 				// });
-			
 			});
 			(function() {
 				var dateFirst = $('#date_first');

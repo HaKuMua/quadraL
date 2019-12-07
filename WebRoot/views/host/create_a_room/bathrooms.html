@@ -7,15 +7,14 @@
 		<link rel="stylesheet" type="text/css" href="../../../layui/css/layui.css">
 		<script src="../../../js/jquery.min.js"></script>
 		<script type="text/javascript" src="../../../js/jquery.cookie.js"></script>
-		<script src="../../../layui/layui.all.js"></script>
 		<script src="../../../layui/layui.js"></script>]
 		<style type="text/css">
 			#warpper {
 				margin-left: 450px;
 				width: 500px;
 			}
-			
-			
+
+
 			#footBtn button {
 				border-radius: 15px;
 				border-radius: 15px;
@@ -24,11 +23,13 @@
 				width: 105px;
 				height: 55px;
 			}
-			#footBtn{
-				position:fixed;
-				top:92%;
-				left:440px; /* width的一半的相反数 */
-				z-index:999;
+
+			#footBtn {
+				position: fixed;
+				top: 92%;
+				left: 440px;
+				/* width的一半的相反数 */
+				z-index: 999;
 			}
 		</style>
 	</head>
@@ -41,7 +42,7 @@
 			<h2 style="position: absolute; margin-top: -30px; margin-left: 60px;">步骤1：先填写基本信息</h2>
 			<br><br>
 			<div class="layui-progress layui-progress-big" lay-showpercent="true" lay-filter="pro">
-				<div class="layui-progress-bar layui-bg-green" lay-percent="49%"></div>
+				<div class="layui-progress-bar layui-bg-green" lay-percent="24%"></div>
 			</div>
 		</div>
 		<br><br><br><br><br>
@@ -61,35 +62,31 @@
 		<div style="position: fixed; top: 10%; left: 60%;">
 			<img src="../../../img/ReleaseRoom/2.png" height="50%">
 		</div>
-		<div id="footBtn" >
+		<div id="footBtn">
 			<button class="layui-btn site-demo-active" onclick="location.href='bedrooms.html'">
-				< 返回</button> <button style="margin-left: 290px; " class="layui-btn site-demo-active"  id="btnGo">下一步
+				< 返回</button> <button style="margin-left: 290px; " class="layui-btn site-demo-active" id="btnGo">下一步
 			</button>
 		</div>
 	</body>
 	<script>
-		bathRoomNum =$.cookie('bathRoomNum');
-		if(bathRoomNum == null) {
-			bathRoomNum=1;
-		}
-		$("#addBtn").on("click", function() {
-			bathRoomNum > 16 ? 16 : bathRoomNum+=1;
-			$("#bathRoomNum").text(bathRoomNum);
+		layui.use('element', function() {
+			bathRoomNum = 1;
+			$("#addBtn").on("click", function() {
+				bathRoomNum > 16 ? 16 : bathRoomNum += 1;
+				$("#bathRoomNum").text(bathRoomNum);
+			});
+			$("#subBtn").on("click", function() {
+				bathRoomNum <= 1 ? 1 : bathRoomNum -= 1;
+				$("#bathRoomNum").text(bathRoomNum);
+			});
+			$('#btnGo').on('click', function() {
+				if (bathRoomNum == 'null') {
+					layui.msg("请填写完整");
+				} else {
+					$.cookie('bathRoomNum', bathRoomNum);
+					location.href = "location.html";
+				}
+			});
 		});
-		$("#subBtn").on("click", function() {
-			bathRoomNum <= 1 ? 1 : bathRoomNum -=1;
-			$("#bathRoomNum").text(bathRoomNum);
-		});
-		$('#btnGo').on('click', function() {
-			if (bathRoomNum == 'null' ) {
-				layui.msg("请填写完整");
-			} else {
-				$.cookie('bathRoomNum', bathRoomNum);
-				location.href = "location.html";
-			}
-		});
-		window.onload = function() {
-			$("#bathRoomNum").text(bathRoomNum);
-		}
 	</script>
 </html>

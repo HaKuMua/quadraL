@@ -47,6 +47,25 @@ public interface GrogshopOrderDaoImpl {
 	 */
 	List<GrogshopOrder> getGrogshopOrderInfoByUserID(Integer user_id)
 			throws SQLException;
+	
+	
+	/**
+	 * 通过用户ID查询此用户的所有已完成订单
+	 * @param user_id
+	 * @return
+	 * @throws SQLException
+	 */
+	List<GrogshopOrder> getFinishOrderInfoByUserID(Integer user_id)
+			throws SQLException;
+	
+	/**
+	 * 通过用户ID查询此用户的所有未完成订单
+	 * @param user_id
+	 * @return
+	 * @throws SQLException
+	 */
+	List<GrogshopOrder> getNotOrderInfoByUserID(Integer user_id)
+			throws SQLException;
 
 	/**
 	 * 通过预订ID获得单个订单信息

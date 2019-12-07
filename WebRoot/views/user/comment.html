@@ -40,7 +40,7 @@
 			<ul class="layui-nav layui-bg-green" id="navId">
 				<li class="layui-nav-item">
 					<a href="../index.html">
-						<img src="../../img/logo.jpg" class="layui-nav-img">
+						<img src="../../img/logo.jpg" style="border-radius: 50%;" width="49px" height="49px">
 					</a>
 				</li>
 				<li class="layui-nav-item ">
@@ -103,23 +103,9 @@
 		</div>
 	</body>
 	<script type="text/javascript">
-		//利用Cookie拿到信息
-		// var userInfo=$.Cookie('userInfo');
-		var userInfo = {
-			user_id: '1000',
-			user_name: 'haku',
-			user_headimg_url: '../../img/timg.jpg',
-			user_email: '',
-			user_IDcard: '',
-			user_pwd: '',
-			money: '',
-			user_phone: '',
-			real_name: '',
-			islanlord: 1
-		};
-		var comInfo = [{
-
-		}]
+		var noticeInfo = null;
+		var userInfo = null;
+		var comInfo = []
 		json = getCookie('userInfo');
 		if (json != '' || json == null) {
 			jsonInfo = JSON.parse(json);
@@ -130,19 +116,20 @@
 		}
 
 		//初始化导航栏
-		if (userInfo.user_id != null) {
-			var html = '<li class="layui-nav-item " id="china"> <a href="myOrder.html" >房源订单中心</a></li>' +
+		if (userInfo != null) {
+			var html = '<li class="layui-nav-item " id="china"> <a href="../user/myOrder.html" >房源订单中心</a></li>' +
 				'<li class="layui-nav-item"><a href="../story/index.html">故事</a></li>' +
-				'<li class="layui-nav-item"><a href="#" id="notice">消息<span id="dot" class="layui-badge-dot"></span></a> </li>' +
-				' <li class="layui-nav-item" lay-unselect=""><a href="javascript:;"><img src="' +
-				userInfo.user_img + '" class="layui-nav-img">' + userInfo.user_name + '</a> ' +
-				'<dl class="layui-nav-child"><dd><a href="../host/landlord.html?user_id='+userInfo.user_id+'"  style="color: gray;">个人中心</a></dd>' +
-				' <dd><a href="modifyInfo.html" style="color: gray;">修改信息</a></dd><dd><a href="../index.html" id="quit" style="color: gray;">退了</a></dd></dl>';
+				'<li class="layui-nav-item"><a href="javascript:;" id="notice">消息<span id="dot" class="layui-badge-dot"></span></a> </li>' +
+				' <li class="layui-nav-item" lay-unselect=""><a href="javascript:;"><img src="../../' +
+				userInfo.user_headimg_url + '" class="layui-nav-img">' + userInfo.user_name + '</a> ' +
+				'<dl class="layui-nav-child"><dd><a href="../host/landlord.html?user_id=' + userInfo.user_id +
+				'"  style="color: gray;">个人中心</a></dd>' +
+				' <dd><a href="../user/modifyInfo.html" style="color: gray;">修改信息</a></dd><dd><a href="../index.html" id="quit" style="color: gray;">退了</a></dd></dl>';
 			$("#rightNav").empty();
 			$("#rightNav").append(html);
-			if (userInfo.islanlord != 1) {
-				$("#china").after('<li class="layui-nav-item "> <a href="">我的房源</a>' +
-					'<dl class="layui-nav-child"><dd><a href="landlordOrder.html"  style="color: gray;">订单信息</a></dd>' +
+			if (userInfo.is_landlord == 1) {
+				$("#china").after('<li class="layui-nav-item "> <a href="javascript:;">我的房源</a>' +
+					'<dl class="layui-nav-child"><dd><a href="../user/landlordOrder.html"  style="color: gray;">订单信息</a></dd>' +
 					' <dd><a href="myHouse.html" style="color: gray;">房源信息</a></dd></dl>' + '</li>' +
 					'<li class="layui-nav-item "><a href="../host/create_a_room/room.html">添加房源</a></li>');
 			} else {
@@ -153,7 +140,6 @@
 		$("body").on("click", "#quit", function() {
 			setCookie("userInfo", null, 0.1);
 		});
-
 		$("#editTel").on("click", function() {
 			html = '';
 		});
@@ -197,9 +183,9 @@
 						html = '<div ><div class="layui-col-xs10">' +
 							'<a href="home.html?house_id=' + comInfo[i].house_id + '">' + comInfo[i].house_name +
 							'</a></div>' +
-							'<div class="layui-col-xs2"><img src="' + comInfo[i].house_img + '" width="60px">' +
+							'<div class="layui-col-xs2"><img src="../../' + comInfo[i].house_img_url + '" width="60px">' +
 							'</div><br><br><br><h3>' + comInfo[i].houseCom_content + '</h3><br><a href="">' +
-							'<img style="border-radius: 50%;" width="50px" height="50px" src="' + comInfo[i].user_img + '">' +
+							'<img style="border-radius: 50%;" width="50px" height="50px" src="../../' + comInfo[i].user_headimg_url + '">' +
 							'<h2 style="margin-left: 80px; margin-top: -50px;">' + comInfo[i].user_name + '</h2>' +
 							'<h3 style="margin-left: 80px; margin-top: 0px;">' + comInfo[i].houseCom_date +
 							'</h3><br></a><hr></div><br><br>';
@@ -211,6 +197,7 @@
 				}
 			});
 		}
+
 		function getMyComment() {
 			$.getJSON(basePath + "user.do?method=getMyComment", {
 				"user_id": userInfo.user_id
@@ -223,7 +210,7 @@
 						html = '<div ><div class="layui-col-xs10">' +
 							'<a href="home.html?house_id=' + comInfo[i].house_id + '">' + comInfo[i].house_name +
 							'</a></div>' +
-							'<div class="layui-col-xs2"><img src="' + comInfo[i].house_img + '" width="60px">' +
+							'<div class="layui-col-xs2"><img src="../../' + comInfo[i].house_img_url + '" width="60px">' +
 							'</div><br><br><br><h3>' + comInfo[i].houseCom_content + '</h3><br><hr></div><br><br>';
 						$("#comment2").append(html);
 					}
@@ -240,10 +227,68 @@
 		$("#t2").on("click", function() {
 			getMyComment();
 		});
-		
-		$("#myIndex").on("click",function() {
-			location.href="../host/landlord.html?user_id="+userInfo.user_id;
-		})
+
+		$("#myIndex").on("click", function() {
+			location.href = "../host/landlord.html?user_id=" + userInfo.user_id;
+		});
+		//通知
+		function notice(html) {
+			index = layer.open({
+				type: 1,
+				title: false,
+				closeBtn: false,
+				area: '320px',
+				offset: ['50px', '1450px'],
+				shade: 0.1,
+				content: html,
+				shadeClose: true
+			});
+		}
+		//点击通知
+		$("body").on("click", "#notice", function() {
+			if (noticeInfo == null || noticeInfo.length == 0) {
+				html =
+					'<div style="width: 300px;height: 100%;"><div style="font-size:20px;text-align: center;" class="layui-col-xs10">消息(0)</div>' +
+					'<br><br><hr><div id="content"><div style="margin-left: 90px;color: #31B0D5"><h2>暂无消息</h2><br></div>' +
+					'</div></div>';
+			} else {
+				html =
+					'<div style="width: 300px;height: 100%;"><div style="font-size:20px;text-align: left;" class="layui-col-xs10">消息(' +
+					noticeInfo.length +
+					') </div><div class="layui-col-xs2"style="text-align: right;"  ><button id="done" class="layui-btn layui-btn-primary layui-btn-sm">已读</button></div>' +
+					'<br><br><hr><div id="content">';
+				for (let i = 0; i < noticeInfo.length; i++) {
+					h = '<div style="margin-left: 10px;color: #31B0D5"><div class="layui-col-xs9">' +
+						'<h3>' + noticeInfo[i].notice_content + '</h3></div>' +
+						'<div class="layui-col-xs3"><h5 style="margin-top:4px;">' + noticeInfo[i].notice_date + '</h5></div>' +
+						'</div><br><br>';
+					html = html + h;
+				}
+				html += '</div></div>';
+			}
+			notice(html);
+		});
+
+		function getNoticeInfo() {
+			$.getJSON(basePath + "user.do?method=getNoticeByUserID", {
+				"user_id": userInfo.user_id
+			}, function(result) {
+				noticeInfo = result.noticeInfo;
+				console.log(noticeInfo)
+				if (noticeInfo != null) {} else {
+					$("#dot").remove();
+				}
+			});
+		}
+		//点击已读
+		$("body").on("click", "#done", function() {
+			$.getJSON(basePath + "user.do?method=updateNotice", {
+				"user_id": userInfo.user_id
+			}, function(res) {
+				noticeInfo = null;
+				layer.closeAll();
+			});
+		});
 	</script>
 	<script>
 		layui.use(['form', 'element', 'layer', 'laypage', 'carousel'], function() {

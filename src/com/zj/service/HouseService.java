@@ -12,7 +12,9 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 
 import com.zj.dao.BuildingCodesDao;
+
 import cn.com.util.PageUtil;
+
 import com.zj.dao.HouseCommentDao;
 import com.zj.dao.HouseDao;
 import com.zj.dao.HouseImgDao;
@@ -49,49 +51,56 @@ public class HouseService implements HouseServiceImpl {
 	private Logger log = Logger.getLogger(HouseService.class);
 
 	/**
-	 * 将所有房子信息包装成一个list<map>返回
-	 * @throws SQLException 
+	 * 将所有房子信息包装成一个map返回
+	 * 
+	 * @throws SQLException
 	 */
-	public Map<String, Object> getAllHouseInfo(Integer limit,Integer page) throws SQLException {
-		Map<String,Object> map = new HashMap<String,Object>();
+	public Map<String, Object> getAllHouseInfo(Integer limit, Integer page)
+			throws SQLException {
+		Map<String, Object> map = new HashMap<String, Object>();
 		List<House> houseList = null;
 		try {
-			houseList = houseDaoImpl.queryHousePage((page-1)*10, limit);
-			List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
-			for(House house : houseList){
+			houseList = houseDaoImpl.queryHousePage((page - 1) * 10, limit);
+			List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+			for (House house : houseList) {
 				Map<String, Object> houseMap = new HashMap<String, Object>();
-					houseMap.put("house_id", house.getHouse_id());
-					houseMap.put("user_name",userDaoImpl.getUserInfoById(house.getUser_id()).getUser_name() );
-					houseMap.put("house_name", house.getHouse_name());
-					houseMap.put("house_intake", house.getHouse_intake());
-					houseMap.put("lease_type", house.getLease_type());
-					houseMap.put("may_check_in_date", house.getMay_check_in_date());
-					houseMap.put("may_check_out_date", house.getMay_check_out_date());
-					houseMap.put("house_type", house.getHouse_type());
-					if(house.getHouse_state() == 0)
-						houseMap.put("house_state", "未审核");
-					else if(house.getHouse_state() == 1)
-						houseMap.put("house_state", "已审核");
-					else if(house.getHouse_state() == -1)
-						houseMap.put("house_state", "已拒绝");
-					else
-						houseMap.put("house_state", "已审核且已预定");
-					houseMap.put("house_price", house.getHouse_price());
-					houseMap.put("travel_information", house.getTravel_information());
-					houseMap.put("house_address", house.getHouse_address());
-				
+				houseMap.put("house_id", house.getHouse_id());
+				houseMap.put("user_name",
+						userDaoImpl.getUserInfoById(house.getUser_id())
+								.getUser_name());
+				houseMap.put("house_name", house.getHouse_name());
+				houseMap.put("house_intake", house.getHouse_intake());
+				houseMap.put("lease_type", house.getLease_type());
+				houseMap.put("may_check_in_date", house.getMay_check_in_date());
+				houseMap.put("may_check_out_date",
+						house.getMay_check_out_date());
+				houseMap.put("house_type", house.getHouse_type());
+				if (house.getHouse_state() == 0)
+					houseMap.put("house_state", "未审核");
+				else if (house.getHouse_state() == 1)
+					houseMap.put("house_state", "已审核");
+				else if (house.getHouse_state() == -1)
+					houseMap.put("house_state", "已拒绝");
+				else
+					houseMap.put("house_state", "已审核且已预定");
+				houseMap.put("house_price", house.getHouse_price());
+				houseMap.put("travel_information",
+						house.getTravel_information());
+				houseMap.put("house_address", house.getHouse_address());
+
 				list.add(houseMap);
 			}
 			map.put("data", list);
-			map.put("count", Integer.valueOf(houseDaoImpl.queryCountHouse().toString()));
+			map.put("count",
+					Integer.valueOf(houseDaoImpl.queryCountHouse().toString()));
 			map.put("msg", "");
 			map.put("code", 0);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			log.error("数据库查询错误");
 			e.printStackTrace();
 		}
 		return map;
-		
+
 	}
 
 	/**
@@ -114,7 +123,7 @@ public class HouseService implements HouseServiceImpl {
 				System.out.println(houseBu.getBuilding_name());
 				houseBuildingList.add(houseBu.getBuilding_name());
 			}
-			if(!houseBuildingList.isEmpty()) {
+			if (!houseBuildingList.isEmpty()) {
 				map.put("building_name", houseBuildingList);
 			}
 			List<Facilities> houseFacilities = buildingCodesDaoImpl
@@ -164,15 +173,14 @@ public class HouseService implements HouseServiceImpl {
 				map.put("house_price", house.getHouse_price());
 				map.put("house_address", house.getHouse_address());
 				map.put("user_id", house.getUser_id());
-				User user = userDaoImpl.getUserInfoById( house.getUser_id());
+				User user = userDaoImpl.getUserInfoById(house.getUser_id());
 				map.put("user_name", user.getUser_name());
 				map.put("user_img", user.getUser_headimg_url());
 				map.put("user_describe", user.getUser_describe());
 				map.put("room_number", houseParticulars.getRoom_number());
 				map.put("address_describe",
 						houseParticulars.getAddress_describe());
-				map.put("house_describe",
-						houseParticulars.getHouse_describe());
+				map.put("house_describe", houseParticulars.getHouse_describe());
 				map.put("toilet_number", houseParticulars.getToilet_number());
 				map.put("allHouseImg", houseImgList);
 				map.put("allHouseComment", commentList);
@@ -243,8 +251,8 @@ public class HouseService implements HouseServiceImpl {
 		int count = -1;
 
 		try {
-			//改变用户is_landlord状态 1 为是房东
-			count =userDaoImpl.becomeLandlord(house.getUser_id());
+			// 改变用户is_landlord状态 1 为是房东
+			count = userDaoImpl.becomeLandlord(house.getUser_id());
 			// 插房子详情
 			count = houseParticularsDaoImpl
 					.addHouseParticularsInfo(houseParticulars);
@@ -272,15 +280,15 @@ public class HouseService implements HouseServiceImpl {
 							count = buildingCodesDaoImpl.addFacilities(
 									house_id, facilities[i]);
 						}
-					}else {
+					} else {
 						log.error("房子信息插入异常！");
 						return -1;
 					}
-				}else {
+				} else {
 					log.error("房子信息插入异常！");
 					return -1;
 				}
-			}else {
+			} else {
 				log.error("房子信息插入异常！");
 				return -1;
 			}
@@ -321,19 +329,21 @@ public class HouseService implements HouseServiceImpl {
 	 * @param user_id
 	 * @return
 	 */
-	public List<Map<String, Object>> getHouseByID(Integer user_id,Integer status) {
+	public List<Map<String, Object>> getHouseByID(Integer user_id,
+			Integer status) {
 		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 		try {
 			List<House> houseList = null;
-			if(status == 2)
+			if (status == 2)
 				houseList = houseDaoImpl.getHouseByID(user_id);
 			else
 				houseList = houseDaoImpl.getHouseByIDByState(user_id);
 			for (House house : houseList) {
 				Map<String, Object> map = new HashMap<String, Object>();
 				map.put("house_id", house.getHouse_id());
-				List<HouseImg> houseimgs = houseImgDaoImpl.getHouseImgByHouseID(house.getHouse_id());
-				map.put("house_img",houseimgs.get(0).getHouse_img_url() );
+				List<HouseImg> houseimgs = houseImgDaoImpl
+						.getHouseImgByHouseID(house.getHouse_id());
+				map.put("house_img", houseimgs.get(0).getHouse_img_url());
 				map.put("house_name", house.getHouse_name());
 				map.put("house_intake", house.getHouse_intake());
 				map.put("lease_type", house.getLease_type());
@@ -355,7 +365,6 @@ public class HouseService implements HouseServiceImpl {
 
 	/**
 	 * 通过筛选返回指定房子信息
-	 * 
 	 * @return
 	 */
 	public List<Map<String, Object>> getHouseByDateOrAddress(
@@ -364,17 +373,14 @@ public class HouseService implements HouseServiceImpl {
 		try {
 			List<House> houseList = null;
 			if (house_address == null || house_address == "") {
-				houseList = houseDaoImpl.getHouseByDate(new SimpleDateFormat(
-						"yyyy-MM-dd").parse(reserve_date),
-						new SimpleDateFormat("yyyy-MM-dd")
-								.parse(check_out_date));
-			} else if (reserve_date == null || reserve_date.equals("-1") || check_out_date == null ||check_out_date == "-1") {
+				houseList = houseDaoImpl.getHouseByDate(reserve_date,
+						check_out_date);
+			} else if (reserve_date == null || reserve_date.equals("-1")
+					|| check_out_date == null || check_out_date == "-1") {
 				houseList = houseDaoImpl.getHouseByAdd(house_address);
 			} else {
-				houseList = houseDaoImpl.getHouseByDateAndAdd(
-						new SimpleDateFormat("yyyy-MM-dd").parse(reserve_date),
-						new SimpleDateFormat("yyyy-MM-dd")
-								.parse(check_out_date), house_address);
+				houseList = houseDaoImpl.getHouseByDateAndAdd(reserve_date,
+						check_out_date, house_address);
 			}
 			for (House house : houseList) {
 				Map<String, Object> map = new HashMap<String, Object>();
@@ -382,10 +388,11 @@ public class HouseService implements HouseServiceImpl {
 						.getHouseParticularsInfoByID(house
 								.getHouse_particulars_id());
 				map.put("house_id", house.getHouse_id());
-				List<HouseImg> houseimgs = houseImgDaoImpl.getHouseImgByHouseID(house.getHouse_id());
-				map.put("house_img",houseimgs );
+				List<HouseImg> houseimgs = houseImgDaoImpl
+						.getHouseImgByHouseID(house.getHouse_id());
+				map.put("house_img", houseimgs);
 				map.put("user_id", house.getUser_id());
-				User user = userDaoImpl.getUserInfoById( house.getUser_id());
+				User user = userDaoImpl.getUserInfoById(house.getUser_id());
 				map.put("user_name", user.getUser_name());
 				map.put("user_img", user.getUser_headimg_url());
 				map.put("house_name", house.getHouse_name());
@@ -406,22 +413,21 @@ public class HouseService implements HouseServiceImpl {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			log.error("数据库查询异常");
-		} catch (ParseException e) {
-			e.printStackTrace();
-			log.error("时间类型转换异常");
 		}
 		return list;
 	}
+
 	/**
 	 * 修改房子状态服务层
+	 * 
 	 * @param status
 	 * @return
 	 * @throws SQLException
 	 */
-	public Integer updateHouseStatus(Integer status,Integer house_id) {
+	public Integer updateHouseStatus(Integer status, Integer house_id) {
 		try {
-			Integer igr = houseDaoImpl.updateHouseStatus(status,house_id);
-			if(igr > 0)
+			Integer igr = houseDaoImpl.updateHouseStatus(status, house_id);
+			if (igr > 0)
 				return 1;
 			else
 				return 0;
@@ -430,5 +436,59 @@ public class HouseService implements HouseServiceImpl {
 			return -1;
 		}
 	}
+
+	/**
+	 * 用房东id分页得到房东所有房子
+	 * 
+	 * @param user_id
+	 * @param limit
+	 * @param page
+	 * @return
+	 */
+	public Map<String, Object> getLandlordHouseById(Integer user_id,
+			Integer limit, Integer page) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<House> houseList = null;
+		try {
+			houseList = houseDaoImpl.getLandlordHouseById(user_id,
+					(page - 1) * 10, limit);
+			List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+			for (House house : houseList) {
+				Map<String, Object> houseMap = new HashMap<String, Object>();
+				houseMap.put("house_id", house.getHouse_id());
+				houseMap.put("house_name", house.getHouse_name());
+				houseMap.put("house_intake", house.getHouse_intake());
+				houseMap.put("lease_type", house.getLease_type());
+				houseMap.put("may_check_in_date", house.getMay_check_in_date());
+				houseMap.put("may_check_out_date",
+						house.getMay_check_out_date());
+				houseMap.put("house_type", house.getHouse_type());
+				if (house.getHouse_state() == 0)
+					houseMap.put("house_state", "未审核");
+				else if (house.getHouse_state() == 1)
+					houseMap.put("house_state", "已审核");
+				else if (house.getHouse_state() == -1)
+					houseMap.put("house_state", "已拒绝");
+				else
+					houseMap.put("house_state", "有预定");
+				houseMap.put("house_price", house.getHouse_price());
+				houseMap.put("travel_information",
+						house.getTravel_information());
+				houseMap.put("house_address", house.getHouse_address());
+				houseMap.put("location_id", house.getLocation_id());
+				list.add(houseMap);
+			}
+			map.put("data", list);
+			map.put("count",
+					Integer.valueOf(houseDaoImpl.queryLandlordHouse(user_id).toString()));
+			map.put("msg", "");
+			map.put("code", 0);
+		} catch (SQLException e) {
+			log.error("数据库查询错误！");
+			e.printStackTrace();
+		}
+		return map;
+	}
+
 
 }

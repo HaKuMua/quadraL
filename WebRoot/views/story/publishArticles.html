@@ -104,7 +104,15 @@
 				element = layui.element,
 				layedit = layui.layedit,
 				upload = layui.upload;
-
+			var url=window.location.search; //获取url中"?"符后的字串
+				if(url.indexOf("?")!=-1) {
+					var arr = url.split("&");
+					var house_id =arr[0].substr(url.indexOf("=")+1);
+					var order_id =arr[1].substr(url.indexOf("="));
+					
+			     }
+			house_id=35
+			order_id=11
 			//创建一个编辑器
 			var editIndex = layedit.build('LAY_editor', {
 				height: 480, //设置编辑器高度
@@ -124,11 +132,10 @@
 			$("#add").on("click", function() {
 				title = $("#title").val();
 				content = layedit.getContent(editIndex);
-				house_id=25;
 				console.log(content);
 				if (title != '' && content != '' && img.length >= 5) {
 					map = '{"user_id":"' + userInfo.user_id + '","article_name":"' + title +
-						'","house_id":"' + house_id +'","allArticleImg":"' + img + '"}';
+						'","house_id":"' + house_id +'","allArticleImg":"' + img + '","order_id":"'+order_id+'"}';
 					$.getJSON(basePath + "article.do?method=addArticleInfo&callback=?", {
 						"articleMap": map,"article_content":content 
 					}, function(result) {
@@ -171,33 +178,9 @@
 	</script>
 	<script type="text/javascript">
 		//利用Cookie拿到信息
+		var noticeInfo=null;
 		var userInfo =null;
-		var article = {
-			article_id: '1',
-			article_name: '上海魔都民宿 | 人均300入住魔都小众超民国风复古民宿！',
-			article_img: ['../../img/story/e19adcd4-1c48-4eeb-b855-1987a414b951.jpg',
-				'../../img/story/9b678664-6ba3-48d1-bd69-66a475609ab8.jpg',
-				'../../img/story/e19adcd4-1c48-4eeb-b855-1987a414b951.jpg',
-				'../../img/story/e19adcd4-1c48-4eeb-b855-1987a414b951.jpg'
-			],
-			user_img: '../../img/timg.jpg',
-			user_name: 'HaKu',
-			article_content: '最近深圳天气真的太好啦 忍不住打卡深圳超美的独栋泳池别墅拍了一组泳装照～在这里可以拍出假装在国外度假的大片！拍照圣地本地了!' +
-				'民宿地址：不知处龙华区梅花山庄 周围很繁华宵夜可以尽情的点定的是ins风白色北欧房 大概500左右民宿整体是超ins度假风的装修风格 房间一共有四个 每个房间都是不同的装修主题哦' +
-				'最值得拍照的点就是别墅的透明玻璃泳池了 真的非常非常好出片！拍泳衣装的最佳地点！随随便便都能拍出国外小清新度假的feel建议穿颜色比较鲜艳的裙子或泳衣拍' +
-				'深圳最近的天气其实穿泳衣拍不会太冷 下午两三点拍的时候阳光正好！个人推荐入住的房型就是北欧全白房 浴缸拍照超美！' +
-				'民宿其他地点也很好拍的 老板布置的真的超有心 三楼最近还装了新的小木屋 有兴趣的仙女可以赶在年前入住体验一次啦～',
-			article_praise: 20,
-			article_collect: 12,
-			house: {
-				house_id: '1',
-				house_name: '美式田园风一室/东门老街/万象城/莫兰迪色/罗湖口岸/京基100/落地窗观景',
-				house_img: '../../img/story/e19adcd4-1c48-4eeb-b855-1987a414b951.jpg',
-				house_price: '999',
-				house_type: '整套公寓'
-			}
-
-		}
+		var article = {}
 		var img = [];
 
 		json = getCookie('userInfo');
@@ -212,28 +195,35 @@
 		if (userInfo != null) {
 			var html = '<li class="layui-nav-item " id="china"> <a href="../user/myOrder.html" >房源订单中心</a></li>' +
 				'<li class="layui-nav-item"><a href="../story/index.html">故事</a></li>' +
-				'<li class="layui-nav-item"><a href="#" id="notice">消息<span id="dot" class="layui-badge-dot"></a> </li>' +
+				'<li class="layui-nav-item"><a href="javascript:;" id="notice">消息<span id="dot" class="layui-badge-dot"></a> </li>' +
 				' <li class="layui-nav-item" lay-unselect=""><a href="javascript:;"><img src="../../' +
 				userInfo.user_headimg_url + '" class="layui-nav-img">' + userInfo.user_name + '</a> ' +
 				'<dl class="layui-nav-child"><dd><a href="landlord.html"  style="color: gray;">个人中心</a></dd>' +
 				' <dd><a href="../user/modifyInfo.html" style="color: gray;">修改信息</a></dd><dd><a href="javascript:;" id="quit" style="color: gray;">退了</a></dd></dl>';
 			$("#rightNav").empty();
 			$("#rightNav").append(html);
-			if (userInfo.is_landlord != 1) {
+			if (userInfo.is_landlord == 1) {
 				$("#china").after('<li class="layui-nav-item "> <a href="javascript:;">我的房源</a>' +
 					'<dl class="layui-nav-child"><dd><a href="../user/landlordOrder.html"  style="color: gray;">订单信息</a></dd>' +
 					' <dd><a href="../user/myHouse.html" style="color: gray;">房源信息</a></dd></dl>' + '</li>' +
-					'<li class="layui-nav-item "><a href="create_a_room/room.html">添加房源</a></li>');
+					'<li class="layui-nav-item "><a href="../host/create_a_room/room.html">添加房源</a></li>');
 			} else {
-				$("#china").after('<li class="layui-nav-item "> <a href="">成为房东</a></li>');
+				$("#china").after('<li class="layui-nav-item "> <a href="../host/create_a_room/becomehtml">成为房东</a></li>');
 			}
-
+		
 		}
 		//退出按钮监听
 		$("body").on("click", "#quit", function() {
 			setCookie("userInfo", null, 0.1);
 			location.href = "../index.html";
 		});
+		//设置cookie
+		function setCookie(cname, cvalue, exdays) {
+			var d = new Date();
+			d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+			var expires = "expires=" + d.toUTCString();
+			document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+		}
 		//获取Cookie
 		function getCookie(cname) {
 			var name = cname + "=";
@@ -250,5 +240,63 @@
 			}
 			return "";
 		}
+		//通知
+		function notice(html) {
+			index = layer.open({
+				type: 1,
+				title: false,
+				closeBtn: false,
+				area: '320px',
+				offset: ['50px', '1450px'],
+				shade: 0.1,
+				content: html,
+				shadeClose: true
+			});
+		}
+		//点击通知
+		$("body").on("click", "#notice", function() {
+			if (noticeInfo == null || noticeInfo.length == 0) {
+				html =
+					'<div style="width: 300px;height: 100%;"><div style="font-size:20px;text-align: center;" class="layui-col-xs10">消息(0)</div>' +
+					'<br><br><hr><div id="content"><div style="margin-left: 90px;color: #31B0D5"><h2>暂无消息</h2><br></div>' +
+					'</div></div>';
+			} else {
+				html =
+					'<div style="width: 300px;height: 100%;"><div style="font-size:20px;text-align: left;" class="layui-col-xs10">消息(' +
+					noticeInfo.length +
+					') </div><div class="layui-col-xs2"style="text-align: right;"  ><button id="done" class="layui-btn layui-btn-primary layui-btn-sm">已读</button></div>' +
+					'<br><br><hr><div id="content">';
+				for (let i = 0; i < noticeInfo.length; i++) {
+					h = '<div style="margin-left: 10px;color: #31B0D5"><div class="layui-col-xs9">' +
+						'<h3>' + noticeInfo[i].notice_content + '</h3></div>' +
+						'<div class="layui-col-xs3"><h5 style="margin-top:4px;">' + noticeInfo[i].notice_date + '</h5></div>' +
+						'</div><br><br>';
+					html = html + h;
+				}
+				html += '</div></div>';
+			}
+			notice(html);
+		});
+		
+		function getNoticeInfo() {
+			$.getJSON(basePath + "user.do?method=getNoticeByUserID", {
+				"user_id": userInfo.user_id
+			}, function(result) {
+				noticeInfo = result.noticeInfo;
+				console.log(noticeInfo)
+				if (noticeInfo != null) {} else {
+					$("#dot").remove();
+				}
+			});
+		}
+		//点击已读
+		$("body").on("click", "#done", function() {
+			$.getJSON(basePath + "user.do?method=updateNotice", {
+				"user_id": userInfo.user_id
+			}, function(res) {
+				noticeInfo = null;
+				layer.closeAll();
+			});
+		});
 	</script>
 </html>

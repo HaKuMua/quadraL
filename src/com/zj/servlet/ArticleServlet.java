@@ -95,6 +95,7 @@ public class ArticleServlet extends BaseServlet {
 			HttpServletResponse response) throws SQLException, IOException {
 		PageUtil<Map<String, Object>> pageList = articleService
 				.getPageArticleInfo(articlePresentPage);
+		System.out.println(pageList);
 		JSONObject json = new JSONObject(pageList);
 		response.getWriter().print(json);
 	}	

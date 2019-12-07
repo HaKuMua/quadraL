@@ -26,9 +26,7 @@ public interface HouseDaoImpl {
 	 */
 	List<House> queryHousePage(Integer startRow,Integer pageSize)  throws SQLException;
 	/**
-	 * 获取房子总页数接口
-	 * @param startRow
-	 * @param pageSize
+	 * 获取房子总数接口
 	 * @return
 	 * @throws SQLException
 	 */
@@ -58,7 +56,7 @@ public interface HouseDaoImpl {
 	 * @return
 	 * @throws SQLException
 	 */
-	List<House> getHouseByDate(Date reserve_date ,Date check_out_date) throws SQLException;
+	List<House> getHouseByDate(String reserve_date ,String check_out_date) throws SQLException;
 	/**
 	 * 按时间和地址联合查询房间
 	 * @param reserve_date 预定时间
@@ -67,7 +65,7 @@ public interface HouseDaoImpl {
 	 * @return
 	 * @throws SQLException
 	 */
-	List<House> getHouseByDateAndAdd(Date reserve_date ,Date check_out_date,String house_address) throws SQLException;
+	List<House> getHouseByDateAndAdd(String reserve_date ,String check_out_date,String house_address) throws SQLException;
 	/**
 	 * 通过用户ID获取此用户旗下所有房子信息
 	 * @param user_id
@@ -105,4 +103,20 @@ public interface HouseDaoImpl {
 	 */
 	House getHouseByHouseId(Integer house_id) throws SQLException;
 	
+	/**
+	 * 分页查到一个房东名下所有的房子
+	 * @param user_id
+	 * @param startRow
+	 * @param pageSize
+	 * @return
+	 * @throws SQLException
+	 */
+	List<House> getLandlordHouseById(Integer user_id,Integer startRow,Integer pageSize) throws SQLException;
+	/**
+	 * 获取一个房东房子总数接口
+	 * @param user_id
+	 * @return
+	 * @throws SQLException
+	 */
+	Long queryLandlordHouse(Integer user_id)  throws SQLException;
 }

@@ -193,7 +193,7 @@
 					if (userInfo != null) {
 						layer.msg(result.msg);
 						objString = JSON.stringify(userInfo);
-						setCookie("userInfo", objString, 1);
+						setCookie("userInfo", objString, 0.1);
 						window.setTimeout(function() {
 							layer.close(layer.index);
 							parent.location.reload();

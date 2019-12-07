@@ -105,7 +105,6 @@ public class GrogshopOrderDao implements GrogshopOrderDaoImpl {
 
 	/**
 	 * 通过用户ID查询此用户的所有订单
-	 * 
 	 * @param user_id
 	 * @return
 	 * @throws SQLException
@@ -114,6 +113,40 @@ public class GrogshopOrderDao implements GrogshopOrderDaoImpl {
 			throws SQLException {
 		conn = GetConn.getConn();
 		String sql = "select * from grogshop_order where user_id = ?";
+		List<GrogshopOrder> data = qr.query(conn, sql,
+				new BeanListHandler<GrogshopOrder>(GrogshopOrder.class),
+				user_id);
+		GetConn.closeConn(conn);
+		return data;
+	}
+	
+	/**
+	 * 通过用户ID查询此用户的所有已完成订单
+	 * @param user_id
+	 * @return
+	 * @throws SQLException
+	 */
+	public List<GrogshopOrder> getFinishOrderInfoByUserID(Integer user_id)
+			throws SQLException {
+		conn = GetConn.getConn();
+		String sql = "select * from grogshop_order where user_id = ? and (grogshop_order_state = 2 or grogshop_order_state = 3)";
+		List<GrogshopOrder> data = qr.query(conn, sql,
+				new BeanListHandler<GrogshopOrder>(GrogshopOrder.class),
+				user_id);
+		GetConn.closeConn(conn);
+		return data;
+	}
+
+	/**
+	 * 通过用户ID查询此用户的所有未完成订单
+	 * @param user_id
+	 * @return
+	 * @throws SQLException
+	 */
+	public List<GrogshopOrder> getNotOrderInfoByUserID(Integer user_id)
+			throws SQLException {
+		conn = GetConn.getConn();
+		String sql = "select * from grogshop_order where user_id = ? and  grogshop_order_state = 1";
 		List<GrogshopOrder> data = qr.query(conn, sql,
 				new BeanListHandler<GrogshopOrder>(GrogshopOrder.class),
 				user_id);
@@ -230,5 +263,7 @@ public class GrogshopOrderDao implements GrogshopOrderDaoImpl {
 		GetConn.closeConn(conn);
 		return data;
 	}
+
+	
 
 }

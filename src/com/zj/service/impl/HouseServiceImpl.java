@@ -49,4 +49,13 @@ public interface HouseServiceImpl {
 	 */
 	Integer updateHouseStatus(Integer status,Integer house_id);
 	
+	/**
+	 * 用房东id分页得到房东所有房子
+	 * @param user_id
+	 * @param limit
+	 * @param page
+	 * @return
+	 */
+	Map<String, Object> getLandlordHouseById(Integer user_id,Integer limit,Integer page);
+	
 }

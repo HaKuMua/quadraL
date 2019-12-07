@@ -69,28 +69,40 @@ public class PageUtil<T> implements Serializable{
 	public Integer getPageSize() {
 		return pageSize;
 	}
+	/**
+	 * 在修改每页显示个数的时候  也需要改变总页数
+	 * @param pageSize
+	 */
 	public void setPageSize(Integer pageSize) {
-		if(pageSize %10 ==0) {
+		if(pageSize == null){
+			return;
+		}else if(pageSize % 10 == 0){
 			this.pageSize = pageSize;
-			this.countPage = countRow % pageSize == 0 ? (int) (countRow/pageSize) :(int) (countRow/pageSize)+1;
-			this.startRow = (currentPage-1)*pageSize;
-			this.endRow = startRow+pageSize-1;
+			//根据最新设置的总行数  计算总页数
+			this.countPage = (this.countRow / pageSize) + 1;
+			//计算起始行
+			this.startRow = (this.currentPage-1) * pageSize;
+			//计算结束行
+			this.endRow = startRow + pageSize - 1;
 		}
-		
 	}
 	public Integer getCurrentPage() {
 		return currentPage;
 	}
 	public void setCurrentPage(Integer currentPage) {
-		if(currentPage < 1) {
+		if(currentPage == null){
 			this.currentPage = 1;
-		}else if(currentPage > countPage) {
+		}else if(currentPage < 1){//如果请求的页码小于1   就直接返回第一页
+			this.currentPage = 1;
+		}else if(currentPage > countPage){//如果请求的页码大于总页数   就直接返回尾页
 			this.currentPage = countPage;
-		}else {
+		}else{
 			this.currentPage = currentPage;
 		}
-		this.startRow = (this.currentPage-1)*pageSize+1;
-		this.endRow = startRow+pageSize-1;
+		//计算起始行
+		this.startRow = (this.currentPage-1) * pageSize;
+		//计算结束行
+		this.endRow = startRow + pageSize - 1;
 	}
 	public Integer getStartRow() {
 		return startRow;

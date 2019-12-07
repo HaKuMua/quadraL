@@ -272,6 +272,7 @@
 			var user_id = url.substr(url.indexOf("=")+1);
 		}
 		var userInfo=null;
+		var noticeInfo=null;
 		var info = {
 			user_id: '',
 			user_tel: '',
@@ -362,10 +363,10 @@
 		if (userInfo != null) {
 			var html = '<li class="layui-nav-item " id="china"> <a href="../user/myOrder.html" >房源订单中心</a></li>' +
 				'<li class="layui-nav-item"><a href="../story/index.html">故事</a></li>' +
-				'<li class="layui-nav-item"><a href="#" id="notice">消息<span id="dot" class="layui-badge-dot"></a> </li>' +
+				'<li class="layui-nav-item"><a href="javascript:;" id="notice">消息<span id="dot" class="layui-badge-dot"></a> </li>' +
 				' <li class="layui-nav-item" lay-unselect=""><a href="javascript:;"><img src="../../' +
 				userInfo.user_headimg_url + '" class="layui-nav-img">' + userInfo.user_name + '</a> ' +
-				'<dl class="layui-nav-child"><dd><a href="landlord.html?user_id='+userInfo.use_id+'"  style="color: gray;">个人中心</a></dd>' +
+				'<dl class="layui-nav-child"><dd><a href="../host/landlord.html?user_id='+userInfo.use_id+'"  style="color: gray;">个人中心</a></dd>' +
 				' <dd><a href="../user/modifyInfo.html" style="color: gray;">修改信息</a></dd><dd><a href="javascript:;" id="quit" style="color: gray;">退了</a></dd></dl>';
 			$("#rightNav").empty();
 			$("#rightNav").append(html);
@@ -373,9 +374,9 @@
 				$("#china").after('<li class="layui-nav-item "> <a href="javascript:;">我的房源</a>' +
 					'<dl class="layui-nav-child"><dd><a href="../user/landlordOrder.html"  style="color: gray;">订单信息</a></dd>' +
 					' <dd><a href="../user/myHouse.html" style="color: gray;">房源信息</a></dd></dl>' + '</li>' +
-					'<li class="layui-nav-item "><a href="create_a_room/room.html">添加房源</a></li>');
+					'<li class="layui-nav-item "><a href="../host/create_a_room/room.html">添加房源</a></li>');
 			} else {
-				$("#china").after('<li class="layui-nav-item "> <a href="create_a_room/become.html">成为房东</a></li>');
+				$("#china").after('<li class="layui-nav-item "> <a href="../host/create_a_room/become.html">成为房东</a></li>');
 			}
 
 		}
@@ -402,7 +403,7 @@
 			}
 			getInfo();
 		});
-		//getInfo();
+		//渲染信息
 		function getInfo() {
 			$("#left").empty();
 			html = '<img src="../../' + info.user_headimg_url + '" width="120px" height="120px" ><hr >' +
@@ -441,9 +442,9 @@
 					html = '<div ><div class="layui-col-xs10">' +
 						'<a href="home.html?house_id=' + info.user_comment[i].house_id + '">' + info.user_comment[i].house_name +
 						'</a></div>' +
-						'<div class="layui-col-xs2"><img src="../../' + info.user_comment[i].house_img + '" width="60px">' +
+						'<div class="layui-col-xs2"><img src="../../' + info.user_comment[i].house_img_url + '" width="60px">' +
 						'</div><br><br><br><h3>' + info.user_comment[i].houseCom_content + '</h3><br><a href="">' +
-						'<img style="border-radius: 50%;" width="50px" height="50px" src="../../' + info.user_comment[i].user_img + '">' +
+						'<img style="border-radius: 50%;" width="50px" height="50px" src="../../' + info.user_comment[i].user_headimg_url + '">' +
 						'<h2 style="margin-left: 80px; margin-top: -50px;">' + info.user_comment[i].user_name + '</h2>' +
 						'<h3 style="margin-left: 80px; margin-top: 0px;">' + info.user_comment[i].houseCom_date +
 						'</h3><br></a><hr></div><br><br>';
@@ -453,7 +454,7 @@
 
 		}
 
-
+		
 		//获取Cookie
 		function getCookie(cname) {
 			var name = cname + "=";
@@ -502,6 +503,64 @@
 			var money = $(this).text().toString().substring(1);
 			alert(money)
 		});
+		//通知
+		function notice(html) {
+			index = layer.open({
+				type: 1,
+				title: false,
+				closeBtn: false,
+				area: '320px',
+				offset: ['50px', '1450px'],
+				shade: 0.1,
+				content: html,
+				shadeClose: true
+			});
+		}
+		//点击通知
+		$("body").on("click", "#notice", function() {
+			if (noticeInfo == null || noticeInfo.length == 0) {
+				html =
+					'<div style="width: 300px;height: 100%;"><div style="font-size:20px;text-align: center;" class="layui-col-xs10">消息(0)</div>' +
+					'<br><br><hr><div id="content"><div style="margin-left: 90px;color: #31B0D5"><h2>暂无消息</h2><br></div>' +
+					'</div></div>';
+			} else {
+				html =
+					'<div style="width: 300px;height: 100%;"><div style="font-size:20px;text-align: left;" class="layui-col-xs10">消息(' +
+					noticeInfo.length +
+					') </div><div class="layui-col-xs2"style="text-align: right;"  ><button id="done" class="layui-btn layui-btn-primary layui-btn-sm">已读</button></div>' +
+					'<br><br><hr><div id="content">';
+				for (let i = 0; i < noticeInfo.length; i++) {
+					h = '<div style="margin-left: 10px;color: #31B0D5"><div class="layui-col-xs9">' +
+						'<h3>' + noticeInfo[i].notice_content + '</h3></div>' +
+						'<div class="layui-col-xs3"><h5 style="margin-top:4px;">' + noticeInfo[i].notice_date + '</h5></div>' +
+						'</div><br><br>';
+					html = html + h;
+				}
+				html += '</div></div>';
+			}
+			notice(html);
+		});
+		
+		function getNoticeInfo() {
+			$.getJSON(basePath + "user.do?method=getNoticeByUserID", {
+				"user_id": userInfo.user_id
+			}, function(result) {
+				noticeInfo = result.noticeInfo;
+				console.log(noticeInfo)
+				if (noticeInfo != null) {} else {
+					$("#dot").remove();
+				}
+			});
+		}
+		//点击已读
+		$("body").on("click", "#done", function() {
+			$.getJSON(basePath + "user.do?method=updateNotice", {
+				"user_id": userInfo.user_id
+			}, function(res) {
+				noticeInfo = null;
+				layer.closeAll();
+			});
+		});
 	</script>
 	<script>
 		layui.use(['form', 'element', 'layer', 'laypage'], function() {
@@ -527,5 +586,6 @@
 			});
 
 		});
+		
 	</script>
 </html>
