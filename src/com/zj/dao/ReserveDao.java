@@ -64,6 +64,23 @@ public class ReserveDao implements ReserveDaoImpl{
 		GetConn.closeConn(conn);
 		return data;
 	}
+	
+	/**
+	 * 通过房东user_id拿到一组房子ID然后拿到一组此房子的预定信息（分页加连接查询）
+	 * @param user_id 房东id
+	 * @param limit
+	 * @param pageSize
+	 * @return
+	 * @throws SQLException
+	 */
+	public List<Reserve> getReserveByHouseUserID(Integer user_id,Integer startRow,Integer pageSize)
+			throws SQLException {
+		conn = GetConn.getConn();
+		String sql = "select * from reserve where house_id in(select house_id from house where user_id = ?) limit ?,?";
+		List<Reserve> data = qr.query(conn, sql, new BeanListHandler<Reserve>(Reserve.class), user_id,startRow,pageSize);
+		GetConn.closeConn(conn);
+		return data;
+	}
 	/**
 	 * 通过预订表ID获取单个预定信息
 	 * @param reserve_id
@@ -92,14 +109,7 @@ public class ReserveDao implements ReserveDaoImpl{
 		GetConn.closeConn(conn);
 		return data;
 	}
-	@Override
-	public int addGrogshopOrderInfo(GrogshopOrder grogshopOrder)
-			throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	@Override
-	/*
+	/**
 	 * 获取预定分页
 	 * (non-Javadoc)
 	 * @see com.zj.dao.impl.ReserveDaoImpl#queryReservePage(java.lang.Integer, java.lang.Integer)
@@ -112,7 +122,7 @@ public class ReserveDao implements ReserveDaoImpl{
 		GetConn.closeConn(conn);
 		return data;
 	}
-	/*
+	/**
 	 * 预定 总页数
 	 * (non-Javadoc)
 	 * @see com.zj.dao.impl.ReserveDaoImpl#queryCountReserve()
@@ -124,5 +134,27 @@ public class ReserveDao implements ReserveDaoImpl{
 		Long data = qr.query(conn, sql, new ScalarHandler<Long>());
 		GetConn.closeConn(conn);
 		return data;
+	}
+	/**
+	 * 获取一个房东的所有预定信息的数量
+	 * @return
+	 * @throws SQLException
+	 */
+	public Long getAllReserveNumByUserId(Integer user_id) throws SQLException {
+		conn = GetConn.getConn();
+		String sql = "select count(*) from reserve where house_id in (select house_id from house where user_id = ?)";
+		Long data = qr.query(conn, sql, new ScalarHandler<Long>(),user_id);
+		GetConn.closeConn(conn);
+		return data;
+	}
+	/**
+	 * 获取一个房东的指定预定信息的数量
+	 * @return
+	 * @throws SQLException
+	 */
+	public Long getAllReserveNumByState(Integer user_id, Integer state)
+			throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

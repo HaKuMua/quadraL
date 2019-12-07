@@ -12,7 +12,6 @@ import com.zj.entity.Reserve;
  *预定表数据库操作接口
  */
 public interface ReserveDaoImpl {
-	int addGrogshopOrderInfo(GrogshopOrder grogshopOrder) throws SQLException;
 	
 	/**
 	 * 预定分页接口
@@ -50,6 +49,16 @@ public interface ReserveDaoImpl {
 	 * @throws SQLException
 	 */
 	List<Reserve> getReserveByHouseID(Integer house_id) throws SQLException;
+	
+	/**
+	 * 通过房东user_id拿到一组房子ID然后拿到一组此房子的预定信息（分页加连接查询）
+	 * @param user_id 房东id
+	 * @param limit
+	 * @param pageSize
+	 * @return
+	 * @throws SQLException
+	 */
+	List<Reserve> getReserveByHouseUserID(Integer user_id,Integer startRow,Integer pageSize) throws SQLException;
 	/**
 	 * 通过预订表ID获取单个预定信息
 	 * @param reserve_id
@@ -64,4 +73,13 @@ public interface ReserveDaoImpl {
 	 * @throws SQLException
 	 */
 	Integer getReserveID(Reserve reserve) throws SQLException;
+	
+	/**
+	 * 获取一个房东的所有预定信息的数量
+	 * @return
+	 * @throws SQLException
+	 */
+	Long getAllReserveNumByUserId(Integer user_id) throws SQLException;
+	
+	
 }

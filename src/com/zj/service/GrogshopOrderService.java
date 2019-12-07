@@ -50,43 +50,53 @@ public class GrogshopOrderService implements GrogshopOrderServiceImpl {
 	private HouseImgDaoImpl houseImgDaoImpl = new HouseImgDao();
 	private NoticeDaoImpl noticeDaoImpl = new NoticeDao();
 	private Logger log = Logger.getLogger(GrogshopOrderService.class);
-	//订单当前页
+
+	// 订单当前页
 	/**
-	 * 将所有订单信息包装成一个list<map>返回
-	 * 分页显示订单信息
+	 * 将所有订单信息包装成一个list<map>返回 分页显示订单信息
+	 * 
 	 * @return
 	 * @throws SQLException
 	 */
-	public Map<String,Object> getAllGrogshopOrderInfo(Integer limit,Integer page)
-			throws SQLException {
-		Map<String,Object> map = new HashMap<String,Object>();
+	public Map<String, Object> getAllGrogshopOrderInfo(Integer limit,
+			Integer page) throws SQLException {
+		Map<String, Object> map = new HashMap<String, Object>();
 		List<GrogshopOrder> orderList = null;
 		try {
-			orderList = orderDaoImpl.queryOrderPage((page-1)*10, limit);
-			List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
-			for(GrogshopOrder order : orderList){
+			orderList = orderDaoImpl.queryOrderPage((page - 1) * 10, limit);
+			List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+			for (GrogshopOrder order : orderList) {
 				Map<String, Object> orderMap = new HashMap<String, Object>();
 				orderMap.put("grogshop_order_id", order.getGrogshop_order_id());
-				orderMap.put("user_name", userDaoImpl.getUserInfoById(order.getUser_id()).getUser_name());
+				orderMap.put("user_name",
+						userDaoImpl.getUserInfoById(order.getUser_id())
+								.getUser_name());
 				orderMap.put("price", order.getPrice());
-				orderMap.put("place_an_order_date", order.getPlace_an_order_date());
-				if(order.getGrogshop_order_state().equals("1"))
+				orderMap.put("place_an_order_date",
+						order.getPlace_an_order_date());
+				if (order.getGrogshop_order_state().equals("1"))
 					orderMap.put("grogshop_order_state", "已支付");
-				else
+				else if (order.getGrogshop_order_state().equals("2"))
 					orderMap.put("grogshop_order_state", "未支付");
-				orderMap.put("grogshop_order_describe", order.getGrogshop_order_describe());
+				else if (order.getGrogshop_order_state().equals("3"))
+					orderMap.put("grogshop_order_state", "已完成");
+				else if (order.getGrogshop_order_state().equals("4"))
+					orderMap.put("grogshop_order_state", "已退款");
+				orderMap.put("grogshop_order_describe",
+						order.getGrogshop_order_describe());
 				orderMap.put("reserve_id", order.getReserve_id());
 				list.add(orderMap);
 			}
 			map.put("data", list);
-			map.put("count", Integer.valueOf(orderDaoImpl.queryCountOrder().toString()));
+			map.put("count",
+					Integer.valueOf(orderDaoImpl.queryCountOrder().toString()));
 			map.put("msg", "");
 			map.put("code", 0);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		return map;
 	}
 
@@ -94,7 +104,7 @@ public class GrogshopOrderService implements GrogshopOrderServiceImpl {
 	 * 将单个订单信息包装成map返回
 	 */
 	public Map<String, Object> getAllGrogshopOrderInfoByID(
-			Integer grogshop_order_id) {
+			String grogshop_order_id) {
 		Map<String, Object> map = null;
 		try {
 			GrogshopOrder order = orderDaoImpl
@@ -104,7 +114,10 @@ public class GrogshopOrderService implements GrogshopOrderServiceImpl {
 				map.put("grogshop_order_id", order.getGrogshop_order_id());
 				map.put("user_id", order.getUser_id());
 				map.put("price", order.getPrice());
-				map.put("place_an_order_date", order.getGrogshop_order_state());
+				if (order.getGrogshop_order_state().equals("1"))
+					map.put("grogshop_order_state", "已支付");
+				else
+					map.put("grogshop_order_state", "已完成");
 				map.put("grogshop_order_state", order.getGrogshop_order_state());
 				map.put("grogshop_order_describe",
 						order.getGrogshop_order_describe());
@@ -131,9 +144,9 @@ public class GrogshopOrderService implements GrogshopOrderServiceImpl {
 			Double price = Double.valueOf(grogshopOrderInfo.get("price")
 					.toString());
 			User user = userDaoImpl.getUserInfoById(user_id);
-			if(price>user.getMoney())
+			if (price > user.getMoney())
 				return -1;
-			if(userDaoImpl.updateUserMoney(price, user_id) > 0)
+			if (userDaoImpl.updateUserMoney(price, user_id) > 0)
 				log.debug("扣钱成功");
 			// 插入预定表
 			Reserve reserve = new Reserve();
@@ -159,8 +172,9 @@ public class GrogshopOrderService implements GrogshopOrderServiceImpl {
 			grogshopOrder.setUser_id(Integer.valueOf(grogshopOrderInfo.get(
 					"user_id").toString()));
 			grogshopOrder.setPrice(price);
-			if(grogshopOrderInfo.get("grogshop_order_describe") !=null)
-				grogshopOrder.setGrogshop_order_describe(grogshopOrderInfo.get("grogshop_order_describe").toString());
+			if (grogshopOrderInfo.get("grogshop_order_describe") != null)
+				grogshopOrder.setGrogshop_order_describe(grogshopOrderInfo.get(
+						"grogshop_order_describe").toString());
 			Integer reserve_id = reserveDaoImpl.getReserveID(reserve);
 			grogshopOrder.setReserve_id(reserve_id);
 			log.debug(grogshopOrder);
@@ -170,15 +184,18 @@ public class GrogshopOrderService implements GrogshopOrderServiceImpl {
 				log.debug("订单信息插入失败");
 				return -2;
 			}
-			//插入通知
-			noticeDaoImpl.addNotice("用户"+user_id+"在您这预定了房子", user_id);
-			//插入入住人表
-			for(Map<String, Object> checkInPersonMap : checkInPersonInfoMap){
+			// 插入通知
+			noticeDaoImpl.addNotice("用户" + user_id + "在您这预定了房子", Integer.valueOf(grogshopOrderInfo.get("landlord")
+					.toString()));
+			// 插入入住人表
+			for (Map<String, Object> checkInPersonMap : checkInPersonInfoMap) {
 				CheckInPerson checkInPerson = new CheckInPerson();
 				checkInPerson.setGrogshop_order_id(uuID);
-				checkInPerson.setCheck_in_person_name(checkInPersonMap.get("name").toString());
-				checkInPerson.setCheck_in_person_ID_card(checkInPersonMap.get("idCard").toString());
-				if(checkInPersonDaoImpl.addCheckInPerson(checkInPerson)>0){
+				checkInPerson.setCheck_in_person_name(checkInPersonMap.get(
+						"name").toString());
+				checkInPerson.setCheck_in_person_ID_card(checkInPersonMap.get(
+						"idCard").toString());
+				if (checkInPersonDaoImpl.addCheckInPerson(checkInPerson) > 0) {
 					log.debug("插入入住人信息成功");
 				} else {
 					log.debug("插入入住人信息失败");
@@ -195,27 +212,36 @@ public class GrogshopOrderService implements GrogshopOrderServiceImpl {
 		}
 		return 1;
 	}
+
 	/**
 	 * 通过用户ID获取此用户的所有订单信息
 	 */
-	public List<Map<String, Object>> getGrogshopOrderInfoByUserID(Integer user_id) {
-		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+	public List<Map<String, Object>> getGrogshopOrderInfoByUserID(
+			Integer user_id) {
+		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 		try {
-			List<GrogshopOrder> orderList = orderDaoImpl.getGrogshopOrderInfoByUserID(user_id);
-			for(GrogshopOrder order : orderList){
+			List<GrogshopOrder> orderList = orderDaoImpl
+					.getGrogshopOrderInfoByUserID(user_id);
+			for (GrogshopOrder order : orderList) {
 				Map<String, Object> map = new HashMap<String, Object>();
+				map.put("order_id", order.getGrogshop_order_id());
 				map.put("price", order.getPrice());
 				map.put("grogshop_order_state", order.getGrogshop_order_state());
-				Reserve reserve = reserveDaoImpl.getReserveInfoByID(order.getReserve_id());
+				map.put("landlordState", order.getGrogshop_order_landlordState());
+				Reserve reserve = reserveDaoImpl.getReserveInfoByID(order
+						.getReserve_id());
 				map.put("reserve_date", reserve.getReserve_date());
 				map.put("reserve_day_number", reserve.getReserve_day_number());
 				map.put("check_out_date", reserve.getCheck_out_date());
-				House house = houseDaoImpl.getHouseInfoByID(reserve.getHouse_id());
+				House house = houseDaoImpl.getHouseInfoByID(reserve
+						.getHouse_id());
 				map.put("house_id", house.getHouse_id());
+				map.put("landlord_id", house.getUser_id());
 				map.put("house_name", house.getHouse_name());
 				map.put("locationId", house.getLocation_id());
 				map.put("house_address", house.getHouse_address());
-				HouseImg houseImg = houseImgDaoImpl.getHouseImgByHouseID(reserve.getHouse_id()).get(0);
+				HouseImg houseImg = houseImgDaoImpl.getHouseImgByHouseID(
+						reserve.getHouse_id()).get(0);
 				map.put("house_img_url", houseImg.getHouse_img_url());
 				list.add(map);
 			}
@@ -227,37 +253,108 @@ public class GrogshopOrderService implements GrogshopOrderServiceImpl {
 
 	/**
 	 * 通过房东ID获取所有在此房东的房子中下单的用户订单信息
+	 * 
 	 * @param user_id
 	 * @return
 	 */
-	public List<Map<String, Object>> getGrogshopOrderInfoByLandlordID(
-			Integer user_id) {
-		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+	public Map<String, Object> getGrogshopOrderInfoByLandlordID(
+			Integer user_id, Integer state, Integer limit, Integer page) {
+		Map<String, Object> orderMap = new HashMap<String, Object>();
+		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 		try {
-			List<House> houseList = houseDaoImpl.getHouseByID(user_id);
-			for(House house : houseList){
-				List<Reserve> reserveList = reserveDaoImpl.getReserveByHouseID(house.getHouse_id());
-				for(Reserve reserve : reserveList){
-					Map<String, Object> map = new HashMap<String, Object>();
-					map.put("reserve_date", reserve.getReserve_date());
-					map.put("reserve_day_number", reserve.getReserve_day_number());
-					map.put("check_out_date", reserve.getCheck_out_date());
-					map.put("house_name", house.getHouse_name());
-					GrogshopOrder order = orderDaoImpl.getGrogshopOrderInfoByReserveID(reserve.getReserve_id());
-					map.put("price", order.getPrice());
-					map.put("grogshop_order_state", order.getGrogshop_order_state());
-					User user = userDaoImpl.getUserInfoById(order.getUser_id());
-					map.put("user_name", user.getUser_name());
+			List<GrogshopOrder> orderList = orderDaoImpl.getOrderByHouseUserId(
+					user_id, state, (page - 1) * 10, limit);
+			for (GrogshopOrder order : orderList) {
+				Map<String, Object> map = new HashMap<String, Object>();
+				Reserve reserve = reserveDaoImpl.getReserveInfoByID(order
+						.getReserve_id());
+				map.put("reserve_date", reserve.getReserve_date());
+				map.put("reserve_day_number", reserve.getReserve_day_number());
+				map.put("check_out_date", reserve.getCheck_out_date());
+				map.put("house_name", (houseDaoImpl.getHouseByHouseId(reserve
+						.getHouse_id())).getHouse_name());
+				map.put("price", order.getPrice());
+				if (order.getGrogshop_order_landlordState().equals("1"))
+					map.put("grogshop_order_state", "未处理");
+				else if (order.getGrogshop_order_landlordState().equals("2"))
+					map.put("grogshop_order_state", "已处理");
+				else if (order.getGrogshop_order_landlordState().equals("3"))
+					map.put("grogshop_order_state", "已完成");
+				map.put("grogshop_order_id", order.getGrogshop_order_id());
+				User user = userDaoImpl.getUserInfoById(order.getUser_id());
+				map.put("user_name", user.getUser_name());
+				String real_name = user.getReal_name();
+				if (real_name != null)
 					map.put("real_name", user.getReal_name());
-					map.put("user_phone", user.getUser_phone());
-					map.put("user_headimg_url", user.getUser_headimg_url());
-					list.add(map);
+				else
+					map.put("real_name", "未实名");
+				map.put("user_phone", user.getUser_phone());
+				map.put("user_headimg_url", user.getUser_headimg_url());
+				List<Map<String, Object>> checkinperson = new ArrayList<Map<String, Object>>();
+				List<CheckInPerson> checkin = new ArrayList<CheckInPerson>();
+				checkin = orderDaoImpl.getPersonByOrderId(order
+						.getGrogshop_order_id());
+				for (CheckInPerson check : checkin) {
+					Map<String, Object> personMap = new HashMap<String, Object>();
+					personMap.put("name", check.getCheck_in_person_name());
+					personMap.put("IDcard", check.getCheck_in_person_ID_card());
+					checkinperson.add(personMap);
 				}
+				map.put("checkinperson", checkinperson);
+				list.add(map);
 			}
+			orderMap.put("data", list);
+			orderMap.put(
+					"count",
+					Integer.valueOf(orderDaoImpl.getOrderNumByState(user_id,
+							state).toString()));
+			orderMap.put("msg", "");
+			orderMap.put("code", 0);
 		} catch (SQLException e) {
 			log.error("数据库查询异常");
 		}
-		return list;
+		return orderMap;
 	}
-	
+
+	/**
+	 * 处理订单，更新信息
+	 * 
+	 * @param order_id
+	 *            ,status
+	 * @return
+	 */
+	public Integer updateOrder(String order_id, Integer state) {
+		Integer code = -1;
+		try {
+			GrogshopOrder order = orderDaoImpl
+					.getGrogshopOrderInfoByID(order_id);
+			Integer count =0;
+				if (state.equals(2)) {
+					System.out.println("房东确认订单！");
+					count = orderDaoImpl.updateLandlordStatus(order_id,
+							state);
+					System.out.println(count);
+					// 插入通知
+					count=noticeDaoImpl.addNotice("房东已确认您的订单！", order.getUser_id());
+					if(count > 0) {
+						code = 1;
+						return code;
+					}
+				} else if (state.equals(3)) {
+					System.out.println("房东取消订单！");
+					count = orderDaoImpl.updateLandlordStatus(order_id,
+							state);
+					// 插入通知
+					count =noticeDaoImpl.addNotice("房东已取消您的订单！", order.getUser_id());
+					if(count > 0) {
+						code = 1;
+						return code;
+					}
+				}
+		} catch (SQLException e) {
+			log.error("数据库查询错误");
+			e.printStackTrace();
+		}
+		return code;
+	}
 }

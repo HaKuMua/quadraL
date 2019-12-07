@@ -20,7 +20,7 @@ public interface HouseCommentServiceImpl {
 	 * @param info
 	 * @return
 	 */
-	Map<String, Object> addComment(Map<String, Object> info);
+	Map<String, Object> addHouseComment(Map<String, Object> info);
 	
 	/**
 	 * 通过userID获取他写的所有评论

@@ -7,15 +7,20 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+
 import cn.com.util.PageUtil;
 
+import com.zj.dao.GrogshopOrderDao;
 import com.zj.dao.HouseCommentDao;
 import com.zj.dao.HouseDao;
 import com.zj.dao.HouseImgDao;
+import com.zj.dao.NoticeDao;
 import com.zj.dao.UserDao;
+import com.zj.dao.impl.GrogshopOrderDaoImpl;
 import com.zj.dao.impl.HouseCommentDaoImpl;
 import com.zj.dao.impl.HouseDaoImpl;
 import com.zj.dao.impl.HouseImgDaoImpl;
+import com.zj.dao.impl.NoticeDaoImpl;
 import com.zj.dao.impl.UserDaoImpl;
 import com.zj.entity.Comment;
 import com.zj.entity.GrogshopOrder;
@@ -26,7 +31,8 @@ import com.zj.entity.User;
 import com.zj.service.impl.HouseCommentServiceImpl;
 
 public class HouseCommentService implements HouseCommentServiceImpl {
-
+	private GrogshopOrderDaoImpl orderDaoImpl = new GrogshopOrderDao();
+	private NoticeDaoImpl noticeDaoImpl = new NoticeDao();
 	private HouseCommentDaoImpl hCommenDaoImpl = new HouseCommentDao();
 	private HouseDaoImpl houseDaoImpl = new HouseDao();
 	private UserDaoImpl userDaoImpl = new UserDao();
@@ -103,12 +109,12 @@ public class HouseCommentService implements HouseCommentServiceImpl {
 	}
 
 	/**
-	 * 增加一条评论
+	 * 完成酒店订单，增并且加一条评论
 	 * 
 	 * @param info
 	 * @return
 	 */
-	public Map<String, Object> addComment(Map<String, Object> info) {
+	public Map<String, Object> addHouseComment(Map<String, Object> info) {
 		HouseComment comment = new HouseComment();
 		Map<String, Object> map = new HashMap<String, Object>();
 		// 给文章实体类set值进去
@@ -121,16 +127,22 @@ public class HouseCommentService implements HouseCommentServiceImpl {
 		if (info.get("replier_id") != null)
 			comment.setReplier_id(Integer.valueOf(info.get("replier_id")
 					.toString()));
-		int cout = -1;
+		int count = -1;
 		try {
-			cout = hCommenDaoImpl.addComment(comment);
-			if (cout > 0) {
-				map.put("msg", "评论成功！");
+			count = hCommenDaoImpl.addComment(comment);
+			//改变订单状态
+			count = orderDaoImpl.updateUserStatus(info.get("order_id").toString(), 2);
+			count = orderDaoImpl.updateLandlordStatus(info.get("order_id").toString(), 3);
+			// 插入通知
+			count = noticeDaoImpl.addNotice("账户已收到"+info.get("price").toString()+"元", Integer.valueOf(info.get("landlord_id").toString()));
+			if (count > 0) {
+				map.put("msg", "订单已完成！");
 			} else {
-				map.put("msg", "评论失败！");
+				map.put("msg", "失败！");
 			}
 		} catch (SQLException e) {
-			map.put("msg", "评论失败！");
+			map.put("msg", "失败！");
+			log.error("失败");
 			e.printStackTrace();
 		}
 		return map;

@@ -567,7 +567,7 @@
 			$(infoId).append('<div class="layui-row guestInfo" id="guestInfo2"></div>');
 			for (var k = 0; k < listHouse.length; k++) {
 				var html = '<div class="layui-col-xs4"><a href="host/home.html?houseId=' + listHouse[k].house_id + '">' +
-					'<img src="' + listHouse[k].house_img + '" ><br><span>' + listHouse[k].house_type + '·' +
+					'<img width="350px" height="233px" src="' + listHouse[k].house_img + '" ><br><span>' + listHouse[k].house_type + '·' +
 					listHouse[k].bed_number + '张床</span><br><h3><b>' + listHouse[k].house_name + '</b></h3><br><h3>￥' +
 					listHouse[k].house_price + '</h3></a></div>'
 				if (k < 3) {
@@ -600,7 +600,7 @@
 							console.log(msg)
 							for (var k = 0; k < 6; k++) {
 								var html = '<div class="layui-col-xs4"><a href="host/home.html?houseId=' + listHouse[k].house_id + '">' +
-									'<img src="../' + listHouse[k].house_img[0].house_img_url  + '" ><br><span>' + listHouse[k].house_type + '·' +
+									'<img width="350px" height="233px" src="../' + listHouse[k].house_img[0].house_img_url  + '" ><br><span>' + listHouse[k].house_type + '·' +
 									listHouse[k].bed_number + '张床</span><br><h3><b>' + listHouse[k].house_name + '</b></h3><br><h3>￥' +
 									listHouse[k].house_price + '</h3></a></div>'
 								if (k < 3) {

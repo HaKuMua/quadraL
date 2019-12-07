@@ -97,4 +97,12 @@ public interface HouseDaoImpl {
 	 */
 	Integer updateHouseStatus(Integer status,Integer house_id) throws SQLException;
 	
+	/**
+	 * 通过房子id获得房子
+	 * @param house_name 房子名字
+	 * @return id
+	 * @throws SQLException
+	 */
+	House getHouseByHouseId(Integer house_id) throws SQLException;
+	
 }

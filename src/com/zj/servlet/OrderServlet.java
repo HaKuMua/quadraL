@@ -25,16 +25,17 @@ public class OrderServlet extends BaseServlet {
 	private static final long serialVersionUID = 1L;
 	private GrogshopOrderServiceImpl orderService = new GrogshopOrderService();
 	private Logger log = Logger.getLogger(OrderServlet.class);
-	public String callback;
-	public String grogshop_order_id;
-	public String grogshopOrderInfo;
-	public String checkInPersonInfo;
-	public String user_id;
+	private String callback;
+	//订单id
+	private String order_id;
+	private String grogshopOrderInfo;
+	private String checkInPersonInfo;
+	private Integer user_id;
 	//当前页数
 	private  Integer currentPage;
 	//总页数
 	private  Integer page;
-	//状态
+	//订单状态
 	private Integer state;
 	//每页条数
 	private  Integer limit;
@@ -52,7 +53,7 @@ public class OrderServlet extends BaseServlet {
 	public void getGrogshopOrderInfoByID(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		Map<String, Object> map = orderService
-				.getAllGrogshopOrderInfoByID(Integer.valueOf(grogshop_order_id));
+				.getAllGrogshopOrderInfoByID(order_id);
 		System.out.println(map);
 		JSONObject obj = new JSONObject(map);
 		response.getWriter().print(callback + "(" + obj + ")");
@@ -97,6 +98,7 @@ public class OrderServlet extends BaseServlet {
 		JSONObject json = new JSONObject(map);
 		response.getWriter().print(callback+"("+json+")");
 	}
+	
 	/**
 	 * 通过房东ID获得所有在此房东的房子下单的用户信息
 	 * @param request
@@ -106,12 +108,27 @@ public class OrderServlet extends BaseServlet {
 	 */
 	public void getUserInfoByLandlordID(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		List<Map<String, Object>> list = orderService.getGrogshopOrderInfoByLandlordID(Integer.valueOf(user_id));
+		Map<String, Object> map = orderService.getGrogshopOrderInfoByLandlordID(user_id,state,limit,page);
+		JSONObject obj = new JSONObject(map);
+		System.out.println("obj:" + obj);
+		response.getWriter().print(obj);
+	}
+	
+	/**
+	 * 修改订单状态并完成该状态下的操作
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
+	public void updateOrder(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("status",0);
-		map.put("msg", "查询成功");
-		map.put("data", list);
-		JSONObject json = new JSONObject(map);
-		response.getWriter().print(json);
+		System.out.println(state);
+		Integer code = orderService.updateOrder(order_id, state);
+		map.put("code", code);
+		JSONObject obj = new JSONObject(map);
+		System.out.println("obj:" + obj);
+		response.getWriter().print(obj);
 	}
 }

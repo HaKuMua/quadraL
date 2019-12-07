@@ -137,6 +137,8 @@ public class CommentService implements CommentServiceImpl {
 				map.put("comment_date", new SimpleDateFormat(
 						"YYYY-MM-dd HH:mm:ss").format(new Date()));
 				map.put("msg", "评论成功！");
+				//改变订单状态
+				
 			} else {
 				map.put("msg", "评论失败！");
 				return map;

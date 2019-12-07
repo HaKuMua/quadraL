@@ -51,7 +51,7 @@
 					</form>
 				</li>
 				<div id="rightNav">
-					<li class="layui-nav-item"><a href="">故事</a></li>
+					<li class="layui-nav-item"><a href="../story/index.html">故事</a></li>
 					<li class="layui-nav-item" style="cursor: pointer;"><a class="NavA" data-method="login">注册</a></li>
 					<li class="layui-nav-item" style="cursor: pointer;"><a class="NavA" data-method="login">登录</a></li>
 				</div>
@@ -97,40 +97,6 @@
 								<button class="layui-btn" style="width: 290px;">查看是否可订</button>
 							</div>
 						</div>
-						<div style="height: 320px;">
-							<div class="layui-col-xs4">
-								<a href="">
-									<img src="../../img/room/65e00580-6a91-4ee7-bc11-d05f259814ad.jpg" width="290px" height="216px">
-									<h3>藝净- 复古花,太古里旁高层花园电影套房</h3>
-									<h4>2019/12/21 - 12/22 · 1晚</h4>
-									<h3><b>订单待支付</b> · ￥626.24</h3>
-								</a><br>
-								<button class="layui-btn" style="width: 290px;">查看是否可订</button>
-							</div>
-							<div class="layui-col-xs4">
-								<a href="">
-									<img src="../../img/room/ac356f32-0ba7-4dd8-9796-94d085e711fa.jpg" width="290px" height="216px">
-									<h3>藝净- 复古花,太古里旁高层花园电影套房</h3>
-									<h4>2019/12/21 - 12/22 · 1晚</h4>
-									<h3>订单待支付 · ￥626.24</h3>
-								</a><br>
-								<button class="layui-btn" style="width: 290px;">查看是否可订</button>
-							</div>
-							<div class="layui-col-xs4">
-								<a href="">
-									<img src="../../img/room/ac356f32-0ba7-4dd8-9796-94d085e711fa.jpg" width="290px" height="216px">
-									<h3>藝净- 复古花,太古里旁高层花园电影套房</h3>
-									<h4>2019/12/21 - 12/22 · 1晚</h4>
-									<h3>订单待支付 · ￥626.24</h3>
-								</a><br>
-								<div class="layui-col-xs6">
-									<button class="layui-btn" style="width: 145px;">查看是否可订</button>
-								</div>
-								<div class="layui-col-xs6">
-									<button class="layui-btn" style="width: 145px;">查看是否可订</button>
-								</div>
-							</div>
-						</div>
 					</div>
 					<div class="layui-tab-item">
 						<h2>您当前没有「已支付订单」，去首页探索下一段奇妙旅程吧</h2>
@@ -157,61 +123,8 @@
 	<script type="text/javascript">
 		//利用COokie拿到信息
 		// var userInfo=$.Cookie('userInfo');
-		var userInfo = {
-			user_id: '1000',
-			user_name: 'haku',
-			user_img: '../../img/timg.jpg',
-			islanlord: 1
-		};
-		var orderInfo = [{
-				house_name: '下榻日式风格的房源去畅玩太古里',
-				house_id: 4,
-				house_price: 999.5,
-				houseImg: '../../img/room/ac356f32-0ba7-4dd8-9796-94d085e711fa.jpg',
-				dayNum: 2,
-				date: '2019-12-21--2019-12-23'
-			},
-			{
-				house_name: '下榻日式风格的房源去畅玩太古里',
-				house_id: 4,
-				house_price: 999.5,
-				houseImg: '../../img/room/ac356f32-0ba7-4dd8-9796-94d085e711fa.jpg',
-				dayNum: 2,
-				date: '2019-12-21--2019-12-23'
-			},
-			{
-				house_name: '下榻日式风格的房源去畅玩太古里',
-				house_id: 4,
-				house_price: 999.5,
-				houseImg: '../../img/room/ac356f32-0ba7-4dd8-9796-94d085e711fa.jpg',
-				dayNum: 2,
-				date: '2019-12-21--2019-12-23'
-			},
-			{
-				house_name: '下榻日式风格的房源去畅玩太古里',
-				house_id: 4,
-				house_price: 999.5,
-				houseImg: '../../img/room/ac356f32-0ba7-4dd8-9796-94d085e711fa.jpg',
-				dayNum: 2,
-				date: '2019-12-21--2019-12-23'
-			},
-			{
-				house_name: '下榻日式风格的房源去畅玩太古里',
-				house_id: 4,
-				house_price: 999.5,
-				houseImg: '../../img/room/ac356f32-0ba7-4dd8-9796-94d085e711fa.jpg',
-				dayNum: 2,
-				date: '2019-12-21--2019-12-23'
-			},
-			{
-				house_name: '下榻日式风格的房源去畅玩太古里',
-				house_id: 4,
-				house_price: 999.5,
-				houseImg: '../../img/room/ac356f32-0ba7-4dd8-9796-94d085e711fa.jpg',
-				dayNum: 2,
-				date: '2019-12-21--2019-12-23'
-			}
-		]
+		var userInfo = null;
+		var orderInfo = [];
 		json = getCookie('userInfo');
 		if (json != '' || json == null) {
 			jsonInfo = JSON.parse(json);
@@ -220,25 +133,24 @@
 				console.log(userInfo);
 			}
 		}
-		console.log(userInfo.user_id == null)
 		//初始化导航栏
-		if (userInfo.user_id != null) {
-			var html = '<li class="layui-nav-item " id="china"> <a href="myOrder.html" >房源订单中心</a></li>' +
-				'<li class="layui-nav-item"><a href="story/index.html">故事</a></li>' +
+		if (userInfo != null) {
+			var html = '<li class="layui-nav-item " id="china"> <a href="../user/myOrder.html" >房源订单中心</a></li>' +
+				'<li class="layui-nav-item"><a href="../story/index.html">故事</a></li>' +
 				'<li class="layui-nav-item"><a href="#" id="notice">消息<span id="dot" class="layui-badge-dot"></span></a> </li>' +
-				' <li class="layui-nav-item" lay-unselect=""><a href="javascript:;"><img src="' +
-				userInfo.user_img + '" class="layui-nav-img">' + userInfo.user_name + '</a> ' +
-				'<dl class="layui-nav-child"><dd><a href="host/landlord.html"  style="color: gray;">个人中心</a></dd>' +
-				' <dd><a href="user/modifyInfo.html" style="color: gray;">修改信息</a></dd><dd><a href="index.html" id="quit" style="color: gray;">退了</a></dd></dl>';
+				' <li class="layui-nav-item" lay-unselect=""><a href="javascript:;"><img src="../../' +
+				userInfo.user_headimg_url + '" class="layui-nav-img">' + userInfo.user_name + '</a> ' +
+				'<dl class="layui-nav-child"><dd><a href="../host/landlord.html"  style="color: gray;">个人中心</a></dd>' +
+				' <dd><a href="../user/modifyInfo.html" style="color: gray;">修改信息</a></dd><dd><a href="../index.html" id="quit" style="color: gray;">退了</a></dd></dl>';
 			$("#rightNav").empty();
 			$("#rightNav").append(html);
-			if (userInfo.islanlord != 1) {
+			if (userInfo.is_landlord == 1) {
 				$("#china").after('<li class="layui-nav-item "> <a href="">我的房源</a>' +
-					'<dl class="layui-nav-child"><dd><a href="user/landlordOrder.html"  style="color: gray;">订单信息</a></dd>' +
-					' <dd><a href="user/myHouse.html" style="color: gray;">房源信息</a></dd></dl>' + '</li>' +
-					'<li class="layui-nav-item "><a href="host/create_a_room/room.html">添加房源</a></li>');
+					'<dl class="layui-nav-child"><dd><a href="../user/landlordOrder.html"  style="color: gray;">订单信息</a></dd>' +
+					' <dd><a href="../user/myHouse.html" style="color: gray;">房源信息</a></dd></dl>' + '</li>' +
+					'<li class="layui-nav-item "><a href="../host/create_a_room/room.html">添加房源</a></li>');
 			} else {
-				$("#china").after('<li class="layui-nav-item "> <a href="">成为房东</a></li>');
+				$("#china").after('<li class="layui-nav-item "> <a href="../host/create_a_room/become.html">成为房东</a></li>');
 			}
 		}
 		//退出按钮监听
@@ -266,7 +178,7 @@
 			"user_id": userInfo.user_id
 		}, function(res) {
 			console.log(res);
-			orderInfo=res.list
+			orderInfo = res.list
 			console.log(res.list);
 			getOrder("#allOrder");
 		});
@@ -276,26 +188,57 @@
 			$(infoId).append('<div style="height: 420px;" id="d1"></div>');
 			id = "d1";
 			for (let i = 0; i < orderInfo.length; i++) {
-				if(orderInfo[i].grogshop_order_state == "1") {
+				if (orderInfo[i].landlordState == "1") {
 					html = '<div class="layui-col-xs4"><a href="../host/home.html?house_id=' + orderInfo[i].house_id + '">' +
 						'<img src="../../' + orderInfo[i].house_img_url + '"  width="290px" height="216px" >' +
-						'<h3>' + orderInfo[i].house_name + '</h3><h4>' + orderInfo[i].reserve_date + '-- ' + orderInfo[i].check_out_date + '· ' + orderInfo[i].reserve_day_number + '晚</h4>' +
-						'<h3>订单已完成 · ￥' + orderInfo[i].price + '</h3></a><br>' +
-						'<div class="layui-col-xs6"><a href="#" id="'+orderInfo[i].house_id+'" class="layui-btn comBtn" style="width: 145px;">评论</a></div>'+
-						'<div class="layui-col-xs6"><a href="../story/publishArticles.html?house_id='+orderInfo[i].house_id+'" class="layui-btn" style="width: 145px;">写故事</button></div>';
-				}else {
+						'<h3>' + orderInfo[i].house_name + '</h3><h4>' + orderInfo[i].reserve_date + '-- ' + orderInfo[i].check_out_date +
+						'· ' + orderInfo[i].reserve_day_number + '晚</h4>' +
+						'<h3>订单待处理 · ￥' + orderInfo[i].price + '</h3></a><br>';
+				} else if (orderInfo[i].landlordState == "2") {
+					if (orderInfo[i].grogshop_order_state == 1) {
+						html = '<div class="layui-col-xs4"><a href="../host/home.html?house_id=' + orderInfo[i].house_id + '">' +
+							'<img src="../../' + orderInfo[i].house_img_url + '"  width="290px" height="216px" >' +
+							'<h3>' + orderInfo[i].house_name + '</h3><h4>' + orderInfo[i].reserve_date + '-- ' + orderInfo[i].check_out_date +
+							'· ' + orderInfo[i].reserve_day_number + '晚</h4>' +
+							'<h3>订单已支付 · ￥' + orderInfo[i].price + '</h3></a><br>' +
+							'<div class="layui-col-xs6"><a href="#" id="' + i +
+							'" class="layui-btn comBtn" style="width: 140px;">完成订单</a></div>' +
+							'<div class="layui-col-xs6"><a href="#" id="' + i +
+							'" class="layui-btn layui-btn-warm tips" style="width: 140px;" >查看信息</a></div></div>';
+					} else if (orderInfo[i].grogshop_order_state == 2) {
+						html = '<div class="layui-col-xs4"><a href="../host/home.html?house_id=' + orderInfo[i].house_id + '">' +
+							'<img src="../../' + orderInfo[i].house_img_url + '"  width="290px" height="216px" >' +
+							'<h3>' + orderInfo[i].house_name + '</h3><h4>' + orderInfo[i].reserve_date + '-- ' + orderInfo[i].check_out_date +
+							'· ' + orderInfo[i].reserve_day_number + '晚</h4>' +
+							'<h3>订单已完成 · ￥' + orderInfo[i].price + '</h3></a><br>' +
+							'<a href="../story/publishArticles.html?house_id=' + orderInfo[i].house_id +
+							'" class="layui-btn" style="width: 290px;">发布故事</a></div>';
+					} else if (orderInfo[i].grogshop_order_state == 3) {
+						html = '<div class="layui-col-xs4"><a href="../host/home.html?house_id=' + orderInfo[i].house_id + '">' +
+							'<img src="../../' + orderInfo[i].house_img_url + '"  width="290px" height="216px" >' +
+							'<h3>' + orderInfo[i].house_name + '</h3><h4>' + orderInfo[i].reserve_date + '-- ' + orderInfo[i].check_out_date +
+							'· ' + orderInfo[i].reserve_day_number + '晚</h4>' +
+							'<h3>订单已退款 · ￥' + orderInfo[i].price + '</h3></a><br>' +
+							'<a href="../host/home.html?house_id=' + orderInfo[i].house_id +
+							'" class="layui-btn" style="width: 290px;">查看是否可订</a></div>';
+					} else {
+						html = '<div class="layui-col-xs4"><a href="../host/home.html?house_id=' + orderInfo[i].house_id + '">' +
+							'<img src="../../' + orderInfo[i].house_img_url + '"  width="290px" height="216px" >' +
+							'<h3>' + orderInfo[i].house_name + '</h3><h4>' + orderInfo[i].reserve_date + '-- ' + orderInfo[i].check_out_date +
+							'· ' + orderInfo[i].reserve_day_number + '晚</h4>' +
+							'<h3>订单已完成 · ￥' + orderInfo[i].price + '</h3></a><br>' +
+							'<a href="../host/home.html?house_id=' + orderInfo[i].house_id +
+							'" class="layui-btn" style="width: 290px;">查看是否可订</a></div>';
+					}
+				} else if (orderInfo[i].landlordState == "3") {
 					html = '<div class="layui-col-xs4"><a href="../host/home.html?house_id=' + orderInfo[i].house_id + '">' +
 						'<img src="../../' + orderInfo[i].house_img_url + '"  width="290px" height="216px" >' +
-						'<h3>' + orderInfo[i].house_name + '</h3><h4>' + orderInfo[i].reserve_date + '-- ' + orderInfo[i].check_out_date + '· ' + orderInfo[i].reserve_day_number + '晚</h4>' +
-						'<h3>订单已支付 · ￥' + orderInfo[i].price + '</h3></a><br>' +
-						'<a href="../host/home.html?house_id=?' + orderInfo[i].house_id +
-						'" class="layui-btn" style="width: 290px;" >查看房源详细信息</a></div>';
+						'<h3>' + orderInfo[i].house_name + '</h3><h4>' + orderInfo[i].reserve_date + '-- ' + orderInfo[i].check_out_date +
+						'· ' + orderInfo[i].reserve_day_number + '晚</h4>' +
+						'<h3>订单已取消 · ￥' + orderInfo[i].price + '</h3></a><br>' +
+						'<a href="../host/home.html?house_id=' + orderInfo[i].house_id +
+						'" class="layui-btn " style="width: 290px;">查看是否可订</a></div>';
 				}
-				html = '<div class="layui-col-xs4"><a href="../host/home.html?house_id=' + orderInfo[i].house_id + '">' +
-					'<img src="../../' + orderInfo[i].house_img_url + '"  width="290px" height="216px" >' +
-					'<h3>' + orderInfo[i].house_name + '</h3><h4>' + orderInfo[i].reserve_date + '-- ' + orderInfo[i].check_out_date + '· ' + orderInfo[i].reserve_day_number + '晚</h4>' +
-					'<h3>订单已支付 · ￥' + orderInfo[i].price + '</h3></a><br>' +
-					'<button  id="'+i+'" class="layui-btn layui-btn-warm tips" style="width: 290px;" >查看房源详细信息</button></div>';
 				if (i % 3 == 0 && i != 0) {
 					id = "d" + (i + 1);
 					$(infoId).append('<div style="height: 420px;" id="' + id + '"></div>');
@@ -303,33 +246,38 @@
 				$("#" + id).append(html);
 			}
 		}
-		
-		$("body").on("click",".comBtn",function() {
-			house_id=$(this).attr("id");
+
+		$("body").on("click", ".comBtn", function() {
+			i = $(this).attr("id");
 			layer.prompt({
-			  formType: 2,
-			  title:'评论',
-			  value: '请对你本次入住进行评论',
-			  area: ['420px', '250px'] //自定义文本域宽高
-			}, function(value, index, elem){
-				map='{"user_id":"'+userInfo.user_id+'","house_id":"'+house_id+'","houseCom_content":"'+value+'","replier_id":"'+userInfo.user_id+'"}'
-				$.getJSON(basePath + "house_comment.do?method=addComment&callback=?", {
+				formType: 2,
+				title: '完成订单',
+				value: '请先对你本次入住进行评论',
+				area: ['420px', '250px'] //自定义文本域宽高
+			}, function(value, index, elem) {
+				map = '{"user_id":"' + userInfo.user_id + '","house_id":"' + orderInfo[i].house_id + '","houseCom_content":"' +
+					value +'","replier_id":"' + userInfo.user_id +
+					'","order_id":"' + orderInfo[i].order_id + '","price":"' + orderInfo[i]
+					.price + '","landlord_id":"' + orderInfo[i].landlord_id + '"}'
+				$.getJSON(basePath + "houseComment.do?method=addHouseComment&callback=?", {
 					"map": map
 				}, function(res) {
 					layer.msg(res.msg);
-					window.setTimeout (function() {
+					window.setTimeout(function() {
 						layer.closeAll();
-					},1200);
-					
+					}, 1200);
+
 				});
 			});
 		});
-		
-		
-		$("body").on("click",".tips",function() {
+
+
+		$("body").on("click", ".tips", function() {
 			index = $(this).attr("id");
-			layer.alert(orderInfo[index].house_address+orderInfo[index].locationId
-			,{icon: 1, title:'详细地址'});
+			layer.alert(orderInfo[index].house_address + orderInfo[index].locationId, {
+				icon: 1,
+				title: '详细地址'
+			});
 		});
 	</script>
 	<script>
