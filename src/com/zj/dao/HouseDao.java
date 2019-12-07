@@ -177,6 +177,7 @@ public class HouseDao implements HouseDaoImpl{
 		GetConn.closeConn(conn);
 		return data;
 	}
+	/**
 	 * 通过房子id获得房子
 	 * @param house_name 房子名字
 	 * @return id
