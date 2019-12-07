@@ -26,4 +26,8 @@ public interface HouseCommentServiceImpl {
 	 * 通过userID获取他写的所有评论
 	 */
 	List<Map<String, Object>> getUserComment(Integer user_id);
+	/**
+	 * 删除一篇房子评论
+	 */
+	Integer deleteHouseComm(Integer houseComment_id);
 }

@@ -1,6 +1,7 @@
 package com.zj.servlet;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,7 +30,8 @@ public class HouseServlet extends BaseServlet {
 	public String callback;
 	public String user_id;
 	public String selectMap;
-
+	private String status;
+	private String house_id;
 	/**
 	 * 添加一个房子信息
 	 * 
@@ -72,7 +74,7 @@ public class HouseServlet extends BaseServlet {
 	public void getHouseInfoByUserID(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		Integer userID = Integer.valueOf(JSON.parse(user_id).toString());
-		List<Map<String, Object>> list = houseService.getHouseByID(userID);
+		List<Map<String, Object>> list = houseService.getHouseByID(userID,2);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("status",0);
 		map.put("msg", "查询成功");
@@ -132,5 +134,16 @@ public class HouseServlet extends BaseServlet {
 			JSONObject obj = new JSONObject(map);
 			// 如果上传成功返回1
 			response.getWriter().print(obj);
+	}
+	/**
+	 * 修改房子状态服务层接口
+	 * @param status
+	 * @return
+	 * @throws SQLException
+	 */
+	public void updateHouseStatus(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException, FileUploadException {
+		Integer data = houseService.updateHouseStatus(Integer.valueOf(status),Integer.valueOf(house_id));
+		response.getWriter().print(callback + "(" + data + ")");
 	}
 }

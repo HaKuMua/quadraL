@@ -94,10 +94,11 @@ body {
 /* ------- Login Form ------- */
 
 form, .welcome {
-	background: url(images/form-bg.png) top left no-repeat;
+	background: url(images/form-bg2.jpg) top left no-repeat;
 	width: 524px;
 	height: 262px;
 	padding-top: 1px;
+	border-radius: 20px;
 }
 
 .login, .welcome-user {

@@ -70,8 +70,12 @@ public class HouseService implements HouseServiceImpl {
 					houseMap.put("house_type", house.getHouse_type());
 					if(house.getHouse_state() == 0)
 						houseMap.put("house_state", "未审核");
-					else
+					else if(house.getHouse_state() == 1)
 						houseMap.put("house_state", "已审核");
+					else if(house.getHouse_state() == -1)
+						houseMap.put("house_state", "已拒绝");
+					else
+						houseMap.put("house_state", "已审核且已预定");
 					houseMap.put("house_price", house.getHouse_price());
 					houseMap.put("travel_information", house.getTravel_information());
 					houseMap.put("house_address", house.getHouse_address());
@@ -317,10 +321,14 @@ public class HouseService implements HouseServiceImpl {
 	 * @param user_id
 	 * @return
 	 */
-	public List<Map<String, Object>> getHouseByID(Integer user_id) {
+	public List<Map<String, Object>> getHouseByID(Integer user_id,Integer status) {
 		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 		try {
-			List<House> houseList = houseDaoImpl.getHouseByID(user_id);
+			List<House> houseList = null;
+			if(status == 2)
+				houseList = houseDaoImpl.getHouseByID(user_id);
+			else
+				houseList = houseDaoImpl.getHouseByIDByState(user_id);
 			for (House house : houseList) {
 				Map<String, Object> map = new HashMap<String, Object>();
 				map.put("house_id", house.getHouse_id());
@@ -403,6 +411,24 @@ public class HouseService implements HouseServiceImpl {
 			log.error("时间类型转换异常");
 		}
 		return list;
+	}
+	/**
+	 * 修改房子状态服务层
+	 * @param status
+	 * @return
+	 * @throws SQLException
+	 */
+	public Integer updateHouseStatus(Integer status,Integer house_id) {
+		try {
+			Integer igr = houseDaoImpl.updateHouseStatus(status,house_id);
+			if(igr > 0)
+				return 1;
+			else
+				return 0;
+		} catch (SQLException e) {
+			log.error("数据库操作异常");
+			return -1;
+		}
 	}
 
 }

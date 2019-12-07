@@ -103,5 +103,17 @@ public class HouseCommentDao implements HouseCommentDaoImpl {
 		GetConn.closeConn(conn);
 		return data;
 	}
+	/**
+	 * 通过房子评论id删除一篇评论
+	 * @throws SQLException 
+	 */
+	public Integer deleteHouseCommentByID(Integer houseCom_id)
+			throws SQLException {
+		conn = GetConn.getConn();
+		String sql = "delete from house_comment where houseCom_id = ?";
+		Integer data = qr.update(conn, sql, houseCom_id);
+		GetConn.closeConn(conn);
+		return data;
+	}
 
 }

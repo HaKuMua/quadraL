@@ -51,4 +51,9 @@ public interface HouseCommentDaoImpl {
 	 * @throws SQLException 
 	 */
 	List<HouseComment> getUserComment(Integer user_id) throws SQLException ;
+	/**
+	 * 通过房子评论id删除一篇评论
+	 * @throws SQLException 
+	 */
+	Integer deleteHouseCommentByID(Integer houseCom_id) throws SQLException;
 }

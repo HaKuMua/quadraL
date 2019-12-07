@@ -2,31 +2,75 @@
 <html dir="ltr" lang="en-US">
 	<head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-
 	<title>后台管理</title>
 	<!--- CSS --->
 	<link rel="stylesheet" href="loginstyle.css" type="text/css" />
+	<link rel="stylesheet" href="layui/css/layui.css" />
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400">  <!-- Google web font "Open Sans" -->
+	<link rel="stylesheet" href="css/font-awesome.min.css">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/demo.css" />
+	<link rel="stylesheet" href="css/templatemo-style.css">
+	<script type="text/javascript" src="js/modernizr.custom.86080.js"></script>
+	<script type="text/javascript" src="jquery-1.7.1.min.js" ></script>
 	</head>
 
 	<body>
-		<div id="container">
-			<form action="welcome.html">
+		<div id="particles-js" style="z-index: 10;"></div>
+		<ul class="cb-slideshow">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+		<div id="container" style="position: relative;z-index: 11;">
+			<form  method="post" target="targetIfr">
 				<div class="login">登录</div>
 				<div class="username-text">用户名:</div>
 				<div class="password-text">密码:</div>
 				<div class="username-field">
-					<input type="text" name="username" value="azmind" />
+					<input type="text" name="username" id="username" style="border: none;"/>
 				</div>
 				<div class="password-field">
-					<input type="password" name="password" value="azmind" />
+					<input type="password" name="password" id="userpwd" style="border: none;"/>
 				</div>
 				<input type="checkbox" name="remember-me" id="remember-me" /><label for="remember-me">记住密码</label>
-				<div class="forgot-usr-pwd">忘记 <a href="#">用户名</a> 或 <a href="#">密码</a>?</div>
-				<input type="submit" name="submit" value="GO" />
+				<input type="submit" value="GO" id="go" style="position: relative; left: 250px;top: -20px;border: none;"/>
 			</form>
+			<iframe name="targetIfr" style="display:none" ></iframe>
 		</div>
 		<div id="footer">
 			 All Rights Reserved by Airbnb. Designed and Developed by QuadraL.
 		</div>
 	</body>
+	<script type="text/javascript" src="layui/layui.js" ></script>
+	<script>
+		layui.use('layer', function(){
+			var layer = layui.layer;
+			$("#go").click(function(){
+				var managername = $("#username").val();
+				var	managerpwd = $("#userpwd").val();
+				$.getJSON("http://localhost:80/QuadraL/user.do?method=isManager&callback=?"
+				,{"managername":managername, "managerpwd":managerpwd},function(result){
+					if(result > 0){
+						layer.msg("登录成功喵~");
+						$("#container").empty();
+						$("#container").append('<div class="welcome">'+
+							'<div class="welcome-user">欢迎进入后台管理!</div>'+
+							'<div class="welcome-text">进入后台管理请遵守相关管理规定，不可擅自修改数据，否则后果自负</div>'+
+							'<div class="home"><a href="BackManagement.html">主页</a></div>'+
+						'</div>');
+					}else if(result == 0){
+						layer.msg("账号或密码错误喵~");
+					}else{
+						layer.msg("网络异常喵~");
+					}
+				});
+			});
+		});
+	</script>
+	<script type="text/javascript" src="js/particles.js"></script>
+	<script type="text/javascript" src="js/app.js"></script>
 </html>
