@@ -21,7 +21,7 @@ public interface GrogshopOrderServiceImpl {
 	/**
 	 * 将单个订单信息包装成map返回方法接口
 	 */
-	Map<String, Object> getAllGrogshopOrderInfoByID(Integer grogshop_order_id);
+	Map<String, Object> getAllGrogshopOrderInfoByID(String grogshop_order_id);
 	/**
 	 * 添加一个订单信息方法接口
 	 * @param grogshopOrder
@@ -37,6 +37,14 @@ public interface GrogshopOrderServiceImpl {
 	 * @param user_id
 	 * @return
 	 */
-	List<Map<String, Object>> getGrogshopOrderInfoByLandlordID(Integer user_id);
+	Map<String, Object> getGrogshopOrderInfoByLandlordID(Integer user_id,Integer state,Integer limit,Integer page);
+	
+	/**
+	 * 房东处理订单，更新信息
+	 * @param order_id
+	 * @param landlordState
+	 * @return
+	 */
+	Integer updateOrder(String order_id,Integer landlordState );
 	
 }

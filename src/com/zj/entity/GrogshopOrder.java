@@ -30,6 +30,10 @@ public class GrogshopOrder implements Serializable{
 	 */
 	private String grogshop_order_state;
 	/**
+	 * 订单状态
+	 */
+	private String grogshop_order_landlordState;
+	/**
 	 * 订单详情
 	 */
 	private String grogshop_order_describe;
@@ -79,6 +83,15 @@ public class GrogshopOrder implements Serializable{
 
 	public void setGrogshop_order_state(String grogshop_order_state) {
 		this.grogshop_order_state = grogshop_order_state;
+	}
+
+	
+	public String getGrogshop_order_landlordState() {
+		return grogshop_order_landlordState;
+	}
+
+	public void setGrogshop_order_landlordState(String grogshop_order_landlordState) {
+		this.grogshop_order_landlordState = grogshop_order_landlordState;
 	}
 
 	public String getGrogshop_order_describe() {

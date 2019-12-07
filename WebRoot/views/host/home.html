@@ -826,6 +826,7 @@
 					layer.msg("时间选择区间已有日期预定！");
 				} else {
 					let orderInfo = {
+						landlord:houseInfo.user_id,
 						user_id: userInfo.user_id,
 						house_id: houseInfo.house_id,
 						house_name: houseInfo.house_name,

@@ -229,13 +229,7 @@
 						}]
 					],
 					page: true,
-					parseData: function(res) {
-						return {
-							"code": res.status,
-							"msg": res.msg,
-							"data": res.data
-						};
-					}
+					
 				});
 
 				//监听行工具事件
@@ -243,8 +237,9 @@
 					var data = obj.data;
 					//console.log(obj)
 					if (obj.event === 'del') {
-						layer.confirm('真的删除行么', function(index) {
+						layer.confirm('真的删除该房源么', function(index) {
 							obj.del();
+							
 							layer.close(index);
 						});
 					} else if (obj.event === 'edit') {
@@ -257,6 +252,8 @@
 							});
 							layer.close(index);
 						});
+					} else if (obj.event === 'view') {
+						location.href="../host/home.html?house_id="+obj.data.house_id;
 					}
 				});
 			});

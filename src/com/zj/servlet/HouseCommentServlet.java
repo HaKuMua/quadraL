@@ -67,13 +67,13 @@ public class HouseCommentServlet extends BaseServlet {
 	 * @param response
 	 * @throws IOException
 	 */
-	public void addComment(HttpServletRequest request,
+	public void addHouseComment(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
 		System.out.println(map);
 		@SuppressWarnings("unchecked")
 		Map<String, Object> myMap = (Map<String, Object>) JSON.parse(map);
 		Map<String, Object> sendMap = new HashMap<String, Object>();
-		sendMap = hCommentService.addComment(myMap);
+		sendMap = hCommentService.addHouseComment(myMap);
 		JSONObject obj = new JSONObject(sendMap);
 		response.getWriter().print(callback + "(" + obj + ")");
 	}

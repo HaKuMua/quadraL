@@ -60,14 +60,30 @@
 		</div>
 		<div id="main">
 			<div id="">
-				<div class="layui-col-xs4">
+				<div class="layui-col-xs12">
 					<span style="font-size: 40px;color: gray;font-weight:bolder;">
 						我的房源订单
 					</span>
+				</div><br><br><br><br><br><br>
+				<div class="layui-tab" id="tab">
+					<ul class="layui-tab-title">
+						<li class="layui-this" id="capa1">未处理订单</li>
+						<li id="capa2">已处理订单</li>
+						<li id="capa3">已完成订单</li>
+					</ul>
+					<div class="layui-tab-content"><br><br><br>
+						<div class="layui-tab-item layui-show" id="allOrder">
+							<table class="layui-hide" id="test" lay-filter="test"></table>
+						</div>
+						<div class="layui-tab-item">
+							<table class="layui-hide" id="test2" lay-filter="test"></table>
+						</div>
+						<div class="layui-tab-item">
+							<table class="layui-hide" id="test3" lay-filter="test"></table>
+						</div>
+					</div>
 				</div>
 			</div><br><br><br><br>
-			<table class="layui-hide" id="test" lay-filter="test"></table>
-
 		</div>
 		<div class="foot">
 			<div>
@@ -81,10 +97,9 @@
 			</div>
 			<br><br><br><br><br><br>
 		</div>
-
-		<script type="text/html" id="barDemo">
+		<script type="text/html" id="bar">
 			<a class="layui-btn layui-btn-xs" lay-event="yes">确认订单</a>
-		  <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">取消订单</a>
+		   <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="show">查看入住人信息</a>
 		</script>
 		<script type="text/javascript">
 			//利用Cookie拿到信息
@@ -130,9 +145,6 @@
 					setCookie("userInfo", null, 0.1);
 				});
 				
-				$("#editTel").on("click",function() {
-					html='';
-				});
 				//设置cookie
 				function setCookie(cname, cvalue, exdays) {
 				    var d = new Date();
@@ -166,44 +178,37 @@
 					url: basePath + "order.do?method=getUserInfoByLandlordID",
 					where: {
 						user_id: userInfo.user_id,
+						state:1
 					},
 					dataType: "json",
-					title: '用户数据表',
-					limit:10,
 					cols: [
 						[{
 							type: 'checkbox',
 							fixed: 'left'
 						},{
-							field: 'real_name',
-							title: '房客真实姓名',
-							width: 305,
+							field: 'house_name',
+							title: '房源名称',
+							width: 235,
 							sort: true
 						},{
 							field: 'user_phone',
 							title: '房客电话',
-							width: 150,
+							width: 155,
 							sort: true
 						},  {
 							field: 'user_name',
 							title: '房客姓名',
-							width: 150,
-						}, {
-							field: 'grogshop_order_state',
-							title: '订单状态',
-							width: 120,
-							sort: true,
-							edit: 'text'
+							width: 110,
 						}, {
 							field: 'reserve_date',
 							edit: 'text',
 							title: ' 入住时间',
-							width: 120
+							width: 140
 						}, {
 							field: 'check_out_date',
 							edit: 'text',
 							title: '退房时间',
-							width: 120
+							width: 140
 						}, {
 							field: 'reserve_day_number',
 							title: '天数',
@@ -211,40 +216,137 @@
 							sort: true
 						}, {
 							field: 'price',
-							title: '价格',
+							title: '金额',
 							width: 120,
 							sort: true
+						}, {
+							field: 'grogshop_order_state',
+							title: '订单状态',
+							width: 140,
+							sort: true,
+							edit: 'text'
 						}, 
 						{
 							fixed: 'right',
 							title: '操作',
-							toolbar: '#barDemo',
-							width: 180
+							toolbar: '#bar',
+							width: 205
 						}]
 					],
-					page: true,
-					parseData: function(res) {
-						return {
-							"code": res.status,
-							"msg": res.msg,
-							"data": res.data
-						};
-					}
+					page: true
 				});
-
+				$("#capa2").on("click",function() {
+					getInfo('#test2',2)
+				});
+				$("#capa3").on("click",function() {
+					getInfo('#test3',3)
+				});
+				function getInfo(myElem,myState) {
+					table.render({
+						elem: myElem,
+						size: 'lg',
+						url: basePath + "order.do?method=getUserInfoByLandlordID",
+						where: {
+							user_id: userInfo.user_id,
+							state:myState
+						},
+						dataType: "json",
+						cols: [
+							[{
+								type: 'checkbox',
+								fixed: 'left'
+							},{
+								field: 'house_name',
+								title: '房源名称',
+								width: 250,
+								sort: true
+							},{
+								field: 'real_name',
+								title: '房客真实姓名',
+								width: 105,
+								sort: true
+							},{
+								field: 'user_phone',
+								title: '房客电话',
+								width: 150,
+								sort: true
+							},  {
+								field: 'user_name',
+								title: '房客姓名',
+								width: 100,
+							}, {
+								field: 'reserve_date',
+								edit: 'text',
+								title: ' 入住时间',
+								width: 120
+							}, {
+								field: 'check_out_date',
+								edit: 'text',
+								title: '退房时间',
+								width: 120
+							}, {
+								field: 'reserve_day_number',
+								title: '天数',
+								width: 120,
+								sort: true
+							}, {
+								field: 'price',
+								title: '金额',
+								width: 120,
+								sort: true
+							}, {
+								field: 'grogshop_order_state',
+								title: '订单状态',
+								width: 120,
+								sort: true,
+								edit: 'text'
+							}]
+						],
+						page: true
+					});
+				}
 				//监听行工具事件
 				table.on('tool(test)', function(obj) {
 					var data = obj.data;
 					//console.log(obj)
 					if (obj.event === 'del') {
 						layer.confirm('真的取消订单么', function(index) {
-							obj.del();
-							layer.close(index);
+							console.log(data);
+							$.getJSON(basePath + "order.do?method=updateOrder", {
+								"order_id": data.grogshop_order_id,"landlordState":2
+							}, function(res) {
+								if(res.code > 0) {
+									layer.msg("取消成功");
+									
+								}else {
+									layer.msg("取消失败");
+								}
+								window.setTimeout (function() {
+									layer.close(index);
+								},3200);
+							});
+							
 						});
 					} else if (obj.event === 'yes') {
-						layer.alert("已确认！")
+						$.getJSON(basePath + "order.do?method=updateOrder", {
+							"order_id": data.grogshop_order_id,"state":2
+						}, function(res) {
+							if(res.code > 0) {
+								layer.msg("确认成功");
+								layer.alert("已确认！")
+							}else {
+								layer.msg("确认失败");
+							}
+							// window.setTimeout (function() {
+							// 	layer.close(index);
+							// },1200);
+						});
+						
+					}else if(obj.event == 'show') {
+						layer.alert()
 					}
 				});
+				
 			});
 		</script>
 	</body>

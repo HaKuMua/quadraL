@@ -37,7 +37,7 @@ public class HouseDao implements HouseDaoImpl{
 		return data;
 	}
 	/**
-	 * 获取订单分页
+	 * 获房子分页
 	 */
 	public List<House> queryHousePage(Integer startRow,Integer pageSize) throws SQLException{
 		conn = GetConn.getConn();
@@ -149,6 +149,19 @@ public class HouseDao implements HouseDaoImpl{
 		conn = GetConn.getConn();
 		String sql = "select house_id from house where house_name=?";
 		Integer data = qr.query(conn, sql, new ScalarHandler(),house_name);
+		conn.close();
+		return data;
+	}
+	/**
+	 * 通过房子id获得房子
+	 * @param house_name 房子名字
+	 * @return id
+	 * @throws SQLException
+	 */
+	public House getHouseByHouseId(Integer house_id) throws SQLException {
+		conn = GetConn.getConn();
+		String sql = "select * from house where house_id=?";
+		House data = qr.query(conn, sql, new BeanHandler<House>(House.class),house_id);
 		conn.close();
 		return data;
 	}

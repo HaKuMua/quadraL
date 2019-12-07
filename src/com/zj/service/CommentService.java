@@ -21,7 +21,6 @@ import com.zj.dao.impl.CommentDaoImpl;
 import com.zj.dao.impl.UserDaoImpl;
 import com.zj.entity.Article;
 import com.zj.entity.Comment;
-import com.zj.entity.GrogshopOrder;
 import com.zj.entity.User;
 import com.zj.service.impl.CommentServiceImpl;
 
@@ -141,6 +140,8 @@ public class CommentService implements CommentServiceImpl {
 				map.put("comment_date", new SimpleDateFormat(
 						"YYYY-MM-dd HH:mm:ss").format(new Date()));
 				map.put("msg", "评论成功！");
+				//改变订单状态
+				
 			} else {
 				map.put("msg", "评论失败！");
 				return map;
