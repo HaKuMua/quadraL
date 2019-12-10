@@ -282,6 +282,7 @@
 							if (res.code > 0) {
 								layer.msg("确认成功");
 								layer.alert("已确认！")
+								$(".layui-laypage-btn")[0].click();
 							} else {
 								layer.msg("确认失败");
 							}

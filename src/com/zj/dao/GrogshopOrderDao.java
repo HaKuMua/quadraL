@@ -47,6 +47,8 @@ public class GrogshopOrderDao implements GrogshopOrderDaoImpl {
 			throws SQLException {
 		conn = GetConn.getConn();
 		String sql = "select * from grogshop_order limit ?,?";
+		System.out.println(startRow);
+		System.out.println(pageSize);
 		List<GrogshopOrder> data = qr.query(conn, sql,
 				new BeanListHandler<GrogshopOrder>(GrogshopOrder.class),
 				startRow, pageSize);

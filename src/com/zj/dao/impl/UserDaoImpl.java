@@ -99,7 +99,6 @@ public interface UserDaoImpl {
 	 * 根据电话/email和密码查询用户
 	 * @throws SQLException 
 	 */
-
 	User queryUserInfo(String user_code,String user_pwd) throws SQLException;
 	/**
 	 * 用户充值
